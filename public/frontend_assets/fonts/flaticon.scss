@@ -1,0 +1,165 @@
+$flaticon-font: "flaticon";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?69df0911f0abef7d70d4158f4a19b5dd") format("truetype"),
+url("./flaticon.woff?69df0911f0abef7d70d4158f4a19b5dd") format("woff"),
+url("./flaticon.woff2?69df0911f0abef7d70d4158f4a19b5dd") format("woff2"),
+url("./flaticon.eot?69df0911f0abef7d70d4158f4a19b5dd#iefix") format("embedded-opentype"),
+url("./flaticon.svg?69df0911f0abef7d70d4158f4a19b5dd#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon-map: (
+    "telegram": "\f101",
+    "lion-head": "\f102",
+    "check": "\f103",
+    "telephone": "\f104",
+    "love": "\f105",
+    "shopping-bag": "\f106",
+    "user": "\f107",
+    "search": "\f108",
+    "make-up": "\f109",
+    "next": "\f10a",
+    "smartphone": "\f10b",
+    "rim": "\f10c",
+    "sofa": "\f10d",
+    "ball": "\f10e",
+    "plug": "\f10f",
+    "headphone": "\f110",
+    "agronomy": "\f111",
+    "shoe": "\f112",
+    "necklace": "\f113",
+    "diamond": "\f114",
+    "shopping-bag-1": "\f115",
+    "shipping": "\f116",
+    "smartwatch": "\f117",
+    "processor": "\f118",
+    "kitchen-utensils": "\f119",
+    "lamp": "\f11a",
+    "high-heels": "\f11b",
+    "shoe-1": "\f11c",
+    "running": "\f11d",
+    "high-heels-1": "\f11e",
+    "sport-equipment": "\f11f",
+    "plus": "\f120",
+    "maths": "\f121",
+    "logo": "\f122",
+    "shield": "\f123",
+);
+
+.flaticon-telegram:before {
+    content: map-get($flaticon-map, "telegram");
+}
+.flaticon-lion-head:before {
+    content: map-get($flaticon-map, "lion-head");
+}
+.flaticon-check:before {
+    content: map-get($flaticon-map, "check");
+}
+.flaticon-telephone:before {
+    content: map-get($flaticon-map, "telephone");
+}
+.flaticon-love:before {
+    content: map-get($flaticon-map, "love");
+}
+.flaticon-shopping-bag:before {
+    content: map-get($flaticon-map, "shopping-bag");
+}
+.flaticon-user:before {
+    content: map-get($flaticon-map, "user");
+}
+.flaticon-search:before {
+    content: map-get($flaticon-map, "search");
+}
+.flaticon-make-up:before {
+    content: map-get($flaticon-map, "make-up");
+}
+.flaticon-next:before {
+    content: map-get($flaticon-map, "next");
+}
+.flaticon-smartphone:before {
+    content: map-get($flaticon-map, "smartphone");
+}
+.flaticon-rim:before {
+    content: map-get($flaticon-map, "rim");
+}
+.flaticon-sofa:before {
+    content: map-get($flaticon-map, "sofa");
+}
+.flaticon-ball:before {
+    content: map-get($flaticon-map, "ball");
+}
+.flaticon-plug:before {
+    content: map-get($flaticon-map, "plug");
+}
+.flaticon-headphone:before {
+    content: map-get($flaticon-map, "headphone");
+}
+.flaticon-agronomy:before {
+    content: map-get($flaticon-map, "agronomy");
+}
+.flaticon-shoe:before {
+    content: map-get($flaticon-map, "shoe");
+}
+.flaticon-necklace:before {
+    content: map-get($flaticon-map, "necklace");
+}
+.flaticon-diamond:before {
+    content: map-get($flaticon-map, "diamond");
+}
+.flaticon-shopping-bag-1:before {
+    content: map-get($flaticon-map, "shopping-bag-1");
+}
+.flaticon-shipping:before {
+    content: map-get($flaticon-map, "shipping");
+}
+.flaticon-smartwatch:before {
+    content: map-get($flaticon-map, "smartwatch");
+}
+.flaticon-processor:before {
+    content: map-get($flaticon-map, "processor");
+}
+.flaticon-kitchen-utensils:before {
+    content: map-get($flaticon-map, "kitchen-utensils");
+}
+.flaticon-lamp:before {
+    content: map-get($flaticon-map, "lamp");
+}
+.flaticon-high-heels:before {
+    content: map-get($flaticon-map, "high-heels");
+}
+.flaticon-shoe-1:before {
+    content: map-get($flaticon-map, "shoe-1");
+}
+.flaticon-running:before {
+    content: map-get($flaticon-map, "running");
+}
+.flaticon-high-heels-1:before {
+    content: map-get($flaticon-map, "high-heels-1");
+}
+.flaticon-sport-equipment:before {
+    content: map-get($flaticon-map, "sport-equipment");
+}
+.flaticon-plus:before {
+    content: map-get($flaticon-map, "plus");
+}
+.flaticon-maths:before {
+    content: map-get($flaticon-map, "maths");
+}
+.flaticon-logo:before {
+    content: map-get($flaticon-map, "logo");
+}
+.flaticon-shield:before {
+    content: map-get($flaticon-map, "shield");
+}
