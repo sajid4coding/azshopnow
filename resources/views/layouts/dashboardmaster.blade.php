@@ -74,7 +74,7 @@ License: For each use you must have a valid license purchased only from above li
 						<div class="hover-scroll-overlay-y my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="0">
 							<!--begin::Menu-->
 							<div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true" data-kt-menu-expand="false">
-								<div data-kt-menu-trigger="click" class="menu-item here show menu-accordion">
+								<div class="menu-item here show menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -88,7 +88,7 @@ License: For each use you must have a valid license purchased only from above li
 											</span>
 											<!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">Dashboards</span>
+										<a href="{{route('dashboard')}}" class="menu-title">Dashboards</a>
 									</span>
 									<div class="menu-sub menu-sub-accordion menu-active-bg">
 									</div>
@@ -4137,9 +4137,9 @@ License: For each use you must have a valid license purchased only from above li
 													<!--end::Avatar-->
 													<!--begin::Username-->
 													<div class="d-flex flex-column">
-														<div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-														<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-														<a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+														<div class="fw-bolder d-flex align-items-center fs-5">{{auth()->user()->name}}
+														<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Admin</span></div>
+														<a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{auth()->user()->email}}</a>
 													</div>
 													<!--end::Username-->
 												</div>
@@ -4150,7 +4150,7 @@ License: For each use you must have a valid license purchased only from above li
 											<!--end::Menu separator-->
 											<!--begin::Menu item-->
 											<div class="menu-item px-5">
-												<a href="../../demo1/dist/account/overview.html" class="menu-link px-5">My Profile</a>
+												<a href="{{route('admin.profile')}}" class="menu-link px-5">My Profile</a>
 											</div>
 											<!--end::Menu item-->
 											<!--begin::Menu item-->
@@ -4357,7 +4357,7 @@ License: For each use you must have a valid license purchased only from above li
 						<!--begin::Post-->
 						<div class="post d-flex flex-column-fluid" id="kt_post">
 							<!--begin::Container-->
-							<div id="kt_content_container" class="container-xxl">
+							{{-- <div id="kt_content_container" class="container-xxl">
 								<!--begin::Row-->
 								<div class="row g-5 g-xl-10 mb-xl-10">
 									<div class="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
@@ -6852,7 +6852,8 @@ License: For each use you must have a valid license purchased only from above li
 									<!--end::Col-->
 								</div>
 								<!--end::Row-->
-							</div>
+							</div> --}}
+                            @yield('content')
 							<!--end::Container-->
 						</div>
 						<!--end::Post-->
@@ -6863,13 +6864,13 @@ License: For each use you must have a valid license purchased only from above li
 						<!--begin::Container-->
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 							<!--begin::Copyright-->
-							<div class="text-dark order-2 order-md-1">
+							<div class="text-dark order-2 order-md-1 ">
 								<span class="text-muted fw-bold me-1">2022©</span>
 								<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>
 							</div>
 							<!--end::Copyright-->
 							<!--begin::Menu-->
-							<ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
+							{{-- <ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
 								<li class="menu-item">
 									<a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
 								</li>
@@ -6879,7 +6880,7 @@ License: For each use you must have a valid license purchased only from above li
 								<li class="menu-item">
 									<a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
 								</li>
-							</ul>
+							</ul> --}}
 							<!--end::Menu-->
 						</div>
 						<!--end::Container-->

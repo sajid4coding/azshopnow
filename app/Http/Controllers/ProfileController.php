@@ -15,53 +15,64 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-    public function edit(Request $request)
+    public function admin_profile()
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        return view('dashboard.profile.adminprofile');
+
+    }
+    public function admin_profile_setting()
+    {
+        return view('dashboard.profile.profilesetting');
+
     }
 
-    /**
-     * Update the user's profile information.
-     *
-     * @param  \App\Http\Requests\ProfileUpdateRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(ProfileUpdateRequest $request)
-    {
-        $request->user()->fill($request->validated());
+    // public function edit(Request $request)
+    // {
+    //     return view('profile.edit', [
+    //         'user' => $request->user(),
+    //     ]);
+    // }
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+    // /**
+    //  * Update the user's profile information.
+    //  *
+    //  * @param  \App\Http\Requests\ProfileUpdateRequest  $request
+    //  * @return \Illuminate\Http\RedirectResponse
+    //  */
+    // public function update(ProfileUpdateRequest $request)
+    // {
+    //     $request->user()->fill($request->validated());
 
-        $request->user()->save();
+    //     if ($request->user()->isDirty('email')) {
+    //         $request->user()->email_verified_at = null;
+    //     }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
+    //     $request->user()->save();
 
-    /**
-     * Delete the user's account.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Request $request)
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current-password'],
-        ]);
+    //     return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    // }
 
-        $user = $request->user();
+    // /**
+    //  * Delete the user's account.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\RedirectResponse
+    //  */
+    // public function destroy(Request $request)
+    // {
+    //     $request->validateWithBag('userDeletion', [
+    //         'password' => ['required', 'current-password'],
+    //     ]);
 
-        Auth::logout();
+    //     $user = $request->user();
 
-        $user->delete();
+    //     Auth::logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    //     $user->delete();
 
-        return Redirect::to('/');
-    }
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
+
+    //     return Redirect::to('/');
+    // }
 }
