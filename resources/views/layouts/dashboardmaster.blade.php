@@ -4147,7 +4147,7 @@ License: For each use you must have a valid license purchased only from above li
 													<!--begin::Username-->
 													<div class="d-flex flex-column">
 														<div class="fw-bolder d-flex align-items-center fs-5">{{auth()->user()->name}}
-														<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Admin</span></div>
+														<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">{{auth()->user()->role}}</span></div>
 														<a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{auth()->user()->email}}</a>
 													</div>
 													<!--end::Username-->
@@ -6871,11 +6871,11 @@ License: For each use you must have a valid license purchased only from above li
 					<!--begin::Footer-->
 					<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
 						<!--begin::Container-->
-						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
+						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-center">
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1 ">
-								<span class="text-muted fw-bold me-1">2022©</span>
-								<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>
+								<span class="text-muted fw-bold me-1">{{date('Y')}}©</span>
+								<a href="#" target="_blank" class="text-gray-800 text-hover-primary">{{config('app.name')}}</a>
 							</div>
 							<!--end::Copyright-->
 							<!--begin::Menu-->
