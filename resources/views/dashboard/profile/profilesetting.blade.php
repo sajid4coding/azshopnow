@@ -9,7 +9,11 @@
                 <!--begin: Pic-->
                 <div class="me-7 mb-4">
                     <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                        <img src="{{asset('dashboard_assets')}}/media/avatars/300-1.jpg" alt="image">
+                        @if (auth()->user()->profile_photo)
+                        <img src="{{asset('uploads/profile_photo')}}/{{auth()->user()->profile_photo}}" alt="image">
+                        @else
+                        <img src="{{asset('uploads/profile_photo/default.png')}}" alt="image">
+                        @endif
                         <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
                     </div>
                 </div>
@@ -22,7 +26,7 @@
                         <div class="d-flex flex-column">
                             <!--begin::Name-->
                             <div class="d-flex align-items-center mb-2">
-                                <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">Max Smith</a>
+                                <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">{{auth()->user()->name}}</a>
                                 <a href="#">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen026.svg-->
                                     <span class="svg-icon svg-icon-1 svg-icon-primary">
@@ -126,7 +130,8 @@
         <!--begin::Content-->
         <div id="kt_account_settings_profile_details" class="collapse show">
             <!--begin::Form-->
-            <form id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+            <form action="{{route('admin.profile.setting.edit')}}" method="POST" id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" enctype="multipart/form-data">
+                @csrf
                 <!--begin::Card body-->
                 <div class="card-body border-top p-9">
                     <!--begin::Input group-->
@@ -139,14 +144,21 @@
                             <!--begin::Image input-->
                             <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('{{asset('dashboard_assets')}}/media/svg/avatars/blank.svg')">
                                 <!--begin::Preview existing avatar-->
-                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{asset('dashboard_assets')}}/media/avatars/300-1.jpg)"></div>
+                                {{-- {{asset('dashboard_assets')}}/media/avatars/300-1.jpg --}}
+                                @if (auth()->user()->profile_photo)
+                                    <div class="image-input-wrapper w-125px h-125px"
+                                    style="background-image: url('{{asset('uploads/profile_photo')}}/{{auth()->user()->profile_photo}}')"></div>
+                                @else
+                                    <div class="image-input-wrapper w-125px h-125px"
+                                    style="background-image: url('{{asset('uploads/profile_photo/default.png')}}')"></div>
+                                @endif
                                 <!--end::Preview existing avatar-->
                                 <!--begin::Label-->
                                 <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
                                     <i class="bi bi-pencil-fill fs-7"></i>
                                     <!--begin::Inputs-->
-                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg">
-                                    <input type="hidden" name="avatar_remove">
+                                    <input type="file" name="profile_photo">
+                                    <input type="hidden" name="profile_photo">
                                     <!--end::Inputs-->
                                 </label>
                                 <!--end::Label-->
@@ -172,7 +184,7 @@
                     <!--begin::Input group-->
                     <div class="row mb-6">
                         <!--begin::Label-->
-                        <label class="col-lg-4 col-form-label required fw-bold fs-6">Full Name</label>
+                        <label class="col-lg-4 col-form-label  fw-bold fs-6">Name</label>
                         <!--end::Label-->
                         <!--begin::Col-->
                         <div class="col-lg-8">
@@ -180,12 +192,43 @@
                             <div class="row">
                                 <!--begin::Col-->
                                 <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                                    <input type="text" name="fname" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name" value="Max">
+                                    <input type="text" name="name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="{{auth()->user()->name}}">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
+                            </div>
+                            <!--end::Row-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row mb-6">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 col-form-label  fw-bold fs-6">Email Address</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <!--begin::Row-->
+                            <div class="row">
                                 <!--begin::Col-->
                                 <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                                    <input type="text" name="lname" class="form-control form-control-lg form-control-solid" placeholder="Last name" value="Smith">
+                                    <input type="text" name="email" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="{{auth()->user()->email}}">
+                                <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Row-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row mb-6">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 col-form-label  fw-bold fs-6">Phone Number</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <!--begin::Row-->
+                            <div class="row">
+                                <!--begin::Col-->
+                                <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                                    <input type="text" name="phone_number" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="{{auth()->user()->phone_number}}">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>

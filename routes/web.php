@@ -29,5 +29,6 @@ Route::get('/dashboard', function () {
 // });
 Route::get('admin/profile', [ProfileController::class, 'admin_profile'])->name('admin.profile');
 Route::get('admin/profile/setting', [ProfileController::class, 'admin_profile_setting'])->name('admin.profile.setting');
+Route::post('admin/profile/setting/edit', [ProfileController::class, 'admin_profile_setting_edit'])->name('admin.profile.setting.edit');
 
 require __DIR__.'/auth.php';

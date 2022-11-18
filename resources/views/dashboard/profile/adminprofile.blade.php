@@ -9,7 +9,11 @@
                 <!--begin: Pic-->
                 <div class="me-7 mb-4">
                     <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                        <img src="{{asset('dashboard_assets')}}/media/avatars/300-1.jpg" alt="image">
+                        @if (auth()->user()->profile_photo)
+                        <img src="{{asset('uploads/profile_photo')}}/{{auth()->user()->profile_photo}}" alt="image">
+                        @else
+                        <img src="{{asset('uploads/profile_photo/default.png')}}" alt="image">
+                        @endif
                         <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
                     </div>
                 </div>
@@ -157,24 +161,12 @@
             <!--begin::Input group-->
             <div class="row mb-7">
                 <!--begin::Label-->
-                <label class="col-lg-4 fw-bold text-muted">Company</label>
-                <!--end::Label-->
-                <!--begin::Col-->
-                <div class="col-lg-8 fv-row">
-                    <span class="fw-bold text-gray-800 fs-6">Keenthemes</span>
-                </div>
-                <!--end::Col-->
-            </div>
-            <!--end::Input group-->
-            <!--begin::Input group-->
-            <div class="row mb-7">
-                <!--begin::Label-->
                 <label class="col-lg-4 fw-bold text-muted">Contact Phone
                 <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Phone number must be active" aria-label="Phone number must be active"></i></label>
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8 d-flex align-items-center">
-                    <span class="fw-bolder fs-6 text-gray-800 me-2">044 3276 454 935</span>
+                    <span class="fw-bolder fs-6 text-gray-800 me-2">{{auth()->user()->phone_number}}</span>
                     <span class="badge badge-success">Verified</span>
                 </div>
                 <!--end::Col-->

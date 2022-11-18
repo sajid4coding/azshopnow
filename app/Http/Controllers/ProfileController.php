@@ -6,6 +6,9 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Image;
+use  Carbon\Carbon;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -24,6 +27,26 @@ class ProfileController extends Controller
     {
         return view('dashboard.profile.profilesetting');
 
+    }
+    public function admin_profile_setting_edit(Request $request)
+    {
+        User::find(auth()->id())->update([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'phone_number'=>$request->phone_number,
+        ]);
+        if ($request->hasFile('profile_photo') ) {
+            $request->validate([
+                'profile_photo'=>'image',
+            ]);
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
+            $img = Image::make($request->file('profile_photo'))->resize(300, 200);
+            $img->save(base_path('public/uploads/profile_photo/'.$photo), 60);
+            User::find(auth()->id())->update([
+                'profile_photo'=>$photo,
+            ]);
+        }
+        return back();
     }
 
     // public function edit(Request $request)
