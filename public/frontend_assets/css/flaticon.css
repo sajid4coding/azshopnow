@@ -1,0 +1,126 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("../fonts/flaticon.eot");
+    src: url("../fonts/flaticon.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/flaticon.woff2") format("woff2"),
+    url("../fonts/flaticon.woff") format("woff"),
+    url("../fonts/flaticon.ttf") format("truetype"),
+    url("../fonts/flaticon.svg#Flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-telegram:before {
+    content: "\f101";
+}
+.flaticon-lion-head:before {
+    content: "\f102";
+}
+.flaticon-check:before {
+    content: "\f103";
+}
+.flaticon-telephone:before {
+    content: "\f104";
+}
+.flaticon-love:before {
+    content: "\f105";
+}
+.flaticon-shopping-bag:before {
+    content: "\f106";
+}
+.flaticon-user:before {
+    content: "\f107";
+}
+.flaticon-search:before {
+    content: "\f108";
+}
+.flaticon-make-up:before {
+    content: "\f109";
+}
+.flaticon-next:before {
+    content: "\f10a";
+}
+.flaticon-smartphone:before {
+    content: "\f10b";
+}
+.flaticon-rim:before {
+    content: "\f10c";
+}
+.flaticon-sofa:before {
+    content: "\f10d";
+}
+.flaticon-ball:before {
+    content: "\f10e";
+}
+.flaticon-plug:before {
+    content: "\f10f";
+}
+.flaticon-headphone:before {
+    content: "\f110";
+}
+.flaticon-agronomy:before {
+    content: "\f111";
+}
+.flaticon-shoe:before {
+    content: "\f112";
+}
+.flaticon-necklace:before {
+    content: "\f113";
+}
+.flaticon-diamond:before {
+    content: "\f114";
+}
+.flaticon-shopping-bag-1:before {
+    content: "\f115";
+}
+.flaticon-shipping:before {
+    content: "\f116";
+}
+.flaticon-smartwatch:before {
+    content: "\f117";
+}
+.flaticon-processor:before {
+    content: "\f118";
+}
+.flaticon-kitchen-utensils:before {
+    content: "\f119";
+}
+.flaticon-lamp:before {
+    content: "\f11a";
+}
+.flaticon-high-heels:before {
+    content: "\f11b";
+}
+.flaticon-shoe-1:before {
+    content: "\f11c";
+}
+.flaticon-running:before {
+    content: "\f11d";
+}
+.flaticon-high-heels-1:before {
+    content: "\f11e";
+}
+.flaticon-sport-equipment:before {
+    content: "\f11f";
+}
+.flaticon-plus:before {
+    content: "\f120";
+}
+.flaticon-maths:before {
+    content: "\f121";
+}
+.flaticon-logo:before {
+    content: "\f122";
+}
+.flaticon-shield:before {
+    content: "\f123";
+}
