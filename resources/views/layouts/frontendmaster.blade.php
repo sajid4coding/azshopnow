@@ -847,6 +847,7 @@
     <script src="{{ asset('frontend_assets') }}/js/wow.min.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/main.js"></script>
 
+    {!! NoCaptcha::renderJs() !!}
     @yield('footer_script')
 
 </body>
