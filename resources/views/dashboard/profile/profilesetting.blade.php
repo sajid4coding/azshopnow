@@ -49,7 +49,7 @@
                                         <path d="M12 22C14.6 22 17 21 18.7 19.4C17.9 16.9 15.2 15 12 15C8.8 15 6.09999 16.9 5.29999 19.4C6.99999 21 9.4 22 12 22Z" fill="currentColor"></path>
                                     </svg>
                                 </span>
-                                <!--end::Svg Icon-->Developer</a>
+                                <!--end::Svg Icon-->{{auth()->user()->role}}</a>
                                 <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                 <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
                                 <span class="svg-icon svg-icon-4 me-1">
