@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\{ProfileController, CategoryController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,3 +32,22 @@ Route::get('admin/profile/setting', [ProfileController::class, 'admin_profile_se
 Route::post('admin/profile/setting/edit', [ProfileController::class, 'admin_profile_setting_edit'])->name('admin.profile.setting.edit');
 
 require __DIR__.'/auth.php';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//CategoryController Resource
+Route::resource('category', CategoryController::class);
