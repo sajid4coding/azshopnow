@@ -51,7 +51,25 @@
                         <div class="col-md-6">
                             <div class="header-top-right">
                                 <ul>
-                                    <li><a href="become-vendor.html">Become a Vendor</a></li>
+
+
+
+                                    @auth
+                                    @if (auth()->user()->role == 'vendor')
+                                    <li><a href="{{ route('become.vendor') }}">Vendor Dashboard</a></li>
+                                    @else
+                                    <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li>
+                                    <li><a href="{{ route('vendor.login') }}">Vendor Login</a></li>
+                                    @endif
+                                    @endauth
+
+
+                                    @guest
+                                    <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li>
+                                    <li><a href="{{ route('vendor.login') }}">Vendor Login</a></li>
+                                    @endguest
+
+
                                     <li><a href="blog.html">Blog</a></li>
                                     <li><a href="contact.html">Contact Us</a></li>
                                 </ul>
@@ -65,7 +83,7 @@
                     <div class="row align-items-center">
                         <div class="col-xl-2 col-lg-3">
                             <div class="logo">
-                                <a href="index.html"><img src="{{ asset('frontend_assets') }}/img/logo/logo.png" alt=""></a>
+                                <a href="{{ route('home') }}"><img src="{{ asset('frontend_assets') }}/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-9">

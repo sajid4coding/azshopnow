@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\{ProfileController,VendorController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('layouts.dashboardmaster');
@@ -32,3 +32,13 @@ Route::get('admin/profile/setting', [ProfileController::class, 'admin_profile_se
 Route::post('admin/profile/setting/edit', [ProfileController::class, 'admin_profile_setting_edit'])->name('admin.profile.setting.edit');
 
 require __DIR__.'/auth.php';
+
+
+// Vendor All Routes Start
+Route::get('become/vendor', [VendorController::class, 'vendor_index'])->name('become.vendor');
+Route::post('vendor/post', [VendorController::class, 'vendor_post'])->name('vendor.post');
+Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('vendor.login');
+Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
+Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
+
+
