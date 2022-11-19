@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController};
+use App\Http\Controllers\{ProfileController, CategoryController,CustomerController,HomeController};
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,4 +46,18 @@ Route::post('vendor/post', [VendorController::class, 'vendor_post'])->name('vend
 Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('vendor.login');
 Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
 Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
+
+
+// // CUSTOMER CONTROLLER START
+// Route::post('customer/register', [CustomerController::class, 'customer_register'])->name('customer.register');
+Route::get('customer/register', [CustomerController::class, 'customer_register'])->name('customer.register');
+Route::post('customer/register/post', [CustomerController::class, 'customer_register_post'])->name('customer.register.post');
+Route::get('customer/login', [CustomerController::class, 'customer_login'])->name('customer.login');
+Route::post('customer/login/post', [CustomerController::class, 'customer_login_post'])->name('customer.login.post');
+// CUSTOMER CONTROLLER END
+
+// HOME CONTROLLER START
+Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome');
+
+// HOME CONTROLLER END
 

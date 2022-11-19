@@ -107,12 +107,43 @@
                                         <li class="header-shop"><a href="#"><i class="flaticon-shopping-bag"></i>Cart
                                         <span class="cart-count">0</span>
                                         </a></li>
+                                        @auth
                                         <li class="header-sine-in">
-                                            <a href="contact.html">
+                                            <a href="{{ route('customerhome') }}">
                                                 <i class="flaticon-user"></i>
-                                                <p>Hello, Sign in : <span>My Account</span></p>
+                                                <p>{{ Str::title(auth()->user()->name) }}</span></p>
                                             </a>
                                         </li>
+
+                                        @endauth
+
+                                        @guest
+                                        {{-- CUSTOMER LOGIN START --}}
+                                        <li class="header-sine-in">
+                                            <a href="">
+                                                <i class="flaticon-user"></i>
+                                            </a>
+                                         <li class="ms-1">
+                                              <style>
+                                                .ms-1 {
+                                                 margin-left: ($spacer * .30) !important;
+                                                }
+                                            </style>
+                                               <a href="{{ route('customer.login') }}">Login /</a>
+                                                </li>
+                                           <li class="ms-1">
+                                            <style>
+                                                .ms-1 {
+                                                 margin-left: ($spacer * .25) !important;
+                                                }
+                                            </style>
+                                               <a href="{{ route('customer.register') }}">Register</a>
+                                           </li>
+                                        </li>
+                                    </ul>
+                                    {{-- CUSTOMER LOGIN END --}}
+
+                                        @endguest
                                     </ul>
                                 </div>
                             </div>
@@ -752,7 +783,7 @@
                                 </div>
                                 <div class="fw-link">
                                     <ul>
-                                        <li><a href="shop.html">Track My Order</a></li>
+                                      <li><a href="shop.html">Track My Order</a></li>
                                         <li><a href="shop.html">View Cart</a></li>
                                         <li><a href="contact.html">Sign In</a></li>
                                         <li><a href="contact.html">Help</a></li>
