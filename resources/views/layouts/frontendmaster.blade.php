@@ -51,7 +51,25 @@
                         <div class="col-md-6">
                             <div class="header-top-right">
                                 <ul>
-                                    <li><a href="become-vendor.html">Become a Vendor</a></li>
+
+
+
+                                    @auth
+                                    @if (auth()->user()->role == 'vendor')
+                                    <li><a href="{{ route('become.vendor') }}">Vendor Dashboard</a></li>
+                                    @else
+                                    <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li>
+                                    <li><a href="{{ route('vendor.login') }}">Vendor Login</a></li>
+                                    @endif
+                                    @endauth
+
+
+                                    @guest
+                                    <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li>
+                                    <li><a href="{{ route('vendor.login') }}">Vendor Login</a></li>
+                                    @endguest
+
+
                                     <li><a href="blog.html">Blog</a></li>
                                     <li><a href="contact.html">Contact Us</a></li>
                                 </ul>
@@ -65,7 +83,7 @@
                     <div class="row align-items-center">
                         <div class="col-xl-2 col-lg-3">
                             <div class="logo">
-                                <a href="index.html"><img src="{{ asset('frontend_assets') }}/img/logo/logo.png" alt=""></a>
+                                <a href="{{ route('home') }}"><img src="{{ asset('frontend_assets') }}/img/logo/logo.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-9">
@@ -89,12 +107,43 @@
                                         <li class="header-shop"><a href="#"><i class="flaticon-shopping-bag"></i>Cart
                                         <span class="cart-count">0</span>
                                         </a></li>
+                                        @auth
                                         <li class="header-sine-in">
-                                            <a href="contact.html">
+                                            <a href="{{ route('customerhome') }}">
                                                 <i class="flaticon-user"></i>
-                                                <p>Hello, Sign in : <span>My Account</span></p>
+                                                <p>{{ Str::title(auth()->user()->name) }}</span></p>
                                             </a>
                                         </li>
+
+                                        @endauth
+
+                                        @guest
+                                        {{-- CUSTOMER LOGIN START --}}
+                                        <li class="header-sine-in">
+                                            <a href="">
+                                                <i class="flaticon-user"></i>
+                                            </a>
+                                         <li class="ms-1">
+                                              <style>
+                                                .ms-1 {
+                                                 margin-left: ($spacer * .30) !important;
+                                                }
+                                            </style>
+                                               <a href="{{ route('customer.login') }}">Login /</a>
+                                                </li>
+                                           <li class="ms-1">
+                                            <style>
+                                                .ms-1 {
+                                                 margin-left: ($spacer * .25) !important;
+                                                }
+                                            </style>
+                                               <a href="{{ route('customer.register') }}">Register</a>
+                                           </li>
+                                        </li>
+                                    </ul>
+                                    {{-- CUSTOMER LOGIN END --}}
+
+                                        @endguest
                                     </ul>
                                 </div>
                             </div>
@@ -734,7 +783,7 @@
                                 </div>
                                 <div class="fw-link">
                                     <ul>
-                                        <li><a href="shop.html">Track My Order</a></li>
+                                      <li><a href="shop.html">Track My Order</a></li>
                                         <li><a href="shop.html">View Cart</a></li>
                                         <li><a href="contact.html">Sign In</a></li>
                                         <li><a href="contact.html">Help</a></li>
@@ -798,6 +847,7 @@
     <script src="{{ asset('frontend_assets') }}/js/wow.min.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/main.js"></script>
 
+    {!! NoCaptcha::renderJs() !!}
     @yield('footer_script')
 
 </body>

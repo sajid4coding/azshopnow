@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
+use App\Models\User;
 
 class NewPasswordController extends Controller
 {
@@ -57,9 +58,29 @@ class NewPasswordController extends Controller
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+
+        // if($role =='admin'){
+
+            // }
+            $role = User::where('email',$request->email)->first()->role;
+        if($role =='admin'){
+            return $status == Password::PASSWORD_RESET
+                        ? redirect()->route('login')->with('status', __($status))
+                        : back()->withInput($request->only('email'))
+                                ->withErrors(['email' => __($status)]);
+
+        }elseif($role  == 'customer'){
+           return $status == Password::PASSWORD_RESET
+                        ? redirect()->route('customer.login')->with('status', __($status))
+                        : back()->withInput($request->only('email'))
+                                ->withErrors(['email' => __($status)]);
+
+        }
+        else{
+             return $status == Password::PASSWORD_RESET
+                        ? redirect()->route('vendor.login')->with('status', __($status))
+                        : back()->withInput($request->only('email'))
+                                ->withErrors(['email' => __($status)]);
+        }
     }
 }
