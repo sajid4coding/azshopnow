@@ -144,7 +144,7 @@
     <div id="kt_app_content" class="app-content flex-column-fluid" data-select2-id="select2-data-kt_app_content">
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-xxl" data-select2-id="select2-data-kt_app_content_container">
-            <form action="{{ route('category.store') }}" method="POST" id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
+            <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data" id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
                 @csrf
                 <!--begin::Aside column-->
                 <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10" data-select2-id="select2-data-131-7ecg">
@@ -160,9 +160,10 @@
                         </div>
                         <!--end::Card header-->
                         <!--begin::Card body-->
-                        <div class="card-body text-center pt-0">
+                        {{-- <div class="card-body text-center pt-0">
                             <!--begin::Image input-->
                             <!--begin::Image input placeholder-->
+                            <input name="category_image" type="file">
                             <style>.image-input-placeholder { background-image: url('/metronic8/demo1/assets/media/svg/files/blank-image.svg'); } [data-theme="dark"] .image-input-placeholder { background-image: url('/metronic8/demo1/assets/media/svg/files/blank-image-dark.svg'); }</style>
                             <!--end::Image input placeholder-->
                             <!--begin::Image input-->
@@ -196,6 +197,38 @@
                             <!--begin::Description-->
                             <div class="text-muted fs-7">Set the category thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
                             <!--end::Description-->
+                        </div> --}}
+                        <div class="card-body text-center pt-0">
+                            <!--begin::Image input-->
+                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('{{asset('dashboard_assets')}}/media/svg/avatars/blank.svg')">
+                                <!--begin::Preview existing avatar-->
+                                    <div class="image-input-wrapper w-125px h-125px"
+                                    style="background-image: url('{{asset('uploads/category_photo/default.png')}}')"></div>
+                                <!--end::Preview existing avatar-->
+                                <!--begin::Label-->
+                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
+                                    <i class="bi bi-pencil-fill fs-7"></i>
+                                    <!--begin::Inputs-->
+                                    <input type="file" name="category_photo">
+                                    <input type="hidden" name="category_photo">
+                                    <!--end::Inputs-->
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Cancel-->
+                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="" data-bs-original-title="Cancel avatar">
+                                    <i class="bi bi-x fs-2"></i>
+                                </span>
+                                <!--end::Cancel-->
+                                <!--begin::Remove-->
+                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Remove avatar">
+                                    <i class="bi bi-x fs-2"></i>
+                                </span>
+                                <!--end::Remove-->
+                            </div>
+                            <!--end::Image input-->
+                            <!--begin::Hint-->
+                            <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                            <!--end::Hint-->
                         </div>
                         <!--end::Card body-->
                     </div>
@@ -219,10 +252,8 @@
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <!--begin::Select2-->
-                            <select class="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_category_status_select" data-select2-id="select2-data-kt_ecommerce_add_category_status_select" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-                                <option></option>
+                            <select name="status" class="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_category_status_select" data-select2-id="select2-data-kt_ecommerce_add_category_status_select" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
                                 <option value="published" selected="selected" data-select2-id="select2-data-11-kaqf">Published</option>
-                                <option value="scheduled">Scheduled</option>
                                 <option value="unpublished">Unpublished</option>
                             </select>
                             <!--end::Select2-->
