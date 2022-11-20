@@ -20,7 +20,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.category.category',[
+            'categories' => Category::find(auth()->id())->get()
+        ]);
     }
 
     /**
@@ -46,15 +48,15 @@ class CategoryController extends Controller
             'status'=>'required',
         ]);
 
-        // if($request->category_slug){
-        //     $category_slug = $request->category_slug;
-        // }else{
-        //     $category_slug = $request->category_name;
-        // }
+        if($request->category_slug){
+            $category_slug = $request->category_slug;
+        }else{
+            $category_slug = $request->category_name;
+        }
 
         Category::insert([
             'category_name'=> $request->category_name,
-            // 'category_slug'=> Str::slug($category_slug, '-'),
+            'slug'=> Str::slug($category_slug, '-'),
             'description'=> $request->category_description,
             'status'=> $request->status,
             'created_at' => now()
@@ -64,12 +66,15 @@ class CategoryController extends Controller
             $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('category_photo')->getClientOriginalExtension();
             $img = Image::make($request->file('category_photo'))->resize(150, 150);
             $img->save(base_path('public/uploads/category_photo/'.$photo), 60);
-            Category::find(auth()->id())->update([
-                'category_photo'=>$photo,
+            Category::where([
+                'category_name' => $request->category_name,
+                'description' => $request->category_description,
+            ])->update([
+                'thumbnail'=>$photo
             ]);
         }
 
-        return back();
+        return redirect('category');
     }
 
     /**
@@ -91,7 +96,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('dashboard.category.editcategory',[
+            'category' => Category::find($id)
+        ]);
     }
 
     /**
@@ -103,7 +110,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Category::find($id)->update([
+            'category_name' => $request->category_name,
+            'slug' => $request->slug,
+            'description' => $request->description,
+            'thumbnail' => $request->thumbnail,
+            'status' => $request->status
+        ]);
+        return back();
     }
 
     /**
@@ -114,6 +128,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::find($id)->delete();
+        return redirect('category');
     }
 }
