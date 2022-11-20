@@ -32,6 +32,9 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="{{ asset('dashboard_assets') }}/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('dashboard_assets') }}/plugins/custom/vis-timeline/vis-timeline.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Page Vendor Stylesheets-->
+        {{-- HEADER CSS START --}}
+        @yield('header_css')
+        {{-- HEADER CSS END --}}
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
 		<link href="{{ asset('dashboard_assets') }}/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('dashboard_assets') }}/css/style.bundle.css" rel="stylesheet" type="text/css" />
@@ -189,7 +192,7 @@ License: For each use you must have a valid license purchased only from above li
 											</span>
 											<!--end::Svg Icon-->
 										</span>
-										<a href="{{ route('category.create') }}" class="menu-title" >Product Category</a>
+										<a href="{{ route('category.index') }}" class="menu-title" >Product Category</a>
 									</span>
 								</div>
 								<div class="menu-item">
@@ -4126,15 +4129,6 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Menu wrapper-->
 									</div>
 									<!--end::Quick links-->
-									<!--begin::Theme mode-->
-									<div class="d-flex align-items-center ms-1 ms-lg-3">
-										<!--begin::Theme mode docs-->
-										<a class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" href="../../demo1/dist/documentation/getting-started/dark-mode.html">
-											<i class="fonticon-sun fs-2"></i>
-										</a>
-										<!--end::Theme mode docs-->
-									</div>
-									<!--end::Theme mode-->
 									<!--begin::User menu-->
 									<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
 										<!--begin::Menu wrapper-->
@@ -4361,20 +4355,10 @@ License: For each use you must have a valid license purchased only from above li
 								<!--begin::Page title-->
 								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
 									<!--begin::Title-->
-									<h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">AZ Shop Multivendor Dashboard</h1>
+									<h1 class="d-flex text-dark fw-bolder fs-3 align-items-center my-1">{{ env('APP_NAME') }} Dashboard</h1>
 									<!--end::Title-->
 								</div>
 								<!--end::Page title-->
-								<!--begin::Actions-->
-								<div class="d-flex align-items-center gap-2 gap-lg-3">
-									<!--begin::Secondary button-->
-									<a href="../../demo1/dist/apps/ecommerce/sales/listing.html" class="btn btn-sm btn-light">Manage Sales</a>
-									<!--end::Secondary button-->
-									<!--begin::Primary button-->
-									<a href="../../demo1/dist/apps/ecommerce/catalog/add-product.html" class="btn btn-sm btn-primary">Add Product</a>
-									<!--end::Primary button-->
-								</div>
-								<!--end::Actions-->
 							</div>
 							<!--end::Container-->
 						</div>
@@ -11000,6 +10984,7 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/upgrade-plan.js"></script>
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/users-search.js"></script>
 		<!--end::Page Custom Javascript-->
+        @yield('footer_script')
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
