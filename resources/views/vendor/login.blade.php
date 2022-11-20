@@ -89,26 +89,7 @@
     </section>
     <!-- vendor-registration-area-end -->
 
-    <!-- newsletter-area -->
-    <section class="newsletter-area-two">
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-xl-7 col-lg-6 col-md-12">
-                    <div class="newsletter-content">
-                        <i class="fa-regular fa-paper-plane"></i>
-                        <h2 class="title">Sign Up for get 10% Weekly <span>Newsletter</span></h2>
-                    </div>
-                </div>
-                <div class="col-xl-5 col-lg-6 col-md-10">
-                    <div class="newsletter-form">
-                        <input type="text" placeholder="Your email here...">
-                        <button type="submit">Subscribe</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- newsletter-area-end -->
+
 </main>
 <!-- main-area-end -->
 @endsection
