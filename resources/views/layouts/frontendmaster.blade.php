@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/jquery-ui.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/default.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/style.css">
+        <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/custom_style.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
     </head>
     <body>
@@ -56,7 +57,7 @@
 
                                     @auth
                                     @if (auth()->user()->role == 'vendor')
-                                    <li><a href="{{ route('become.vendor') }}">Vendor Dashboard</a></li>
+                                    <li><a href="{{ route('vendor.dashboard') }}">Vendor Dashboard</a></li>
                                     @else
                                     <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li>
                                     <li><a href="{{ route('vendor.login') }}">Vendor Login</a></li>
@@ -109,10 +110,21 @@
                                         </a></li>
                                         @auth
                                         <li class="header-sine-in">
-                                            <a href="{{ route('customerhome') }}">
-                                                <i class="flaticon-user"></i>
-                                                <p>{{ Str::title(auth()->user()->name) }}</span></p>
-                                            </a>
+
+                                                 @if (auth()->user()->role == 'vendor')
+                                                 <a href="{{ route('vendor.dashboard') }}">
+                                                    <i class="flaticon-user"></i>
+                                                    <p>{{ Str::title(auth()->user()->name) }}</span></p>
+                                                </a>
+                                                 @elseif (auth()->user()->role == 'customer')
+                                                 <a href="{{ route('customerhome') }}">
+                                                    <i class="flaticon-user"></i>
+                                                    <p>{{ Str::title(auth()->user()->name) }}</span></p>
+                                                </a>
+                                                 @endif
+
+
+
                                         </li>
 
                                         @endauth
@@ -120,7 +132,7 @@
                                         @guest
                                         {{-- CUSTOMER LOGIN START --}}
                                         <li class="header-sine-in">
-                                            <a href="">
+                                            <a href="{{ route('home') }}">
                                                 <i class="flaticon-user"></i>
                                             </a>
                                          <li class="ms-1">
@@ -846,6 +858,7 @@
     <script src="{{ asset('frontend_assets') }}/js/slick.min.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/wow.min.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/main.js"></script>
+    <script src="{{ asset('frontend_assets') }}/js/custom.js"></script>
 
     {!! NoCaptcha::renderJs() !!}
     @yield('footer_script')
