@@ -70,4 +70,10 @@
     background-repeat: no-repeat;
     background-position: center;
   }
-
+  .account_menu .active{
+    background-color: #ff4800 !important;
+    color:white !important;
+  }
+   .account_menu .nav-link{
+    color:black !important;
+  }
