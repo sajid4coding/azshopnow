@@ -52,26 +52,9 @@
                         <div class="col-md-6">
                             <div class="header-top-right">
                                 <ul>
-
-
-
-                                    @auth
-                                    @if (auth()->user()->role == 'vendor')
-                                    <li><a href="{{ route('vendor.dashboard') }}">Vendor Dashboard</a></li>
-                                    @else
-                                    <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li>
-                                    <li><a href="{{ route('vendor.login') }}">Vendor Login</a></li>
-                                    @endif
-                                    @endauth
-
-
                                     @guest
                                     <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li>
-                                    <li><a href="{{ route('vendor.login') }}">Vendor Login</a></li>
                                     @endguest
-
-
-                                    <li><a href="blog.html">Blog</a></li>
                                     <li><a href="contact.html">Contact Us</a></li>
                                 </ul>
                             </div>
@@ -110,7 +93,6 @@
                                         </a></li>
                                         @auth
                                         <li class="header-sine-in">
-
                                                  @if (auth()->user()->role == 'vendor')
                                                  <a href="{{ route('vendor.dashboard') }}">
                                                     <i class="flaticon-user"></i>
@@ -122,13 +104,8 @@
                                                     <p>{{ Str::title(auth()->user()->name) }}</span></p>
                                                 </a>
                                                  @endif
-
-
-
                                         </li>
-
                                         @endauth
-
                                         @guest
                                         {{-- CUSTOMER LOGIN START --}}
                                         <li class="header-sine-in">
@@ -643,12 +620,7 @@
                                     </div>
                                     <div class="navbar-wrap main-menu d-none d-lg-flex">
                                         <ul class="navigation">
-                                            <li class="active menu-item-has-children"><a href="#">Home</a>
-                                                <ul class="submenu">
-                                                    <li class="active"><a href="index.html">Home One</a></li>
-                                                    <li><a href="index-2.html">Home Two</a></li>
-                                                    <li><a href="index-3.html">Home Three</a></li>
-                                                </ul>
+                                            <li class="active"><a href="{{ route('home') }}">Home</a>
                                             </li>
                                             <li class="menu-item-has-children"><a href="#">SHOP</a>
                                                 <ul class="submenu">
@@ -656,31 +628,13 @@
                                                     <li><a href="shop-details.html">shop Details</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="promotion.html">PROMOTION</a></li>
-                                            <li class="menu-item-has-children"><a href="#">BLOG</a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">Our blog</a></li>
-                                                    <li><a href="blog-details.html">blog Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="index-3.html">SPECIAL</a></li>
-                                            <li class="menu-item-has-children"><a href="#">PAGES</a>
-                                                <ul class="submenu">
-                                                    <li><a href="become-vendor.html">become a vendor</a></li>
-                                                    <li><a href="vendor-profile.html">vendor Profile</a></li>
-                                                    <li><a href="vendor-setting.html">vendor setting</a></li>
-                                                    <li><a href="coupon.html">coupon list</a></li>
-                                                    <li><a href="contact.html">contact</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="vendor-list.html">vendor Store List</a></li>
                                         </ul>
                                     </div>
-                                    <div class="header-action d-none d-md-block">
+                                    {{-- <div class="header-action d-none d-md-block">
                                         <ul>
                                             <li class="header-btn"><a href="shop.html">Super Discount <img src="{{ asset('frontend_assets') }}/img/images/discount_shape.png" alt=""></a></li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                 </nav>
                             </div>
                             <!-- Mobile Menu  -->

@@ -68,6 +68,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <p>If you have already account <a href="{{ route('vendor.login') }}">login</a> here!</p>
 
                             <button type="submit">REGISTER</button>
                         </form>

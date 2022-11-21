@@ -219,7 +219,15 @@
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-														<span class="menu-title">Users List</span>
+														<span class="menu-title">Admin</span>
+													</a>
+												</div>
+												<div class="menu-item">
+													<a class="menu-link" href="{{route('vendormanagement.index')}}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">Vendor</span>
 													</a>
 												</div>
 												<div class="menu-item">
@@ -227,12 +235,12 @@
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-														<span class="menu-title">View User</span>
+														<span class="menu-title">Customer</span>
 													</a>
 												</div>
 											</div>
 										</div>
-										<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+										{{-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 											<span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -266,7 +274,7 @@
 												</span>
 												<span class="menu-title">Permissions</span>
 											</a>
-										</div>
+										</div> --}}
 									</div>
 								</div>
 							</div>
@@ -8464,6 +8472,7 @@
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/upgrade-plan.js"></script>
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/users-search.js"></script>
 		<!--end::Page Custom Javascript-->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @yield('footer_script')
 		<!--end::Javascript-->
 	</body>
