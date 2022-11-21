@@ -27,6 +27,7 @@ class User extends Authenticatable
         'address',
         'bio',
         'banner',
+        'status',
     ];
 
     /**

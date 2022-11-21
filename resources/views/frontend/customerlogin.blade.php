@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-md-5">
                             <div class="breadcrumb-img text-end">
-                                <img src="assets/img/images/breadcrumb_img.png" alt="img">
+                                <img src="{{ asset('frontend_assets') }}/img/images/breadcrumb_img.png" alt="img">
                             </div>
                         </div>
                     </div>

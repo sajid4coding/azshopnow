@@ -10,7 +10,7 @@
                                 <h2 class="title">become a Customer</h2>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ route('customerhome') }}">Home</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">become a Customer</li>
                                     </ol>
                                 </nav>
@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-md-5">
                             <div class="breadcrumb-img text-end">
-                                <img src="assets/img/images/breadcrumb_img.png" alt="img">
+                                <img src="{{ asset('frontend_assets') }}/img/images/breadcrumb_img.png" alt="img">
                             </div>
                         </div>
                     </div>
@@ -49,26 +49,41 @@
                                     <div class="form-grp">
                                         <label for="name">User Name *</label>
                                         <input type="text" name="name">
+                                         @error('name')
+                                                <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                     </div>
                                     <div class="form-grp">
                                         <label for="email">Email address *</label>
                                         <input type="email" name="email">
+                                         @error('email')
+                                                <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                     </div>
                                     <div class="form-grp">
                                         <label for="phone_number">Phone Number *</label>
                                         <input name="phone_number" type="text">
+                                         @error('phone_number')
+                                                <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-grp">
                                                 <label for="password">Password *</label>
                                                 <input type="password" id="password" name="password">
+                                                 @error('password')
+                                                <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-grp">
                                                 <label for="re-password">Re-Password *</label>
                                                 <input type="password" id="re-password"  name="password_confirmation">
+                                                 @error('password_confirmation')
+                                                <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
