@@ -59,7 +59,7 @@
                                             </div>
                                             <div class="text-end">
                                              <a href="{{ route('password.request') }}" class=" mt-4">Forgot your password</a>
-                                        </div>
+                                             </div>
                                             <button class="btn btn-sm" type="submit">Login</button>
                                         </div>
                                 </form>
