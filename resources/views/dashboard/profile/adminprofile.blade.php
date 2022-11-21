@@ -159,18 +159,20 @@
             </div>
             <!--end::Row-->
             <!--begin::Input group-->
-            <div class="row mb-7">
-                <!--begin::Label-->
-                <label class="col-lg-4 fw-bold text-muted">Contact Phone
-                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Phone number must be active" aria-label="Phone number must be active"></i></label>
-                <!--end::Label-->
-                <!--begin::Col-->
-                <div class="col-lg-8 d-flex align-items-center">
-                    <span class="fw-bolder fs-6 text-gray-800 me-2">{{auth()->user()->phone_number}}</span>
-                    <span class="badge badge-success">Verified</span>
+            @if (auth()->user()->phone_number)
+                <div class="row mb-7">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 fw-bold text-muted">Contact Phone
+                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="" data-bs-original-title="Phone number must be active" aria-label="Phone number must be active"></i></label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8 d-flex align-items-center">
+                        <span class="fw-bolder fs-6 text-gray-800 me-2">{{auth()->user()->phone_number}}</span>
+                        <span class="badge badge-success">Verified</span>
+                    </div>
+                    <!--end::Col-->
                 </div>
-                <!--end::Col-->
-            </div>
+            @endif
             <!--end::Input group-->
         </div>
         <!--end::Card body-->
