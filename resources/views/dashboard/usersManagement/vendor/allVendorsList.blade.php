@@ -127,9 +127,9 @@
                                         <td>
                                             <!--begin::Badges-->
                                             @if ($vendor->status == 'deactive')
-                                                <div class="badge badge-light-danger">{{ $vendor->status }}</div>
+                                                <div class="badge badge-light-danger">{{ Str::title($vendor->status) }}</div>
                                             @else
-                                                <div class="badge badge-light-success">{{ $vendor->status }}</div>
+                                                <div class="badge badge-light-success">{{ Str::title($vendor->status) }}</div>
                                             @endif
                                             <!--end::Badges-->
                                         </td>
@@ -148,7 +148,7 @@
                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="{{ route('vendormanagement.edit', $vendor->id) }}" class="menu-link px-3">Edit</a>
+                                                    <a href="{{ route('vendormanagement.edit', $vendor->id) }}" class="menu-link  btn btn-sm px-3">Edit</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
@@ -156,7 +156,7 @@
                                                     <form action="{{ route('vendormanagement.destroy', $vendor->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="menu-link px-3" >Delete</button>
+                                                        <button type="submit" class="btn btn-sm menu-link  px-3" >Delete</button>
                                                     </form>
                                                 </div>
                                                 <!--end::Menu item-->

@@ -20,7 +20,7 @@
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                     <!--begin::Item-->
                     <li class="breadcrumb-item text-muted">
-                        <a href="/metronic8/demo1/../demo1/index.html" class="text-muted text-hover-primary">Home</a>
+                        <a href="{{route('dashboard')}}" class="text-muted text-hover-primary">Home</a>
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
@@ -138,9 +138,9 @@
                                         <td>
                                             <!--begin::Badges-->
                                             @if ($category->status == 'unpublished')
-                                                <div class="badge badge-light-danger">{{ $category->status }}</div>
+                                                <div class="badge badge-light-danger">{{ Str::title($category->status) }}</div>
                                             @else
-                                                <div class="badge badge-light-success">{{ $category->status }}</div>
+                                                <div class="badge badge-light-success">{{ Str::title($category->status) }}</div>
                                             @endif
                                             <!--end::Badges-->
                                         </td>
@@ -159,7 +159,7 @@
                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="{{ route('category.edit', $category->id) }}" class="menu-link px-3">Edit</a>
+                                                    <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm menu-link px-3">Edit</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
@@ -167,7 +167,7 @@
                                                     <form action="{{ route('category.destroy', $category->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="menu-link px-3" >Delete</button>
+                                                        <button type="submit" class="btn btn-sm menu-link px-3" >Delete</button>
                                                     </form>
                                                 </div>
                                                 <!--end::Menu item-->
