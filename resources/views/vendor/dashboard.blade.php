@@ -9,7 +9,7 @@
                 <div class="col-lg-6">
                     <div class="store-product">
                         <div class="store-thumb">
-                            <img src="{{ asset('frontend_assets') }}/img/images/store_img.png" alt="img">
+                            <img src="{{ asset('uploads/vendor_profile') }}/{{ auth()->user()->profile_photo }}" alt="img">
                         </div>
                         <div class="store-content">
                             <span class="verified">Verified <i class="fa-solid fa-crown"></i></span>
@@ -112,8 +112,8 @@
                                 <h4 class="title">Contacts</h4>
                             </div>
                             <ul class="contact-info">
-                                <li><i class="fa-solid fa-location-dot"></i>71W Center New York, NY, USA</li>
-                                <li><i class="fa-solid fa-phone-volume"></i> <a href="tel:0123456789">+0 546 25653 235</a></li>
+                                <li><i class="fa-solid fa-location-dot"></i>{{ auth()->user()->address }}</li>
+                                <li><i class="fa-solid fa-phone-volume"></i> <a href="tel:{{ auth()->user()->phone_number }}">{{ auth()->user()->phone_number }}</a></li>
                             </ul>
                             <div class="contact-bottom">
                                 <div class="wishlist">
@@ -208,7 +208,7 @@
                                     <div class="avatar-post">
                                         <div class="avatar-post-img">
                                             <img src=" @if (auth()->user()->profile_photo)
-                                            {{ asset('frontend_assets') }}/img/blog/avater_post_img.png
+                                            {{ asset('uploads/vendor_profile/') }}/{{ auth()->user()->profile_photo }}
                                             @else
                                             https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png
                                             @endif " alt="img">
@@ -500,42 +500,108 @@
                             </div>
                             <div class="tab-pane fade" id="edit" role="tabpanel" aria-labelledby="edit-tab">
                                 <div class="product-upload-wrap">
-                                    <form action="#">
+                                    <form action="{{ route('vendor.update.info') }}" enctype="multipart/form-data" method="POST">
+                                        @csrf
                                         <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="container">
+                                                    <div class="avatar-upload">
+                                                        <div class="avatar-edit">
+                                                            <input type='file' id="imageUpload" name="profile_photo" accept=".png, .jpg, .jpeg" />
+                                                            <label for="imageUpload"></label>
+                                                        </div>
+                                                        <div class="avatar-preview">
+                                                            <div id="imagePreview" style="background-image: url({{ asset('uploads/vendor_profile/'.auth()->user()->profile_photo) }});">
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="col-lg-6">
                                                 <div class="form-grp">
-                                                    <label for="price">Name</label>
-                                                    <input type="text" value="{{ auth()->user()->name }}">
+                                                    <label>Name</label>
+                                                    <input type="text" name="name" value="{{ auth()->user()->name }}">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-grp">
-                                                    <label for="price">Name</label>
-                                                    <input type="text" value="{{ auth()->user()->name }}">
+                                                    <label >Email</label>
+                                                    <input type="email" name="email" value="{{ auth()->user()->email }}">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-grp">
-                                                    <label for="price">Product Brand</label>
-                                                    <input type="text">
+                                                    <label >Phone Number</label>
+                                                    <input type="phone" name="phone_number" value="{{ auth()->user()->phone_number }}">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-grp">
-                                                    <label for="price">Weight</label>
-                                                    <input type="text">
+                                                    <label >shop Name</label>
+                                                    <input type="text" name="shop_name" value="{{ auth()->user()->shop_name }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-grp">
+                                                    <label >Address</label>
+                                                    <input type="text" name="address" value="{{ auth()->user()->address }}">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-grp">
-                                            <label for="price">Product Discount %</label>
-                                            <input type="text" placeholder="% -">
+
+                                        <button type="submit">Update Info</button>
+                                    </form>
+
+
+                                    {{-- CHANGE PASSWORD START --}}
+                                    <form  action="{{ route('vendor.change.password') }}"  method="POST" class="mt-5">
+                                          @csrf
+                                        <div class="row mt-5">
+                                            <div class="col-lg-6">
+                                                <div class="form-grp">
+                                                    <label>Current Password</label>
+                                                    <input type="password"  name="current_password" placeholder="Current password">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-grp">
+                                                    <label >New Password</label>
+                                                    <input type="password" name="password" placeholder="New password">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-grp">
+                                                    <label >Confirm Password</label>
+                                                    <input type="password" name="password_confirmation" placeholder="confirm password">
+                                                </div>
+                                            </div>
+
                                         </div>
-                                        <div class="form-grp">
-                                            <label for="price">Product Description</label>
-                                            <textarea name="text"></textarea>
+
+                                        @if (session('change_message'))
+
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>{{ session('change_message') }}</strong>
                                         </div>
-                                        <button type="submit">Upload Shop</button>
+                                          @endif
+
+                                         @if (session('change_error_message'))
+
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <strong>{{ session('change_error_message') }}</strong>
+                                                    </div>
+                                         @endif
+
+                                         @if ($errors->any())
+                                              @foreach ($errors->all() as $error)
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <strong>{{ $error }}</strong>
+                                                    </div>
+                                              @endforeach
+                                         @endif
+
+                                        <button type="submit">Change Password</button>
                                     </form>
                                 </div>
                             </div>

@@ -9,7 +9,7 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                 <!--begin::Title-->
-                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Add Category</h1>
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Edit Category</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -46,8 +46,9 @@
     <div id="kt_app_content" class="app-content flex-column-fluid" data-select2-id="select2-data-kt_app_content">
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-xxl" data-select2-id="select2-data-kt_app_content_container">
-            <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data" id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
+            <form action="{{ route('category.update',$category->id) }}" method="POST" enctype="multipart/form-data" id="kt_ecommerce_Edit_category_form" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
                 @csrf
+                @method('PATCH')
                 <!--begin::Aside column-->
                 <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10" data-select2-id="select2-data-131-7ecg">
                     <!--begin::Thumbnail settings-->
@@ -66,15 +67,14 @@
                             <!--begin::Image input-->
                             <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('{{asset('dashboard_assets')}}/media/svg/avatars/blank.svg')">
                                 <!--begin::Preview existing avatar-->
-                                    <div class="image-input-wrapper w-125px h-125px"
-                                    style="background-image: url('{{asset('uploads/category_photo/default.png')}}')"></div>
+                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url('{{ asset('uploads/category_photo') }}/{{ $category->thumbnail }}')"></div>
                                 <!--end::Preview existing avatar-->
                                 <!--begin::Label-->
                                 <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
                                     <i class="bi bi-pencil-fill fs-7"></i>
                                     <!--begin::Inputs-->
-                                    <input type="file" name="category_photo">
-                                    <input type="hidden" name="category_photo">
+                                    <input type="file" name="thumbnail">
+                                    <input type="hidden" name="thumbnail">
                                     <!--end::Inputs-->
                                 </label>
                                 <!--end::Label-->
@@ -108,7 +108,7 @@
                             <!--end::Card title-->
                             <!--begin::Card toolbar-->
                             <div class="card-toolbar">
-                                <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_category_status"></div>
+                                <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_Edit_category_status"></div>
                             </div>
                             <!--begin::Card toolbar-->
                         </div>
@@ -116,9 +116,9 @@
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <!--begin::Select2-->
-                            <select name="status" class="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_category_status_select" data-select2-id="select2-data-kt_ecommerce_add_category_status_select" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-                                <option value="published" selected="selected" data-select2-id="select2-data-11-kaqf">Published</option>
-                                <option value="unpublished">Unpublished</option>
+                            <select name="status" class="form-select mb-2 select2-hidden-accessible" data-control="select2">
+                                <option value="published" @if ($category->status == "published") selected="selected" @endif>Published</option>
+                                <option value="unpublished" @if ($category->status == "unpublished") selected="selected" @endif>Unpublished</option>
                             </select>
                             <!--end::Select2-->
                             <!--begin::Description-->
@@ -126,8 +126,8 @@
                             <!--end::Description-->
                             <!--begin::Datepicker-->
                             <div class="d-none mt-10">
-                                <label for="kt_ecommerce_add_category_status_datepicker" class="form-label">Select publishing date and time</label>
-                                <input class="form-control flatpickr-input" id="kt_ecommerce_add_category_status_datepicker" placeholder="Pick date &amp; time" type="text" readonly="readonly">
+                                <label for="kt_ecommerce_Edit_category_status_datepicker" class="form-label">Select publishing date and time</label>
+                                <input class="form-control flatpickr-input" id="kt_ecommerce_Edit_category_status_datepicker" placeholder="Pick date &amp; time" type="text" readonly="readonly">
                             </div>
                             <!--end::Datepicker-->
                         </div>
@@ -155,7 +155,7 @@
                                 <label class="required form-label">Category Name</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" name="category_name" class="form-control mb-2" placeholder="Product name" value="">
+                                <input type="text" name="category_name" class="form-control mb-2" placeholder="Product name" value="{{ $category->category_name }}">
                                 <!--end::Input-->
                                 <!--begin::Description-->
                                 <div class="text-muted fs-7">A category name is required and recommended to be unique.</div>
@@ -168,7 +168,7 @@
                                 <label class="form-label">Category Slug</label>
                                 <!--end::Label-->
                                 <!--begin::Editor-->
-                                <input class="form-control" name="category_slug" placeholder="Product slug" type="text">
+                                <input class="form-control" name="slug" placeholder="Product slug" type="text" value="{{ $category->slug }}">
                                 <!--end::Editor-->
                                 <!--begin::Description-->
                                 <div class="text-muted fs-7">Set a category slug to the category for better visibility.</div>
@@ -181,7 +181,7 @@
                                 <label class="form-label">Description</label>
                                 <!--end::Label-->
                                 <!--begin::Editor-->
-                                <textarea class="form-control" name="category_description" cols="10" rows="10"></textarea>
+                                <textarea class="form-control" name="description" cols="10" rows="10">{{ $category->description }}</textarea>
                                 <!--end::Editor-->
                                 <!--begin::Description-->
                                 <div class="text-muted fs-7">Set a description to the category for better visibility.</div>
@@ -198,7 +198,7 @@
                         <!--end::Button-->
                         <!--begin::Button-->
                         <button type="submit" class="btn btn-primary">
-                            <span class="indicator-label">Add Changes</span>
+                            <span class="indicator-label">Edit Changes</span>
                             <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
