@@ -59,9 +59,15 @@
 
                                     @endif
 
+                                    {{-- Registration Success Message --}}
+                                    @if (session('registrion_success'))
+                                    <div class="alert alert-success" role="alert">
+                                    <strong>{{ session('registrion_success') }}</strong>
+                                    </div>
+                                    @endif
+
                                     <form method="POST" action="{{ route('vendor.login.post') }}">
                                             @csrf
-
 
                                             <div class="form-grp">
                                                 <label for="email">Email address *</label>
