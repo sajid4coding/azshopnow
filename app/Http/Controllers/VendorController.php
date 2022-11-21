@@ -22,7 +22,7 @@ class vendorController extends Controller
         $request->validate([
             '*' => 'required',
             'email' => "unique:users",
-            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(3)],
+            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()],
         ]);
 
         User::insert([
