@@ -70,24 +70,3 @@
     background-repeat: no-repeat;
     background-position: center;
   }
-  .avatar-upload2 {
-    position: relative;
-    max-width: 500px;
-    margin: 50px auto;
-  }
-
-  .avatar-upload .avatar-preview2 {
-    width: 500px;
-    height: 160px;
-    position: relative;
-    left: 0;
-    border: 6px solid #F6B21B;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-  }
-  .avatar-upload .avatar-preview2 > div {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
