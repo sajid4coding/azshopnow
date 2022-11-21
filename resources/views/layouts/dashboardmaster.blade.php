@@ -53,8 +53,9 @@ License: For each use you must have a valid license purchased only from above li
 					<!--begin::Brand-->
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
-						<a href="../../demo1/dist/index.html">
-							<img alt="Logo" src="{{ asset('dashboard_assets') }}/media/logos/logo-1-dark.svg" class="h-25px logo" />
+						<a href="{{route('dashboard')}}">
+							<img alt="Logo" src="{{ asset('dashboard_assets') }}/media/logos/logo-1-dark.svg" class="h-25px logo" /> <br>
+                            <span class="text-light">{{config('app.name')}}</span>
 						</a>
 						<!--end::Logo-->
 						<!--begin::Aside toggler-->
@@ -91,7 +92,7 @@ License: For each use you must have a valid license purchased only from above li
 											</span>
 											<!--end::Svg Icon-->
 										</span>
-										<a href="{{route('home')}}" class="menu-title">Visit Website</a>
+										<a href="{{route('home')}}" class="menu-title" target="_blank">Visit Website</a>
 									</span>
 									<div class="menu-sub menu-sub-accordion menu-active-bg">
 									</div>
