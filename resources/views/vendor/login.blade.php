@@ -32,10 +32,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-
-
-
-
                         <div class="row">
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6">
@@ -78,7 +74,9 @@
                                                     <label for="password">Password *</label>
                                                     <input   name="password" value='{{ old('password') }}' type="password" id="password">
                                             </div>
-
+                                            <div class="text-end">
+                                                <a href="{{ route('password.request') }}" class="text-muted mt-4">Forgot your password?</a>
+                                                </div>
                                     <button type="submit">LOGIN</button>
                                 </form>
                     </div>
