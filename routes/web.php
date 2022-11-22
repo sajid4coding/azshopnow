@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController,CustomerController,HomeController, SubCategoryController, VendorsmanagementController, VendorController, SubCategory};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,9 +51,20 @@ Route::get('become/vendor', [VendorController::class, 'vendor_index'])->name('be
 Route::post('vendor/post', [VendorController::class, 'vendor_post'])->name('vendor.post');
 Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('vendor.login');
 Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
-Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
-Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
-Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
+
+Route::middleware(['vendor'])->group(function(){
+    Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
+    Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
+    Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
+
+});
+
+// =========================== ALL COMMON ROUTES START HERE =================
+Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
+Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
+
+
+
 
 
 // // CUSTOMER CONTROLLER START
@@ -71,4 +82,5 @@ Route::post('change/profile/post', [CustomerController::class, 'change_profile_p
 Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome');
 
 // HOME CONTROLLER END
+
 

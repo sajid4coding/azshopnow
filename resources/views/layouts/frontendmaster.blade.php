@@ -26,11 +26,11 @@
     <body>
 
         <!-- Preloader -->
-        <div id="preloader">
+        {{-- <div id="preloader">
             <div id="preloader-status">
                 <div class="preloader-position loader"> <span></span> </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Preloader end -->
 
 		<!-- Scroll-top -->
@@ -55,7 +55,7 @@
                                     @guest
                                     <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li>
                                     @endguest
-                                    <li><a href="contact.html">Contact Us</a></li>
+                                    <li><a href="{{ route('contact.us') }}">Contact Us</a></li>
                                 </ul>
                             </div>
                         </div>
