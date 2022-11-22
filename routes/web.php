@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{AdminmanagementController,ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController};
 
 use Illuminate\Support\Facades\Route;
 
