@@ -104,7 +104,7 @@ class vendorController extends Controller
 
             $request->validate([
                 '*'=>'required',
-                'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(3)],
+                'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols(),'different:current_password'],
 
             ]);
 
