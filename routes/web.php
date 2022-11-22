@@ -1,6 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController,CustomerController,HomeController, SubCategoryController, VendorsmanagementController, VendorController};
-use App\Models\SubCategory;
+use App\Http\Controllers\{ProfileController, CategoryController,CustomerController,HomeController, SubCategoryController, VendorsmanagementController, VendorController, SubCategory};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +30,7 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
-    
+
     //SubCategoryController Resource
     Route::resource('subcategory', SubCategoryController::class);
 
