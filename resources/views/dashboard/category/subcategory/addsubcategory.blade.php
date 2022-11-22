@@ -46,7 +46,7 @@
     <div id="kt_app_content" class="app-content flex-column-fluid" data-select2-id="select2-data-kt_app_content">
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-xxl" data-select2-id="select2-data-kt_app_content_container">
-            <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data" id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
+            <form action="{{ route('subcategory.store') }}" method="POST" enctype="multipart/form-data" id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
                 @csrf
                 <!--begin::Aside column-->
                 <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10" data-select2-id="select2-data-131-7ecg">
@@ -73,8 +73,8 @@
                                 <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
                                     <i class="bi bi-pencil-fill fs-7"></i>
                                     <!--begin::Inputs-->
-                                    <input type="file" name="category_photo">
-                                    <input type="hidden" name="category_photo">
+                                    <input type="file" name="sub_category_photo">
+                                    <input type="hidden" name="sub_category_photo">
                                     <!--end::Inputs-->
                                 </label>
                                 <!--end::Label-->
@@ -152,27 +152,44 @@
                             <!--begin::Input group-->
                             <div class="mb-10 fv-row fv-plugins-icon-container">
                                 <!--begin::Label-->
-                                <label class="required form-label">Category Name</label>
+                                <label class="required form-label">Sub Category Name</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" name="category_name" class="form-control mb-2" placeholder="Category name" value="">
+                                <input type="text" name="sub_category_name" class="form-control mb-2" placeholder="Category name" value="">
                                 <!--end::Input-->
                                 <!--begin::Description-->
                                 <div class="text-muted fs-7">A category name is required and recommended to be unique.</div>
                                 <!--end::Description-->
-                            <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
                             <div class="mb-10 fv-row fv-plugins-icon-container">
                                 <!--begin::Label-->
-                                <label class="form-label">Category Slug</label>
+                                <label class="form-label">Slug</label>
                                 <!--end::Label-->
                                 <!--begin::Editor-->
-                                <input class="form-control" name="category_slug" placeholder="Category slug" type="text">
+                                <input class="form-control" name="slug" placeholder="Category slug" type="text">
                                 <!--end::Editor-->
                                 <!--begin::Description-->
                                 <div class="text-muted fs-7">Set a category slug to the category for better visibility.</div>
                                 <!--end::Description-->
+                            </div>
+                            <!--end::Input group-->
+                            <div class="mb-10 fv-row fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label class="form-label">Parent Category</label>
+                                <!--end::Label-->
+                                <!--begin::Parent Category-->
+                                <select class="form-select" name="parent_category">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                    @endforeach
+                                </select>
+                                <!--end::Parent Category-->
+                                <!--begin::Parent Category-->
+                                <div class="text-muted fs-7">Set a parent category.</div>
+                                <!--end::Parent Category-->
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
@@ -181,7 +198,7 @@
                                 <label class="form-label">Description</label>
                                 <!--end::Label-->
                                 <!--begin::Editor-->
-                                <textarea class="form-control" name="category_description" cols="10" rows="10"></textarea>
+                                <textarea class="form-control" name="description" cols="10" rows="10"></textarea>
                                 <!--end::Editor-->
                                 <!--begin::Description-->
                                 <div class="text-muted fs-7">Set a description to the category for better visibility.</div>

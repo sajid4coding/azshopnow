@@ -27,7 +27,6 @@
                     <li class="breadcrumb-item">
                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
                     </li>
-                    <li class="breadcrumb-item text-muted">Product</li>
                     <!--end::Item-->
                     <li class="breadcrumb-item">
                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
@@ -54,12 +53,12 @@
                 <div class="card-header align-items-center py-5 gap-2 gap-md-5">
                     <div class="card-toolbar">
                         <!--begin::Add customer-->
-                            <a href="{{ route('category.create') }}" class="btn btn-primary">Add Category</a>
+                        <a href="{{ route('subcategory.create') }}" class="btn btn-primary">Add Sub Category</a>
                         <!--end::Add customer-->
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Add customer-->
-                        <a href="{{ route('subcategory.index') }}" class="btn btn-primary">Add Sub Category</a>
+                            <a href="{{ route('category.create') }}" class="btn btn-primary">Add Category</a>
                         <!--end::Add customer-->
                     </div>
                     <!--end::Card toolbar-->
@@ -70,12 +69,13 @@
                     <!--begin::Table-->
                     <div id="kt_ecommerce_category_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="table-responsive">
-                            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="category_table">
+                            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="sub_category_table">
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th class="min-w-250px sorting">Category</th>
+                                    <th class="min-w-250px sorting">Parent Category</th>
                                     <th class="min-w-150px sorting">Category Status</th>
                                     <th class="text-end min-w-70px sorting_disabled">Actions</th>
                                 </tr>
@@ -86,34 +86,41 @@
                             <tbody class="fw-semibold text-gray-600">
 
                                 <!--end::Table row-->
-                                @foreach ($categories as $category)
+                                @foreach ($subcategories as $subcategory)
                                     <tr class="odd">
                                         <!--begin::Category=-->
                                         <td>
                                             <div class="d-flex">
                                                 <!--begin::Thumbnail-->
-                                                <a href="{{ route('category.edit', $category->id) }}" class="symbol symbol-50px">
-                                                    <span class="symbol-label" style="background-image:url({{ asset('uploads') }}/category_photo/{{ $category->thumbnail }});"></span>
+                                                <a href="{{ route('subcategory.edit', $subcategory->id) }}" class="symbol symbol-50px">
+                                                    <span class="symbol-label" style="background-image:url({{ asset('uploads') }}/category_photo/sub_category_photo/{{ $subcategory->thumbnail }});"></span>
                                                 </a>
                                                 <!--end::Thumbnail-->
                                                 <div class="ms-5">
                                                     <!--begin::Title-->
-                                                    <a href="{{ route('category.edit', $category->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $category->category_name }}</a>
+                                                    <a href="{{ route('subcategory.edit', $subcategory->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $subcategory->category_name }}</a>
                                                     <!--end::Title-->
                                                     <!--begin::Description-->
-                                                    <div class="text-muted fs-7 fw-bold">{{ $category->description }}</div>
+                                                    <div class="text-muted fs-7 fw-bold">{{ $subcategory->description }}</div>
                                                     <!--end::Description-->
                                                 </div>
                                             </div>
                                         </td>
                                         <!--end::Category=-->
+                                        <!--begin::Parent Category=-->
+                                        <td>
+                                            <!--begin::Badges-->
+                                            <div class="badge badge-light-primary">{{ $subcategory->relationshipwith_parent_category->category_name }}</div>
+                                            <!--end::Badges-->
+                                        </td>
+                                        <!--end::Parent Category=-->
                                         <!--begin::Type=-->
                                         <td>
                                             <!--begin::Badges-->
-                                            @if ($category->status == 'unpublished')
-                                                <div class="badge badge-light-danger">{{ Str::title($category->status) }}</div>
+                                            @if ($subcategory->status == 'unpublished')
+                                                <div class="badge badge-light-danger">{{ Str::title($subcategory->status) }}</div>
                                             @else
-                                                <div class="badge badge-light-success">{{ Str::title($category->status) }}</div>
+                                                <div class="badge badge-light-success">{{ Str::title($subcategory->status) }}</div>
                                             @endif
                                             <!--end::Badges-->
                                         </td>
@@ -132,12 +139,12 @@
                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm menu-link px-3">Edit</a>
+                                                    <a href="{{ route('subcategory.edit', $subcategory->id) }}" class="btn btn-sm menu-link px-3">Edit</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <form action="{{ route('category.destroy', $category->id) }}" method="POST">
+                                                    <form action="{{ route('subcategory.destroy', $subcategory->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm menu-link px-3" >Delete</button>
@@ -170,7 +177,7 @@
 @section('footer_script')
     <script>
         $(document).ready(function () {
-            $('#category_table').DataTable();
+            $('#sub_category_table').DataTable();
         });
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
