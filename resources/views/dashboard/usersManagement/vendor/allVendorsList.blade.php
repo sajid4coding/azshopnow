@@ -77,11 +77,6 @@
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
-                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0"><th class="w-10px pe-2 sorting_disabled" rowspan="1" colspan="1" aria-label=""style="width: 29.8906px;">
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_category_table .form-check-input" value="1">
-                                    </div>
-                                    </th>
                                     <th class="min-w-250px sorting">Vendor Details</th>
                                     <th class="min-w-150px sorting">Status</th>
                                     <th class="text-end min-w-70px sorting_disabled">Actions</th>
@@ -95,13 +90,6 @@
                                 <!--end::Table row-->
                                 @foreach ($vendors as $vendor)
                                     <tr class="odd">
-                                        <!--begin::Checkbox-->
-                                        <td>
-                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox" value="1">
-                                            </div>
-                                        </td>
-                                        <!--end::Checkbox-->
                                         <!--begin::Category=-->
                                         <td>
                                             <div class="d-flex">

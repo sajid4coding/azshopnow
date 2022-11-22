@@ -276,7 +276,7 @@
                             <div class="row">
                                 <!--begin::Col-->
                                 <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                                    <input type="password" name="current_password" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="{{auth()->user()->phone_number}}">
+                                    <input type="password" name="current_password" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0">
                                 <div class="fv-plugins-message-container invalid-feedback">
                                     @if ($errors->any())
                                         <div class="alert alert-danger mt-2">
@@ -303,7 +303,7 @@
                             <div class="row">
                                 <!--begin::Col-->
                                 <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                                    <input type="password" name="password" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="{{auth()->user()->phone_number}}">
+                                    <input type="password" name="password" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" ">
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>
@@ -321,7 +321,7 @@
                             <div class="row">
                                 <!--begin::Col-->
                                 <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                                    <input type="password" name="password_confirmation" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" value="{{auth()->user()->phone_number}}">
+                                    <input type="password" name="password_confirmation" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" >
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>
@@ -337,7 +337,8 @@
                     <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
                 </div>
                 <!--end::Actions-->
-            <input type="hidden"><div></div></form>
+                <input type="hidden"><div></div>
+            </form>
             <!--end::Form-->
         </div>
         <!--end::Content-->

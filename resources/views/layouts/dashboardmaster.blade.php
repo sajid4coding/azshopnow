@@ -235,7 +235,7 @@
 											</span>
 											<div class="menu-sub menu-sub-accordion">
 												<div class="menu-item">
-													<a class="menu-link" href="../../demo1/dist/apps/user-management/users/list.html">
+													<a class="menu-link" href="{{route('adminmanagement.index')}}">
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
