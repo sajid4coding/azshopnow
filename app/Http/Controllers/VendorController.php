@@ -33,8 +33,6 @@ class vendorController extends Controller
               'status' =>  'deactive',
               'created_at' => Carbon::now(),
         ]);
-
-
         return redirect('/vendor/login')->with('registrion_success','Your registation successfully & wait for admin approval');
 
         }
