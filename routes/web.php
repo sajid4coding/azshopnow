@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +17,7 @@ Route::get('/', function () {
     return view('index');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('layouts.dashboardmaster');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -27,6 +25,9 @@ Route::get('/dashboard', function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 Route::middleware(['admin', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('layouts.dashboardmaster');
+    })->middleware(['auth', 'verified'])->name('dashboard');
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
@@ -36,6 +37,9 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //VendormanagementController Resource
     Route::resource('vendormanagement', VendorsmanagementController::class);
+
+    //AdminmanagementController Resource
+    Route::resource('adminmanagement', AdminmanagementController::class);
 
     // ProfileController
     Route::get('admin/profile', [ProfileController::class, 'admin_profile'])->name('admin.profile');
