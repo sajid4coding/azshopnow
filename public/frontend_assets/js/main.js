@@ -264,6 +264,55 @@ $('.brand-active').slick({
 	]
 });
 
+/*=============================================
+	=    		Category Slider		      =
+=============================================*/
+$('.category_slider').slick({
+	dots: false,
+	infinite: true,
+	speed: 1000,
+	autoplay: true,
+    autoplaySpeed:1000,
+    prevArrow: '<i class="fas fa-long-arrow-alt-right previous_btn"></i>',
+    nextArrow: '<i class="fas fa-long-arrow-alt-left next_btn"></i>',
+	arrows: true,
+	slidesToShow: 5,
+	slidesToScroll: 1,
+	responsive: [
+		{
+			breakpoint: 1200,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 1,
+				infinite: true,
+			}
+		},
+		{
+			breakpoint: 992,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 1
+			}
+		},
+		{
+			breakpoint: 767,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 1,
+				arrows: false,
+			}
+		},
+		{
+			breakpoint: 575,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				arrows: false,
+			}
+		},
+	]
+});
+
 
 
 /*=============================================

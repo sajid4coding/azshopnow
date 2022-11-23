@@ -57,6 +57,7 @@ Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('ven
 Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
 
 Route::middleware(['vendor'])->group(function(){
+    
     Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
     Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
     Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
