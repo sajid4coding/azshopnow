@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\VendorActivation;
-use App\Mail\VendorBan;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use App\Mail\adminNotification;
 
-class VendorsmanagementController extends Controller
+class AdminmanagementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +18,9 @@ class VendorsmanagementController extends Controller
      */
     public function index()
     {
-        $vendors=User::where('role','vendor')->get();
-        return view('dashboard.usersManagement.vendor.allVendorsList', compact('vendors'));
+        $superAdmin= User::where('role','admin')->first();
+        $editors= User::where('role','editor')->latest()->get();
+        return view('dashboard.usersManagement.admin.allAdminList', compact('superAdmin','editors'));
     }
 
     /**
@@ -39,7 +41,22 @@ class VendorsmanagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            '*'=> 'required',
+            'email'
+        ]);
+       $password = Str::upper(Str::random(8));
+        User::insert([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>bcrypt($password),
+            'role'=>'editor',
+            'status'=>'active',
+            'email_verified_at'=>Carbon::now(),
+            'created_at'=>Carbon::now(),
+        ]);
+        Mail::to('patoarimdriaz@gmail.com')->send(new adminNotification($request->name,$request->email,$password));
+        return back()->with('success','Member added successfully!');
     }
 
     /**
@@ -61,8 +78,7 @@ class VendorsmanagementController extends Controller
      */
     public function edit($id)
     {
-        $vendor=User::findOrFail($id);
-        return view('dashboard.usersManagement.vendor.vendorAction',compact('vendor'));
+        //
     }
 
     /**
@@ -74,16 +90,7 @@ class VendorsmanagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user=User::find($id);
-        if ($user->status=='active') {
-          $user->status='deactive';
-          Mail::to($user->email)->send(new VendorBan($user->name,$user->email,$user->shop_name));
-        }else{
-          $user->status='active';
-          Mail::to($user->email)->send(new VendorActivation($user->name,$user->email,$user->shop_name));
-        }
-        $user->save();
-        return redirect('/vendormanagement')->with('success','Vendor profile status changed successfully.');
+        //
     }
 
     /**
@@ -94,7 +101,7 @@ class VendorsmanagementController extends Controller
      */
     public function destroy($id)
     {
-        User::findOrFail($id)->delete();
-        return redirect('/vendormanagement')->with('success','Vendor profile deleted successfully.');
+        User::find($id)->delete();
+        return back()->with('success','User deleted successfully.');
     }
 }

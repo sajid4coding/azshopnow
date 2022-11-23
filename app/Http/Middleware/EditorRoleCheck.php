@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class AdminRoleCheck
+class EditorRoleCheck
 {
     /**
      * Handle an incoming request.
@@ -16,11 +16,9 @@ class AdminRoleCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role == 'admin' || auth()->user()->role == 'editor'){
-
-            return $next($request);
-        }else{
+        if(auth()->user()->role != 'editor'){
             abort('404');
         }
+        return $next($request);
     }
 }

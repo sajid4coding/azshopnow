@@ -64,7 +64,7 @@ class CategoryController extends Controller
 
         if ($request->hasFile('category_photo') ) {
             $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('category_photo')->getClientOriginalExtension();
-            $img = Image::make($request->file('category_photo'))->resize(150, 150);
+            $img = Image::make($request->file('category_photo'))->resize(300, 300);
             $img->save(base_path('public/uploads/category_photo/'.$photo), 60);
             Category::where([
                 'category_name' => $request->category_name,

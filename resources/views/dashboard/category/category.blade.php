@@ -27,6 +27,7 @@
                     <li class="breadcrumb-item">
                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
                     </li>
+                    <li class="breadcrumb-item text-muted">Product</li>
                     <!--end::Item-->
                     <li class="breadcrumb-item">
                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
@@ -56,6 +57,11 @@
                             <a href="{{ route('category.create') }}" class="btn btn-primary">Add Category</a>
                         <!--end::Add customer-->
                     </div>
+                    <div class="card-toolbar">
+                        <!--begin::Add customer-->
+                        <a href="{{ route('subcategory.index') }}" class="btn btn-primary">Add Sub Category</a>
+                        <!--end::Add customer-->
+                    </div>
                     <!--end::Card toolbar-->
                 </div>
                 <!--end::Card header-->
@@ -68,11 +74,7 @@
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
-                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0"><th class="w-10px pe-2 sorting_disabled" rowspan="1" colspan="1" aria-label=""style="width: 29.8906px;">
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_category_table .form-check-input" value="1">
-                                    </div>
-                                    </th>
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th class="min-w-250px sorting">Category</th>
                                     <th class="min-w-150px sorting">Category Status</th>
                                     <th class="text-end min-w-70px sorting_disabled">Actions</th>
@@ -86,13 +88,6 @@
                                 <!--end::Table row-->
                                 @foreach ($categories as $category)
                                     <tr class="odd">
-                                        <!--begin::Checkbox-->
-                                        <td>
-                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox" value="1">
-                                            </div>
-                                        </td>
-                                        <!--end::Checkbox-->
                                         <!--begin::Category=-->
                                         <td>
                                             <div class="d-flex">
