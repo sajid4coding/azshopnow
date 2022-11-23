@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, CustomermanagementController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,9 +37,10 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //VendormanagementController Resource
     Route::resource('vendormanagement', VendorsmanagementController::class);
-
     //AdminmanagementController Resource
     Route::resource('adminmanagement', AdminmanagementController::class);
+    //CustomermanagementController Resource
+    Route::resource('customermanagement', CustomermanagementController::class);
 
     // ProfileController
     Route::get('admin/profile', [ProfileController::class, 'admin_profile'])->name('admin.profile');

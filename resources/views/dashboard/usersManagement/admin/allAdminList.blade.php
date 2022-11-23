@@ -148,7 +148,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">Admin Users</li>
+                    <li class="breadcrumb-item text-muted">Editors</li>
                     <!--end::Item-->
                 </ul>
             <!--begin::Category-->

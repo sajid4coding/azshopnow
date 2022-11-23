@@ -4,12 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
-use App\Mail\adminNotification;
 
-class AdminmanagementController extends Controller
+class CustomermanagementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +14,8 @@ class AdminmanagementController extends Controller
      */
     public function index()
     {
-        $superAdmin= User::where('role','admin')->first();
-        $editors= User::where('role','editor')->latest()->get();
-        return view('dashboard.usersManagement.admin.allAdminList', compact('superAdmin','editors'));
+        $customers=User::where('role','customer')->get();
+        return view('dashboard.usersManagement.customer.allCustomerList',compact('customers'));
     }
 
     /**
@@ -41,22 +36,7 @@ class AdminmanagementController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            '*'=> 'required',
-            'email'
-        ]);
-       $password = Str::upper(Str::random(8));
-        User::insert([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>bcrypt($password),
-            'role'=>'editor',
-            'status'=>'active',
-            'email_verified_at'=>Carbon::now(),
-            'created_at'=>Carbon::now(),
-        ]);
-        Mail::to('patoarimdriaz@gmail.com')->send(new adminNotification($request->name,$request->email,$password));
-        return back()->with('success','Member added successfully!');
+        //
     }
 
     /**
@@ -78,8 +58,8 @@ class AdminmanagementController extends Controller
      */
     public function edit($id)
     {
-        $editor=User::findOrFail($id);
-        return view('dashboard.usersManagement.admin.adminAction', compact('editor'));
+        $customer=User::findOrFail($id);
+        return view('dashboard.usersManagement.customer.customerAction',compact('customer'));
     }
 
     /**
@@ -100,7 +80,7 @@ class AdminmanagementController extends Controller
         //   Mail::to($user->email)->send(new VendorActivation($user->name,$user->email,$user->shop_name));
         }
         $user->save();
-        return redirect('/adminmanagement')->with('success','Editor profile status changed successfully.');
+        return redirect('/customermanagement')->with('success','Customer profile status changed successfully.');
     }
 
     /**
@@ -112,6 +92,6 @@ class AdminmanagementController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return back()->with('success','User deleted successfully.');
+        return redirect('/customermanagement')->with('success','Customer profile deleted successfully.');
     }
 }

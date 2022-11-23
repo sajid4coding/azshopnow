@@ -276,7 +276,7 @@
 													</a>
 												</div>
 												<div class="menu-item">
-													<a class="menu-link" href="../../demo1/dist/apps/user-management/users/view.html">
+													<a class="menu-link" href="{{route('customermanagement.index')}}">
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
