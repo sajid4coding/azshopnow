@@ -169,19 +169,19 @@
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-100px symbol-circle mb-7">
                                     @if (auth()->user()->profile_photo)
-                                    <img src="{{asset('uploads/profile_photo')}}/{{$editor->profile_photo}}" alt="image">
+                                    <img src="{{asset('uploads/profile_photo')}}/{{$customer->profile_photo}}" alt="image">
                                     @else
                                     <img src="{{asset('uploads/profile_photo/default.png')}}" alt="image">
                                     @endif
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Name-->
-                                <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-3">{{$editor->name}}</a>
+                                <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bolder mb-3">{{$customer->name}}</a>
                                 <!--end::Name-->
                                 <!--begin::Position-->
                                 <div class="mb-9">
                                     <!--begin::Badge-->
-                                    <div class="badge badge-lg badge-light-primary d-inline">{{Str::title($editor->role)}}</div>
+                                    <div class="badge badge-lg badge-light-primary d-inline">{{Str::title($customer->role)}}</div>
                                     <!--begin::Badge-->
                                 </div>
                                 <!--end::Position-->
@@ -211,17 +211,17 @@
                                 <div class="pb-5 fs-6">
                                     <!--begin::Details item-->
                                     <div class="fw-bolder mt-5">Account ID</div>
-                                    <div class="text-gray-600">ID-{{$editor->id}}</div>
+                                    <div class="text-gray-600">ID-{{$customer->id}}</div>
                                     <!--begin::Details item-->
                                     <!--begin::Details item-->
                                     <div class="fw-bolder mt-5">Email</div>
                                     <div class="text-gray-600">
-                                        <a href="#" class="text-gray-600 text-hover-primary">{{$editor->email}}</a>
+                                        <a href="#" class="text-gray-600 text-hover-primary">{{$customer->email}}</a>
                                     </div>
                                     <!--begin::Details item-->
                                     <!--begin::Details item-->
-                                    {{-- <div class="fw-bolder mt-5">Address</div>
-                                    <div class="text-gray-600">{{$editor->address}}</div> --}}
+                                    <div class="fw-bolder mt-5">Address</div>
+                                    <div class="text-gray-600">{{$customer->address}}</div>
                                     <!--begin::Details item-->
                                     <!--begin::Details item-->
                                     {{-- <div class="fw-bolder mt-5">Language</div>
@@ -250,7 +250,7 @@
                     <!--begin::Modal content-->
                     <div class="modal-content">
                         <!--begin::Form-->
-                        <form class="form" action="{{route('adminmanagement.update', $editor->id)}}" method="POST" id="kt_modal_update_user_form">
+                        <form class="form" action="{{route('customermanagement.update', $customer->id)}}" method="POST" id="kt_modal_update_user_form">
                             @csrf
                             @method('PATCH')
                             <!--begin::Modal header-->
@@ -278,8 +278,8 @@
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <select name="status" id="" class="form-select">
-                                                <option @if($editor->status=='active') selected="selected"@endif value="active">Active</option>
-                                                <option @if($editor->status=='deactive') selected="selected"@endif value="deactive">Deactive</option>
+                                                <option @if($customer->status=='active') selected="selected"@endif value="active">Active</option>
+                                                <option @if($customer->status=='deactive') selected="selected"@endif value="deactive">Deactive</option>
                                             </select>
                                             <!--end::Input-->
                                         </div>
