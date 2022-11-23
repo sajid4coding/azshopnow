@@ -264,6 +264,52 @@ $('.brand-active').slick({
 	]
 });
 
+/*=============================================
+	=    		Category Slider		      =
+=============================================*/
+$('.category_slider').slick({
+	dots: false,
+	infinite: true,
+	speed: 1000,
+	autoplay: true,
+	arrows: false,
+	slidesToShow: 3,
+	slidesToScroll: 1,
+	responsive: [
+		{
+			breakpoint: 1200,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 1,
+				infinite: true,
+			}
+		},
+		{
+			breakpoint: 992,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 1
+			}
+		},
+		{
+			breakpoint: 767,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 1,
+				arrows: false,
+			}
+		},
+		{
+			breakpoint: 575,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				arrows: false,
+			}
+		},
+	]
+});
+
 
 
 /*=============================================

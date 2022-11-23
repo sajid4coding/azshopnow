@@ -1848,6 +1848,7 @@ label {
 }
 .add-banner {
     position: relative;
+    margin: 0 20px;
 }
 .add-banner-img img {
 	border-radius: 10px;
