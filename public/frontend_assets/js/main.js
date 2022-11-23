@@ -272,8 +272,11 @@ $('.category_slider').slick({
 	infinite: true,
 	speed: 1000,
 	autoplay: true,
-	arrows: false,
-	slidesToShow: 3,
+    autoplaySpeed:1000,
+    prevArrow: '<i class="fas fa-long-arrow-alt-right previous_btn"></i>',
+    nextArrow: '<i class="fas fa-long-arrow-alt-left next_btn"></i>',
+	arrows: true,
+	slidesToShow: 5,
 	slidesToScroll: 1,
 	responsive: [
 		{

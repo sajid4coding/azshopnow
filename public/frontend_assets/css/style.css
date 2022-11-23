@@ -211,6 +211,10 @@ label {
 	border-top: 1px solid #f2f2f2
 }
 
+
+
+
+
 /* Bootstrap 5 */
 .container {
     padding-left: 15px;
@@ -1846,9 +1850,36 @@ label {
 .choose-product-area {
     background: #efefed;
 }
+.previous_btn {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #4e4e4e;
+    position: absolute;
+    bottom: -40px;
+    right: 40%;
+    font-size: 34px;
+    z-index: 1;
+  }
+ .next_btn {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #4e4e4e;
+    position: absolute;
+    bottom: -40px;
+    left: 40%;
+    font-size: 34px;
+  }
 .add-banner {
     position: relative;
-    margin: 0 20px;
+
 }
 .add-banner-img img {
 	border-radius: 10px;

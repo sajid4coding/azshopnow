@@ -86,6 +86,7 @@
                             <tbody class="fw-semibold text-gray-600">
 
                                 <!--end::Table row-->
+
                                 @foreach ($subcategories as $subcategory)
                                     <tr class="odd">
                                         <!--begin::Category=-->

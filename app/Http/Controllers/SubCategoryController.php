@@ -17,6 +17,7 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
+        
         return view('dashboard.category.subcategory.subcategory',[
             'subcategories' => SubCategory::find(auth()->id())->get()
         ]);
