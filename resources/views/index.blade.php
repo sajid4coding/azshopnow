@@ -78,6 +78,194 @@
                 </div>
             </section>
             <!-- banner-area-end -->
+            <!-- choose-product-area -->
+            <section class="choose-product-area pt-80 pb-70">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                            <div class="section-title text-center mb-40">
+                                <h2 class="title">Choose Category</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8">
+                        <div class="row justify-content-center">
+
+
+                                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                    <div class="add-banner">
+                                        <div class="add-banner-img mb-20">
+                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
+                                        </div>
+                                        <div class="add-banner-content">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @auth
+                        @if (auth()->user()->role !== 'vendor')
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-8">
+                                <div class="join-olle-wrap">
+                                    <div class="icon">
+                                        <a href="{{ route('become.vendor') }} "><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4g-Qf3MOCxDiyXBYM_qK8UVg0zN5-7r_Fvw&usqp=CAU" alt=""></a>
+                                    </div>
+                                    <h3 class="title">Business with AZShop</h3>
+                                    <div class="join-btn">
+                                        <a href="{{ route('become.vendor') }}" class="btn">Join Us</a>
+                                        <a href="{{ route('vendor.login') }}" class="btn">Sign In</a>
+                                    </div>
+                                    <a href="{{ route('home') }}"><img src="https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg" alt=""></a>
+                                </div>
+                            </div>
+                        @endif
+                        @endauth
+                        @guest
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-8">
+                            <div class="join-olle-wrap">
+                                <div class="icon">
+                                    <a href="{{ route('vendor.login') }}"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4g-Qf3MOCxDiyXBYM_qK8UVg0zN5-7r_Fvw&usqp=CAU" alt=""></a>
+                                </div>
+                                <h3 class="title">Business with AZShop</h3>
+                                <div class="join-btn">
+                                    <a href="{{ route('become.vendor') }}" class="btn">Join Us</a>
+                                    <a href="{{ route('vendor.login') }}" class="btn">Sign In</a>
+                                </div>
+                                <a href="{{ route('home') }}"><img src="https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg" alt=""></a>
+                            </div>
+                        </div>
+                        @endguest
+                    </div>
+                </div>
+            </section>
+            <!-- choose-product-area-end -->
 
             <!-- super-deals-area -->
             <section class="super-deals-product-area pt-30 pb-70">
@@ -282,106 +470,6 @@
             </section>
             <!-- super-deals-area-end -->
 
-            <!-- choose-product-area -->
-            <section class="choose-product-area pt-80 pb-70">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12">
-                            <div class="section-title text-center mb-40">
-                                <h2 class="title">Choose Category</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
-                            <div class="add-banner">
-                                <div class="add-banner-img mb-20">
-                                    <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                </div>
-                                <div class="add-banner-content">
-                                    <span>On the weekend</span>
-                                    <h2 class="title">Top Clothing</h2>
-                                    <a href="shop.html" class="btn btn-two">shop now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="category-item-wrap mb-20">
-                                        <h4 class="title">Top Rankings</h4>
-                                        <ul class="category-item-list">
-                                            <li class="category-item">
-                                                <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/product/category_product_img01.jpg" alt=""></a>
-                                            </li>
-                                            <li class="category-item">
-                                                <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/product/category_product_img02.jpg" alt=""></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="category-item-wrap mb-20">
-                                        <h4 class="title">Home Appliances</h4>
-                                        <ul class="category-item-list">
-                                            <li class="category-item">
-                                                <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/product/category_product_img03.jpg" alt=""></a>
-                                            </li>
-                                            <li class="category-item">
-                                                <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/product/category_product_img04.jpg" alt=""></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="category-item-wrap mb-20">
-                                        <h4 class="title">Smart phone</h4>
-                                        <ul class="category-item-list">
-                                            <li class="category-item">
-                                                <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/product/category_product_img05.jpg" alt=""></a>
-                                            </li>
-                                            <li class="category-item">
-                                                <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/product/category_product_img06.jpg" alt=""></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="category-item-wrap mb-20">
-                                        <h4 class="title">Sports</h4>
-                                        <ul class="category-item-list">
-                                            <li class="category-item">
-                                                <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/product/category_product_img07.jpg" alt=""></a>
-                                            </li>
-                                            <li class="category-item">
-                                                <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/product/category_product_img08.jpg" alt=""></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-5 col-md-6 col-sm-8">
-                            <div class="join-olle-wrap">
-                                <div class="icon">
-                                    <a href="#"><i class="fa-solid fa-user"></i></a>
-                                </div>
-                                <h3 class="title">Welcome to Olle</h3>
-                                <div class="join-btn">
-                                    <a href="contact.html" class="btn">Join Us</a>
-                                    <a href="contact.html" class="btn">Sign In</a>
-                                </div>
-                                <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/jo_img.jpg" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- choose-product-area-end -->
 
             <!-- flash-product-area -->
             <section class="flash-product-area pt-90 pb-60">

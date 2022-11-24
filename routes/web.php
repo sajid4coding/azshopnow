@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, CustomermanagementController};
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -43,9 +43,10 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //VendormanagementController Resource
     Route::resource('vendormanagement', VendorsmanagementController::class);
-
     //AdminmanagementController Resource
     Route::resource('adminmanagement', AdminmanagementController::class);
+    //CustomermanagementController Resource
+    Route::resource('customermanagement', CustomermanagementController::class);
 
     // ProfileController
     Route::get('admin/profile', [ProfileController::class, 'admin_profile'])->name('admin.profile');
@@ -63,6 +64,7 @@ Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('ven
 Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
 
 Route::middleware(['vendor'])->group(function(){
+
     Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
     Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
     Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
