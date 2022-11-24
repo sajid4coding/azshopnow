@@ -100,7 +100,7 @@ class CategorySeeder extends Seeder
             'category_name' => "Men",
             'slug' => 'men',
             'description' => 'For adult male humans, see Category Men.',
-            'thumbnail' => '20228818.gif',
+            'thumbnail' => '2022423.gif',
             'status' => 'published',
             'created_at' => now()
         ]);
@@ -108,7 +108,7 @@ class CategorySeeder extends Seeder
             'category_name' => "Women",
             'slug' => 'women',
             'description' => 'A woman is an adult female human.',
-            'thumbnail' => '20228818.gif',
+            'thumbnail' => '2022491.gif',
             'status' => 'published',
             'created_at' => now()
         ]);
