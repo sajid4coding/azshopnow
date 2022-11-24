@@ -57,18 +57,14 @@ License: For each use you must have a valid license purchased only from above li
 							<!--begin::Heading-->
 							<div class="text-center mb-10">
 								<!--begin::Title-->
-								<h1 class="text-dark mb-3">Sign In to Metronic</h1>
+								<h1 class="text-dark mb-3">Sign In to Admin Panel</h1>
 								<!--end::Title-->
-								<!--begin::Link-->
-								<div class="text-gray-400 fw-bold fs-4">New Here?
-								<a href="../../demo1/dist/authentication/layouts/basic/sign-up.html" class="link-primary fw-bolder">Create an Account</a></div>
-								<!--end::Link-->
 							</div>
 							<!--begin::Heading-->
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     @foreach ($errors->all() as $error)
-                                        <span >{{$error}}</span>
+                                        <li>{{$error}}</li>
                                     @endforeach
                                 </div>
                             @endif
@@ -114,21 +110,6 @@ License: For each use you must have a valid license purchased only from above li
 									{{-- <span class="indicator-progress">Please wait... --}}
 								</button>
 								<!--end::Submit button-->
-								<!--begin::Separator-->
-								<div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
-								<!--end::Separator-->
-								<!--begin::Google link-->
-								<a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-								<img alt="Logo" src="{{asset('dashboard_assets')}}/media/svg/brand-logos/google-icon.svg" class="h-20px me-3" />Continue with Google</a>
-								<!--end::Google link-->
-								<!--begin::Google link-->
-								<a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-								<img alt="Logo" src="{{asset('dashboard_assets')}}/media/svg/brand-logos/facebook-4.svg" class="h-20px me-3" />Continue with Facebook</a>
-								<!--end::Google link-->
-								<!--begin::Google link-->
-								<a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100">
-								<img alt="Logo" src="{{asset('dashboard_assets')}}/media/svg/brand-logos/apple-black.svg" class="h-20px me-3" />Continue with Apple</a>
-								<!--end::Google link-->
 							</div>
 							<!--end::Actions-->
 						</form>
@@ -137,17 +118,6 @@ License: For each use you must have a valid license purchased only from above li
 					<!--end::Wrapper-->
 				</div>
 				<!--end::Content-->
-				<!--begin::Footer-->
-				<div class="d-flex flex-center flex-column-auto p-10">
-					<!--begin::Links-->
-					<div class="d-flex align-items-center fw-bold fs-6">
-						<a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">About</a>
-						<a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>
-						<a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2">Contact Us</a>
-					</div>
-					<!--end::Links-->
-				</div>
-				<!--end::Footer-->
 			</div>
 			<!--end::Authentication - Sign-in-->
 		</div>

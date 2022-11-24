@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Redirect;
 use Image;
 use  Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
+
     /**
      * Display the user's profile form.
      *
@@ -26,6 +29,24 @@ class ProfileController extends Controller
     public function admin_profile_setting()
     {
         return view('dashboard.profile.profilesetting');
+
+    }
+    public function admin_password_change (Request $request)
+    {
+        $request->validate([
+            'current_password'=>'required',
+            'password'=>['required', 'confirmed','different:current_password', Password::min(8)],
+            'password_confirmation'=>'required',
+        ]);
+            if (Hash::check($request->current_password, auth()->user()->password)){
+                User::find(auth()->id())->update([
+                    'password'=>bcrypt($request->password),
+                ]);
+                return back()->with('success','Password Changed Successfully ');
+            }
+            else{
+                return back()->withErrors('Your provided current password does not matched!');
+            };
 
     }
     public function admin_profile_setting_edit(Request $request)

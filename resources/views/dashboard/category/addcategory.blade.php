@@ -155,7 +155,7 @@
                                 <label class="required form-label">Category Name</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" name="category_name" class="form-control mb-2" placeholder="Product name" value="">
+                                <input type="text" name="category_name" class="form-control mb-2" placeholder="Category name" value="">
                                 <!--end::Input-->
                                 <!--begin::Description-->
                                 <div class="text-muted fs-7">A category name is required and recommended to be unique.</div>
@@ -168,7 +168,7 @@
                                 <label class="form-label">Category Slug</label>
                                 <!--end::Label-->
                                 <!--begin::Editor-->
-                                <input class="form-control" name="category_slug" placeholder="Product slug" type="text">
+                                <input class="form-control" name="category_slug" placeholder="Category slug" type="text">
                                 <!--end::Editor-->
                                 <!--begin::Description-->
                                 <div class="text-muted fs-7">Set a category slug to the category for better visibility.</div>
@@ -198,7 +198,7 @@
                         <!--end::Button-->
                         <!--begin::Button-->
                         <button type="submit" class="btn btn-primary">
-                            <span class="indicator-label">Add Changes</span>
+                            <span class="indicator-label">Add Category</span>
                             <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>

@@ -3,37 +3,30 @@
   <!-- main-area -->
   <main>
     <!-- breadcrumb-area -->
-    <section class="breadcrumb-area-four breadcrumb-bg vendor-profile-breadcrumb">
+    <section class="breadcrumb-area-four breadcrumb-bg vendor-profile-breadcrumb" style='background: url(@if (auth()->user()->banner)  {{ asset('uploads/banner_img') }}/{{ auth()->user()->banner }}  @else https://www.cohesity.com/wp-content/new_media/2021/03/demo-days-lp-banner.png @endif) no-repeat center;background-size:cover;''>
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="store-product">
-                        <div class="store-thumb">
-                            <img src="{{ asset('uploads/vendor_profile') }}/{{ auth()->user()->profile_photo }}" alt="img">
+                        <div class="store-thumb" style="overflow: hidden">
+                            {{-- https://pondokindahmall.co.id/assets/img/default.png --}}
+                            @if (auth()->user()->profile_photo)
+                               <img  src="{{ asset('uploads/vendor_profile') }}/{{ auth()->user()->profile_photo }}" alt="img">
+                            @else
+                               <img src="https://pondokindahmall.co.id/assets/img/default.png" alt="img">
+                            @endif
                         </div>
                         <div class="store-content">
                             <span class="verified">Verified <i class="fa-solid fa-crown"></i></span>
-                            <h2 class="title">@if (auth()->user()->shop_name)
-                                {{ auth()->user()->shop_name }}
-                            @else
-                               Set your shop name
-                            @endif </h2>
+                            @if (auth()->user()->shop_name)
+                            <h2 class="title">  {{ auth()->user()->shop_name }} </h2>
                             <ul>
-                                <li class="rating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </li>
-                                <li class="customer">40k Customer</li>
+                                <li class="customer">Owner Name : <span style="color: #FF4800 !important;padding-left:10px;font-size:1.2rem">{{ auth()->user()->name }}</span> </li>
                             </ul>
+                            @else
+                            <h2 class="title">  {{ auth()->user()->name }} </h2>
+                            @endif
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="breadcrumb-img text-end">
-                        <img src="{{ asset('frontend_assets') }}/img/images/breadcrumb_img.png" alt="img">
                     </div>
                 </div>
             </div>
@@ -45,7 +38,7 @@
                         <div class="breadcrumb-content">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Vendor setting</li>
                                 </ol>
                             </nav>
@@ -57,6 +50,7 @@
     </section>
     <!-- breadcrumb-area-end -->
 
+
     <!-- vendor-setting-area -->
     <div class="vendor-setting-area pt-80 pb-90">
         <div class="container">
@@ -67,7 +61,7 @@
                             <div class="widget-title">
                                 <h4 class="title">Account Details</h4>
                             </div>
-                            <ul class="product-quantity">
+                            {{-- <ul class="product-quantity">
                                 <li>
                                     <div class="content">
                                         <i class="flaticon-shopping-bag-1"></i>
@@ -82,20 +76,12 @@
                                     </div>
                                     <span>50,0000+</span>
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </div>
                         <div class="vs-widget">
                             <div class="vs-page-link">
                                 <ul>
-                                    <li class="active">
-                                        <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="flaticon-shoe"></i> Products</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="flaticon-maths"></i> Withdraw</a>
-                                    </li>
+
                                     <li>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
@@ -108,14 +94,21 @@
                         </div>
 
                         <div class="vs-widget">
+                            @if (auth()->user()->address || auth()->user()->phone_number)
                             <div class="widget-title">
                                 <h4 class="title">Contacts</h4>
                             </div>
                             <ul class="contact-info">
+                                @if (auth()->user()->address)
                                 <li><i class="fa-solid fa-location-dot"></i>{{ auth()->user()->address }}</li>
+                                @endif
+                                @if (auth()->user()->phone_number)
                                 <li><i class="fa-solid fa-phone-volume"></i> <a href="tel:{{ auth()->user()->phone_number }}">{{ auth()->user()->phone_number }}</a></li>
+                                @endif
                             </ul>
-                            <div class="contact-bottom">
+                            @endif
+
+                            {{-- <div class="contact-bottom">
                                 <div class="wishlist">
                                     <ul>
                                         <li><a href="#"><i class="fa-regular fa-heart"></i>35k+</a></li>
@@ -129,7 +122,7 @@
                                         <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </aside>
                 </div>
@@ -137,25 +130,25 @@
                     <div class="vendor-setting-wrap">
                         <h2 class="title">Dashboard</h2>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
+                            {{-- <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
                                     role="tab" aria-controls="profile" aria-selected="true"><i class="flaticon-rim"></i> Store Profile</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
+                            </li> --}}
+                            <li class="nav-item active" role="presentation">
                                 <button class="nav-link" id="vendor-tab" data-bs-toggle="tab" data-bs-target="#vendor" type="button"
                                     role="tab" aria-controls="vendor" aria-selected="false"><i class="flaticon-user"></i> Vendor Profile</button>
                             </li>
-                            <li class="nav-item" role="presentation">
+                            {{-- <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="payments-tab" data-bs-toggle="tab" data-bs-target="#payments" type="button"
                                     role="tab" aria-controls="payments" aria-selected="false"><i class="flaticon-diamond"></i> Payments methods</button>
-                            </li>
+                            </li> --}}
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#edit" type="button"
                                     role="tab" aria-controls="edit" aria-selected="false"><i class="far fa-edit"></i>Setting</button>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            {{-- <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="product-upload-wrap">
                                     <div class="product-upload-box text-center">
                                         <div class="product-upload-content">
@@ -202,30 +195,29 @@
                                         <button type="submit">Upload Shop</button>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="vendor" role="tabpanel" aria-labelledby="vendor-tab">
+                            </div> --}}
+                            <div class="tab-pane fade show active" id="vendor" role="tabpanel" aria-labelledby="vendor-tab">
                                 <div class="vendor-profile-wrap">
                                     <div class="avatar-post">
                                         <div class="avatar-post-img">
                                             <img src=" @if (auth()->user()->profile_photo)
-                                            {{ asset('uploads/vendor_profile/') }}/{{ auth()->user()->profile_photo }}
+                                            {{ asset('uploads/vendor_profile') }}/{{ auth()->user()->profile_photo }}
                                             @else
                                             https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png
                                             @endif " alt="img">
                                         </div>
                                         <div class="avatar-post-content">
                                             <h4 class="title">{{ auth()->user()->name }}</h4>
-                                            <p>Lorem Ipsum is simply dummy text of the prinng and typeg industry. Lorem Ipsum has been the industry's
-                                                standard dummy text ever since.</p>
-                                            <ul class="social">
+                                            <p>{{ auth()->user()->bio }}</p>
+                                            {{-- <ul class="social">
                                                 <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
                                                 <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
                                                 <li><a href="#"><i class="fa-brands fa-pinterest-p"></i></a></li>
                                                 <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                                            </ul>
+                                            </ul> --}}
                                         </div>
                                     </div>
-                                    <div class="row justify-content-center">
+                                    {{-- <div class="row justify-content-center">
                                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-8">
                                             <div class="vp-product-item mb-30">
                                                 <div class="vp-product-thumb text-center">
@@ -454,10 +446,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="payments-tab">
+                            {{-- <div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="payments-tab">
                                 <div class="product-upload-wrap">
                                     <form action="#">
                                         <div class="row">
@@ -497,7 +489,7 @@
                                         <button type="submit">Upload Shop</button>
                                     </form>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="tab-pane fade" id="edit" role="tabpanel" aria-labelledby="edit-tab">
                                 <div class="product-upload-wrap">
                                     <form action="{{ route('vendor.update.info') }}" enctype="multipart/form-data" method="POST">
@@ -516,6 +508,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                 <div class="form-grp">
+                                                     <label >Banner Photo : </label>
+                                                    <input type='file'  name="banner" accept=".png, .jpg, .jpeg" />
+                                                 </div>
                                             </div>
 
                                             <div class="col-lg-6">
@@ -540,6 +538,13 @@
                                                 <div class="form-grp">
                                                     <label >shop Name</label>
                                                     <input type="text" name="shop_name" value="{{ auth()->user()->shop_name }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-grp">
+                                                    <label >Bio</label>
+                                                    <textarea name="bio" id="" cols="30" rows="10">{{ auth()->user()->bio  }}</textarea>
+
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">

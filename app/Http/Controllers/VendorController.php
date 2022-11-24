@@ -22,7 +22,7 @@ class vendorController extends Controller
         $request->validate([
             '*' => 'required',
             'email' => "unique:users",
-            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(3)],
+            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
         ]);
 
         User::insert([
@@ -33,8 +33,7 @@ class vendorController extends Controller
               'status' =>  'deactive',
               'created_at' => Carbon::now(),
         ]);
-
-        return redirect('/vendor/login');
+        return redirect('/vendor/login')->with('registrion_success','Your registation successfully & wait for admin approval');
 
         }
         function vendor_login(){
@@ -76,11 +75,25 @@ class vendorController extends Controller
                     unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
                 }
 
-                 User::find(auth()->user()->id)->update($request->except('_token','profile_photo')+[
+                 User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
                     'profile_photo' =>  $photo,
                  ]);
+            }else if($request->hasFile('banner')){
+
+
+                $banner_photo= 'banner'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('banner')->getClientOriginalExtension();
+                $img = Image::make($request->file('banner'))->resize(1200, 267);
+                $img->save(base_path('public/uploads/banner_img/'.$banner_photo));
+
+                if(auth()->user()->banner !== NULL){
+                    unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                }
+
+                 User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
+                    'banner' =>  $banner_photo,
+                 ]);
             }else{
-                User::find(auth()->user()->id)->update($request->except('_token','profile_photo'));
+                User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner'));
             }
              return back();
 
@@ -89,13 +102,11 @@ class vendorController extends Controller
 
             $request->validate([
                 '*'=>'required',
-                'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()->uncompromised(3)],
+                'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols(),'different:current_password'],
 
             ]);
 
             if(Hash::check($request->current_password,auth()->user()->password)){
-
-
 
                 user::find(auth()->id())->update([
                     'password'=>Hash::make($request->password),

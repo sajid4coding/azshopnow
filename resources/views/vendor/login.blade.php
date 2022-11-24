@@ -32,10 +32,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-
-
-
-
                         <div class="row">
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6">
@@ -59,9 +55,15 @@
 
                                     @endif
 
+                                    {{-- Registration Success Message --}}
+                                    @if (session('registrion_success'))
+                                    <div class="alert alert-success" role="alert">
+                                    <strong>{{ session('registrion_success') }}</strong>
+                                    </div>
+                                    @endif
+
                                     <form method="POST" action="{{ route('vendor.login.post') }}">
                                             @csrf
-
 
                                             <div class="form-grp">
                                                 <label for="email">Email address *</label>
@@ -72,7 +74,9 @@
                                                     <label for="password">Password *</label>
                                                     <input   name="password" value='{{ old('password') }}' type="password" id="password">
                                             </div>
-
+                                            <div class="text-end">
+                                                <a href="{{ route('password.request') }}" class="text-muted mt-4">Forgot your password?</a>
+                                                </div>
                                     <button type="submit">LOGIN</button>
                                 </form>
                     </div>

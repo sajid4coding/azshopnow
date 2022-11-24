@@ -16,9 +16,11 @@ class AdminRoleCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role != 'admin'){
+        if(auth()->user()->role == 'admin' || auth()->user()->role == 'editor'){
+
+            return $next($request);
+        }else{
             abort('404');
         }
-        return $next($request);
     }
 }
