@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Rule;
@@ -59,17 +60,25 @@ class vendorController extends Controller
             }
         }
         function vendor_dashboard(){
-            return view('vendor.dashboard');
+          $coupons =  Coupon::where('vendor_id',auth()->user()->id)->get();
+            return view('vendor.dashboard',compact('coupons'));
         }
         function vendor_update_info(Request $request){
 
-
-            if($request->hasFile('profile_photo')){
-
+            if($request->hasFile('profile_photo') && $request->hasFile('banner')){
 
                 $photo= 'vendor_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
                 $img = Image::make($request->file('profile_photo'))->resize(300, 300);
                 $img->save(base_path('public/uploads/vendor_profile/'.$photo), 60);
+
+
+                $banner_photo= 'banner'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('banner')->getClientOriginalExtension();
+                $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
+                $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
+
+                if(auth()->user()->banner !== NULL){
+                    unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                }
 
                 if(auth()->user()->profile_photo !== NULL){
                     unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
@@ -77,24 +86,43 @@ class vendorController extends Controller
 
                  User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
                     'profile_photo' =>  $photo,
-                 ]);
-            }else if($request->hasFile('banner')){
-
-
-                $banner_photo= 'banner'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('banner')->getClientOriginalExtension();
-                $img = Image::make($request->file('banner'))->resize(1200, 267);
-                $img->save(base_path('public/uploads/banner_img/'.$banner_photo));
-
-                if(auth()->user()->banner !== NULL){
-                    unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
-                }
-
-                 User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
                     'banner' =>  $banner_photo,
                  ]);
             }else{
-                User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner'));
+                if($request->hasFile('profile_photo')){
+
+
+                    $photo= 'vendor_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
+                    $img = Image::make($request->file('profile_photo'))->resize(300, 300);
+                    $img->save(base_path('public/uploads/vendor_profile/'.$photo), 60);
+
+                    if(auth()->user()->profile_photo !== NULL){
+                        unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
+                    }
+
+                     User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
+                        'profile_photo' =>  $photo,
+                     ]);
+                }else if($request->hasFile('banner')){
+
+
+                    $banner_photo= 'banner'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('banner')->getClientOriginalExtension();
+                    $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
+                    $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
+
+                    if(auth()->user()->banner !== NULL){
+                        unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                    }
+
+                     User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
+                        'banner' =>  $banner_photo,
+                     ]);
+                }else{
+                    User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner'));
+                }
             }
+
+
              return back();
 
         }
@@ -119,6 +147,24 @@ class vendorController extends Controller
 
             }
             return back();
+        }
+
+        function coupon_store(Request $request){
+            $request->validate([
+                '*'=> 'required',
+                'minimum_price' => 'integer',
+                'coupon_amount' => 'integer',
+             ]);
+
+
+            Coupon::create( $request->except('_token')+['vendor_id' => auth()->user()->id]);
+
+            return back()->with('coupon_add_success','Successfully added a new coupon');
+        }
+        function coupon_delete($id){
+              Coupon::find($id)->delete();
+              return back()->with('coupon_delete_message', 'Successfully deleted a coupon');
+
         }
 
 }
