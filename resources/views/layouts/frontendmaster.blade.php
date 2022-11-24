@@ -23,6 +23,19 @@
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/custom_style.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
     </head>
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/637faf05b0d6371309d0efef/1gilc7c2t';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
     <body>
 
         <!-- Preloader -->
@@ -784,7 +797,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-7">
                             <div class="copyright-text">
-                                <p>Copyright ©2022 Olle All Rights Reserved</p>
+                                <p>Copyright ©2022 {{ env('APP_NAME') }} Rights Reserved</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-5">

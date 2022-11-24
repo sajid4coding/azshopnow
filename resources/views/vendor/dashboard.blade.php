@@ -129,6 +129,22 @@
                 <div class="col-xl-9 col-lg-8">
                     <div class="vendor-setting-wrap">
                         <h2 class="title">Dashboard</h2>
+
+                      {{-- Coupon Success Message --}}
+                         @if (session('coupon_add_success'))
+                                <div class="alert alert-primary" role="alert">
+                                    <strong>{{ session('coupon_add_success') }}</strong>
+                                </div>
+                         @endif
+                      {{-- Cooupon Sucess Message --}}
+                      {{-- Coupon Success Message --}}
+                         @if (session('coupon_delete_message'))
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>{{ session('coupon_delete_message') }}</strong>
+                                </div>
+                         @endif
+                      {{-- Cooupon Sucess Message --}}
+
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             {{-- <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
@@ -136,66 +152,20 @@
                             </li> --}}
                             <li class="nav-item active" role="presentation">
                                 <button class="nav-link" id="vendor-tab" data-bs-toggle="tab" data-bs-target="#vendor" type="button"
-                                    role="tab" aria-controls="vendor" aria-selected="false"><i class="flaticon-user"></i> Vendor Profile</button>
+                                role="tab" aria-controls="vendor" aria-selected="false"><i class="flaticon-user"></i> Vendor Profile</button>
                             </li>
-                            {{-- <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="payments-tab" data-bs-toggle="tab" data-bs-target="#payments" type="button"
-                                    role="tab" aria-controls="payments" aria-selected="false"><i class="flaticon-diamond"></i> Payments methods</button>
-                            </li> --}}
+
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="edit-tab" data-bs-toggle="tab" data-bs-target="#edit" type="button"
-                                    role="tab" aria-controls="edit" aria-selected="false"><i class="far fa-edit"></i>Setting</button>
+                                role="tab" aria-controls="edit" aria-selected="false"><i class="far fa-edit"></i>Setting</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="coupon-tab" data-bs-toggle="tab" data-bs-target="#coupon" type="button"
+                                role="tab" aria-controls="coupon" aria-selected="false"><i class="fas fa-tag"></i>Coupons Add & List</button>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            {{-- <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <div class="product-upload-wrap">
-                                    <div class="product-upload-box text-center">
-                                        <div class="product-upload-content">
-                                            <i class="fa-solid fa-cloud-arrow-up"></i>
-                                            <a href="#">Upload Product</a>
-                                            <p>Upload a product for your store. Product size is (600×800) pixels.</p>
-                                        </div>
-                                    </div>
-                                    <form action="#">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-grp">
-                                                    <label for="title">Product Title</label>
-                                                    <input type="text" id="title">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-grp">
-                                                    <label for="price">Product Price</label>
-                                                    <input type="text" id="price" placeholder="$ -">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-grp">
-                                                    <label for="brand">Product Brand</label>
-                                                    <input type="text" id="brand">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-grp">
-                                                    <label for="weight">Weight</label>
-                                                    <input type="text" id="weight">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-grp">
-                                            <label for="discount">Product Discount %</label>
-                                            <input type="text" id="discount" placeholder="% -">
-                                        </div>
-                                        <div class="form-grp">
-                                            <label for="description">Product Description</label>
-                                            <textarea name="text" id="description"></textarea>
-                                        </div>
-                                        <button type="submit">Upload Shop</button>
-                                    </form>
-                                </div>
-                            </div> --}}
+
                             <div class="tab-pane fade show active" id="vendor" role="tabpanel" aria-labelledby="vendor-tab">
                                 <div class="vendor-profile-wrap">
                                     <div class="avatar-post">
@@ -608,6 +578,125 @@
 
                                         <button type="submit">Change Password</button>
                                     </form>
+                                </div>
+                            </div>
+                              <div class="tab-pane fade " id="coupon" role="tabpanel" aria-labelledby="coupon-tab">
+                                <div class="product-upload-wrap">
+                                    <div class="product-upload-box text-center">
+                                        <div class="product-upload-content">
+                                          <h2 class="text-danger">Add Coupons</h2>
+                                        </div>
+                                    </div>
+                                    {{-- ==== Error Messages ==== --}}
+                                    @if ($errors->any())
+                                       @foreach ($errors->all() as $error)
+                                             <div class="alert alert-danger" role="alert">
+                                                <strong>{{ Str::replaceFirst('_', ' ', $error) }}</strong>
+                                             </div>
+                                       @endforeach
+                                    @endif
+                                    {{-- ==== Error Messages ==== --}}
+                                    <form action="{{ route('coupon.add') }}" method="POST">
+                                         @csrf
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-grp">
+                                                    <label for="title">Coupon Code</label>
+                                                    <input type="text" placeholder="Example: xYzw12" name="coupon_code" id="title">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-grp">
+                                                    <label for="price">Minimum Price of buy</label>
+                                                    <input type="text" id="price" name="minimum_price" placeholder="$ -">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group pl-3">
+                                                    <label class="d-block" for="">Discount Type</label>
+
+                                                    <select class="form-select" name="discount_type" id="">
+                                                        <option disabled selected value="">-Select Coupon type-</option>
+                                                        <option value="percentage">Percentage ( % )</option>
+                                                        <option value="flat">Flat</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-grp">
+                                                    <label for="weight">Coupon Amount</label>
+                                                    <input type="number" name="coupon_amount" id="weight">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-grp">
+                                                    <label for="weight">Discount Message</label>
+                                                    <input type="text" name="discount_message" id="weight">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="text-center mt-3">
+                                                    <button type="submit">Add Coupon</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+
+                                    {{-- ==========================================
+                                                   Coupon List Start
+                                        =========================================== --}}
+
+                                        <div class="row mt-5">
+                                            <div class="col-md-12">
+                                                <h6>Available Coupons</h6>
+                                              </div>
+                                              <div class="col-md-12">
+                                                <table class="table table-stripe">
+                                                  <thead class="thead-dark">
+                                                    <tr>
+                                                      <th>S.N</th>
+                                                      <th> Code</th>
+                                                      <th>Details</th>
+                                                      <th>Minimum Value</th>
+                                                      <th>Amount</th>
+                                                      <th>Action</th>
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    @forelse ($coupons as $coupon)
+                                                    <tr>
+                                                        <td>{{ $loop->index+1 }}</td>
+                                                        <td>{{ $coupon->coupon_code }}</td>
+                                                        <td>{{ $coupon->discount_message }}</td>
+                                                        <td>{{ $coupon->minimum_price }}</td>
+                                                        <td>
+                                                            @if ($coupon->discount_type == 'flat')
+                                                            {{ $coupon->coupon_amount }} tk.
+                                                            @else
+                                                            {{ $coupon->coupon_amount }}%
+                                                            @endif
+                                                        </td>
+                                                        <td><a href="{{ route('coupon.delete',$coupon->id) }}" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
+                                                      </tr>
+                                                    @empty
+                                                    <tr>
+
+                                                        <td class="text-center bg-danger text-white" colspan="6">You have no any coupon yet</td>
+                                                    </tr>
+                                                    @endforelse
+
+
+                                                  </tbody>
+                                                </table>
+                                              </div>
+                                        </div>
+
+                                    {{-- ==========================================
+                                                   Coupon List End
+                                        =========================================== --}}
+
                                 </div>
                             </div>
                         </div>
