@@ -88,5 +88,13 @@ class CategorySeeder extends Seeder
             'status' => 'published',
             'created_at' => now()
         ]);
+        DB::table('categories')->insert([
+            'category_name' => "Sandals",
+            'slug' => 'handbags',
+            'description' => 'In season summer footwear with a huge range of options',
+            'thumbnail' => '20228818.gif',
+            'status' => 'published',
+            'created_at' => now()
+        ]);
     }
 }

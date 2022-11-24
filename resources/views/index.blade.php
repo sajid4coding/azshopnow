@@ -88,181 +88,76 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- Categories Section Start --}}
+
                     <div class="row justify-content-center">
-
-                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8">
-                        <div class="row justify-content-center">
-
-
-                                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
+                        @if ($auth_categories)
+                            @auth
+                                <div class="col-xl-12">
+                                    <div class="row justify-content-center">
+                                        @foreach ($auth_categories as $category)
+                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                                <div class="add-banner">
+                                                    <div class="add-banner-img mb-10">
+                                                        <style>
+                                                            .add-banner-img{
+                                                                display: flex !important;
+                                                                justify-content: center !important;
+                                                                align-items: center !important;
+                                                            }
+                                                        </style>
+                                                        <a href="shop.html"><img width="150" src="{{ asset('uploads') }}/category_photo/{{ $category->thumbnail }}" alt="img"></a>
+                                                    </div>
+                                                    <div class="add-banner-content">
+                                                    </div>
+                                                </div>
+                                                <h6 class="text-center">{{ $category->category_name }}</h6>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
-
-                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-                                    <div class="add-banner">
-                                        <div class="add-banner-img mb-20">
-                                            <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="add-banner-content">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        @auth
-                        @if (auth()->user()->role !== 'vendor')
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-8">
-                                <div class="join-olle-wrap">
-                                    <div class="icon">
-                                        <a href="{{ route('become.vendor') }} "><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4g-Qf3MOCxDiyXBYM_qK8UVg0zN5-7r_Fvw&usqp=CAU" alt=""></a>
-                                    </div>
-                                    <h3 class="title">Business with AZShop</h3>
-                                    <div class="join-btn">
-                                        <a href="{{ route('become.vendor') }}" class="btn">Join Us</a>
-                                        <a href="{{ route('vendor.login') }}" class="btn">Sign In</a>
-                                    </div>
-                                    <a href="{{ route('home') }}"><img src="https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg" alt=""></a>
-                                </div>
-                            </div>
+                            @endauth
                         @endif
-                        @endauth
-                        @guest
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-8">
-                            <div class="join-olle-wrap">
-                                <div class="icon">
-                                    <a href="{{ route('vendor.login') }}"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4g-Qf3MOCxDiyXBYM_qK8UVg0zN5-7r_Fvw&usqp=CAU" alt=""></a>
+                        @if ($categories)
+                            @guest
+                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8">
+                                    <div class="row justify-content-center">
+                                        @foreach ($categories as $category)
+                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                                <div class="add-banner">
+                                                    <div class="add-banner-img mb-20">
+                                                        <a href="shop.html"><img src="{{ asset('uploads') }}/category_photo/{{ $category->thumbnail }}" alt="img"></a>
+                                                    </div>
+                                                    <div class="add-banner-content">
+                                                    </div>
+                                                </div>
+                                                <h6 class="text-center">{{ $category->category_name }}</h6>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
-                                <h3 class="title">Business with AZShop</h3>
-                                <div class="join-btn">
-                                    <a href="{{ route('become.vendor') }}" class="btn">Join Us</a>
-                                    <a href="{{ route('vendor.login') }}" class="btn">Sign In</a>
+                            @endguest
+                            @guest
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-8">
+                                    <div class="join-olle-wrap">
+                                        <div class="icon">
+                                            <a href="{{ route('vendor.login') }}"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4g-Qf3MOCxDiyXBYM_qK8UVg0zN5-7r_Fvw&usqp=CAU" alt=""></a>
+                                        </div>
+                                        <h3 class="title">Business with AZShop</h3>
+                                        <div class="join-btn">
+                                            <a href="{{ route('become.vendor') }}" class="btn">Join Us</a>
+                                            <a href="{{ route('vendor.login') }}" class="btn">Sign In</a>
+                                        </div>
+                                        <a href="{{ route('home') }}"><img src="https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg" alt=""></a>
+                                    </div>
                                 </div>
-                                <a href="{{ route('home') }}"><img src="https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg" alt=""></a>
-                            </div>
-                        </div>
-                        @endguest
+                            @endguest
+                        @endif
                     </div>
+
+                    {{-- Categories Section End --}}
+
                 </div>
             </section>
             <!-- choose-product-area-end -->
