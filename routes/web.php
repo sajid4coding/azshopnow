@@ -15,9 +15,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+// Route::get('/', function () {
+//     return view('index');
+// })->name('home');
+
+Route::get('/', [FrontEndController::class, 'index'])->name('home');
 
 //    public function __construct()
 //     {
