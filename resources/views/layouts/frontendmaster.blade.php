@@ -101,7 +101,7 @@
                                     <ul>
                                         <li><a href="#"><i class="far fa-star"></i>Wishlist</a></li>
                                         <li><a href="#"><i class="fas fa-redo"></i>Compare</a></li>
-                                        <li class="header-shop"><a href="#"><i class="flaticon-shopping-bag"></i>Cart
+                                        <li class="header-shop"><a href="{{ route('cart') }}"><i class="flaticon-shopping-bag"></i>Cart
                                         <span class="cart-count">0</span>
                                         </a></li>
                                         @auth

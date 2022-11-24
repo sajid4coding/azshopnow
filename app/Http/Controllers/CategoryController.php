@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('dashboard.category.category',[
-            'categories' => Category::find(auth()->id())->get()
+            'categories' => Category::all()
         ]);
     }
 
@@ -110,11 +110,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($request->hasFile('category_photo') ) {
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('category_photo')->getClientOriginalExtension();
+            $img = Image::make($request->file('category_photo'))->resize(300, 300);
+            $img->save(base_path('public/uploads/category_photo/'.$photo), 60);
+            Category::where([
+                'category_name' => $request->category_name,
+                'description' => $request->category_description,
+            ])->update([
+                'thumbnail'=>$photo
+            ]);
+        }
+
         Category::find($id)->update([
             'category_name' => $request->category_name,
             'slug' => $request->slug,
             'description' => $request->description,
-            'thumbnail' => $request->thumbnail,
             'status' => $request->status
         ]);
         return back();

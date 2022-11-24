@@ -14,6 +14,10 @@ use Auth;
 
 class CustomerController extends Controller
 {
+    //     public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function customer_register(){
          return view('frontend.customeregister');
@@ -48,6 +52,9 @@ class CustomerController extends Controller
             'status' => 'active',
             'created_at' => Carbon::now()
         ]);
+        // SENT EMAIL VERIFY
+        user::find($id)->sendEmailVerificationNotification();
+         // SENT EMAIL VERIFY
         return redirect('/customer/login');
         // return redirect()->route('/customer/login');
         // return back()->with('success', 'Your Account Created Successfully');

@@ -17,9 +17,9 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        
+
         return view('dashboard.category.subcategory.subcategory',[
-            'subcategories' => SubCategory::find(auth()->id())->get()
+            'subcategories' => SubCategory::all()
         ]);
     }
 
@@ -113,6 +113,18 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, SubCategory $subCategory, $id)
     {
+        if($request->hasFile('sub_category_photo') ) {
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('sub_category_photo')->getClientOriginalExtension();
+            $img = Image::make($request->file('sub_category_photo'))->resize(300, 300);
+            $img->save(base_path('public/uploads/category_photo/sub_category_photo/'.$photo), 60);
+            SubCategory::where([
+                'category_name' => $request->sub_category_name,
+                'description' => $request->description,
+            ])->update([
+                'thumbnail'=>$photo
+            ]);
+        }
+        
         SubCategory::find($id)->update([
             'parent_category_id' => $request->parent_category,
             'category_name' => $request->category_name,

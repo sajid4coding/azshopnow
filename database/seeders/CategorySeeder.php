@@ -88,5 +88,29 @@ class CategorySeeder extends Seeder
             'status' => 'published',
             'created_at' => now()
         ]);
+        DB::table('categories')->insert([
+            'category_name' => "Sandals",
+            'slug' => 'sandals',
+            'description' => 'In season summer footwear with a huge range of options',
+            'thumbnail' => '20228818.gif',
+            'status' => 'published',
+            'created_at' => now()
+        ]);
+        DB::table('categories')->insert([
+            'category_name' => "Men",
+            'slug' => 'men',
+            'description' => 'For adult male humans, see Category Men.',
+            'thumbnail' => '2022423.gif',
+            'status' => 'published',
+            'created_at' => now()
+        ]);
+        DB::table('categories')->insert([
+            'category_name' => "Women",
+            'slug' => 'women',
+            'description' => 'A woman is an adult female human.',
+            'thumbnail' => '2022491.gif',
+            'status' => 'published',
+            'created_at' => now()
+        ]);
     }
 }

@@ -1,39 +1,59 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts/frontendmaster')
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-        </div>
-
-        @if (session('status') == 'verification-link-sent')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ __('A new verification link has been sent to the email address you provided during registration.') }}
-            </div>
-        @endif
-
-        <div class="mt-4 flex items-center justify-between">
-            <form method="POST" action="{{ route('verification.send') }}">
-                @csrf
-
-                <div>
-                    <x-primary-button>
-                        {{ __('Resend Verification Email') }}
-                    </x-primary-button>
+@section('content')
+  <!-- breadcrumb-area -->
+            <section class="breadcrumb-area-four breadcrumb-bg">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-7">
+                            <div class="breadcrumb-content">
+                                <h2 class="title">Verify Your Email</h2>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="{{ route('customerhome') }}">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Verify Your Email</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="breadcrumb-img text-end">
+                                <img src="{{ asset('frontend_assets') }}/img/images/breadcrumb_img.png" alt="img">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
+            </section>
+            <!-- breadcrumb-area-end -->
 
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">{{ __('Verify Your Email Address') }}</div>
 
-                <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    {{ __('Log Out') }}
-                </button>
-            </form>
+                <div class="card-body ">
+                    @if (session('message'))
+                        <div class="alert alert-success text-center" role="alert">
+                            {{ __('A fresh verification link has been sent to your email address.') }}
+                        </div>
+                    @endif
+                    <div class="text-center mt-3">
+                        {{ __('Before proceeding, please check your email for a verification link.') }}
+                        {{ __('If you did not receive the email') }},
+
+                    </div>
+                    <form class="d-inline" method="POST" action="{{ route('verification.send') }}">
+                        @csrf
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success btn-center my-3">{{ __('click here to request another') }}</button>.
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </div>
-    </x-auth-card>
-</x-guest-layout>
+    </div>
+</div>
+@endsection

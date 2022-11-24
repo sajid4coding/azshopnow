@@ -14,6 +14,7 @@ use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
+
     /**
      * Display the user's profile form.
      *
