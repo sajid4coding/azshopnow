@@ -11,6 +11,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
+    
     public function customerhome ()
     {
         // echo auth()->user()->role;

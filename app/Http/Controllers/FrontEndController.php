@@ -9,8 +9,12 @@ use Illuminate\Support\Facades\Mail;
 
 class FrontEndController extends Controller
 {
+
     function contact_us_index(){
         return view('frontend.contact_us');
+    }
+    function cart(){
+        return view('frontend.cart');
     }
     function contact_us_post(Request $request){
         $request->validate([

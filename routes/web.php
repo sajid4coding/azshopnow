@@ -1,6 +1,8 @@
 <?php
 use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, CustomermanagementController};
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,10 @@ Route::get('/', function () {
     return view('index');
 })->name('home');
 
+//    public function __construct()
+//     {
+//         $this->middleware('auth');
+//     }
 
 
 // Route::middleware('auth')->group(function () {
@@ -58,35 +64,60 @@ Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('ven
 Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
 
 Route::middleware(['vendor'])->group(function(){
-    
+
     Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
     Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
     Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
 
 });
 
+
+
 // =========================== ALL COMMON ROUTES START HERE =================
 Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
 Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
+Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
 
 
+Route::middleware(['customer'])->group(function(){
+    Route::get('edit/profile', [CustomerController::class, 'edit_profile'])->name('edit.profile');
+    Route::post('password/update', [CustomerController::class, 'password_update'])->name('password.update');
+    Route::post('change/profile/post', [CustomerController::class, 'change_profile_post'])->name('change.profile.post');
 
+});
 
+Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome')->middleware(['auth', 'verified']);
+// HOME CONTROLLER START
+
+// HOME CONTROLLER END
 
 // // CUSTOMER CONTROLLER START
+
 // Route::post('customer/register', [CustomerController::class, 'customer_register'])->name('customer.register');
 Route::get('customer/register', [CustomerController::class, 'customer_register'])->name('customer.register');
 Route::post('customer/register/post', [CustomerController::class, 'customer_register_post'])->name('customer.register.post');
 Route::get('customer/login', [CustomerController::class, 'customer_login'])->name('customer.login');
 Route::post('customer/login/post', [CustomerController::class, 'customer_login_post'])->name('customer.login.post');
-Route::get('edit/profile', [CustomerController::class, 'edit_profile'])->name('edit.profile');
-Route::post('password/update', [CustomerController::class, 'password_update'])->name('password.update');
-Route::post('change/profile/post', [CustomerController::class, 'change_profile_post'])->name('change.profile.post');
+
 // CUSTOMER CONTROLLER END
 
-// HOME CONTROLLER START
-Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome');
+// EMAIL VERIFY ROUTE START
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
-// HOME CONTROLLER END
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/customerhome');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+// EMAIL VERIFY ROUTE END
+
+
 
 
