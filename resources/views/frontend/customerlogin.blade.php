@@ -28,27 +28,26 @@
 
  <section class="register_section section_space">
                 <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
+                    <div class="row justify-content-center my-5">
+                        <div class="col-lg-8 ">
                             <div class="vr-form-box">
                                 <h3 class="title text-center">customer login Form</h3>
-
                                 <form action="{{ route('customer.login.post') }}" method="POST">
                                     @csrf
                                     <div class="row justify-content-center">
                                         <div class="col-md-6">
                                             @if ($errors->any())
-                                                   <div class="alert alert-danger">
-                                                               @foreach ($errors->all() as $error)
-                                                               <li>{{ $error }}</li>
-                                                               @endforeach
-                                                   </div>
-                                                       @endif
+                                                    <div class="alert alert-danger">
+                                                                @foreach ($errors->all() as $error)
+                                                                <li>{{ $error }}</li>
+                                                                @endforeach
+                                                    </div>
+                                                        @endif
                                                             @if (session('login'))
-                                                       <div class="alert alert-danger">
-                                                           {{ session('login') }}
-                                                       </div>
-                                                       @endif
+                                                        <div class="alert alert-danger">
+                                                            {{ session('login') }}
+                                                        </div>
+                                                        @endif
                                             <div class="form-grp ">
                                                 <label for="email">Email *</label>
                                                 <input type="text" name="email">
@@ -58,7 +57,7 @@
                                                 <input type="password"  name="password">
                                             </div>
                                             <div class="text-end">
-                                             <a href="{{ route('password.request') }}" class=" mt-4 text-muted">Forgot your password</a>
+                                                <a href="{{ route('password.request') }}" class=" mt-4 text-muted">Forgot your password</a>
                                         </div>
                                             <button class="btn btn-sm" type="submit">Login</button>
                                         </div>

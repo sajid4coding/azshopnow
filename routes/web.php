@@ -80,6 +80,7 @@ Route::middleware(['vendor'])->group(function(){
 // =========================== ALL COMMON ROUTES START HERE =================
 Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
 Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
+Route::get('shop/page',[FrontEndController::class,'shop_page'])->name('shop.page');
 Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
 
 

@@ -639,6 +639,13 @@
                                         <ul class="navigation">
                                             <li class="active"><a href="{{ route('home') }}">Home</a>
                                             </li>
+                                            <li class="menu-item-has-children"><a href="{{ route('shop.page') }}">SHOP</a>
+                                            
+                                                {{-- <ul class="submenu">
+                                                    <li><a href="shop.html">Our Shop</a></li>
+                                                    <li><a href="shop-details.html">shop Details</a></li>
+                                                </ul> --}}
+                                            </li>
                                             <li class="menu-item-has-children"><a href="#">SHOP</a>
                                                 <ul class="submenu">
                                                     <li><a href="shop.html">Our Shop</a></li>

@@ -14,6 +14,9 @@ class FrontEndController extends Controller
     function contact_us_index(){
         return view('frontend.contact_us');
     }
+    function shop_page(){
+        return view('frontend.shop');
+    }
     function cart(){
         return view('frontend.cart');
     }
