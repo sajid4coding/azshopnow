@@ -70,9 +70,6 @@
     background-repeat: no-repeat;
     background-position: center;
   }
-<<<<<<< HEAD
- 
-=======
   .account_menu .active{
     background-color: #ff4800 !important;
     color:white !important;
@@ -80,4 +77,3 @@
    .account_menu .nav-link{
     color:black !important;
   }
->>>>>>> d98dde22e0d0ec549f4f1320299979768cdcc8e1

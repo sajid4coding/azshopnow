@@ -32,13 +32,16 @@
                     <div class="row my-5">
                         <div class="col-lg-3 account_menu ">
                             <div class="nav account_menu_list flex-column nav-pills me-3 " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <button style=" border:1px solid #ff4800" font-size: 14px;font-weight: 400; font-style: normal; color: #052840 font-family:"Aktiv grotesk", sans-serif;text-rendering: optimizelegibility;" class="nav-link text-start active w-100 my-2" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Account Dashboard </button>
-                                <button style=" border:1px solid #ff4800" class="nav-link  text-start w-100 my-2" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Acount</button>
-                                <button style=" border:1px solid #ff4800" class="nav-link  text-start w-100 my-2" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">My Orders</button>
+                                <button style=" border:1px solid #ff4800!important" font-size: 14px;font-weight: 400; font-style: normal; color: #052840 font-family:"Aktiv grotesk", sans-serif;text-rendering: optimizelegibility;" class="nav-link text-start active w-100 my-2" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Account Dashboard </button>
+                                <button style=" border:1px solid #ff4800!important" class="nav-link  text-start w-100 my-2" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Acount</button>
+                                <button style=" border:1px solid #ff4800!important" class="nav-link  text-start w-100 my-2" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">My Orders</button>
                             </div>
                         <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                 <a style="background:#ff4800!important;" href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="menu-link px-5 btn btn-sm bg-danger my-2">Sign Out</a>
+                                <div class="text-center">
+                                    <a style="background:#ff4800!important;" href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="menu-link px-5 btn btn-sm bg-danger my-2">Sign Out</a>
+
+                                </div>
                             </form>
                         </div>
                         <div class="col-lg-9">
