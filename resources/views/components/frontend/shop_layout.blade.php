@@ -188,9 +188,11 @@
                                 </div>
                             </div>
                             <div class="row justify-content-center">
-                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-8">
-                                    @include('components.frontend.productgrid')
-                                </div>
+                                @foreach ($products as $product)
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-8">
+                                        @include('components.frontend.productgrid')
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="shop-bottom-wrap">
                                 <div class="shop-bottom-top">

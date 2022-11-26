@@ -5,9 +5,9 @@
         </div>
         <div class="shop-content">
             <ul class="tag">
-                <li>Sold by <a href="vendor-profile.html">Market Store</a></li>
+                <li>Sold by <a href="vendor-profile.html">---</a></li>
             </ul>
-            <h2 class="title"><a href="shop-details.html">Electric Blender Mixer Food</a></h2>
+            <h2 class="title"><a href="shop-details.html">{{$product->product_title}}</a></h2>
             <div class="rating">
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
