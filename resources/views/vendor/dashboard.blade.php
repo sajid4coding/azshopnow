@@ -102,7 +102,7 @@
                                             <button class="nav-link" id="coupon-tab" data-bs-toggle="tab" data-bs-target="#coupon" type="button"
                                             role="tab" aria-controls="coupon" aria-selected="false"><i class="fas fa-tag"></i>Coupons Add & List</button>
                                         </li>
-                                        <li class="nav-item" role="presentation">
+                                        <li class="nav-item" role="presentation" id="productSection">
                                             <button class="nav-link" id="productUpload-tab" data-bs-toggle="tab" data-bs-target="#productUpload" type="button"
                                                 role="tab" aria-controls="profile" aria-selected="true"><i class="fas fa-cloud-upload"></i> Product Upload</button>
                                         </li>
@@ -636,69 +636,89 @@
                                 </div>
                                 <div class="tab-pane fade " id="productUpload" role="tabpanel" aria-labelledby="productUpload-tab">
                                     <div class="product-upload-wrap">
-                                        <div class="product-upload-box text-center">
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-3">
-                                                    <div class="center">
-                                                        <div class="form-input">
-                                                          <div class="preview">
-                                                            <img id="file-ip-1-preview" >
-                                                          </div>
-                                                          <label for="file-ip-1">Thumbnail</label>
-                                                          <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
+                                        <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="product-upload-box text-center">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="center">
+                                                            <div class="form-input">
+                                                            <div class="preview">
+                                                                <img id="file-ip-1-preview" >
+                                                            </div>
+                                                            <label for="file-ip-1">Thumbnail</label>
+                                                            <input type="file" name="thumbnail" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
 
+                                                            </div>
                                                         </div>
-                                                      </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-4"></div>
-                                                <div class="col-lg-5 col-md-5">
-                                                    <div class="upload__box">
-                                                        <div class="upload__btn-box">
-                                                          <label class="upload__btn">
-                                                            <p>Gallery Images</p>
-                                                            <input type="file" multiple="" data-max_length="20" class="upload__inputfile">
-                                                          </label>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4"></div>
+                                                    <div class="col-lg-5 col-md-5">
+                                                        <div class="upload__box">
+                                                            <div class="upload__btn-box">
+                                                            <label class="upload__btn">
+                                                                <p>Gallery Images</p>
+                                                                <input name="gellery" type="file" multiple="" data-max_length="20" class="upload__inputfile">
+                                                            </label>
+                                                            </div>
+                                                            <div class="upload__img-wrap"></div>
                                                         </div>
-                                                        <div class="upload__img-wrap"></div>
-                                                      </div>
-                                                </div>
+                                                    </div>
 
-                                              </div>
-                                        </div>
-                                        <form action="#">
+                                                </div>
+                                            </div>
                                             <div class="row">
+                                                @if ($errors->any())
+                                                    <div class="alert alert-danger">
+                                                        @foreach ($errors->all() as $error)
+                                                            <li >{{$error}}</li>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
                                                 <div class="col-lg-6">
                                                     <div class="form-grp">
                                                         <label for="title">Product Title</label>
-                                                        <input type="text" id="title">
+                                                        <input type="text" name="product_title" id="title">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-grp">
                                                         <label for="price">Product Price</label>
-                                                        <input type="text" id="price" placeholder="$ -">
+                                                        <input type="text"name="product_price" id="price" placeholder="$ -">
+                                                    </div>
+                                                </div>
+                                                @php
+                                                    $categories=category()
+                                                @endphp
+                                                <div class="col-lg-6">
+                                                    <div class="form-grp">
+                                                        <label for="brand">Parent Category</label>
+                                                        <select name="parent_category" class="form-select" id="brand">
+                                                            <option value="0">- Select Category -</option>
+                                                            @foreach ($categories as $category)
+                                                                <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <div class="form-grp">
-                                                        <label for="brand">Product Brand</label>
-                                                        <input type="text" id="brand">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-grp">
+                                                    {{-- <div class="form-grp">
                                                         <label for="weight">Weight</label>
                                                         <input type="text" id="weight">
+                                                    </div> --}}
+                                                    <div class="form-grp">
+                                                        <label for="discount">Price After Discount %</label>
+                                                        <input type="text" name="discount_price" id="discounted_price" placeholder="% -">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-grp">
+                                            {{-- <div class="form-grp">
                                                 <label for="discount">Product Discount %</label>
                                                 <input type="text" id="discount" placeholder="% -">
-                                            </div>
+                                            </div> --}}
                                             <div class="form-grp">
                                                 <label for="description">Product Description</label>
-                                                <textarea id="summernote" name="editordata"></textarea>
+                                                <textarea id="summernote" name="description"></textarea>
                                             </div>
                                             <button type="submit">Upload Product</button>
                                         </form>
