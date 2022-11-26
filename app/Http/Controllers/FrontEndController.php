@@ -6,6 +6,7 @@ use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Support\Facades\Mail;
 
 class FrontEndController extends Controller
@@ -13,6 +14,10 @@ class FrontEndController extends Controller
 
     function contact_us_index(){
         return view('frontend.contact_us');
+    }
+    function shop_page(){
+        $products=Product::where('status','published')->get()->shuffle();
+        return view('frontend.shop',compact('products'));
     }
     function cart(){
         return view('frontend.cart');

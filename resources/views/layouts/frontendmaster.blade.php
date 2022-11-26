@@ -22,6 +22,10 @@
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/style.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/custom_style.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
+        <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-lite.css">
+        {{-- <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css"> --}}
+
+        @yield('header_css')
     </head>
     <!--Start of Tawk.to Script-->
 <script type="text/javascript">
@@ -635,6 +639,13 @@
                                         <ul class="navigation">
                                             <li class="active"><a href="{{ route('home') }}">Home</a>
                                             </li>
+                                            <li class="menu-item-has-children"><a href="{{ route('shop.page') }}">SHOP</a>
+
+                                                {{-- <ul class="submenu">
+                                                    <li><a href="shop.html">Our Shop</a></li>
+                                                    <li><a href="shop-details.html">shop Details</a></li>
+                                                </ul> --}}
+                                            </li>
                                             <li class="menu-item-has-children"><a href="#">SHOP</a>
                                                 <ul class="submenu">
                                                     <li><a href="shop.html">Our Shop</a></li>
@@ -825,7 +836,13 @@
     <script src="{{ asset('frontend_assets') }}/js/slick.min.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/wow.min.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/main.js"></script>
+    <script src="{{ asset('frontend_assets') }}/js/product.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/custom.js"></script>
+    <script src="{{ asset('frontend_assets') }}/js/summernote-lite.js"></script>
+    {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs4.js"></script> --}}
+    {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs5.js"></script> --}}
+
+
 
     {!! NoCaptcha::renderJs() !!}
     @yield('footer_script')

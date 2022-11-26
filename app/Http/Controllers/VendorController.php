@@ -60,7 +60,8 @@ class vendorController extends Controller
             }
         }
         function vendor_dashboard(){
-          $coupons =  Coupon::where('vendor_id',auth()->user()->id)->get();
+            
+            $coupons =  Coupon::where('vendor_id',auth()->user()->id)->get();
             return view('vendor.dashboard',compact('coupons'));
         }
         function vendor_update_info(Request $request){
