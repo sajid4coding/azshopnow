@@ -81,14 +81,21 @@
                         <div class="vs-widget">
                             <div class="vs-page-link">
                                 <ul>
-
+                                    <li>
+                                        <a href="#">Product</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="vs-widget">
+                            <div class="vs-page-link">
+                                <ul>
                                     <li>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
                                               <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"><i class="fa-solid fa-arrow-right-from-bracket"></i>  Sign Out</a>
                                         </form>
                                     </li>
-
                                 </ul>
                             </div>
                         </div>

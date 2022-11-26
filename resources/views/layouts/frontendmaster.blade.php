@@ -169,7 +169,7 @@
                                             Browse Categories
                                             <i class="fas fa-angle-down"></i>
                                         </a>
-                                        <ul class="category-menu">
+                                        {{-- <ul class="category-menu">
                                             <li class="add-megamenu">
                                                 <a href="#"><i class="fa-solid fa-gear"></i>How to add MegaMenu</a>
                                             </li>
@@ -629,7 +629,7 @@
                                                 All Categories
                                                 <i class="fas fa-chevron-right"></i>
                                             </li>
-                                        </ul>
+                                        </ul> --}}
                                     </div>
                                     <div class="navbar-wrap main-menu d-none d-lg-flex">
                                         <ul class="navigation">

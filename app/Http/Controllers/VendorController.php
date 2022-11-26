@@ -157,7 +157,7 @@ class vendorController extends Controller
              ]);
 
 
-            Coupon::create( $request->except('_token')+['vendor_id' => auth()->user()->id]);
+            Coupon::create($request->except('_token')+['vendor_id' => auth()->user()->id]);
 
             return back()->with('coupon_add_success','Successfully added a new coupon');
         }
