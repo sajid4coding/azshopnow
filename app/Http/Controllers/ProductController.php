@@ -73,7 +73,7 @@ class ProductController extends Controller
                 $gellery_img->save(base_path('public/uploads/product_gellery_photo/'.$gellery_photo), 70);
                 ProductGallery::insert([
                     'product_id' => $product->id,
-                    'product_gellery' => $gellery_photo,
+                    'product_gallery' => $gellery_photo,
                     'created_at' => now()
                 ]);
             }
