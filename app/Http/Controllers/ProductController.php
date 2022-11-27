@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductGallery;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -54,23 +55,29 @@ class ProductController extends Controller
             'description'=>$request->description,
         ]);
 
-        $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('thumbnail')->getClientOriginalExtension();
-        $img = Image::make($request->file('thumbnail'))->resize(207, 232);
-        $img->save(base_path('public/uploads/product_photo/'.$photo), 70);
-        Product::find($product->id)->update([
-            'thumbnail'=>$photo,
-        ]);
-         if ($request->hasFile('gellery') ) {
-                $request->validate([
-                    'gellery'=>'mimes:jpg,png,jpeg ',
-                ]);
-                $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('gellery')->getClientOriginalExtension();
-                $img = Image::make($request->file('gellery'))->resize(207, 232);
-                $img->save(base_path('public/uploads/product_photo/'.$photo), 70);
-                Product::find($product->id)->update([
-                    'gellery'=>$photo,
-                ]);
+        if($request->file('thumbnail')){
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('thumbnail')->getClientOriginalExtension();
+            $img = Image::make($request->file('thumbnail'))->resize(207, 232);
+            $img->save(base_path('public/uploads/product_photo/'.$photo), 70);
+            Product::find($product->id)->update([
+                'thumbnail'=>$photo,
+            ]);
         }
+
+        $gelleries = $request->file('image');
+        if($gelleries){
+            foreach($gelleries as $gellery){
+                $gellery_photo= Carbon::now()->format('Y').rand(1,9999).".".$gellery->getClientOriginalExtension();
+                $gellery_img = Image::make($gellery)->resize(207, 232);
+                $gellery_img->save(base_path('public/uploads/product_gellery_photo/'.$gellery_photo), 70);
+                ProductGallery::insert([
+                    'product_id' => $product->id,
+                    'product_gallery' => $gellery_photo,
+                    'created_at' => now()
+                ]);
+            }
+        }
+
         return back()->with('product_add_success','Successfully added a new product!');
 
     }

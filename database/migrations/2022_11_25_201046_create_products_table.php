@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('status')->default('unpublished');
             $table->longText('description')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->string('gellery')->nullable();
             $table->timestamps();
         });
     }

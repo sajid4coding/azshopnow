@@ -25,5 +25,23 @@ class AdminSeeder extends Seeder
             'created_at' => now(),
             'password' => Hash::make('123456789'),
         ]);
+        DB::table('users')->insert([
+            'name' => "AZ Shop Now Customer",
+            'email' => 'customer@azshopnow.com',
+            'role' => 'customer',
+            'status' => 'active',
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'password' => Hash::make('123456789'),
+        ]);
+        DB::table('users')->insert([
+            'name' => "AZ Shop Now Vendor",
+            'email' => 'vendor@azshopnow.com',
+            'role' => 'vendor',
+            'status' => 'active',
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'password' => Hash::make('123456789'),
+        ]);
     }
 }
