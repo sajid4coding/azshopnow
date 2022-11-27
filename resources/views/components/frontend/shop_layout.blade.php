@@ -1,43 +1,4 @@
-   <!-- main-area -->
-        <main>
-            <!-- breadcrumb-area -->
-            <section class="breadcrumb-area breadcrumb-bg">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-8 order-2 order-md-0">
-                            <div class="breadcrumb-product text-center">
-                                <div class="thumb">
-                                    <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/br_product_img.png" alt="img"></a>
-                                    <span>35% OFF</span>
-                                </div>
-                                <div class="content">
-                                    <div class="rating">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <h4 class="title"><a href="shop-details.html">Blender Mixer Food</a></h4>
-                                    <h5 class="price">$37.00</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-9 col-lg-8 col-md-7">
-                            <div class="breadcrumb-content">
-                                <h2 class="title">Discount shop</h2>
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Shop</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- breadcrumb-area-end -->
+
 
             <!-- shop-area -->
             <div class="shop-area pt-90 pb-90">
@@ -50,31 +11,16 @@
                                         <h4 class="title">Category</h4>
                                     </div>
                                     <div class="shop-cat-list">
+                                        @php
+                                            $categories= category()
+                                        @endphp
                                         <ul>
-                                            <li>
-                                                <a href="#">Furniture <span>8</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Coffee & Tables1 <span>3</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Lighting3 <span>2</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Decoration5 <span>5</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Electronics1 <span>9</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Beds2 <span>8</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Armchairs & Chaises3 <span>7</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Sofas & Sleeper Sofas <span>3</span></a>
-                                            </li>
+                                            @foreach ($categories as $category)
+                                                <li>
+                                                    <a href="{{route('category.product',$category->id)}}">{{$category->category_name}}<span>{{categoryProductCount($category->id)}}</span></a>
+                                                </li>
+                                            @endforeach
+
                                         </ul>
                                     </div>
                                 </div>
@@ -196,7 +142,7 @@
                             </div>
                             <div class="shop-bottom-wrap">
                                 <div class="shop-bottom-top">
-                                    <h5 class="title">Shop</h5>
+                                    <h5 class="title"></h5>
                                     <p>Showing 1-09 of 30 Item(S)</p>
                                 </div>
                                 <div class="shop-bottom-box">
