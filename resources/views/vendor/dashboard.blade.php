@@ -5,7 +5,7 @@
 @endsection
 @section('content')
   <!-- main-area -->
-  <main>
+<main>
     <!-- breadcrumb-area -->
     <section class="breadcrumb-area-four breadcrumb-bg vendor-profile-breadcrumb" style='background: url(@if (auth()->user()->banner)  {{ asset('uploads/banner_img') }}/{{ auth()->user()->banner }}  @else https://www.cohesity.com/wp-content/new_media/2021/03/demo-days-lp-banner.png @endif) no-repeat center;background-size:cover;''>
         <div class="container">
@@ -707,7 +707,7 @@
                                                     </div> --}}
                                                     <div class="form-grp">
                                                         <label for="discount">Price After Discount %</label>
-                                                        <input type="text" name="discount_price" id="discounted_price" placeholder="% -">
+                                                        <input type="text" name="discount_price" id="discounted_price" placeholder="$ -">
                                                     </div>
                                                 </div>
                                             </div>
@@ -735,9 +735,6 @@
         </div>
     </div>
     <!-- vendor-setting-area-end -->
-
-
-
 </main>
 <!-- main-area-end -->
 @endsection

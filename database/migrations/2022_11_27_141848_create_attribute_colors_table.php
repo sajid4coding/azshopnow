@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_galleries', function (Blueprint $table) {
+        Schema::create('attribute_colors', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id');
-            $table->string('product_gallery');
+            $table->integer('vendor_id');
+            $table->string('color_name')->unique();
+            $table->string('color')->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_galleries');
+        Schema::dropIfExists('attribute_colors');
     }
 };
