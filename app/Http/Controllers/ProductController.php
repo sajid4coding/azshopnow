@@ -78,9 +78,8 @@ class ProductController extends Controller
                 ]);
             }
         }
+        return back()->with('product_add_success','Successfully added a new product!');
 
-
-        return redirect('/vendor/dashboard/#productSection');
 
     }
 
