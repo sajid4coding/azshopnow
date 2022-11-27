@@ -68,7 +68,10 @@ Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])
 Route::middleware(['vendor'])->group(function(){
 
     Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
+    Route::get('vendor/setting', [VendorController::class, 'vendor_setting'])->name('vendor.setting');
+    Route::get('vendor/coupon/add', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
     Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
+    Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
     Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
     Route::post('coupon/add', [VendorController::class, 'coupon_store'])->name('coupon.add');
     Route::get('coupon/delete/{id}', [VendorController::class, 'coupon_delete'])->name('coupon.delete');
