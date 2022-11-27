@@ -52,7 +52,6 @@ class ProductController extends Controller
             'vendor_id'=>auth()->id(),
             'shop_name'=>auth()->user()->shop_name,
             'description'=>$request->description,
-            'status'=>'published',
         ]);
 
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('thumbnail')->getClientOriginalExtension();
@@ -72,7 +71,7 @@ class ProductController extends Controller
                     'gellery'=>$photo,
                 ]);
         }
-        return redirect('/vendor/dashboard/#productSection');
+        return back()->with('product_add_success','Successfully added a new product!');
 
     }
 

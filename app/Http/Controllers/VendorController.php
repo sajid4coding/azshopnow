@@ -168,5 +168,17 @@ class vendorController extends Controller
               return back()->with('coupon_delete_message', 'Successfully deleted a coupon');
 
         }
+        function vendor_setting(){
+            return view('vendor.settings');
+        }
+        function vendor_coupon_add_index(){
+            $coupons =  Coupon::where('vendor_id',auth()->user()->id)->get();
+            return view('vendor.coupon_add',compact('coupons'));
+        }
+        function vendor_product_upload(){
+
+            return view('vendor.product_upload');
+        }
+
 
 }
