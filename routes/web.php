@@ -20,6 +20,8 @@ use Illuminate\Http\Request;
 // })->name('home');
 
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
+Route::get('/category/product/{id}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
+Route::get('/vendor/product/{id}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
 
 //    public function __construct()
 //     {

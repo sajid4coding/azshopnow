@@ -1,7 +1,6 @@
-@extends('layouts/frontendmaster')
-
+@extends('layouts.frontendmaster')
 @section('content')
-<!-- main-area -->
+   <!-- main-area -->
 <main>
     <style>
 
@@ -40,7 +39,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{$categoryName->category_name}}</li>
                             </ol>
                         </nav>
                     </div>

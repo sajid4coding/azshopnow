@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rules\Password;
-use Image;
+use Intervention\Image\Facades\Image;
 
 class vendorController extends Controller
 {
@@ -28,6 +28,7 @@ class vendorController extends Controller
 
         User::insert([
               'name' =>   $request->name,
+              'shop_name' =>   $request->shop_name,
               'email' =>   $request->email,
               'password' =>  bcrypt($request->password),
               'role' =>  'vendor',
@@ -60,7 +61,7 @@ class vendorController extends Controller
             }
         }
         function vendor_dashboard(){
-            
+
             $coupons =  Coupon::where('vendor_id',auth()->user()->id)->get();
             return view('vendor.dashboard',compact('coupons'));
         }
