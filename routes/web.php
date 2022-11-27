@@ -9,31 +9,18 @@ use Illuminate\Http\Request;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
-// Route::get('/', function () {
-//     return view('index');
-// })->name('home');
-
+// FrontEndController
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::get('/category/product/{id}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
-Route::get('/vendor/product/{id}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
+Route::get('/vendor/all/product/{id}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
+Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
+Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
+Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
+Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
 
-//    public function __construct()
-//     {
-//         $this->middleware('auth');
-//     }
 
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('layouts.dashboardmaster');
@@ -85,10 +72,7 @@ Route::middleware(['vendor'])->group(function(){
 
 
 // =========================== ALL COMMON ROUTES START HERE =================
-Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
-Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
-Route::get('shop/page',[FrontEndController::class,'shop_page'])->name('shop.page');
-Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
+
 
 
 Route::middleware(['customer'])->group(function(){
