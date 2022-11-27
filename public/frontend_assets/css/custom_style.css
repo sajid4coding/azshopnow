@@ -222,3 +222,35 @@
     color: #FF4800 !important;
     border:1px solid #FF4800 !important;
 }
+.cust_ul .cust_a:hover{
+   color: #FF4800 !important;
+}
+
+.cust_ul li.active ~ a{
+    color: red !important;
+}
+.dropdown-menu{
+    padding: 10px;
+}
+.dropdown-menu a{
+    position: relative;
+}
+.dropdown-menu a::after{
+    position: absolute;
+    top: 50%;
+    left: 6px;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    width: 4px;
+    height: 4px;
+    background: #505359af;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    content: '';
+}

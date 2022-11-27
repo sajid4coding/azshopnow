@@ -53,7 +53,6 @@ class ProductController extends Controller
             'vendor_id'=>auth()->id(),
             'shop_name'=>auth()->user()->shop_name,
             'description'=>$request->description,
-            'status'=>'published',
         ]);
 
         if($request->file('thumbnail')){
@@ -78,8 +77,8 @@ class ProductController extends Controller
                 ]);
             }
         }
-        return back()->with('product_add_success','Successfully added a new product!');
 
+        return back()->with('product_add_success','Successfully added a new product!');
 
     }
 

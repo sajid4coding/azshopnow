@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 
 class FrontEndController extends Controller
@@ -18,6 +19,17 @@ class FrontEndController extends Controller
     function shop_page(){
         $products=Product::where('status','published')->get()->shuffle();
         return view('frontend.shop',compact('products'));
+    }
+    function categoryProduct($id){
+        $categoryName=Category::find($id);
+        $products=Product::where('parent_category_id',$id)->where('status','published')->get()->shuffle();
+        return view('frontend.categoryProduct', compact('products','categoryName'));
+    }
+
+    function vendorProduct($id){
+        $shopName=User::find($id);
+        $products=Product::where('vendor_id',$id)->where('status','published')->latest()->get();
+        return view('frontend.vendorProduct', compact('products','shopName'));
     }
     function cart(){
         return view('frontend.cart');

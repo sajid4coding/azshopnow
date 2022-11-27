@@ -93,7 +93,6 @@
                                     <form action="#">
                                         <input type="text" placeholder="Search for product...">
                                         <select class="custom-select">
-                                            <option selected="">All Categories</option>
                                             <option>Women's Clothing</option>
                                             <option>Men's Clothing</option>
                                             <option>Luggage & Bags</option>
