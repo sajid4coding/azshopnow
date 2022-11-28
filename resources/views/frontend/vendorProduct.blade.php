@@ -1,8 +1,7 @@
-@extends('layouts/frontendmaster')
-
+@extends('layouts.frontendmaster')
 @section('content')
-<!-- main-area -->
-<main>
+   <!-- main-area -->
+   <main>
     <style>
 
         .Shop_BG{
@@ -40,7 +39,9 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                                <li class="breadcrumb-item active" aria-current="page">@if ($shopName->shop_name)
+                                    {{$shopName->shop_name}}
+                                @endif</li>
                             </ol>
                         </nav>
                     </div>
@@ -50,4 +51,5 @@
     </section>
     <!-- breadcrumb-area-end -->
 @include('components.frontend.shop_layout')
+
 @endsection

@@ -46,10 +46,21 @@
 
                         <form method="POST" action="{{ route('vendor.post') }}">
                             @csrf
-                            <div class="form-grp">
-                                <label for="name">User Name *</label>
-                                <input name="name" value='{{ old('name') }}' type="text" id="name">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-grp">
+                                    <label for="name">User Name *</label>
+                                    <input name="name" value='{{ old('name') }}' type="text" id="name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-grp">
+                                        <label for="shop_name">Shop Name*</label>
+                                        <input name="shop_name" value='{{ old('shop_name') }}' type="text" id="shop_name">
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="form-grp">
                                 <label for="email">Email address *</label>
                                 <input name="email" value='{{ old('email') }}' type="email" id="email">

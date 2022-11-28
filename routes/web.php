@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, CustomermanagementController, ProductController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, ProductController};
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -9,29 +9,18 @@ use Illuminate\Http\Request;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
-// Route::get('/', function () {
-//     return view('index');
-// })->name('home');
-
+// FrontEndController
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
+Route::get('/category/product/{id}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
+Route::get('/vendor/all/product/{id}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
+Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
+Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
+Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
+Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
 
-//    public function __construct()
-//     {
-//         $this->middleware('auth');
-//     }
 
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('layouts.dashboardmaster');
@@ -68,22 +57,25 @@ Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])
 Route::middleware(['vendor'])->group(function(){
 
     Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
+    Route::get('vendor/setting', [VendorController::class, 'vendor_setting'])->name('vendor.setting');
+    Route::get('vendor/coupon/add', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
     Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
+    Route::post('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
     Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
     Route::post('coupon/add', [VendorController::class, 'coupon_store'])->name('coupon.add');
     Route::get('coupon/delete/{id}', [VendorController::class, 'coupon_delete'])->name('coupon.delete');
     //ProductController Resource
     Route::resource('product', ProductController::class);
+    Route::resource('attributes', AttributeController::class);
+    Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
+    Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
 
 });
 
 
 
 // =========================== ALL COMMON ROUTES START HERE =================
-Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
-Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
-Route::get('shop/page',[FrontEndController::class,'shop_page'])->name('shop.page');
-Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
+
 
 
 Route::middleware(['customer'])->group(function(){
