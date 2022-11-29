@@ -9,7 +9,7 @@ use App\Models\User;
  }
  function categoryProductCount($categoryId)
  {
-    return Product::where('parent_category_id',$categoryId)->count();
+    return Product::where('parent_category_id',$categoryId)->where('status', 'published')->count();
  }
  function shopName($user_id)
  {
