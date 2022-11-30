@@ -60,7 +60,7 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('vendor/setting', [VendorController::class, 'vendor_setting'])->name('vendor.setting');
     Route::get('vendor/coupon/add', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
     Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
-    Route::post('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
+    Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
     Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
     Route::post('coupon/add', [VendorController::class, 'coupon_store'])->name('coupon.add');
     Route::get('coupon/delete/{id}', [VendorController::class, 'coupon_delete'])->name('coupon.delete');
@@ -69,6 +69,8 @@ Route::middleware(['vendor'])->group(function(){
     Route::resource('attributes', AttributeController::class);
     Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
     Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
+    Route::post('/getIDFromCategory',[VendorController::class,'getIDFromCategory']);
+
 
 });
 

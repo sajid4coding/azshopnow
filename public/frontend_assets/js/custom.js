@@ -1,4 +1,9 @@
+$('.radio').on('click',function(){
+    // $(this).siblings().removeClass('radio_active')
+    $(this).toggleClass('radio_active')
+    $('.variable').slideToggle();
 
+})
 
 
 function readURL(input) {

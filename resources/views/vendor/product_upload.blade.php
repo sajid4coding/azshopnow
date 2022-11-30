@@ -58,7 +58,7 @@
                     <div class="col-lg-6">
                         <div class="form-grp">
                             <label for="price">Product Price</label>
-                            <input type="text"name="product_price" id="price" placeholder="$ -">
+                            <input type="text"name="product_price" id="price" placeholder="0.00$">
                         </div>
                     </div>
                     @php
@@ -66,8 +66,8 @@
                     @endphp
                     <div class="col-lg-6">
                         <div class="form-grp">
-                            <label for="brand">Parent Category</label>
-                            <select name="parent_category" class="form-select" id="brand">
+                            <label for="brand">Category</label>
+                            <select name="parent_category" id="categoryDropDown" class="form-control">
                                 <option value="0">- Select Category -</option>
                                 @foreach ($categories as $category)
                                     <option value="{{$category->id}}">{{$category->category_name}}</option>
@@ -75,29 +75,100 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="col-lg-6">
-                        {{-- <div class="form-grp">
-                            <label for="weight">Weight</label>
-                            <input type="text" id="weight">
-                        </div> --}}
                         <div class="form-grp">
-                            <label for="discount">Price After Discount %</label>
-                            <input type="text" name="discount_price" id="discounted_price" placeholder="% -">
+                            <label for="brand">Sub Category </label>
+                            <select name="subcategory" id="SubCategory" class="form-control">
+                                <option value="0">- Select Category -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-grp">
+                            <label for="discount">Price After Discount</label>
+                            <input type="text" name="discount_price" id="discounted_price" placeholder="0.00$">
                         </div>
                     </div>
                 </div>
-                {{-- <div class="form-grp">
-                    <label for="discount">Product Discount %</label>
-                    <input type="text" id="discount" placeholder="% -">
-                </div> --}}
+
                 <div class="form-grp">
                     <label for="description">Product Description</label>
                     <textarea id="summernote" name="description"></textarea>
                 </div>
+                {{-- VARIABLE PRODUCT OPTION START--}}
+
+                <div class="mb-4">
+                    <div class="radio "> For Variable Product </div>
+                </div>
+                <div class="variable">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-grp">
+                                <label for="discount">Price After Discount</label>
+                                <input type="text" name="discount_price" id="discounted_price" placeholder="--">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-grp">
+                                <label for="discount">Price Discount</label>
+                                <input type="text" name="discount_price" id="discounted_price" placeholder="--">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-grp">
+                                <label for="discount">Price After Discount</label>
+                                <input type="text" name="discount_price" id="discounted_price" placeholder="--">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-grp">
+                                <label for="discount">Price Discount</label>
+                                <input type="text" name="discount_price" id="discounted_price" placeholder="--">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- VARIABLE PRODUCT OPTION END--}}
+
+
                 <button type="submit">Upload Product</button>
             </form>
         </div>
     </div>
 
 </div>
+@endsection
+@section('footer_script')
+<script>
+
+
+
+    $(document).ready(function(){
+         $('#categoryDropDown').change(function(){
+             var category_id = $(this).val()
+            if(category_id){
+             $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+             $.ajax({
+                type: 'post',
+                url: '/getIDFromCategory',
+                data: {
+                    category_id:category_id
+                },
+                success: function (data) {
+                    $( "#SubCategory" ).html(data);
+                }
+            });
+        }
+
+         })
+
+    })
+
+
+</script>
 @endsection
