@@ -13,12 +13,13 @@ use Illuminate\Http\Request;
 
 // FrontEndController
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
-Route::get('/category/product/{id}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
+Route::get('/category/{slug}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
 Route::get('/vendor/all/product/{id}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
 Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
 Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
-Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
+Route::get('shop/page',[FrontEndController::class,'shop_page'])->name('shop.page');
 Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
+Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->name('single.product');
 
 
 Route::middleware(['admin', 'verified'])->group(function () {

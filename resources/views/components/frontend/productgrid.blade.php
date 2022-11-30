@@ -1,13 +1,13 @@
    <div class="shop-product-item mb-30">
         <div class="shop-thumb">
-            <a href="shop-details.html"><img src="{{asset('uploads/product_photo')}}/{{$product->thumbnail}}" alt="img"></a>
+            <a href="{{route('single.product', $product->id )}}"><img src="{{asset('uploads/product_photo')}}/{{$product->thumbnail}}" alt="img"></a>
             <span>New</span>
         </div>
         <div class="shop-content">
             <ul class="tag">
                 <li>Sold by <a href="{{route('vendor.product',$product->vendor_id)}}">{{shopName($product->vendor_id)->shop_name}}</a></li>
             </ul>
-            <h2 class="title"><a href="shop-details.html">{{$product->product_title}}</a></h2>
+            <h2 class="title"><a href="{{route('single.product', $product->id )}}">{{$product->product_title}}</a></h2>
             <div class="rating">
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>

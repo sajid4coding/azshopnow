@@ -17,7 +17,7 @@
                                         <ul>
                                             @foreach ($categories as $category)
                                                 <li>
-                                                    <a href="{{route('category.product',$category->id)}}">{{$category->category_name}}<span>{{categoryProductCount($category->id)}}</span></a>
+                                                    <a href="{{route('category.product',$category->slug)}}">{{$category->category_name}}<span>{{categoryProductCount($category->id)}}</span></a>
                                                 </li>
                                             @endforeach
 
