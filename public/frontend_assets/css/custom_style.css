@@ -254,3 +254,58 @@
     -o-border-radius: 100%;
     content: '';
 }
+.radio{
+    position: relative;
+    padding-left: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.radio::after {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  -o-transform: translate(-50%,-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #FF4800;
+  content: '';
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  z-index: -1;
+}
+.radio::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ffffff;
+    content: '';
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    z-index: 1;
+  }
+.radio_active::before{
+    width: 10px;
+    height: 10px;
+    background: #000000;
+}
+.variable{
+    display: none;
+}
+

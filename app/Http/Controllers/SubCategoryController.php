@@ -43,9 +43,10 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'sub_category_name' => 'required',
-            'parent_category_id' => 'required',
+            'parent_category' => 'required',
             'status' => 'required'
         ]);
 
@@ -55,7 +56,7 @@ class SubCategoryController extends Controller
             $sub_category_slug = $request->slug;
         }
 
-        SubCategory::insert([
+      $subcategory_id =  SubCategory::insertGetId([
             'parent_category_id' => $request->parent_category,
             'category_name' => $request->sub_category_name,
             'slug' => Str::slug($sub_category_slug, '-'),
@@ -68,10 +69,7 @@ class SubCategoryController extends Controller
             $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('sub_category_photo')->getClientOriginalExtension();
             $img = Image::make($request->file('sub_category_photo'))->resize(300, 300);
             $img->save(base_path('public/uploads/category_photo/sub_category_photo/'.$photo), 60);
-            SubCategory::where([
-                'category_name' => $request->sub_category_name,
-                'description' => $request->description,
-            ])->update([
+            SubCategory::find($subcategory_id)->update([
                 'thumbnail'=>$photo
             ]);
         }
@@ -124,7 +122,7 @@ class SubCategoryController extends Controller
                 'thumbnail'=>$photo
             ]);
         }
-        
+
         SubCategory::find($id)->update([
             'parent_category_id' => $request->parent_category,
             'category_name' => $request->category_name,
