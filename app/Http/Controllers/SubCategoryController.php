@@ -45,7 +45,7 @@ class SubCategoryController extends Controller
     {
         $request->validate([
             'sub_category_name' => 'required',
-            'parent_category_id' => 'required',
+            'parent_category' => 'required',
             'status' => 'required'
         ]);
 
@@ -124,7 +124,7 @@ class SubCategoryController extends Controller
                 'thumbnail'=>$photo
             ]);
         }
-        
+
         SubCategory::find($id)->update([
             'parent_category_id' => $request->parent_category,
             'category_name' => $request->category_name,

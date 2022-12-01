@@ -110,7 +110,7 @@
                                               <li><a class="dropdown-item"  href="{{ route('vendor.product.upload') }}">Product Add</a></li>
                                               <li><a class="dropdown-item" href="#">Product List</a></li>
 
-                                              <li><a class="dropdown-item" href="#">Attributes</a></li>
+                                              <li><a class="dropdown-item" href="{{ route('attributes.index') }}">Attributes</a></li>
                                             </ul>
                                           </li>
                                         <li class="mb-3">

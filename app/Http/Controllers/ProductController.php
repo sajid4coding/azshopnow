@@ -64,7 +64,7 @@ class ProductController extends Controller
             ]);
         }
 
-        $gelleries = $request->file('image');
+        $gelleries = $request->file('gellery');
         if($gelleries){
             foreach($gelleries as $gellery){
                 $gellery_photo= Carbon::now()->format('Y').rand(1,9999).".".$gellery->getClientOriginalExtension();
