@@ -190,6 +190,11 @@ class vendorController extends Controller
                  }
                  $this->subCategoryHaveorNot = 'false';
                  return $get_category_dropdown;
+            }else{
+                $get_category_dropdown ='';
+                   $get_category_dropdown .= "<option value=''>-- No Sub-Category --</option>";
+                // $this->subCategoryHaveorNot = 'false';
+                return $get_category_dropdown;
             }
         }
         function vendor_product_upload(){
