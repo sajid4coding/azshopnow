@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -49,9 +49,13 @@ class ProductController extends Controller
             'product_title'=>$request->product_title,
             'product_price'=>$request->product_price,
             'discount_price'=>$request->discount_price,
-            'parent_category_id'=>$request->parent_category,
+            'parent_category_slug'=>$request->parent_category,
+            // 'parent_category_slug'=>$request->slug,
+            'sub_category_id'=>$request->subcategory,
             'vendor_id'=>auth()->id(),
             'shop_name'=>auth()->user()->shop_name,
+            'sku'=>$request->sku,
+            'short_description'=>$request->short_description,
             'description'=>$request->description,
         ]);
 

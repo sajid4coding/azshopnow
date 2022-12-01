@@ -181,10 +181,10 @@
                                 <label class="form-label">Parent Category</label>
                                 <!--end::Label-->
                                 <!--begin::Parent Category-->
-                                <select class="form-select" name="parent_category">
-                                    <option selected value="{{ $subcategory->parent_category_id }}">{{ $subcategory->relationshipwith_parent_category->category_name }}</option>
+                                <select class="form-select" name="parent_category_slug">
+                                    <option selected value="{{ $subcategory->parent_category_slug }}">{{ $subcategory->relationshipwith_parent_category->category_name }}</option>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                        <option value="{{ $category->slug }}">{{ $category->category_name }}</option>
                                     @endforeach
                                 </select>
                                 <!--end::Parent Category-->

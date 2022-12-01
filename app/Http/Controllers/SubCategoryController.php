@@ -46,18 +46,18 @@ class SubCategoryController extends Controller
 
         $request->validate([
             'sub_category_name' => 'required',
-            'parent_category' => 'required',
+            'parent_category_slug' => 'required',
             'status' => 'required'
         ]);
 
-        if($request->category_slug){
+        if($request->slug){
             $sub_category_slug = $request->slug;
         }else{
-            $sub_category_slug = $request->slug;
+            $sub_category_slug = $request->sub_category_name;
         }
 
-      $subcategory_id =  SubCategory::insertGetId([
-            'parent_category_id' => $request->parent_category,
+      $subcategory =  SubCategory::create([
+            'parent_category_slug' => $request->parent_category_slug,
             'category_name' => $request->sub_category_name,
             'slug' => Str::slug($sub_category_slug, '-'),
             'description' => $request->description,
@@ -69,7 +69,7 @@ class SubCategoryController extends Controller
             $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('sub_category_photo')->getClientOriginalExtension();
             $img = Image::make($request->file('sub_category_photo'))->resize(300, 300);
             $img->save(base_path('public/uploads/category_photo/sub_category_photo/'.$photo), 60);
-            SubCategory::find($subcategory_id)->update([
+            SubCategory::find($subcategory->id)->update([
                 'thumbnail'=>$photo
             ]);
         }
@@ -111,26 +111,23 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, SubCategory $subCategory, $id)
     {
-        if($request->hasFile('sub_category_photo') ) {
-            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('sub_category_photo')->getClientOriginalExtension();
-            $img = Image::make($request->file('sub_category_photo'))->resize(300, 300);
+        if($request->hasFile('thumbnail') ) {
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('thumbnail')->getClientOriginalExtension();
+            $img = Image::make($request->file('thumbnail'))->resize(300, 300);
             $img->save(base_path('public/uploads/category_photo/sub_category_photo/'.$photo), 60);
-            SubCategory::where([
-                'category_name' => $request->sub_category_name,
-                'description' => $request->description,
-            ])->update([
+            SubCategory::find($id)->update([
                 'thumbnail'=>$photo
             ]);
         }
 
         SubCategory::find($id)->update([
-            'parent_category_id' => $request->parent_category,
+            'parent_category_slug' => $request->parent_category_slug,
             'category_name' => $request->category_name,
             'slug' => $request->slug,
             'description' => $request->description,
             'status' => $request->status
         ]);
-        return back();
+        return redirect('subcategory');
     }
 
     /**
