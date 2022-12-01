@@ -38,6 +38,7 @@ class AdminSeeder extends Seeder
         DB::table('users')->insert([
             'name' => "AZ Shop Now Vendor",
             'email' => 'vendor@azshopnow.com',
+            'shop_name' => 'AZ Shop Now',
             'role' => 'vendor',
             'status' => 'active',
             'email_verified_at' => now(),

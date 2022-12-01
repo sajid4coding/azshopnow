@@ -32,7 +32,7 @@
                                 <div class="upload__btn-box">
                                 <label class="upload__btn">
                                     <p>Gallery Images</p>
-                                    <input name="gellery" type="file" multiple="" data-max_length="20" class="upload__inputfile">
+                                    <input name="gellery[]" type="file" multiple data-max_length="20" class="upload__inputfile">
                                 </label>
                                 </div>
                                 <div class="upload__img-wrap"></div>
