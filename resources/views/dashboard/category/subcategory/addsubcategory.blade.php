@@ -181,9 +181,9 @@
                                 <label class="form-label">Parent Category</label>
                                 <!--end::Label-->
                                 <!--begin::Parent Category-->
-                                <select class="form-select" name="parent_category">
+                                <select class="form-select" name="parent_category_slug">
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                        <option value="{{ $category->slug }}">{{ $category->category_name }}</option>
                                     @endforeach
                                 </select>
                                 <!--end::Parent Category-->

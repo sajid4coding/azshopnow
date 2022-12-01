@@ -182,7 +182,7 @@ class vendorController extends Controller
         }
 
         function getIDFromCategory(Request $request){
-            $subCategories = SubCategory::where('parent_category_id',$request->category_id)->get();
+            $subCategories = SubCategory::where('parent_category_slug',$request->category_id)->get();
             if($subCategories){
                 $get_category_dropdown ='';
                  foreach($subCategories as $subCategory){
@@ -190,6 +190,11 @@ class vendorController extends Controller
                  }
                  $this->subCategoryHaveorNot = 'false';
                  return $get_category_dropdown;
+            }else{
+                $get_category_dropdown ='';
+                   $get_category_dropdown .= "<option value=''>-- No Sub-Category --</option>";
+                // $this->subCategoryHaveorNot = 'false';
+                return $get_category_dropdown;
             }
         }
         function vendor_product_upload(){

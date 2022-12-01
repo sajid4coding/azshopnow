@@ -18,6 +18,7 @@ class SubCategoriSeeder extends Seeder
            DB::table('sub_categories')->insert([
             'parent_category_id' => 2,
             'category_name' => "Cameras",
+            'parent_category_slug' => "watches",
             'slug' => 'cameras',
             'description' => 'You’ll find exactly what you’re looking for with our huge range of cameras.',
             'thumbnail' => '20229485.png',
@@ -27,6 +28,7 @@ class SubCategoriSeeder extends Seeder
            DB::table('sub_categories')->insert([
             'parent_category_id' =>8,
             'category_name' => "Cameras",
+            'parent_category_slug' => "toys",
             'slug' => 'cameras',
             'description' => 'You’ll find exactly what you’re looking for with our huge range of cameras.',
             'thumbnail' => '20229270.jpg',
@@ -36,6 +38,7 @@ class SubCategoriSeeder extends Seeder
            DB::table('sub_categories')->insert([
             'parent_category_id' => 4,
             'category_name' => "Cameras",
+            'parent_category_slug' => "footwear",
             'slug' => 'cameras',
             'description' => 'You’ll find exactly what you’re looking for with our huge range of cameras.',
             'thumbnail' => '20226238.jpg',
@@ -45,6 +48,7 @@ class SubCategoriSeeder extends Seeder
            DB::table('sub_categories')->insert([
             'parent_category_id' =>3,
             'category_name' => "Cameras",
+            'parent_category_slug' => "headphones",
             'slug' => 'cameras',
             'description' => 'You’ll find exactly what you’re looking for with our huge range of cameras.',
             'thumbnail' => '20225002.jpg',
@@ -54,6 +58,7 @@ class SubCategoriSeeder extends Seeder
            DB::table('sub_categories')->insert([
             'parent_category_id' => 5,
             'category_name' => "Cameras",
+            'parent_category_slug' => "cameras",
             'slug' => 'cameras',
             'description' => 'You’ll find exactly what you’re looking for with our huge range of cameras.',
             'thumbnail' => '20222892.png',

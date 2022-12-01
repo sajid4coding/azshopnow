@@ -109,7 +109,6 @@
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                               <li><a class="dropdown-item"  href="{{ route('vendor.product.upload') }}">Product Add</a></li>
                                               <li><a class="dropdown-item" href="#">Product List</a></li>
-
                                               <li><a class="dropdown-item" href="{{ route('attributes.index') }}">Attributes</a></li>
                                             </ul>
                                           </li>

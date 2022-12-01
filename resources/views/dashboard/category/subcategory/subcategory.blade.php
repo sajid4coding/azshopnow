@@ -56,12 +56,7 @@
                         <a href="{{ route('subcategory.create') }}" class="btn btn-primary">Add Sub Category</a>
                         <!--end::Add customer-->
                     </div>
-                    <div class="card-toolbar">
-                        <!--begin::Add customer-->
-                            <a href="{{ route('category.create') }}" class="btn btn-primary">Add Category</a>
-                        <!--end::Add customer-->
-                    </div>
-                    <!--end::Card toolbar-->
+                    
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
@@ -111,7 +106,7 @@
                                         <!--begin::Parent Category=-->
                                         <td>
                                             <!--begin::Badges-->
-                                            <div class="badge badge-light-primary">{{ $subcategory->relationshipwith_parent_category->category_name }}</div>
+                                            <div class="badge badge-light-primary">{{ $subcategory->relationshipwith_parent_category->category_name}}</div>
                                             <!--end::Badges-->
                                         </td>
                                         <!--end::Parent Category=-->

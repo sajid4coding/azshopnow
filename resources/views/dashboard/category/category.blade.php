@@ -57,12 +57,7 @@
                             <a href="{{ route('category.create') }}" class="btn btn-primary">Add Category</a>
                         <!--end::Add customer-->
                     </div>
-                    <div class="card-toolbar">
-                        <!--begin::Add customer-->
-                        <a href="{{ route('subcategory.index') }}" class="btn btn-primary">Add Sub Category</a>
-                        <!--end::Add customer-->
-                    </div>
-                    <!--end::Card toolbar-->
+                    
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->

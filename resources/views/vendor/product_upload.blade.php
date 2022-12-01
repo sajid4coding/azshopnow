@@ -57,28 +57,30 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-grp">
-                            <label for="price">Product Price</label>
-                            <input type="text"name="product_price" id="price" placeholder="0.00$">
+                            <label for="sku">Product SKU</label>
+                            <input type="text" name="sku" id="sku">
                         </div>
                     </div>
+
                     @php
                         $categories=category()
                     @endphp
                     <div class="col-lg-6">
                         <div class="form-grp">
-                            <label for="brand">Category</label>
+                            <label for="parent_category">Category</label>
                             <select name="parent_category" id="categoryDropDown" class="form-control">
                                 <option value="0">- Select Category -</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                    <option value="{{$category->slug}}">{{$category->category_name}}</option>
                                 @endforeach
+
                             </select>
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="form-grp">
-                            <label for="brand">Sub Category </label>
+                            <label for="subcategory">Sub Category </label>
                             <select name="subcategory" id="SubCategory" class="form-control">
                                 <option value="0">- Select Category -</option>
                             </select>
@@ -86,50 +88,29 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-grp">
-                            <label for="discount">Price After Discount</label>
-                            <input type="text" name="discount_price" id="discounted_price" placeholder="0.00$">
+                            <label for="price">Product Price</label>
+                            <input type="text"name="product_price" id="price" placeholder="0.00$">
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="form-grp">
+                            <label for="discount_price">Price After Discount</label>
+                            <input type="text" name="discount_price" id="discount_price" placeholder="0.00$">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-grp">
+                    <label for="description">Short Description</label>
+                    <textarea style=" min-height: 80px !important"  name="short_description"></textarea>
                 </div>
 
                 <div class="form-grp">
-                    <label for="description">Product Description</label>
+                    <label for="description">Description</label>
                     <textarea id="summernote" name="description"></textarea>
                 </div>
-                {{-- VARIABLE PRODUCT OPTION START--}}
 
-                <div class="mb-4">
-                    <div class="radio "> For Variable Product </div>
-                </div>
-                <div class="variable">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-grp">
-                                <label for="discount">Price After Discount</label>
-                                <input type="text" name="discount_price" id="discounted_price" placeholder="--">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-grp">
-                                <label for="discount">Price Discount</label>
-                                <input type="text" name="discount_price" id="discounted_price" placeholder="--">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-grp">
-                                <label for="discount">Price After Discount</label>
-                                <input type="text" name="discount_price" id="discounted_price" placeholder="--">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-grp">
-                                <label for="discount">Price Discount</label>
-                                <input type="text" name="discount_price" id="discounted_price" placeholder="--">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- VARIABLE PRODUCT OPTION END--}}
+
 
 
                 <button type="submit">Upload Product</button>

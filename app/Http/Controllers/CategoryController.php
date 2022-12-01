@@ -110,14 +110,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->hasFile('category_photo') ) {
-            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('category_photo')->getClientOriginalExtension();
-            $img = Image::make($request->file('category_photo'))->resize(300, 300);
+        if ($request->hasFile('thumbnail') ) {
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('thumbnail')->getClientOriginalExtension();
+            $img = Image::make($request->file('thumbnail'))->resize(300, 300);
             $img->save(base_path('public/uploads/category_photo/'.$photo), 60);
-            Category::where([
-                'category_name' => $request->category_name,
-                'description' => $request->category_description,
-            ])->update([
+            Category::find($id)->update([
                 'thumbnail'=>$photo
             ]);
         }
