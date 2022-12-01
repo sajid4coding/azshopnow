@@ -1,8 +1,10 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, ProductController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, ProductController};
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +25,22 @@ Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->
 
 
 Route::middleware(['admin', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('layouts.dashboardmaster');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('layouts.dashboardmaster');
+    // })->middleware(['auth', 'verified'])->name('dashboard');
+
+    // Route::get('/product_lists', function () {
+    //     return view('dashboard.product.product-lists',[
+    //         'products' => Product::all()
+    //     ]);
+    // })->middleware(['auth', 'verified'])->name('product_lists');
+
+    //DashboardController
+    Route::get('dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('product_lists',[DashboardController::class, 'product_lists'])->middleware(['auth', 'verified'])->name('product_lists');
+    Route::get('edit_product/{id}',[DashboardController::class, 'product_edit'])->middleware(['auth', 'verified'])->name('product_edit');
+    Route::post('status_product/{id}',[DashboardController::class, 'product_status'])->middleware(['auth', 'verified'])->name('product_status');
+    Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
