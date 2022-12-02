@@ -18,13 +18,18 @@ return new class extends Migration
             $table->mediumText('product_title');
             $table->string('product_price');
             $table->string('discount_price')->nullable();
-            $table->integer('parent_category_id');
+            $table->integer('parent_category_id')->nullable();
+            $table->integer('sub_category_id')->nullable();
+            $table->string('parent_category_slug')->nullable();
             $table->integer('vendor_id');
             $table->string('shop_name')->nullable();
             $table->string('status')->default('unpublished');
+            $table->string('sku')->nullable();
+            $table->longText('short_description')->nullable();
             $table->longText('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->timestamps();
+            $table->softdeletes();
         });
     }
 

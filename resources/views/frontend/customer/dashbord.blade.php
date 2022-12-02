@@ -48,6 +48,20 @@
                             <div class="tab-content bg-light p-3" id="v-pills-tabContent">
                                 <div class="tab-pane fade show active text-center" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                     <h5>Welcome to Account</h5>
+                                      <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                        <h3 class="text-center">My Order chart</h3>
+                                    <hr>
+                                    <div class="col-6">
+                                         <canvas id="myChart"></canvas>
+                                    </div>
+                                    <div class="col-6">
+                                         <canvas id="myChart1"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                     <h5 class="text-center pb-3">Account Details</h5>
@@ -97,7 +111,6 @@
                                             </td>
                                         </tr>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
@@ -106,3 +119,58 @@
             </div>
 
 @endsection
+
+@section('footer_script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx1 = document.getElementById('myChart1');
+
+  new Chart(ctx1, {
+    type: 'pie',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+@endsection
+
+
+

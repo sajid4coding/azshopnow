@@ -1,8 +1,10 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, ProductController, ProductListController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, ProductController, ProductListController};
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,18 +15,32 @@ use Illuminate\Http\Request;
 
 // FrontEndController
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
-Route::get('/category/product/{id}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
+Route::get('/categories/{slug}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
 Route::get('/vendor/all/product/{id}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
 Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
 Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
 Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
 Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
+Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->name('single.product');
 
 
 Route::middleware(['admin', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('layouts.dashboardmaster');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('layouts.dashboardmaster');
+    // })->middleware(['auth', 'verified'])->name('dashboard');
+
+    // Route::get('/product_lists', function () {
+    //     return view('dashboard.product.product-lists',[
+    //         'products' => Product::all()
+    //     ]);
+    // })->middleware(['auth', 'verified'])->name('product_lists');
+
+    //DashboardController
+    Route::get('dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('product_lists',[DashboardController::class, 'product_lists'])->middleware(['auth', 'verified'])->name('product_lists');
+    Route::get('edit_product/{id}',[DashboardController::class, 'product_edit'])->middleware(['auth', 'verified'])->name('product_edit');
+    Route::post('status_product/{id}',[DashboardController::class, 'product_status'])->middleware(['auth', 'verified'])->name('product_status');
+    Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
@@ -71,7 +87,6 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
     Route::post('/getIDFromCategory',[VendorController::class,'getIDFromCategory']);
     Route::resource('product-list',ProductListController::class);
-
 
 
 

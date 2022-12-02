@@ -1,7 +1,7 @@
-@extends('layouts.frontendmaster')
+@extends('layouts.vendor_master')
 
-@section('content')
-    <div class="container">
+@section('vendor_body_content')
+    <div class="col-lg-9">
         {{-- THIS IS FOR ADD SIZE START--}}
         <div class="row align-items-center">
             <div class="col-sm-6">
@@ -30,7 +30,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center m-3">
-                                        <button type="submit" class="btn btn-outline-primary btn-md item-certer">Add Size Attributes</button>
+                                        <button type="submit" class="btn btn-outline-primary btn-sm py-2 px-3 item-certer">Add Size</button>
                                     </div>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                                                 <form action="{{ route('attributes.destroy', $attributesize->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                    <button type="submit" style="border: none"><i class="fa fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -86,10 +86,8 @@
         </div>
         {{-- THIS IS FOR ADD SIZE END--}}
 
-
-
         {{-- THIS IS FOR ADD COLOR START--}}
-        <div class="row align-items-center">
+        <div class="row align-items-center mt-3">
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">
@@ -121,7 +119,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-outline-primary btn-md item-certer">Add Color Attribute</button>
+                                                <button type="submit" class="btn btn-outline-primary btn-sm py-2 px-3 item-certer">Add Color</button>
                                             </div>
                                         </div>
                                     </div>
@@ -160,13 +158,13 @@
                                                 {{ $attributecolor->created_at->diffForHumans() }}
                                             </td>
                                             <td>
-                                                <a href="{{ route('destroy_color', $attributecolor->id) }}" class="btn btn-danger">Delete</a>
+                                                <a href="{{ route('destroy_color', $attributecolor->id) }}" style="border: none"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
                                             <td colspan="50" class="text-center">
-                                                <b class="text-danger">No Data Available</b>
+                                                <span class="text-danger">No Data Available</span>
                                             </td>
                                         </tr>
                                     @endforelse

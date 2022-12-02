@@ -206,10 +206,18 @@
                                                 </span>
                                                 <!--end::Svg Icon-->
                                             </span>
-                                            <span class="menu-title">Product Category</span>
+                                            <span class="menu-title">Product</span>
                                             <span class="menu-arrow"></span>
                                         </span>
-                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'category' || $current_page == 'subcategory') here show @endif">
+                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'product_lists' || $current_page == 'category' || $current_page == 'subcategory') here show @endif">
+                                            <div class="menu-item @if ($current_page == 'product_lists') here show @endif">
+                                                <a class="menu-link" href="{{ route('product_lists') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Product List</span>
+                                                </a>
+                                            </div>
                                             <div class="menu-item @if ($current_page == 'category') here show @endif">
                                                 <a class="menu-link" href="{{ route('category.index') }}">
                                                     <span class="menu-bullet">

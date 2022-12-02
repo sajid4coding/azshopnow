@@ -12,6 +12,6 @@ class SubCategory extends Model
     protected $guarded = [];
 
     function relationshipwith_parent_category(){
-        return $this->hasOne(Category::class, 'id', 'parent_category_id');
+        return $this->hasOne(Category::class, 'slug', 'parent_category_slug');
     }
 }

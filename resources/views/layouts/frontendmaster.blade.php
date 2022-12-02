@@ -640,18 +640,18 @@
                                             <li class="active"><a href="{{ route('home') }}">Home</a>
                                             </li>
                                             <li class="menu-item-has-children"><a href="{{ route('shop.page') }}">SHOP</a>
+                                            {{-- <li><a href="{{ route('single.product') }}">single Product</a></li> --}}
 
-                                                {{-- <ul class="submenu">
+                                               {{-- <ul class="submenu">
                                                     <li><a href="shop.html">Our Shop</a></li>
-                                                    <li><a href="shop-details.html">shop Details</a></li>
                                                 </ul> --}}
                                             </li>
-                                            <li class="menu-item-has-children"><a href="#">SHOP</a>
+                                            {{-- <li class="menu-item-has-children"><a href="#">SHOP</a>
                                                 <ul class="submenu">
                                                     <li><a href="shop.html">Our Shop</a></li>
                                                     <li><a href="shop-details.html">shop Details</a></li>
                                                 </ul>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </div>
                                     {{-- <div class="header-action d-none d-md-block">
@@ -843,6 +843,9 @@
     {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs5.js"></script> --}}
 
 
+{{-- charts js start --}}
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.0-release/chart.min.js"></script> --}}
+{{-- charts js end --}}
 
     {!! NoCaptcha::renderJs() !!}
     @yield('footer_script')
