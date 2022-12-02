@@ -645,7 +645,7 @@
                                                     <li><a href="shop-details.html">shop Details</a></li>
                                                 </ul> --}}
                                             </li>
-                                            <li class="menu-item-has-children"><a href="#">SHOP</a>
+                                            <li class="menu-item-has-children"><a href="#">Blog</a>
                                                 <ul class="submenu">
                                                     <li><a href="shop.html">Our Shop</a></li>
                                                     <li><a href="shop-details.html">shop Details</a></li>
