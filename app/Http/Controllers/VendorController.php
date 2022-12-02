@@ -183,12 +183,13 @@ class vendorController extends Controller
 
         function getIDFromCategory(Request $request){
             $subCategories = SubCategory::where('parent_category_id',$request->category_id)->get();
+
             if($subCategories){
                 $get_category_dropdown ='';
                  foreach($subCategories as $subCategory){
                     $get_category_dropdown .= "<option value='$subCategory->id'>$subCategory->category_name</option>";
                  }
-                 $this->subCategoryHaveorNot = 'false';
+
                  return $get_category_dropdown;
             }
         }

@@ -104,11 +104,11 @@
 
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fas fa-cloud-upload"></i>  Product Upload
+                                                <i class="fas fa-cloud-upload"></i>  Product Settings
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                               <li><a class="dropdown-item"  href="{{ route('vendor.product.upload') }}">Product Add</a></li>
-                                              <li><a class="dropdown-item" href="#">Product List</a></li>
+                                              <li><a class="dropdown-item" href="{{ route('product-list.index') }}">Product List</a></li>
 
                                               <li><a class="dropdown-item" href="#">Attributes</a></li>
                                             </ul>
@@ -163,7 +163,9 @@
 <!-- main-area-end -->
 @endsection
 @section('footer_script')
+
 <script>
+
     $(document).ready(function(){
     $('li').on('click',function(){
         $(this).siblings().removeClass('active')

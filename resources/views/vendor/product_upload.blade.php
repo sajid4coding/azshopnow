@@ -14,20 +14,18 @@
                 @csrf
                 <div class="product-upload-box text-center">
                     <div class="row">
-                        <div class="col-lg-3 col-md-3">
-                            <div class="center">
-                                <div class="form-input">
-                                <div class="preview">
-                                    <img id="file-ip-1-preview" >
-                                </div>
-                                <label for="file-ip-1">Thumbnail</label>
-                                <input type="file" name="thumbnail" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
 
-                                </div>
-                            </div>
+                        <div class="col-lg-3 col-md-3">
+
+                               <label class="picture" for="picture__input" tabIndex="0">
+                                <span class="picture__image"></span>
+                              </label>
+
+                              <input type="file" name="picture__input" id="picture__input">
+
                         </div>
-                        <div class="col-lg-4 col-md-4"></div>
-                        <div class="col-lg-5 col-md-5">
+                        <div class="col-lg-3 col-md-3"></div>
+                        <div class="col-lg-6 col-md-6">
                             <div class="upload__box">
                                 <div class="upload__btn-box">
                                 <label class="upload__btn">
@@ -172,5 +170,66 @@
     $(document).ready(function() {
         $('#summernote').summernote();
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+//     document.getElementById('readUrl').addEventListener('change', function(){
+//   if (this.files[0] ) {
+//     var picture = new FileReader();
+//     picture.readAsDataURL(this.files[0]);
+//     picture.addEventListener('load', function(event) {
+//       document.getElementById('uploadedImage').setAttribute('src', event.target.result);
+//       document.getElementById('uploadedImage').style.display = 'block';
+//     });
+//   }
+// });
+
+
+
+
+
+
+const inputFile = document.querySelector("#picture__input");
+const pictureImage = document.querySelector(".picture__image");
+const pictureImageTxt = "Choose an thumnail";
+pictureImage.innerHTML = pictureImageTxt;
+
+inputFile.addEventListener("change", function (e) {
+  const inputTarget = e.target;
+  const file = inputTarget.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.addEventListener("load", function (e) {
+      const readerTarget = e.target;
+
+      const img = document.createElement("img");
+      img.src = readerTarget.result;
+      img.classList.add("picture__img");
+
+      pictureImage.innerHTML = "";
+      pictureImage.appendChild(img);
+    });
+
+    reader.readAsDataURL(file);
+  } else {
+    pictureImage.innerHTML = pictureImageTxt;
+  }
+});
+
+
+
+
 </script>
 @endsection
