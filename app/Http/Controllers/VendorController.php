@@ -188,7 +188,7 @@ class vendorController extends Controller
                  foreach($subCategories as $subCategory){
                     $get_category_dropdown .= "<option value='$subCategory->id'>$subCategory->category_name</option>";
                  }
-                 $this->subCategoryHaveorNot = 'false';
+
                  return $get_category_dropdown;
             }else{
                 $get_category_dropdown ='';

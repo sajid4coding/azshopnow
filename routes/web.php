@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, ProductController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, ProductController, ProductListController};
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -86,6 +86,9 @@ Route::middleware(['vendor'])->group(function(){
     Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
     Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
     Route::post('/getIDFromCategory',[VendorController::class,'getIDFromCategory']);
+    Route::resource('product-list',ProductListController::class);
+
+
 
 });
 
