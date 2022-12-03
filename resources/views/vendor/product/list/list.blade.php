@@ -24,7 +24,9 @@
                     {{ $product->product_title }}
                 </td>
                  <td>{{ Str::title($product->parent_category_slug) }}</td>
-                 <td>{{ $product->relationwith_subcategory->category_name }}</td>
+                 <td>
+                    {{-- {{ $product->relationwith_subcategory->category_name }} --}}
+                </td>
                  <td><a href="{{ route('inventory', $product->id) }}" class="btn btn-primary btn-sm py-2 px-3">Add Inventory</a></td>
                  <td>
                      <a href="#"><i class="fas fa-edit"></i></a>

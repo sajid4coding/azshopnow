@@ -40,14 +40,14 @@
                     <div class="card-body">
                         <h6 class="card-title">Add Size Attribute</h6>
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="size">
-                            <option>- Select Size Attribute -</option>
+                            <option value="">- Select Size Attribute -</option>
                             @foreach ($attributesizes as $attributesize)
                                 <option value="{{ $attributesize->id }}">{{ $attributesize->size }}</option>
                             @endforeach
                         </select>
                         <h6 class="card-title mt-4">Add Color Attribute</h6>
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="color">
-                            <option>- Select Color Attribute -</option>
+                            <option value="">- Select Color Attribute -</option>
                             @foreach ($attributecolors as $attributecolor)
                                 <option value="{{ $attributecolor->id }}">{{ $attributecolor->color_name }}</option>
                             @endforeach
@@ -81,17 +81,33 @@
                             @forelse ($inventories as $inventory)
                                 <tr>
                                     <td>
-                                        {{ $inventory->relationwithsize->size }}
+                                        @if ($inventory->size)
+                                            {{ $inventory->relationwithsize->size }}
+                                        @else
+                                            <span class="text-muted">None</span>
+                                        @endif
                                     </td>
                                     <td>
-                                        {{ $inventory->relationwithcolor->color_name }}
-                                        <input disabled class="form-control" type="color" value="{{ $inventory->relationwithcolor->color }}">
+                                        @if ($inventory->color)
+                                            {{ $inventory->relationwithcolor->color_name }}
+                                            <input disabled class="form-control" type="color" value="{{ $inventory->relationwithcolor->color }}">
+                                        @else
+                                            <span class="text-muted">None</span>
+                                        @endif
                                     </td>
                                     <td>
                                         {{ $inventory->quantity }}
                                     </td>
                                     <td>
-                                        {{ $inventory->price }}
+                                        @if ($inventory->price)
+                                            {{ $inventory->price }}
+                                        @else
+                                            @if ($product->discount_price)
+                                                {{$product->discount_price}}
+                                            @else
+                                                {{$product->product_price}}
+                                            @endif
+                                        @endif
                                     </td>
                                     <td>
                                         <form action="{{ route('attributes.destroy', $inventory->id) }}" method="POST">

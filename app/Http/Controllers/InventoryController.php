@@ -13,7 +13,7 @@ class InventoryController extends Controller
             'attributesizes' => AttributeSize::where('vendor_id', auth()->id())->get(),
             'attributecolors' => AttributeColor::where('vendor_id', auth()->id())->get(),
             'product' => Product::findOrFail($id),
-            'inventories' => Inventory::where('vendor_id', auth()->id())->get(),
+            'inventories' => Inventory::where('product_id', $id)->get(),
         ]);
     }
     public function add_inventory(Request $request, $id)
