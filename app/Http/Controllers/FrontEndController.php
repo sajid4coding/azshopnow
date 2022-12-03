@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Mail;
 class FrontEndController extends Controller
 {
 
+    function single_product ($id){
+       $single_product = Product::findOrFail($id);
+        return view('frontend.single.product', compact('single_product'));
+    }
     function contact_us_index(){
         return view('frontend.contact_us');
     }
@@ -20,9 +24,9 @@ class FrontEndController extends Controller
         $products=Product::where('status','published')->get()->shuffle();
         return view('frontend.shop',compact('products'));
     }
-    function categoryProduct($id){
-        $categoryName=Category::find($id);
-        $products=Product::where('parent_category_id',$id)->where('status','published')->get()->shuffle();
+    function categoryProduct($slug){
+        $categoryName=Category::where('slug', $slug)->first();
+        $products=Product::where('parent_category_slug',$slug)->where('status','published')->get()->shuffle();
         return view('frontend.categoryProduct', compact('products','categoryName'));
     }
 

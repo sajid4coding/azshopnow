@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, ProductController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, InventoryController, ProductController, ProductListController};
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -15,12 +15,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 // FrontEndController
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
-Route::get('/category/product/{id}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
+Route::get('/categories/{slug}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
 Route::get('/vendor/all/product/{id}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
 Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
 Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
 Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
 Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
+Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->name('single.product');
 
 
 Route::middleware(['admin', 'verified'])->group(function () {
@@ -84,7 +85,13 @@ Route::middleware(['vendor'])->group(function(){
     Route::resource('attributes', AttributeController::class);
     Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
     Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
+    Route::post('/getIDFromCategory',[VendorController::class,'getIDFromCategory']);
+    Route::resource('product-list',ProductListController::class);
 
+    //InventoryController
+    Route::get('inventory/{product}', [InventoryController::class, 'inventory'])->name('inventory');
+    Route::post('add_inventory/{product}', [InventoryController::class, 'add_inventory'])->name('add_inventory');
+    Route::get('delete_inventory/{id}', [InventoryController::class, 'delete_inventory'])->name('delete_inventory');
 });
 
 

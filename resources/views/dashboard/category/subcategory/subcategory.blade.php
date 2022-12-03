@@ -56,12 +56,7 @@
                         <a href="{{ route('subcategory.create') }}" class="btn btn-primary">Add Sub Category</a>
                         <!--end::Add customer-->
                     </div>
-                    <div class="card-toolbar">
-                        <!--begin::Add customer-->
-                            <a href="{{ route('category.create') }}" class="btn btn-primary">Add Category</a>
-                        <!--end::Add customer-->
-                    </div>
-                    <!--end::Card toolbar-->
+
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
@@ -102,7 +97,7 @@
                                                     <a href="{{ route('subcategory.edit', $subcategory->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $subcategory->category_name }}</a>
                                                     <!--end::Title-->
                                                     <!--begin::Description-->
-                                                    <div class="text-muted fs-7 fw-bold">{{ $subcategory->description }}</div>
+                                                    <div class="text-muted fs-7 fw-bold">{{ Str::limit($subcategory->description, 100) }}</div>
                                                     <!--end::Description-->
                                                 </div>
                                             </div>
@@ -111,7 +106,7 @@
                                         <!--begin::Parent Category=-->
                                         <td>
                                             <!--begin::Badges-->
-                                            <div class="badge badge-light-primary">{{ $subcategory->relationshipwith_parent_category->category_name }}</div>
+                                            <div class="badge badge-light-primary">{{ $subcategory->relationshipwith_parent_category->category_name}}</div>
                                             <!--end::Badges-->
                                         </td>
                                         <!--end::Parent Category=-->

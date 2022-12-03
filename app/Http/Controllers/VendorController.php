@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\SubCategory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Rule;
@@ -14,7 +15,11 @@ use Illuminate\Validation\Rules\Password;
 use Intervention\Image\Facades\Image;
 
 class vendorController extends Controller
+
+
 {
+
+
      function vendor_index(){
          return view('vendor.registration');
      }
@@ -175,10 +180,28 @@ class vendorController extends Controller
             $coupons =  Coupon::where('vendor_id',auth()->user()->id)->get();
             return view('vendor.coupon_add',compact('coupons'));
         }
+
+        function getIDFromCategory(Request $request){
+            $subCategories = SubCategory::where('parent_category_slug',$request->category_id)->get();
+            if($subCategories){
+                $get_category_dropdown ='';
+                 foreach($subCategories as $subCategory){
+                    $get_category_dropdown .= "<option value='$subCategory->id'>$subCategory->category_name</option>";
+                 }
+
+                 return $get_category_dropdown;
+            }else{
+                $get_category_dropdown ='';
+                   $get_category_dropdown .= "<option value=''>-- No Sub-Category --</option>";
+                // $this->subCategoryHaveorNot = 'false';
+                return $get_category_dropdown;
+            }
+        }
         function vendor_product_upload(){
 
             return view('vendor.product_upload');
         }
+
 
 
 }

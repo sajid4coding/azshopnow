@@ -7,13 +7,14 @@ use App\Models\User;
  {
     return Category::where('status','published')->get();
  }
- function categoryProductCount($categoryId)
+ function categoryProductCount($categorySlug)
  {
-    return Product::where('parent_category_id',$categoryId)->count();
+    return Product::where('parent_category_slug',$categorySlug)->where('status', 'published')->count();
  }
  function shopName($user_id)
  {
     return User::find($user_id);
  }
+
 
 ?>

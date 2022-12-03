@@ -6,6 +6,7 @@
         <title>Olle - Price Comparison with Multi-vendor Store HTML Template</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
 		<link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend_assets') }}/img/favicon.png">
         <!-- Place favicon.ico in the root directory -->
@@ -639,16 +640,16 @@
                                             <li class="active"><a href="{{ route('home') }}">Home</a>
                                             </li>
                                             <li class="menu-item-has-children"><a href="{{ route('shop.page') }}">SHOP</a>
+                                            {{-- <li><a href="{{ route('single.product') }}">single Product</a></li> --}}
 
-                                                {{-- <ul class="submenu">
+                                               {{-- <ul class="submenu">
                                                     <li><a href="shop.html">Our Shop</a></li>
-                                                    <li><a href="shop-details.html">shop Details</a></li>
                                                 </ul> --}}
                                             </li>
                                             <li class="menu-item-has-children"><a href="#">Blog</a>
                                                 <ul class="submenu">
-                                                    <li><a href="shop.html">Our Shop</a></li>
-                                                    <li><a href="shop-details.html">shop Details</a></li>
+                                                    <li><a href="shop.html">Our Blog</a></li>
+                                                    <li><a href="shop-details.html">Blog Details</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -842,6 +843,9 @@
     {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs5.js"></script> --}}
 
 
+{{-- charts js start --}}
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.0-release/chart.min.js"></script> --}}
+{{-- charts js end --}}
 
     {!! NoCaptcha::renderJs() !!}
     @yield('footer_script')

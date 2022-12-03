@@ -57,12 +57,7 @@
                             <a href="{{ route('category.create') }}" class="btn btn-primary">Add Category</a>
                         <!--end::Add customer-->
                     </div>
-                    <div class="card-toolbar">
-                        <!--begin::Add customer-->
-                        <a href="{{ route('subcategory.index') }}" class="btn btn-primary">Add Sub Category</a>
-                        <!--end::Add customer-->
-                    </div>
-                    <!--end::Card toolbar-->
+
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
@@ -101,7 +96,7 @@
                                                     <a href="{{ route('category.edit', $category->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">{{ $category->category_name }}</a>
                                                     <!--end::Title-->
                                                     <!--begin::Description-->
-                                                    <div class="text-muted fs-7 fw-bold">{{ $category->description }}</div>
+                                                    <div class="text-muted fs-7 fw-bold">{{ Str::limit($category->description, 100) }}</div>
                                                     <!--end::Description-->
                                                 </div>
                                             </div>
