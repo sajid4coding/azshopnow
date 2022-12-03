@@ -646,12 +646,12 @@
                                                     <li><a href="shop.html">Our Shop</a></li>
                                                 </ul> --}}
                                             </li>
-                                            {{-- <li class="menu-item-has-children"><a href="#">SHOP</a>
+                                            <li class="menu-item-has-children"><a href="#">Blog</a>
                                                 <ul class="submenu">
-                                                    <li><a href="shop.html">Our Shop</a></li>
-                                                    <li><a href="shop-details.html">shop Details</a></li>
+                                                    <li><a href="shop.html">Our Blog</a></li>
+                                                    <li><a href="shop-details.html">Blog Details</a></li>
                                                 </ul>
-                                            </li> --}}
+                                            </li>
                                         </ul>
                                     </div>
                                     {{-- <div class="header-action d-none d-md-block">

@@ -17,4 +17,8 @@ class Product extends Model
     public function relationwithcategory(){
         return $this->hasOne(Category::class, 'id', 'parent_category_id');
     }
+
+    public function relationwith_subcategory(){
+        return $this->hasOne(SubCategory::class, 'id', 'sub_category_id');
+    }
 }

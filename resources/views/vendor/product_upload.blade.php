@@ -21,7 +21,7 @@
                                 <span class="picture__image"></span>
                               </label>
 
-                              <input type="file" name="picture__input" id="picture__input">
+                              <input type="file" name="thumbnail" id="picture__input">
 
                         </div>
                         <div class="col-lg-3 col-md-3"></div>

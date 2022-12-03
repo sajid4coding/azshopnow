@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductListController extends Controller
@@ -13,7 +14,12 @@ class ProductListController extends Controller
      */
     public function index()
     {
-        return view('vendor.product.list.list');
+        return view('vendor.product.list.list',[
+            'products' => Product::where([
+                'vendor_id' => auth()->id(),
+                'status' => 'published'
+            ])->get()
+        ]);
     }
 
     /**

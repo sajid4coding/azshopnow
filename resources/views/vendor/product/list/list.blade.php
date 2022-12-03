@@ -12,42 +12,28 @@
                 <th>Title</th>
                 <th>Category</th>
                 <th>Sub Category</th>
-                <th>Regular Price</th>
-                <th>Quantity</th>
-                <th>After Discount Price</th>
-                <th>Entry Date</th>
+                <th>Inventory</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>Edinburgh</td>
-                <td>Edinburgh</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>61</td>
-                <td>2011-04-25</td>
-                <td style="display: flex;gap:15px;">
-                    <a href="#"><i class="fas fa-edit"></i></a>
-                    <a href="#"><i class="fas fa-trash-alt"></i></a>
-                    <span class="text-info "><i class="fas fa-eye"></i></span>
+           @foreach ($products as $product)
+             <tr>
+                 <td>
+                    <img width="50px" height="50" src="{{ asset('uploads/product_photo') }}/{{ $product->thumbnail }}" alt="{{ $product->product_title }}">
+                    {{ $product->product_title }}
                 </td>
-            </tr>
-
-
-
+                 <td>{{ Str::title($product->parent_category_slug) }}</td>
+                 <td>{{ $product->relationwith_subcategory->category_name }}</td>
+                 <td><a href="{{ route('inventory', $product->id) }}" class="btn btn-primary btn-sm py-2 px-3">Add Inventory</a></td>
+                 <td>
+                     <a href="#"><i class="fas fa-edit"></i></a>
+                     <a href="#" class="mx-2"><i class="fas fa-trash-alt"></i></a>
+                     <span class="text-info "><i class="fas fa-eye"></i></span>
+                 </td>
+             </tr>
+           @endforeach
         </tbody>
-        {{-- <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </tfoot> --}}
     </table>
 
 </div>
