@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-lite.css">
         {{-- <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css"> --}}
-
+        @livewireStyles
         @yield('header_css')
     </head>
     <!--Start of Tawk.to Script-->
@@ -839,6 +839,7 @@
     <script src="{{ asset('frontend_assets') }}/js/product.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/custom.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/summernote-lite.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs4.js"></script> --}}
     {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs5.js"></script> --}}
 
@@ -849,6 +850,6 @@
 
     {!! NoCaptcha::renderJs() !!}
     @yield('footer_script')
-
+    @livewireScripts
 </body>
 </html>

@@ -6,6 +6,7 @@ use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
 use App\Models\Category;
+use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
@@ -14,7 +15,7 @@ class FrontEndController extends Controller
 {
 
     function single_product ($id){
-       $single_product = Product::findOrFail($id);
+        $single_product = Product::findOrFail($id);
         return view('frontend.single.product', compact('single_product'));
     }
     function contact_us_index(){

@@ -12,8 +12,8 @@
                             <div class="breadcrumb-wrap">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">shop single</li>
+                                        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">{{$single_product->product_title}}</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -32,7 +32,7 @@
                                 <div class="tab-content" id="nav-tabContent">
                                     <div class="tab-pane show active" id="nav-item-one" role="tabpanel" aria-labelledby="nav-item-one-tab">
                                         <div class="shop-details-img">
-                                            <img src="{{ asset('frontend_assets') }}/img/product/shop_details01.jpg" alt="img">
+                                            <img src="{{ asset('uploads/product_photo') }}/{{$single_product->thumbnail}}" alt="img" width="100%">
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="nav-item-two" role="tabpanel" aria-labelledby="nav-item-two-tab">
@@ -78,9 +78,9 @@
                         <div class="col-xl-5 col-lg-6 col-md-8">
                             <div class="shop-details-content">
                                 <span><i class="fa-solid fa-check"></i>In Stock</span>
-                                <h2 class="title">Smartwatch BT Phone Call 1.3inch</h2>
+                                <h2 class="title">{{$single_product->product_title}}</h2>
                                 <ul>
-                                    <li data-background="{{ asset('frontend_assets') }}/img/images/coupon_bg01.png">
+                                    {{-- <li data-background="{{ asset('frontend_assets') }}/img/images/coupon_bg01.png">
                                         $29.30 Coupons For You
                                     </li>
                                     <li data-background="{{ asset('frontend_assets') }}/img/images/coupon_bg02.png">
@@ -88,47 +88,32 @@
                                     </li>
                                     <li>
                                         <a href="#">Get Coupons</a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
-                                <div class="shop-details-price">
-                                    <h2 class="title">$52.00</h2>
+
+                                <p>{{$single_product->short_description}}</p>
+                                {{-- <div class="shop-details-price">
+                                    <h2 class="title">${{$single_product->product_price}}</h2>
                                     <h4 class="stock-status">- IN Stock</h4>
-                                </div>
-                                <p>The domestic dog is a doiated dendant of the wolf. The dog derived from an ancient, extinct wolf, and the modern grey wolf is nearest.</p>
-                                <div class="shop-details-color">
-                                    <span>Color :</span>
-                                    <ul>
-                                        <li class="active"></li>
-                                        <li class="black"></li>
-                                        <li class="green"></li>
-                                        <li class="blue"></li>
-                                    </ul>
-                                </div>
-                                <div class="shop-details-quantity">
-                                    <span>Quantity :</span>
-                                    <div class="cart-plus-minus">
-                                        <input type="text" value="1">
-                                    </div>
-                                    <a href="shop-details.html" class="wishlist-btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</a>
-                                    <a href="shop-details.html" class="cart-btn">Buy now</a>
-                                </div>
+                                </div> --}}
+                                @livewire('add-to-cart',['productID'=>$single_product->id])
                                 <div class="shop-details-Wishlist">
                                     <ul>
-                                        <li><a href="#"><i class="fa-regular fa-heart"></i>Add to Wishlist</a></li>
-                                        <li><a href="#"><i class="fa-solid fa-chart-column"></i>Compare</a></li>
+                                        <li>
+                                            <a href="#"><i class="fa-regular fa-heart"></i>Add to Wishlist</a>
+                                        </li>
+                                        {{-- <li><a href="#"><i class="fa-solid fa-chart-column"></i>Compare</a></li> --}}
                                     </ul>
                                 </div>
                                 <div class="shop-details-bottom">
                                     <ul>
                                         <li class="sd-category">
                                             <span class="title">Categories :</span>
-                                            <a href="shop.html">Hand Watch,</a>
-                                            <a href="shop.html">Smartwatch,</a>
-                                            <a href="shop.html">Phone</a>
+                                            <a href="#!">{{Str::title($single_product->parent_category_slug)}}</a>
                                         </li>
                                         <li class="sd-sku">
                                             <span class="title">SKU :</span>
-                                            <a href="shop.html">H#21546</a>
+                                            <a href="shop.html">{{$single_product->sku}}</a>
                                         </li>
                                         <li class="sd-share">
                                             <span class="title">Share Now :</span>
@@ -139,6 +124,7 @@
                                     </ul>
                                 </div>
                             </div>
+
                         </div>
                         <div class="col-xl-2 col-lg-12 col-md-4">
                             <div class="recommended-item-wrap">
@@ -855,10 +841,6 @@
                                                     aria-selected="true">Overview</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews"
-                                                    type="button" role="tab" aria-controls="reviews" aria-selected="false">Specifications</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="specifications-tab" data-bs-toggle="tab"
                                                     data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications"
                                                     aria-selected="false">costumer reviews
@@ -873,164 +855,15 @@
                                 <div class="tab-content" id="productTabContent">
                                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                         <div class="product-desc-content">
-                                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                                                suffered alteration in some form,by injected humour, or rando wmised words which don't look
-                                                even the slightly believable. If you are going to use a passage of Lorem Ipsum, you need to
-                                                be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum
-                                                genereators on the Internet tend to repeat predefined chunks as necessary, making this the
-                                                first true generator on the Internet. It uses a dictionary of over 200 Latdin words,
-                                                combined with a handful of model sentence structures, to generate Lorem Ipsum which looks
-                                                reasonable suffered alteration in some form.</p>
-                                            <div class="product-quick-details mb-25">
-                                                <h4 class="title">Quick Details</h4>
-                                                <div class="product-details-list-wrap">
-                                                    <div class="row">
-                                                        <div class="col-lg-3 col-md-6 col-sm-6">
-                                                            <div class="product-details-list">
-                                                                <ul>
-                                                                    <li>Private Mold:</li>
-                                                                    <li>Model Number:</li>
-                                                                    <li>Display Type:</li>
-                                                                    <li>Screen:</li>
-                                                                    <li>Feature:</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2 col-md-6 col-sm-6">
-                                                            <div class="product-details-list">
-                                                                <ul>
-                                                                    <li>Yes</li>
-                                                                    <li>uxt</li>
-                                                                    <li>Max</li>
-                                                                    <li>5"</li>
-                                                                    <li>MP3 Playback</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6">
-                                                            <div class="product-details-list">
-                                                                <ul>
-                                                                    <li>Brand Name:</li>
-                                                                    <li>Place of Origin:</li>
-                                                                    <li>Screen Resolution:</li>
-                                                                    <li>Display Color:</li>
-                                                                    <li>Operation System:</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                                            <div class="product-details-list">
-                                                                <ul>
-                                                                    <li>SOVOGUE</li>
-                                                                    <li>Guangdong, China</li>
-                                                                    <li>240*320</li>
-                                                                    <li>Color</li>
-                                                                    <li>ANDROID, IOS</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <p>Need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem
-                                                Ipsum genereators on the Internet tend to repeat predefined chunks as necessary, making this
-                                                the first true generator on the Internet. It uses a dictionary of over 200 Latdin words,
-                                                combined with a handful of model sentence structures, to generate Lorem Ipsum which looks
-                                                reasonable tend suffered alteration in some form reators on the Internet tend to repeat .
+                                            {{-- <p>
+                                                {{$single_product->short_description}}
+                                            </p> --}}
+                                            <p>
+                                                {{$single_product->description}}
                                             </p>
-                                            <div class="product-feature-wrap mb-30">
-                                                <div class="row">
-                                                    <div class="col-xl-7 col-lg-6">
-                                                        <div class="product-details-img">
-                                                            <img src="{{ asset('frontend_assets') }}/img/images/product_details_img.jpg" alt="img">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-5 col-lg-6">
-                                                        <div class="product-feature">
-                                                            <h4 class="title">Features :</h4>
-                                                            <p>Need to be sure there isn't anything embarrassing hidden in the middle of
-                                                                text. All the Lorem Ipsum
-                                                                genereators on the Internet tend to repeat predefined chunks assing hidden
-                                                            </p>
-                                                            <ul class="product-feature-list">
-                                                                <li>Windows Mobile® 6.1 Professional Edition</li>
-                                                                <li>The device features a LED display.</li>
-                                                                <li>Pros:really great keyboard, good trackpad, alcantara</li>
-                                                                <li>802.11b/g with WPA, WPA2, and 801.1x authentication</li>
-                                                                <li>320x320 transflective colour TFT touchscreen</li>
-                                                                <li>HSDPA/UMTS/EDGE/GPRS/GSM radio</li>
-                                                                <li>Tri-band UMTS — 850MHz, 1900MHz, 2100MHz</li>
-                                                                <li>2.0 megapixel camera, up to 8x digital zoom and video capture</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                                                suffered alteration in some form, by injected humour, or rando wmised words which don't look
-                                                even the slightly believable. If you are going to use a passage of Lorem Ipsum, you need to
-                                                be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum
-                                                genereators on the Internet tend to repeat predefined chunks as necessary, making this the
-                                                first true generator on the Internet. It uses a dictionary of over 200 Latdin words,
-                                                combined with a handful of model sentence structures, to generate Lorem Ipsum which looks
-                                                reasonable suffered alteration in some form.</p>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                                        <div class="product-desc-content">
-                                            <div class="product-quick-details">
-                                                <h4 class="title">Additional Information</h4>
-                                                <div class="product-details-list-wrap">
-                                                    <div class="row">
-                                                        <div class="col-lg-3 col-md-6 col-sm-6">
-                                                            <div class="product-details-list">
-                                                                <ul>
-                                                                    <li>Private Mold:</li>
-                                                                    <li>Model Number:</li>
-                                                                    <li>Display Type:</li>
-                                                                    <li>Screen:</li>
-                                                                    <li>Feature:</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2 col-md-6 col-sm-6">
-                                                            <div class="product-details-list">
-                                                                <ul>
-                                                                    <li>Yes</li>
-                                                                    <li>uxt</li>
-                                                                    <li>Max</li>
-                                                                    <li>5"</li>
-                                                                    <li>MP3 Playback</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-6 col-sm-6">
-                                                            <div class="product-details-list">
-                                                                <ul>
-                                                                    <li>Brand Name:</li>
-                                                                    <li>Place of Origin:</li>
-                                                                    <li>Screen Resolution:</li>
-                                                                    <li>Display Color:</li>
-                                                                    <li>Operation System:</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                                            <div class="product-details-list">
-                                                                <ul>
-                                                                    <li>SOVOGUE</li>
-                                                                    <li>Guangdong, China</li>
-                                                                    <li>240*320</li>
-                                                                    <li>Color</li>
-                                                                    <li>ANDROID, IOS</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
                                         <div class="product-desc-content">
                                             <div class="product-desc-review">
