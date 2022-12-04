@@ -55,7 +55,8 @@
                         <h6 class="card-title mt-4">Quantity</h6>
                         <input class="form-control" type="number" name="quantity">
                         <h6>Enter Piece Amount</h6>
-                        <input class="form-control" type="text" name="price" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,000,000.00">
+                        {{-- <input class="form-control" type="text" name="price" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,000,000.00"> --}}
+                        <input class="form-control" type="text" name="price"  placeholder="$1,000,000.00">
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary m-3 py-2 px-3">Add Attribute</button>
                         </div>
