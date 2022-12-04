@@ -855,11 +855,8 @@
                                 <div class="tab-content" id="productTabContent">
                                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                         <div class="product-desc-content">
-                                            {{-- <p>
-                                                {{$single_product->short_description}}
-                                            </p> --}}
                                             <p>
-                                                {{$single_product->description}}
+                                                {{htmlspecialchars($single_product->description)}}
                                             </p>
                                         </div>
                                     </div>
