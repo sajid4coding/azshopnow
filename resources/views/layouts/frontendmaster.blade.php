@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-lite.css">
         {{-- <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css"> --}}
-        @livewireStyles
+       
         @yield('header_css')
     </head>
     <!--Start of Tawk.to Script-->
