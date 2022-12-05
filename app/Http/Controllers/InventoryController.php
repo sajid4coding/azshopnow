@@ -33,6 +33,7 @@ class InventoryController extends Controller
                 'vendor_id' => auth()->id(),
                 'size' => $request->size,
                 'color' => $request->color,
+                'price' => $request->price,
             ])->increment('quantity', $request->quantity);
         }else{
             Inventory::insert([
