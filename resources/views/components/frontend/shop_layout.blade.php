@@ -126,11 +126,11 @@
                                             <option>Size A - Z</option>
                                         </select>
                                     </form>
-                                    <ul>
+                                    {{-- <ul>
                                         <li>View</li>
                                         <li class="active"><a href="#"><i class="fa-solid fa-table-cells"></i></a></li>
                                         <li><a href="#"><i class="fa-solid fa-bars"></i></a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </div>
                             <div class="row justify-content-center">
@@ -167,10 +167,10 @@
                                                 <option>Size A - Z</option>
                                             </select>
                                         </form>
-                                        <ul>
+                                        {{-- <ul>
                                             <li class="active"><a href="#"><i class="fa-solid fa-table-cells"></i></a></li>
                                             <li><a href="#"><i class="fa-solid fa-bars"></i></a></li>
-                                        </ul>
+                                        </ul> --}}
                                     </div>
                                 </div>
                             </div>
