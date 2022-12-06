@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-md-5">
                     <div class="breadcrumb-img text-end">
-                        <img src="" alt="img">
+                    
                     </div>
                 </div>
             </div>
