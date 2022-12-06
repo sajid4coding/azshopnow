@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Inventory;
 use App\Models\Product;

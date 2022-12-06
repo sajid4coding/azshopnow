@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, InventoryController, ProductController, ProductListController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, InventoryController, ProductController, ProductListController, ShippingController};
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -47,6 +47,9 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //SubCategoryController Resource
     Route::resource('subcategory', SubCategoryController::class);
+
+    //SubCategoryController Resource
+    Route::resource('shipping',ShippingController::class);
 
     //VendormanagementController Resource
     Route::resource('vendormanagement', VendorsmanagementController::class);
