@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
 
-class ProductListController extends Controller
+class ShippingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,8 @@ class ProductListController extends Controller
      */
     public function index()
     {
-        return view('vendor.product.list.list',[
-            'products' => Product::where([
-                'vendor_id' => auth()->id(),
-                'status' => 'published'
-            ])->get()
+        return view('dashboard.shipping.shipping',[
+            'shippings' => Shipping::all()
         ]);
     }
 
@@ -40,7 +37,12 @@ class ProductListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Shipping::insert([
+            'shipping_name' => $request->shipping_name,
+            'cost' => $request->shipping_cost,
+            'created_at' => now()
+        ]);
+        return back();
     }
 
     /**
@@ -85,6 +87,7 @@ class ProductListController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Shipping::find($id)->delete();
+        return back();
     }
 }

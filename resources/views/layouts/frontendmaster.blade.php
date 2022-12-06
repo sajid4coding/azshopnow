@@ -24,9 +24,9 @@
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/custom_style.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-lite.css">
-        <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css">
+        {{-- <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css"> --}}
         @yield('header_css')
-
+        @livewireStyles
     </head>
     <!--Start of Tawk.to Script-->
 <script type="text/javascript">
@@ -106,7 +106,7 @@
                                         <li><a href="#"><i class="far fa-star"></i>Wishlist</a></li>
                                         <li><a href="#"><i class="fas fa-redo"></i>Compare</a></li>
                                         <li class="header-shop"><a href="{{ route('cart') }}"><i class="flaticon-shopping-bag"></i>Cart
-                                        <span class="cart-count">0</span>
+                                        <span class="cart-count">{{ cart() }}</span>
                                         </a></li>
                                         @auth
                                         <li class="header-sine-in">
@@ -646,12 +646,12 @@
                                                     <li><a href="shop.html">Our Shop</a></li>
                                                 </ul> --}}
                                             </li>
-                                            {{-- <li class="menu-item-has-children"><a href="#">SHOP</a>
+                                            <li class="menu-item-has-children"><a href="#">Blog</a>
                                                 <ul class="submenu">
-                                                    <li><a href="shop.html">Our Shop</a></li>
-                                                    <li><a href="shop-details.html">shop Details</a></li>
+                                                    <li><a href="shop.html">Our Blog</a></li>
+                                                    <li><a href="shop-details.html">Blog Details</a></li>
                                                 </ul>
-                                            </li> --}}
+                                            </li>
                                         </ul>
                                     </div>
                                     {{-- <div class="header-action d-none d-md-block">
@@ -839,6 +839,7 @@
     <script src="{{ asset('frontend_assets') }}/js/product.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/custom.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/summernote-lite.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs4.js"></script> --}}
     {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs5.js"></script> --}}
 
@@ -849,6 +850,6 @@
 
     {!! NoCaptcha::renderJs() !!}
     @yield('footer_script')
-
+    @livewireScripts
 </body>
 </html>

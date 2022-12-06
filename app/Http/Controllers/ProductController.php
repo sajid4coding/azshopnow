@@ -61,7 +61,7 @@ class ProductController extends Controller
 
         if($request->file('thumbnail')){
             $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('thumbnail')->getClientOriginalExtension();
-            $img = Image::make($request->file('thumbnail'))->resize(207, 232);
+            $img = Image::make($request->file('thumbnail'))->resize(566, 570);
             $img->save(base_path('public/uploads/product_photo/'.$photo), 70);
             Product::find($product->id)->update([
                 'thumbnail'=>$photo,

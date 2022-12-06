@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, ProductController, ProductListController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, InventoryController, ProductController, ProductListController, ShippingController};
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -48,6 +48,9 @@ Route::middleware(['admin', 'verified'])->group(function () {
     //SubCategoryController Resource
     Route::resource('subcategory', SubCategoryController::class);
 
+    //SubCategoryController Resource
+    Route::resource('shipping',ShippingController::class);
+
     //VendormanagementController Resource
     Route::resource('vendormanagement', VendorsmanagementController::class);
     //AdminmanagementController Resource
@@ -88,8 +91,10 @@ Route::middleware(['vendor'])->group(function(){
     Route::post('/getIDFromCategory',[VendorController::class,'getIDFromCategory']);
     Route::resource('product-list',ProductListController::class);
 
-
-
+    //InventoryController
+    Route::get('inventory/{product}', [InventoryController::class, 'inventory'])->name('inventory');
+    Route::post('add_inventory/{product}', [InventoryController::class, 'add_inventory'])->name('add_inventory');
+    Route::get('delete_inventory/{id}', [InventoryController::class, 'delete_inventory'])->name('delete_inventory');
 });
 
 
