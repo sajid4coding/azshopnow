@@ -24,9 +24,9 @@
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/custom_style.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-lite.css">
-        {{-- <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css"> --}}
-        @yield('header_css')
+        <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css">
         @livewireStyles
+        @yield('header_css')
     </head>
     <!--Start of Tawk.to Script-->
 <script type="text/javascript">
@@ -849,7 +849,8 @@
 {{-- charts js end --}}
 
     {!! NoCaptcha::renderJs() !!}
-    @yield('footer_script')
+
     @livewireScripts
+    @yield('footer_script')
 </body>
 </html>
