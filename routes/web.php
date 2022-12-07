@@ -21,6 +21,8 @@ Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('c
 Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
 Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
 Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
+Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
+Route::post('checkout_post',[FrontEndController::class,'checkout_post'])->name('checkout_post');
 Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->name('single.product');
 
 

@@ -36,7 +36,7 @@
                         <h4 class="stock-status">- IN Stock</h4>
                     @endif
                 @endif
-              @endif
+            @endif
 
      </div>
      {{-- <form wire:submit.prevent="cart"> --}}
