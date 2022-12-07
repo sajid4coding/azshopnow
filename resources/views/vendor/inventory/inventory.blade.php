@@ -28,16 +28,23 @@
                     {{ session('delete_inventory') }}
                 </div>
             @endif
-            @foreach ($errors->all() as $error)
+            {{-- @foreach ($errors->all() as $error)
             <div class="alert alert-danger" role="alert">
                 {{ $error }}
             </div>
-            @endforeach
+            @endforeach --}}
             <div class="col-6">
                 <form action="{{ route('add_inventory', $product->id) }}" method="POST">
                     @csrf
                     <div class="card">
                     <div class="card-body">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{$error}}</li>
+                                @endforeach
+                            </div>
+                        @endif
                         <h6 class="card-title">Add Size Attribute</h6>
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="size">
                             <option value="">- Select Size Attribute -</option>
