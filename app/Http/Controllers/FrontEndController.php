@@ -8,6 +8,8 @@ use App\Mail\ContactMessage;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Inventory;
+use App\Models\Invoice;
+use App\Models\Order_Detail;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
@@ -40,6 +42,104 @@ class FrontEndController extends Controller
     function cart(){
         return view('frontend.cart');
     }
+    function checkout(){
+        $explode_cart = explode('/', url()->previous());
+        $cart_page = end($explode_cart);
+
+        if($cart_page == 'cart'){
+            return view('frontend.checkout');
+        }else{
+            return abort(404);
+        }
+    }
+    function checkout_post(Request $request){
+        if(session('coupon_info')){
+            $invoice_id = Invoice::insert([
+                'user_id' => auth()->id(),
+                'vendor_id' =>  Cart::where('user_id',auth()->id())->first()->vendor_id,
+                'billing_first_name' => $request->billing_first_name,
+                'billing_email' => $request->billing_email,
+                'billing_company' => $request->billing_company,
+                'billing_phone' => $request->billing_phone,
+                'billing_country_code' => $request->billing_country_code,
+                'billing_country_id' => $request->billing_country_id,
+                'billing_address' => $request->billing_address,
+                'order_comments' => $request->order_comments,
+                'subtotal' => $request->subtotal,
+                'coupon_discount' => session('coupon_info')->coupon_amount,
+                'after_coupon_discount' => session('after_discount'),
+                'delivery_change' => session('shipping_cost'),
+                'total_price' => $request->total_price,
+                'payment_method' => $request->payment_method,
+                'created_at' => now()
+            ]);
+        }else{
+            $invoice_id = Invoice::insert([
+                'user_id' => auth()->id(),
+                'vendor_id' =>  Cart::where('user_id',auth()->id())->first()->vendor_id,
+                'billing_first_name' => $request->billing_first_name,
+                'billing_email' => $request->billing_email,
+                'billing_company' => $request->billing_company,
+                'billing_phone' => $request->billing_phone,
+                'billing_country_code' => $request->billing_country_code,
+                'billing_country_id' => $request->billing_country_id,
+                'billing_address' => $request->billing_address,
+                'order_comments' => $request->order_comments,
+                'subtotal' => $request->subtotal,
+                'delivery_change' => session('shipping_cost'),
+                'total_price' => $request->total_price,
+                'payment_method' => $request->payment_method,
+                'created_at' => now()
+            ]);
+        }
+
+        foreach(Cart::where('user_id', auth()->id())->get() as $order_detail){
+            // if(Product::find($order_detail->product_id)->discount_price){
+            //     $unit_price = Product::find($order_detail->product_id)->discount_price;
+            // }else{
+            //     $unit_price = Product::find($order_detail->product_id)->regular_price;
+            // }
+
+            Order_Detail::insert([
+                "invoice_id" => $invoice_id,
+                "user_id" => $order_detail->user_id,
+                "vendor_id" => $order_detail->vendor_id,
+                "product_id" => $order_detail->product_id,
+                "size_id" => $order_detail->size_id,
+                "color_id" => $order_detail->color_id,
+                "quantity" => $order_detail->quantity,
+                "total_price" => session('total'),
+                "created_at" => now()
+            ]);
+        }
+        if(Inventory::where([
+            'product_id' => $order_detail->product_id,
+            'vendor_id' => $order_detail->vendor_id,
+            'size' =>  $order_detail->size,
+            'color' => $order_detail->color
+        ])->exists()){
+            Inventory::where([
+                'product_id' => $order_detail->product_id,
+                'vendor_id' => $order_detail->vendor_id,
+                'size' =>  $order_detail->size,
+                'color' => $order_detail->color
+            ])->decrement('quantity', $order_detail->quantity);
+        }
+
+        if($request->payment_method == "COD"){
+            Cart::where('user_id', auth()->id())->delete();
+            return redirect('customerhome');
+        }
+        else{
+            return redirect('pay')->with('invoice_id', $invoice_id);
+        }
+
+        Cart::where('user_id', auth()->id())->delete();
+        return redirect('customerhome');
+
+    }
+
+
     function contact_us_post(Request $request){
         $request->validate([
             '*' =>'required',

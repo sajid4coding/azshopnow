@@ -61,7 +61,7 @@ class AddToCart extends Component
         }else{
             Cart::insert([
                 'user_id'=>auth()->id(),
-                'venor_id'=>$this->vendor,
+                'vendor_id'=>$this->vendor,
                 'product_id'=>$this->productID,
                 'size_id'=>$this->inventory->size,
                 'color_id'=>$this->inventory->color,
@@ -84,14 +84,14 @@ class AddToCart extends Component
         ){
             Cart::where([
                 'user_id'=>auth()->id(),
-                'venor_id'=>$this->vendor,
+                'vendor_id'=>$this->vendor,
                 'product_id'=>$this->productID,
             ])->increment('quantity',$this->quantity);
         }else{
 
             Cart::insert([
                 'user_id'=>auth()->id(),
-                'venor_id'=>$this->vendor,
+                'vendor_id'=>$this->vendor,
                 'product_id'=>$this->productID,
                 'quantity'=>$this->quantity,
                 'inventory_id'=>$__inventoryId,

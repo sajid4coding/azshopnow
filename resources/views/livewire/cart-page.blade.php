@@ -50,7 +50,7 @@
                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                             <h6 class="mb-0">${{ cart_total($cart->product_id, $cart->quantity) }}
                                 @php
-                                    $subtotal += cart_total($cart->product_id, $cart->quantity);
+                                    $subtotal += cart_total($cart->product_id, $cart->quantity)
                                 @endphp
                             </h6>
                         </div>
@@ -110,16 +110,16 @@
                 @endif
                 <div class="d-flex justify-content-between mb-2">
                     <h5 class="text-uppercase text-success">Delivery Charge (+)</h5>
-                    <h5>${{ session('cost') ?? 0 }}</h5>
+                    <h5>${{ session('shipping_cost') ?? 0 }}</h5>
                 </div>
                 <div class="d-flex justify-content-between mb-4">
                     <h5 class="text-uppercase">Order Total</h5>
                     <h5>$@if (session('coupon_info'))
-                        {{ session('after_discount') + session('cost') }}
+                        {{ session('after_discount') + session('shipping_cost') }}
                         @else
-                            @if (session('cost') != 0)
+                            @if (session('shipping_cost') != 0)
                                 {{-- {{ session('after_discount') + session('shipping_charge') }} --}}
-                                {{ session('subtotal') + session('cost') }}
+                                {{ session('subtotal') + session('shipping_cost') }}
                             @else
                                 {{ round(session('subtotal')) }}
                             @endif
@@ -144,7 +144,7 @@
                         {{-- <label class="form-label" for="form3Examplea2">Enter your code</label> --}}
                         <input class="form-control form-control-lg" type="text" wire:model="coupon" placeholder=" @if (session('coupon_info')) {{ session('coupon_info')->coupon_code }} @else Coupon Code... @endif">
                         <div class="d-flex justify-content-center">
-                            <button wire:click="apply_coupon({{ $subtotal }},{{ $carts->first()->venor_id }})" class="my-2 btn btn-sm">Apply Coupon</button>
+                            <button wire:click="apply_coupon({{ $subtotal }},{{ $carts->first()->vendor_id }})" class="my-2 btn btn-sm">Apply Coupon</button>
                         </div>
                     </div>
                     <small class="text-danger">{{ $coupon_error }}</small>
@@ -155,10 +155,10 @@
                 <div class="d-flex justify-content-between mb-5">
                     <h5 class="text-uppercase">Total price</h5>
                     <h5>$@if(session('coupon_info'))
-                            {{ session('after_discount') + session('cost') }}
+                            {{ session('after_discount') + session('shipping_cost') }}
                         @else
-                            @if (session('cost') != 0)
-                                {{ session('subtotal') + session('cost') }}
+                            @if (session('shipping_cost') != 0)
+                                {{ session('subtotal') + session('shipping_cost') }}
                             @else
                                 {{ round(session('subtotal')) }}
                             @endif
@@ -167,7 +167,7 @@
                 </div>
                 @if ($shipping_id != 0)
                     <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-dark my-2 btn btn-sm">Procced to cheackout</button>
+                        <a href="{{ route('checkout') }}" class="btn btn-dark my-2 btn btn-sm">Procced to checkout</a>
                     </div>
                 @endif
                 </div>
