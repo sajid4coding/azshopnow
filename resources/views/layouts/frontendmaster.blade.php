@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/custom_style.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-lite.css">
-        {{-- <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css"> --}}
+        <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css">
         @livewireStyles
         @yield('header_css')
     </head>
@@ -106,7 +106,7 @@
                                         <li><a href="#"><i class="far fa-star"></i>Wishlist</a></li>
                                         <li><a href="#"><i class="fas fa-redo"></i>Compare</a></li>
                                         <li class="header-shop"><a href="{{ route('cart') }}"><i class="flaticon-shopping-bag"></i>Cart
-                                        <span class="cart-count">0</span>
+                                        <span class="cart-count">{{ cart() }}</span>
                                         </a></li>
                                         @auth
                                         <li class="header-sine-in">
@@ -849,7 +849,8 @@
 {{-- charts js end --}}
 
     {!! NoCaptcha::renderJs() !!}
-    @yield('footer_script')
+
     @livewireScripts
+    @yield('footer_script')
 </body>
 </html>

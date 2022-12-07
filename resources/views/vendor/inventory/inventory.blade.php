@@ -59,7 +59,7 @@
                                 <option value="{{ $attributecolor->id }}">{{ $attributecolor->color_name }}</option>
                             @endforeach
                         </select>
-                        <h6 class="card-title mt-4">Quantity</h6>
+                        <h6 class="card-title mt-4">Quantity<span class="text-danger">*</span></h6>
                         <input class="form-control" type="number" name="quantity">
                         <h6>Enter Piece Amount</h6>
                         {{-- <input class="form-control" type="text" name="price" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,000,000.00"> --}}

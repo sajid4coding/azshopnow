@@ -10,23 +10,33 @@
 
    <div class="shop-details-price">
              {{-- @if (!$inventory->price) --}}
-            @if ($productPrice->discount_price)
+             @if ($productPrice->discount_price)
                 @if ($inventoryPrice == 0)
                     <h2 class="title">${{$productPrice->discount_price * $quantity}}</h2>
                     <h4 class="stock-status">- IN Stock</h4>
                 @else
-                    <h2 class="title">${{$inventory->price * $quantity}}</h2>
+                    @if ($inventory->price == 0)
+                    <h2 class="title">${{$productPrice->discount_price * $quantity}}</h2>
                     <h4 class="stock-status">- IN Stock</h4>
+                    @else
+                        <h2 class="title">${{$inventory->price * $quantity}}</h2>
+                        <h4 class="stock-status">- IN Stock</h4>
+                    @endif
                 @endif
             @else
                 @if ($inventoryPrice == 0)
                     <h2 class="title">${{$productPrice->product_price * $quantity}}</h2>
                     <h4 class="stock-status">- IN Stock</h4>
                 @else
-                    <h2 class="title">${{$inventory->price * $quantity}}</h2>
-                    <h4 class="stock-status">- IN Stock</h4>
+                    @if ($inventory->price == 0)
+                        <h2 class="title">${{$productPrice->product_price * $quantity}}</h2>
+                        <h4 class="stock-status">- IN Stock</h4>
+                    @else
+                        <h2 class="title">${{$inventory->price * $quantity}}</h2>
+                        <h4 class="stock-status">- IN Stock</h4>
+                    @endif
                 @endif
-            @endif
+              @endif
 
      </div>
      {{-- <form wire:submit.prevent="cart"> --}}
