@@ -11,7 +11,7 @@
             <tr>
                 <th>Title</th>
                 <th>Category</th>
-                <th>Sub Category</th>
+                <th>Status</th>
                 <th>Inventory</th>
                 <th>Action</th>
             </tr>
@@ -23,13 +23,20 @@
                     <img width="50px" height="50" src="{{ asset('uploads/product_photo') }}/{{ $product->thumbnail }}" alt="{{ $product->product_title }}">
                     {{ $product->product_title }}
                 </td>
-                 <td>{{ Str::title($product->parent_category_slug) }}</td>
                  <td>
-                    {{-- {{ $product->relationwith_subcategory->category_name }} --}}
+                    {{ Str::title($product->parent_category_slug) }} <br>
+                    @if ($product->sub_category_id)
+                        <h5>Sub-Category: {{ $product->relationwith_subcategory->category_name }}</h5>
+                    @endif
+                </td>
+                 <td>
+                    <div class="badge bg-success">
+                        {{ $product->status }}
+                    </div>
                 </td>
                  <td><a href="{{ route('inventory', $product->id) }}" class="btn btn-primary btn-sm py-2 px-3">Add Inventory</a></td>
                  <td>
-                     <a href="#"><i class="fas fa-edit"></i></a>
+                     <a href="{{route('product.edit',$product->id)}}"><i class="fas fa-edit"></i></a>
                      <a href="#" class="mx-2"><i class="fas fa-trash-alt"></i></a>
                      <span class="text-info "><i class="fas fa-eye"></i></span>
                  </td>

@@ -46,6 +46,7 @@
                             </div>
                         @endif
                         <h6 class="card-title">Add Size Attribute</h6>
+                        <span class="text-center d-block">Size, Color and Price just for variable products</span>
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="size">
                             <option value="">- Select Size Attribute -</option>
                             @foreach ($attributesizes as $attributesize)
@@ -65,7 +66,7 @@
                         {{-- <input class="form-control" type="text" name="price" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,000,000.00"> --}}
                         <input class="form-control" type="text" name="price"  placeholder="$1,000,000.00">
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary m-3 py-2 px-3">Add Attribute</button>
+                            <button type="submit" class="btn btn-primary m-3 py-2 px-3">Add Inventory</button>
                         </div>
                     </div>
                     </div>
@@ -74,7 +75,7 @@
             <div class="col-6">
                 <div class="card text-start">
                   <div class="card-body">
-                    <h6 class="card-title">Size Attributes</h6>
+                    <h6 class="card-title">Inventory Lists</h6>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
