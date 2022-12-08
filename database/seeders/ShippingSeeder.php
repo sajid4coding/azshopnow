@@ -16,12 +16,12 @@ class ShippingSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        DB::table('shippings')->insert([
             'shipping_name' => "Inside City",
             'cost' => 60,
             'created_at' => now()
         ]);
-        DB::table('users')->insert([
+        DB::table('shippings')->insert([
             'shipping_name' => "Outside City",
             'cost' => 120,
             'created_at' => now()
