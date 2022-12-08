@@ -21,6 +21,11 @@ class InventoryController extends Controller
         $request->validate([
             'quantity' => 'required'
         ]);
+        if($request->size){
+            $request->validate([
+                'color' => 'required'
+            ]);
+        }
 
         if(Inventory::where([
             'product_id' => $id,

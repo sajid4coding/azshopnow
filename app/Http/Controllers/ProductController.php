@@ -50,13 +50,12 @@ class ProductController extends Controller
             'product_price'=>$request->product_price,
             'discount_price'=>$request->discount_price,
             'parent_category_slug'=>$request->parent_category,
-            // 'parent_category_slug'=>$request->slug,
             'sub_category_id'=>$request->subcategory,
             'vendor_id'=>auth()->id(),
             'shop_name'=>auth()->user()->shop_name,
             'sku'=>$request->sku,
-            'short_description'=>$request->short_description,
-            'description'=>$request->description,
+            'short_description'=>htmlspecialchars($request->short_description),
+            'description'=>htmlspecialchars($request->description),
         ]);
 
         if($request->file('thumbnail')){
@@ -105,7 +104,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $products=Product::findOrFail($id);
+        return view('vendor.product.list.edit',compact('products'));
     }
 
     /**

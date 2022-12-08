@@ -62,7 +62,7 @@ class ProductListController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**

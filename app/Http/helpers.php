@@ -61,4 +61,9 @@ function get_inventory($product_id, $size_id, $color_id){
             'color' => NULL
         ])->first()->quantity;
     }
-};
+
+}
+function subCategoryUpdate($ParentCategorySlug)
+ {
+    return $ParentCategorySlug;
+ }
