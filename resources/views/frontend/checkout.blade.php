@@ -46,20 +46,20 @@
                                         <div class="col-6">
                                             <p>
                                                 <label for="billing_country_code" class="fw-bold">Country <abbr class="required">*</abbr></label>
-                                                <select class="form-select" name="billing_country_code" id="billing_country_code" autocomplete="country">
-                                                    <option value="">Select a country&hellip;</option>
-                                                    {{-- @foreach ($countries as $country)
-                                                        <option value="{{ $country->code }}">{{ $country->name }}</option>
-                                                    @endforeach --}}
-                                                </select>
+                                                {{-- <select class="form-select" name="billing_country_code" id="billing_country_code" autocomplete="country">
+                                                    <option value="USA">&hellip;</option>
+                                                </select> --}}
+                                                <input readonly id="billing_country_code" class="form-select" value="United State" type="text" name="billing_country_code">
                                             </p>
                                         </div>
                                         <div class="col-6">
                                             <p>
                                                 <label for="billing_country_id" class="fw-bold">City <abbr class="required">*</abbr></label>
                                                 <select class="form-select" name="billing_country_id" id="billing_country_id" autocomplete="country_code">
-                                                    <option value="" >Select Country First&hellip;</option>
-                                                    {{-- <option value="AX" selected='selected'>&#197;land Islands</option> --}}
+                                                    <option value="" >Select City&hellip;</option>
+                                                    @foreach ($cities as $city)
+                                                        <option value="{{ $city->code }}">{{ $city->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </p>
                                         </div>

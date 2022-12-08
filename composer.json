@@ -9,6 +9,7 @@
         "anhskohbo/no-captcha": "^3.4",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
+        "khsing/world": "^9.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",

@@ -27,15 +27,6 @@ Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->
 
 
 Route::middleware(['admin', 'verified'])->group(function () {
-    // Route::get('/dashboard', function () {
-    //     return view('layouts.dashboardmaster');
-    // })->middleware(['auth', 'verified'])->name('dashboard');
-
-    // Route::get('/product_lists', function () {
-    //     return view('dashboard.product.product-lists',[
-    //         'products' => Product::all()
-    //     ]);
-    // })->middleware(['auth', 'verified'])->name('product_lists');
 
     //DashboardController
     Route::get('dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
