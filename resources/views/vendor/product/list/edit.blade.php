@@ -74,23 +74,23 @@
                     @php
                         $categories=category()
                     @endphp
-                    <div class="col-lg-6">
-                        <div class="form-grp">
-                            <label for="parent_category">Category</label>
-                            <select name="parent_category" id="categoryDropDown" class="form-control">
-                                <option value="0">- Select Category -</option>
-                                @foreach ($categories as $category)
-                                    <option @if ($products->parent_category_slug == $category->slug)
-                                        selected
-                                    @endif value="{{$category->slug}}">{{$category->category_name}}</option>
-                                @endforeach
-                            </select>
+                        <div class="col-lg-6">
+                            <div class="form-grp">
+                                <label for="parent_category">Category</label>
+                                <select name="parent_category" id="EditcategoryDropDown" class="form-control">
+                                    <option value="0">- Select Category -</option>
+                                    @foreach ($categories as $category)
+                                        <option @if ($products->parent_category_slug == $category->slug)
+                                            selected
+                                        @endif value="{{$category->slug}}">{{$category->category_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                   @php
-                      $subCategoryUpdate= subCategoryUpdate($products->parent_category_slug)
-                   @endphp
-                   {{$subCategoryUpdate}}
+                    @php
+                       $subCategoryUpdate= subCategoryUpdate($products->parent_category_slug)
+                    @endphp
+
 
                     <div class="col-lg-6">
                         <div class="form-grp">
@@ -140,7 +140,7 @@
 
 
     $(document).ready(function(){
-         $('#categoryDropDown').change(function(){
+         $('#EditcategoryDropDown').change(function(){
              var category_id = $(this).val()
             if(category_id){
              $.ajaxSetup({
@@ -150,9 +150,10 @@
             });
              $.ajax({
                 type: 'post',
-                url: '/getIDFromCategory',
+                url: '/getIDFromCategoryForEdit',
                 data: {
-                    category_id:category_id
+                    category_id:category_id,
+                    // sub_category_id: $products->sub_category_id
                 },
                 success: function (data) {
                     $( "#SubCategory" ).html(data);

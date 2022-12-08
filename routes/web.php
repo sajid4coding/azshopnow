@@ -91,6 +91,7 @@ Route::middleware(['vendor'])->group(function(){
     Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
     Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
     Route::post('/getIDFromCategory',[VendorController::class,'getIDFromCategory']);
+    Route::post('/getIDFromCategoryForEdit',[VendorController::class,'getIDFromCategoryEdit']);
     Route::resource('product-list',ProductListController::class);
 
     //InventoryController
