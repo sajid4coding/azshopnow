@@ -12,6 +12,9 @@ use App\Models\Invoice;
 use App\Models\Order_Detail;
 use App\Models\Product;
 use App\Models\User;
+use Khsing\World\World;
+use Khsing\World\Models\Country;
+use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Mail;
 
 class FrontEndController extends Controller
@@ -47,7 +50,9 @@ class FrontEndController extends Controller
         $cart_page = end($explode_cart);
 
         if($cart_page == 'cart'){
-            return view('frontend.checkout');
+            $countries = Country::getByCode('us');
+            $cities = $countries->children();
+            return view('frontend.checkout', compact('countries','cities'));
         }else{
             return abort(404);
         }
@@ -61,7 +66,7 @@ class FrontEndController extends Controller
                 'billing_email' => $request->billing_email,
                 'billing_company' => $request->billing_company,
                 'billing_phone' => $request->billing_phone,
-                'billing_country_code' => $request->billing_country_code,
+                'billing_country' => $request->billing_country_code,
                 'billing_country_id' => $request->billing_country_id,
                 'billing_address' => $request->billing_address,
                 'order_comments' => $request->order_comments,
@@ -81,7 +86,7 @@ class FrontEndController extends Controller
                 'billing_email' => $request->billing_email,
                 'billing_company' => $request->billing_company,
                 'billing_phone' => $request->billing_phone,
-                'billing_country_code' => $request->billing_country_code,
+                'billing_country' => $request->billing_country_code,
                 'billing_country_id' => $request->billing_country_id,
                 'billing_address' => $request->billing_address,
                 'order_comments' => $request->order_comments,

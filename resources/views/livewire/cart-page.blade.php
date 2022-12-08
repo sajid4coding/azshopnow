@@ -41,7 +41,7 @@
                             <i class="fas fa-minus"></i>
                             </button>
 
-                            <input readonly  style="width: 4rem;text-align:center;" wire:keyup="quantity({{ $cart->id }}, $event.target.value)" type="text" value="{{ $cart->quantity }}" class="form-control" />
+                            <input style="width: 4rem;text-align:center;" wire:keyup="quantity({{ $cart->id }}, $event.target.value)" type="text" value="{{ $cart->quantity }}" class="form-control" />
 
                             <button wire:click="quantity_increment({{ $cart->id }})" class="p-2" style="border: none">
                             <i class="fas fa-plus"></i>
