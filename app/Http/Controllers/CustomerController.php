@@ -87,7 +87,7 @@ class CustomerController extends Controller
      }
 
 
-    public function password_update (Request $request){
+    public function password_update(Request $request){
 
                 $request->validate([
                 'current_password' => 'required',
@@ -106,9 +106,14 @@ class CustomerController extends Controller
 
             }
             return back()->with('');
-
-
-
      }
+
+       function customer_account_details(){
+            return view('frontend.customer.customer_account_details');
+       }
+       function customer_invoice_details(){
+            return view('frontend.customer.customer_invoice');
+       }
+
 
 }
