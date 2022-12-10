@@ -154,7 +154,6 @@ class FrontEndController extends Controller
 
     public function index(){
         return view('index', [
-            'fix_categories' => Category::where('status','published')->latest()->limit(12)->get(),
             'categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
             'auth_categories' => Category::where('status','published')->latest()->limit(20)->get()->shuffle()
         ]);

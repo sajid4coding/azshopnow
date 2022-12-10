@@ -22,13 +22,13 @@
                 <td>{{ $order->payment_status }}</td>
                 <td>{{ $order->total_price }}</td>
                 <td>
-                    <a href="#" class="btn btn-primary">Download Invoice</a>
+                    <a href="{{ route('invoice.download', $order->id) }}" class="btn btn-primary">Download Invoice</a>
                 </td>
             </tr>
             <tr class="mb-2">
                 <td colspan="50" class="bg-secondary bg-gradient">
                     <div class="m-4">
-                        <span>Product Name: <a href="#!">{{ $order->relationwith_orderinvoice->relationwithproduct->product_title }}</a></span><br>
+                        <span>Product Name: <a href="{{ route('single.product', $order->relationwith_orderinvoice->relationwithproduct->id) }}">{{ $order->relationwith_orderinvoice->relationwithproduct->product_title }}</a></span><br>
                         @if ($order->relationwith_orderinvoice->size_id && $order->relationwith_orderinvoice->color_id)
                             <span>Size: {{ $order->relationwith_orderinvoice->relationwithsize->size }}</span><br>
                             <span>Color: {{ $order->relationwith_orderinvoice->relationwithcolor->color_name }}</span>

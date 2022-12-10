@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class CustomerController extends Controller
@@ -116,6 +117,12 @@ class CustomerController extends Controller
                 'orders' => Invoice::where('user_id', auth()->id())->get(),
             ]);
        }
+
+    public function invoice_download($id){
+        // return $id;
+        $pdf = Pdf::loadView('pdf.invoice');
+        return $pdf->setPaper('a4', 'portrait')->download('invoice.pdf');
+    }
 
 
 }

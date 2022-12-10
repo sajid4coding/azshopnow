@@ -173,6 +173,7 @@
                                     @php
                                         $home_page = url('/');
                                         $current_page = url()->current();
+                                        $fix_categories = category();
                                     @endphp
                                     <div class="header-category">
                                         <a href="#" class="cat-toggle">
