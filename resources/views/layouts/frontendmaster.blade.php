@@ -94,11 +94,11 @@
                                     <form action="#">
                                         <input type="text" placeholder="Search for product...">
                                         <select class="custom-select">
-                                            @foreach ($fix_categories as $category)
+                                            {{-- @foreach ($fix_categories as $category)
                                                 <option>{{ $category->category_name }}</option>
-                                            @endforeach
-                                            {{-- <option>Men's Clothing</option>
-                                            <option>Luggage & Bags</option> --}}
+                                            @endforeach --}}
+                                            <option>Men's Clothing</option>
+                                            <option>Luggage & Bags</option>
                                         </select>
                                         <button><i class="fas fa-search"></i></button>
                                     </form>
