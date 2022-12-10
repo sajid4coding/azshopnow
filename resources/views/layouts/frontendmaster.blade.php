@@ -94,11 +94,11 @@
                                     <form action="#">
                                         <input type="text" placeholder="Search for product...">
                                         <select class="custom-select">
-                                            @foreach ($fix_categories as $category)
+                                            {{-- @foreach ($fix_categories as $category)
                                                 <option>{{ $category->category_name }}</option>
-                                            @endforeach
-                                            {{-- <option>Men's Clothing</option>
-                                            <option>Luggage & Bags</option> --}}
+                                            @endforeach --}}
+                                            <option>Men's Clothing</option>
+                                            <option>Luggage & Bags</option>
                                         </select>
                                         <button><i class="fas fa-search"></i></button>
                                     </form>
@@ -181,7 +181,7 @@
                                             <i class="fas fa-angle-down"></i>
                                         </a>
                                         <ul class="category-menu" @if ($current_page != $home_page) style="display: none;" @endif>
-                                            <li class="add-megamenu">
+                                            {{-- <li class="add-megamenu">
                                                 <a href="#"><i class="fa-solid fa-gear"></i>How to add MegaMenu</a>
                                             </li>
                                             <li><a href="shop.html"><i class="flaticon-make-up"></i>Health and Beauty </a>
@@ -639,7 +639,7 @@
                                             <li class="more-categories">
                                                 All Categories
                                                 <i class="fas fa-chevron-right"></i>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </div>
                                     <div class="navbar-wrap main-menu d-none d-lg-flex">
