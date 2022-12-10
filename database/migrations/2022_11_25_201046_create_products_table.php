@@ -28,6 +28,7 @@ return new class extends Migration
             $table->longText('short_description')->nullable();
             $table->longText('description')->nullable();
             $table->string('thumbnail')->nullable();
+            $table->string('vendorProductStatus')->default('published');
             $table->timestamps();
             $table->softdeletes();
         });

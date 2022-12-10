@@ -10,8 +10,9 @@
                 </div>
 
             @endif
-            <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('product.update',$products->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PATCH')
                 <div class="product-upload-box text-center">
                     <div class="row">
 
@@ -122,6 +123,13 @@
                 <div class="form-grp">
                     <label for="description">Description</label>
                     <textarea id="summernote" name="description">@if($products->description){{$products->description}}@endif</textarea>
+                </div>
+                <div class="form-grp">
+                    <label for="description">Status</label>
+                    <select name="vendorProductStatus" id="" class="form-select w-50">
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                    </select>
                 </div>
 
 

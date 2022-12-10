@@ -22,18 +22,18 @@ class FrontEndController extends Controller
         return view('frontend.contact_us');
     }
     function shop_page(){
-        $products=Product::where('status','published')->get()->shuffle();
+        $products=Product::where('status','published')->where('vendorProductStatus','published')->get()->shuffle();
         return view('frontend.shop',compact('products'));
     }
     function categoryProduct($slug){
         $categoryName=Category::where('slug', $slug)->first();
-        $products=Product::where('parent_category_slug',$slug)->where('status','published')->get()->shuffle();
+        $products=Product::where('parent_category_slug',$slug)->where('status','published')->where('vendorProductStatus','published')->get()->shuffle();
         return view('frontend.categoryProduct', compact('products','categoryName'));
     }
 
     function vendorProduct($id){
         $shopName=User::find($id);
-        $products=Product::where('vendor_id',$id)->where('status','published')->latest()->get();
+        $products=Product::where('vendor_id',$id)->where('status','published')->where('vendorProductStatus','published')->latest()->get();
         return view('frontend.vendorProduct', compact('products','shopName'));
     }
     function cart(){
