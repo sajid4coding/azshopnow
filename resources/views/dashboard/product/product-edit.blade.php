@@ -162,7 +162,7 @@
                                 <!--end::Label-->
                                 <!--begin::Select2-->
                                 <select class="form-select mb-2" data-control="select2" data-placeholder="Select an option" data-allow-clear="true">
-                                    <option value="{{ $product->parent_category_id }}">{{ $product->relationwithcategory->category_name }}</option>
+                                    {{-- <option value="{{ $product->parent_category_id }}">{{ $product->relationwithcategory->category_name }}</option> --}}
                                     @foreach ($categories as $cateogry)
                                         <option value="{{ $cateogry->id }}">{{ $cateogry->category_name }}</option>
                                     @endforeach
