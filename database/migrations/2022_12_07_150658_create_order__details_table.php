@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->integer('total_price');
             $table->timestamps();
+            $table->SoftDeletes();
         });
     }
 

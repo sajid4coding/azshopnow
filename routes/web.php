@@ -103,8 +103,6 @@ Route::middleware(['customer'])->group(function(){
     Route::post('change/profile/post', [CustomerController::class, 'change_profile_post'])->name('change.profile.post');
     Route::get('customer/profile/acounts/details', [CustomerController::class, 'customer_account_details'])->name('customer.account.details');
     Route::get('customer/profile/invoice/details', [CustomerController::class, 'customer_invoice_details'])->name('customer.invoice.details');
-
-
 });
 
 Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome')->middleware(['auth', 'verified']);

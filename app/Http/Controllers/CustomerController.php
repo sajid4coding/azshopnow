@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\{Invoice, User, Order_Detail, Product};
 use Carbon\Carbon;
-use  App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
@@ -112,7 +112,9 @@ class CustomerController extends Controller
             return view('frontend.customer.customer_account_details');
        }
        function customer_invoice_details(){
-            return view('frontend.customer.customer_invoice');
+            return view('frontend.customer.customer_invoice',[
+                'orders' => Invoice::where('user_id', auth()->id())->get(),
+            ]);
        }
 
 
