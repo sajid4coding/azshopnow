@@ -1,4 +1,22 @@
 <div>
+    @if (cart() == 0)
+    <!-- empty_cart_section - start
+    ================================================== -->
+    <section class="empty_cart_section section_space">
+        <div class="container m-5">
+            <div class="empty_cart_content text-center">
+                <span class="cart_icon display-4 text-primary">
+                    <i class="fa-sharp fa-solid fa-cart-shopping"></i>
+                </span>
+                <h3 class="text-primary">There are no more items in your cart</h3>
+                <a class="btn btn_secondary" href="{{ route('shop.page') }}"><i class="fa fa-chevron-left"></i> Continue shopping </a>
+            </div>
+        </div>
+    </section>
+    <!-- empty_cart_section - end
+    ================================================== -->
+    @else
+
     <div class="col-12">
         <div class="card card-registration card-registration-2" style="border-radius: 15px;">
         <div class="card-body p-0">
@@ -176,4 +194,7 @@
         </div>
         </div>
     </div>
+
+
+    @endif
 </div>

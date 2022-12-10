@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\{Invoice, User, Order_Detail, Product};
 use Carbon\Carbon;
-use  App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class CustomerController extends Controller
@@ -87,7 +88,7 @@ class CustomerController extends Controller
      }
 
 
-    public function password_update (Request $request){
+    public function password_update(Request $request){
 
                 $request->validate([
                 'current_password' => 'required',
@@ -106,9 +107,22 @@ class CustomerController extends Controller
 
             }
             return back()->with('');
-
-
-
      }
+
+       function customer_account_details(){
+            return view('frontend.customer.customer_account_details');
+       }
+       function customer_invoice_details(){
+            return view('frontend.customer.customer_invoice',[
+                'orders' => Invoice::where('user_id', auth()->id())->get(),
+            ]);
+       }
+
+    public function invoice_download($id){
+        // return $id;
+        $pdf = Pdf::loadView('pdf.invoice');
+        return $pdf->setPaper('a4', 'portrait')->download('invoice.pdf');
+    }
+
 
 }
