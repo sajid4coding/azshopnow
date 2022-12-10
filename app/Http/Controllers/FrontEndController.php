@@ -93,12 +93,6 @@ class FrontEndController extends Controller
         }
 
         foreach(Cart::where('user_id', auth()->id())->get() as $order_detail){
-            // if(Product::find($order_detail->product_id)->discount_price){
-            //     $unit_price = Product::find($order_detail->product_id)->discount_price;
-            // }else{
-            //     $unit_price = Product::find($order_detail->product_id)->regular_price;
-            // }
-
             Order_Detail::insert([
                 "invoice_id" => $invoice_id,
                 "user_id" => $order_detail->user_id,

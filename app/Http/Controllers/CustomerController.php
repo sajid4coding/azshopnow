@@ -119,7 +119,6 @@ class CustomerController extends Controller
        }
 
     public function invoice_download($id){
-        // return $id;
         $pdf = Pdf::loadView('pdf.invoice');
         return $pdf->setPaper('a4', 'portrait')->download('invoice.pdf');
     }
