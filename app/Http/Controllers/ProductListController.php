@@ -14,12 +14,8 @@ class ProductListController extends Controller
      */
     public function index()
     {
-        return view('vendor.product.list.list',[
-            'products' => Product::where([
-                'vendor_id' => auth()->id(),
-                'status' => 'published'
-            ])->get()
-        ]);
+        $products= Product::where('vendor_id',auth()->id())->latest()->get();
+        return view('vendor.product.list.list',compact('products'));
     }
 
     /**
@@ -62,7 +58,7 @@ class ProductListController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**

@@ -15,7 +15,7 @@
                 <div class="product-upload-box text-center">
                     <div class="row">
 
-                        <div class="col-lg-3 col-md-3">
+                        <div class="col-lg-6 col-md-6">
 
                                <label class="picture" for="picture__input" tabIndex="0">
                                 <span class="picture__image"></span>
@@ -24,7 +24,7 @@
                               <input type="file" name="thumbnail" id="picture__input">
 
                         </div>
-                        <div class="col-lg-3 col-md-3"></div>
+                        {{-- <div class="col-lg-3 col-md-3"></div> --}}
                         <div class="col-lg-6 col-md-6">
                             <div class="upload__box">
                                 <div class="upload__btn-box">
