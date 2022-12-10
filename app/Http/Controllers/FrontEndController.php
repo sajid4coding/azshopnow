@@ -53,7 +53,7 @@ class FrontEndController extends Controller
     }
     function checkout_post(Request $request){
         if(session('coupon_info')){
-            $invoice_id = Invoice::insert([
+            $invoice_id = Invoice::insertGetId([
                 'user_id' => auth()->id(),
                 'vendor_id' =>  Cart::where('user_id',auth()->id())->first()->vendor_id,
                 'billing_first_name' => $request->billing_first_name,
@@ -73,7 +73,7 @@ class FrontEndController extends Controller
                 'created_at' => now()
             ]);
         }else{
-            $invoice_id = Invoice::insert([
+            $invoice_id = Invoice::insertGetId([
                 'user_id' => auth()->id(),
                 'vendor_id' =>  Cart::where('user_id',auth()->id())->first()->vendor_id,
                 'billing_first_name' => $request->billing_first_name,
@@ -127,7 +127,7 @@ class FrontEndController extends Controller
 
         if($request->payment_method == "COD"){
             Cart::where('user_id', auth()->id())->delete();
-            return redirect('customerhome');
+            return redirect('customer/profile/invoice/details');
         }
         else{
             return redirect('pay')->with('invoice_id', $invoice_id);
