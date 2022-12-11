@@ -58,6 +58,7 @@ class CategoryController extends Controller
             'category_name'=> $request->category_name,
             'slug'=> Str::slug($category_slug, '-'),
             'description'=> $request->category_description,
+            'icon'=> $request->icon,
             'status'=> $request->status,
             'created_at' => now()
         ]);
@@ -97,7 +98,8 @@ class CategoryController extends Controller
     public function edit($id)
     {
         return view('dashboard.category.editcategory',[
-            'category' => Category::find($id)
+            'category' => Category::find($id),
+            'icon' => Category::find($id)->icon
         ]);
     }
 
@@ -123,7 +125,8 @@ class CategoryController extends Controller
             'category_name' => $request->category_name,
             'slug' => $request->slug,
             'description' => $request->description,
-            'status' => $request->status
+            'status' => $request->status,
+            'icon'=> $request->icon
         ]);
         return back();
     }
