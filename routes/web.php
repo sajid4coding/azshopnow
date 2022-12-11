@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, InventoryController, ProductController, ProductListController, ShippingController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ProductListController, ShippingController};
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -59,6 +59,9 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::resource('adminmanagement', AdminmanagementController::class);
     //CustomermanagementController Resource
     Route::resource('customermanagement', CustomermanagementController::class);
+
+    // All Banner Management Controller
+    Route::get('banner-edit',[BannerController::class,'index'])->name('banner.edit');
 
     // ProfileController
     Route::get('admin/profile', [ProfileController::class, 'admin_profile'])->name('admin.profile');
