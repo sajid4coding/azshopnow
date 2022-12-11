@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('billing_email');
             $table->string('billing_company')->nullable();
             $table->string('billing_phone');
-            $table->string('billing_country_code')->nullable();
-            $table->string('billing_country_id')->nullable();
+            $table->string('billing_country');
+            $table->string('billing_country_id');
             $table->longText('billing_address');
             $table->longText('order_comments')->nullable();
             $table->integer('subtotal');

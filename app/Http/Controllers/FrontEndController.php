@@ -5,13 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
-use App\Models\Cart;
-use App\Models\Category;
-use App\Models\Inventory;
-use App\Models\Invoice;
-use App\Models\Order_Detail;
-use App\Models\Product;
-use App\Models\User;
+use App\Models\{Cart, Category, Inventory, Invoice ,Order_Detail,Product,User};
+use Khsing\World\World;
+use Khsing\World\Models\Country;
+use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Mail;
 
 class FrontEndController extends Controller
@@ -25,18 +22,18 @@ class FrontEndController extends Controller
         return view('frontend.contact_us');
     }
     function shop_page(){
-        $products=Product::where('status','published')->get()->shuffle();
+        $products=Product::where('status','published')->where('vendorProductStatus','published')->get()->shuffle();
         return view('frontend.shop',compact('products'));
     }
     function categoryProduct($slug){
         $categoryName=Category::where('slug', $slug)->first();
-        $products=Product::where('parent_category_slug',$slug)->where('status','published')->get()->shuffle();
+        $products=Product::where('parent_category_slug',$slug)->where('status','published')->where('vendorProductStatus','published')->get()->shuffle();
         return view('frontend.categoryProduct', compact('products','categoryName'));
     }
 
     function vendorProduct($id){
         $shopName=User::find($id);
-        $products=Product::where('vendor_id',$id)->where('status','published')->latest()->get();
+        $products=Product::where('vendor_id',$id)->where('status','published')->where('vendorProductStatus','published')->latest()->get();
         return view('frontend.vendorProduct', compact('products','shopName'));
     }
     function cart(){
@@ -47,21 +44,23 @@ class FrontEndController extends Controller
         $cart_page = end($explode_cart);
 
         if($cart_page == 'cart'){
-            return view('frontend.checkout');
+            $countries = Country::getByCode('us');
+            $cities = $countries->children();
+            return view('frontend.checkout', compact('countries','cities'));
         }else{
             return abort(404);
         }
     }
     function checkout_post(Request $request){
         if(session('coupon_info')){
-            $invoice_id = Invoice::insert([
+            $invoice_id = Invoice::insertGetId([
                 'user_id' => auth()->id(),
                 'vendor_id' =>  Cart::where('user_id',auth()->id())->first()->vendor_id,
                 'billing_first_name' => $request->billing_first_name,
                 'billing_email' => $request->billing_email,
                 'billing_company' => $request->billing_company,
                 'billing_phone' => $request->billing_phone,
-                'billing_country_code' => $request->billing_country_code,
+                'billing_country' => $request->billing_country_code,
                 'billing_country_id' => $request->billing_country_id,
                 'billing_address' => $request->billing_address,
                 'order_comments' => $request->order_comments,
@@ -74,14 +73,14 @@ class FrontEndController extends Controller
                 'created_at' => now()
             ]);
         }else{
-            $invoice_id = Invoice::insert([
+            $invoice_id = Invoice::insertGetId([
                 'user_id' => auth()->id(),
                 'vendor_id' =>  Cart::where('user_id',auth()->id())->first()->vendor_id,
                 'billing_first_name' => $request->billing_first_name,
                 'billing_email' => $request->billing_email,
                 'billing_company' => $request->billing_company,
                 'billing_phone' => $request->billing_phone,
-                'billing_country_code' => $request->billing_country_code,
+                'billing_country' => $request->billing_country_code,
                 'billing_country_id' => $request->billing_country_id,
                 'billing_address' => $request->billing_address,
                 'order_comments' => $request->order_comments,
@@ -94,12 +93,6 @@ class FrontEndController extends Controller
         }
 
         foreach(Cart::where('user_id', auth()->id())->get() as $order_detail){
-            // if(Product::find($order_detail->product_id)->discount_price){
-            //     $unit_price = Product::find($order_detail->product_id)->discount_price;
-            // }else{
-            //     $unit_price = Product::find($order_detail->product_id)->regular_price;
-            // }
-
             Order_Detail::insert([
                 "invoice_id" => $invoice_id,
                 "user_id" => $order_detail->user_id,
@@ -128,7 +121,7 @@ class FrontEndController extends Controller
 
         if($request->payment_method == "COD"){
             Cart::where('user_id', auth()->id())->delete();
-            return redirect('customerhome');
+            return redirect('customer/profile/invoice/details');
         }
         else{
             return redirect('pay')->with('invoice_id', $invoice_id);

@@ -117,7 +117,29 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Product::find($id)->update([
+            'product_title'=>$request->product_title,
+            'product_price'=>$request->product_price,
+            'discount_price'=>$request->discount_price,
+            'parent_category_slug'=>$request->parent_category,
+            'sub_category_id'=>$request->subcategory,
+            'vendor_id'=>auth()->id(),
+            'shop_name'=>auth()->user()->shop_name,
+            'sku'=>$request->sku,
+            'short_description'=>htmlspecialchars($request->short_description),
+            'description'=>htmlspecialchars($request->description),
+            'vendorProductStatus'=>$request->vendorProductStatus,
+        ]);
+        if($request->file('thumbnail')){
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('thumbnail')->getClientOriginalExtension();
+            $img = Image::make($request->file('thumbnail'))->resize(566, 570);
+            $img->save(base_path('public/uploads/product_photo/'.$photo), 70);
+            Product::find($id)->update([
+                'thumbnail'=>$photo,
+            ]);
+        }
+
+        return redirect('product-list');
     }
 
     /**

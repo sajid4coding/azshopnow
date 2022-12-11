@@ -94,7 +94,9 @@
                                     <form action="#">
                                         <input type="text" placeholder="Search for product...">
                                         <select class="custom-select">
-                                            <option>Women's Clothing</option>
+                                            {{-- @foreach ($fix_categories as $category)
+                                                <option>{{ $category->category_name }}</option>
+                                            @endforeach --}}
                                             <option>Men's Clothing</option>
                                             <option>Luggage & Bags</option>
                                         </select>
@@ -167,13 +169,19 @@
                                     <div class="logo d-none">
                                         <a href="index.html"><img src="{{ asset('frontend_assets') }}/img/logo/w_logo.png" alt=""></a>
                                     </div>
+
+                                    @php
+                                        $home_page = url('/');
+                                        $current_page = url()->current();
+                                        $fix_categories = category();
+                                    @endphp
                                     <div class="header-category">
                                         <a href="#" class="cat-toggle">
                                             <i class="fas fa-bars"></i>
                                             Browse Categories
                                             <i class="fas fa-angle-down"></i>
                                         </a>
-                                        {{-- <ul class="category-menu">
+                                        <ul class="category-menu" @if ($current_page != $home_page) style="display: none;" @endif>
                                             <li class="add-megamenu">
                                                 <a href="#"><i class="fa-solid fa-gear"></i>How to add MegaMenu</a>
                                             </li>
@@ -633,7 +641,7 @@
                                                 All Categories
                                                 <i class="fas fa-chevron-right"></i>
                                             </li>
-                                        </ul> --}}
+                                        </ul>
                                     </div>
                                     <div class="navbar-wrap main-menu d-none d-lg-flex">
                                         <ul class="navigation">
