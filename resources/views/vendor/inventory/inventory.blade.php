@@ -45,14 +45,21 @@
                                 @endforeach
                             </div>
                         @endif
+                        <div class="alert alert-warning">
+                            <h6>NOTE:</h6>
+                            <span class="text-center d-block text-danger">- Fill just Quantity field, If your product is simple</span>
+                        <span class="text-center d-block text-danger mb-2">- Size, Color and Price just for variable products</span>
+                        </div>
+                        <h6 class="card-title mt-4">Quantity<span class="text-danger">*</span></h6>
+                        <input class="form-control" type="number" name="quantity" placeholder="Add your product quantity...">
                         <h6 class="card-title">Add Size Attribute</h6>
-                        <span class="text-center d-block">Size, Color and Price just for variable products</span>
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="size">
                             <option value="">- Select Size Attribute -</option>
                             @foreach ($attributesizes as $attributesize)
                                 <option value="{{ $attributesize->id }}">{{ $attributesize->size }}</option>
                             @endforeach
                         </select>
+
                         <h6 class="card-title mt-4">Add Color Attribute</h6>
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="color">
                             <option value="">- Select Color Attribute -</option>
@@ -60,11 +67,10 @@
                                 <option value="{{ $attributecolor->id }}">{{ $attributecolor->color_name }}</option>
                             @endforeach
                         </select>
-                        <h6 class="card-title mt-4">Quantity<span class="text-danger">*</span></h6>
-                        <input class="form-control" type="number" name="quantity">
-                        <h6>Enter Piece Amount</h6>
+
+                        <h6 class="mt-4">Enter Piece Amount</h6>
                         {{-- <input class="form-control" type="text" name="price" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,000,000.00"> --}}
-                        <input class="form-control" type="text" name="price"  placeholder="$1,000,000.00">
+                        <input class="form-control" type="number" name="price"  placeholder="1,000,000.00">
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary m-3 py-2 px-3">Add Inventory</button>
                         </div>

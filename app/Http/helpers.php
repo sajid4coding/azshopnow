@@ -859,3 +859,11 @@ function fonts(){
     ];
     return $fonts;
 }
+function vendorProducts($vendorId)
+ {
+    return Product::where([
+        'vendor_id'=>$vendorId,
+        'status'=>'published',
+        'vendorProductStatus'=>'published',
+    ])->latest()->limit(4)->get();
+ }

@@ -107,7 +107,7 @@
                                                                 align-items: center !important;
                                                             }
                                                         </style>
-                                                        <a href="shop.html"><img width="150" src="{{ asset('uploads') }}/category_photo/{{ $category->thumbnail }}" alt="img"></a>
+                                                        <a href="{{route('category.product',$category->slug)}}"><img width="150" src="{{ asset('uploads') }}/category_photo/{{ $category->thumbnail }}" alt="img"></a>
                                                     </div>
                                                     <div class="add-banner-content">
                                                     </div>

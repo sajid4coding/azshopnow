@@ -25,10 +25,12 @@
                                     </label>
                                       <input type="file" name="thumbnail" id="picture__input">
                                 </div>
-                                <div class="col-md-6">
-                                    <img style="width:200px" src="{{asset('uploads/product_photo')}}/{{$products->thumbnail}}" alt="">
-                                    <span class="text-muted" style="font-size: 12px">Current Product Thumbnail</span>
-                                </div>
+                                @if ($products->thumbnail)
+                                    <div class="col-md-6">
+                                        <img style="width:200px" src="{{asset('uploads/product_photo')}}/{{$products->thumbnail}}" alt="">
+                                        <span class="text-muted" style="font-size: 12px">Current Product Thumbnail</span>
+                                    </div>
+                                @endif
                             </div>
                             {{-- <label style="width: 200px" class="picture" for="picture__input" tabIndex="0">
                                 <span  class="picture__image"></span>
@@ -178,19 +180,6 @@
             height: 200,
         });
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
 //     document.getElementById('readUrl').addEventListener('change', function(){
 //   if (this.files[0] ) {
 //     var picture = new FileReader();
@@ -201,12 +190,6 @@
 //     });
 //   }
 // });
-
-
-
-
-
-
 const inputFile = document.querySelector("#picture__input");
 const pictureImage = document.querySelector(".picture__image");
 const pictureImageTxt = "Choose an thumnail";
@@ -236,5 +219,25 @@ inputFile.addEventListener("change", function (e) {
   }
 });
 
+</script>
+<script>
+    @if (session('success'))
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        Toast.fire({
+        icon: 'success',
+        title: "{{session('success')}}"
+        });
+    @endif
 </script>
 @endsection
