@@ -81,7 +81,7 @@ class ProductController extends Controller
             }
         }
 
-        return back()->with('product_add_success','Successfully added a new product!');
+        return redirect("inventory/$product->id")->with('product_add_success','Successfully added a new product!');
 
     }
 
@@ -139,7 +139,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect('product-list');
+        return redirect('product-list')->with('success','Product updated successfully');
     }
 
     /**
@@ -150,6 +150,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::find($id)->delete();
+        return back()->with('success','Product deleted successfully.');
     }
 }

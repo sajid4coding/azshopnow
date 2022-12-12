@@ -58,6 +58,10 @@ class AddToCart extends Component
                 'size_id'=>$this->inventory->size,
                 'color_id'=>$this->inventory->color,
             ])->increment('quantity',$this->quantity);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
         }else{
             Cart::insert([
                 'user_id'=>auth()->id(),
@@ -69,10 +73,13 @@ class AddToCart extends Component
                 'quantity'=>$this->quantity,
                 'created_at'=>now(),
             ]);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
         }
         $this->reset('quantity');
-        $this->session="Product added on Cart Page";
-
+        $this->dispatchBrowserEvent('msg', $swalData);
     }
     public function addtocart($__inventoryId)
     {
@@ -87,6 +94,10 @@ class AddToCart extends Component
                 'vendor_id'=>$this->vendor,
                 'product_id'=>$this->productID,
             ])->increment('quantity',$this->quantity);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
         }else{
 
             Cart::insert([
@@ -97,9 +108,13 @@ class AddToCart extends Component
                 'inventory_id'=>$__inventoryId,
                 'created_at'=>now(),
             ]);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
         }
         $this->reset('quantity');
-        $this->session="Product added on Cart Page";
+        $this->dispatchBrowserEvent('msg', $swalData);
 
     }
 

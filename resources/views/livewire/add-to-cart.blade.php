@@ -39,6 +39,11 @@
             @endif
 
      </div>
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
      {{-- <form wire:submit.prevent="cart"> --}}
          {{-- @if ($inventory->size) --}}
      @if ($inventories)
@@ -138,5 +143,36 @@
         });
     });
 </script>
+{{-- <script>
+    @if (session('message'))
+     const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+        Toast.fire({
+        icon: 'success',
+        title: "{{session('message')}}"
+        });
+    @endif
+</script> --}}
+@once
+    <script>
+        window.addEventListener('msg', function(e) {
+            let data = e.detail;
+            let title = data.title;
+            let message = data.message;
+            let type = data.type;
+
+            Swal.fire(title, message, type);
+        });
+    </script>
+@endonce
 @endsection
 

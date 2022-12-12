@@ -172,6 +172,20 @@
 											</div>
 										</div>
 									</div>
+                                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+										<div  class="menu-item menu-accordion">
+
+                                                <a class="menu-link" href="{{ route('banner.edit') }}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Banners</span>
+                                                </a>
+
+										</div>
+									</div>
+                                    
+
 								</div>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">

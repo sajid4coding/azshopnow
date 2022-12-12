@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Invoice, User, Order_Detail, Product};
+use App\Models\{Banner, Invoice, User, Order_Detail, Product};
 use Carbon\Carbon;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Str;
@@ -21,7 +21,9 @@ class CustomerController extends Controller
     // }
 
     public function customer_register(){
-         return view('frontend.customeregister');
+         return view('frontend.customeregister',[
+            'banners' => Banner::all()->first(),
+         ]);
      }
 
        public function customer_login_post(Request $request){
@@ -62,7 +64,9 @@ class CustomerController extends Controller
     }
     public function customer_login(Request $request){
 
-      return view('frontend.customerlogin');
+      return view('frontend.customerlogin',[
+        'banners' => Banner::all()->first(),
+      ]);
 
      }
     public function edit_profile(){
