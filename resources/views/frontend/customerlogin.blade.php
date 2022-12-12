@@ -37,17 +37,17 @@
                                     <div class="row justify-content-center">
                                         <div class="col-md-6">
                                             @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                            @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                            @endforeach
+                                                     </div>
+                                                    @endif
+                                                        @if (session('login'))
                                                     <div class="alert alert-danger">
-                                                                @foreach ($errors->all() as $error)
-                                                                <li>{{ $error }}</li>
-                                                                @endforeach
+                                                        {{ session('login') }}
                                                     </div>
-                                                        @endif
-                                                            @if (session('login'))
-                                                        <div class="alert alert-danger">
-                                                            {{ session('login') }}
-                                                        </div>
-                                                        @endif
+                                                    @endif
                                             <div class="form-grp ">
                                                 <label for="email">Email *</label>
                                                 <input type="text" name="email">
@@ -55,6 +55,9 @@
                                             <div class="form-grp">
                                                 <label for="password">Password *</label>
                                                 <input type="password"  name="password">
+                                                <div class="mt-3">
+                                                    <p>If you have no account <a href="{{ route('customer.register') }}">Registration</a> here!</p>
+                                                </div>
                                             </div>
                                             <div class="text-end">
                                                 <a href="{{ route('password.request') }}" class=" mt-4 text-muted">Forgot your password</a>
