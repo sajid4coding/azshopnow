@@ -18,7 +18,7 @@ class CategorySeeder extends Seeder
     {
         DB::table('categories')->insert([
             'category_name' => "Health and Beauty",
-            'slug' => 'health and beauty',
+            'slug' => 'health-and-beauty',
             'description' => 'Use these category-specific fields for health & beauty products in your catalog.',
             'thumbnail' => '20227906.png',
             'status' => 'published',
@@ -26,7 +26,7 @@ class CategorySeeder extends Seeder
         ]);
         DB::table('categories')->insert([
             'category_name' => "Smartphone & Table",
-            'slug' => 'smartphone & table',
+            'slug' => 'smartphone-and-table',
             'description' => 'A mobile device is a general term for any type of handheld computer. These devices are designed to be extremely portable, and they can often fit in your hand.',
             'thumbnail' => '20225805.png',
             'status' => 'published',
@@ -34,7 +34,7 @@ class CategorySeeder extends Seeder
         ]);
         DB::table('categories')->insert([
             'category_name' => "Automotive & Motorcycle",
-            'slug' => 'automotive & motorcycle',
+            'slug' => 'automotive-and-motorcycle',
             'description' => 'The six main types of motorcycles are generally recognized as standard, cruiser, touring, sports, off-road, and dual-purpose.',
             'thumbnail' => '20225806.png',
             'status' => 'published',
@@ -50,7 +50,7 @@ class CategorySeeder extends Seeder
         ]);
         DB::table('categories')->insert([
             'category_name' => "Sport & Outdoors",
-            'slug' => 'sport & outdoors',
+            'slug' => 'sports-and-outdoors',
             'description' => 'Explore a huge selection of sports and outdoor products great prices, including hundreds of thousands that are eligible for Prime Shipping.',
             'thumbnail' => '20224180.png',
             'status' => 'published',
@@ -66,7 +66,7 @@ class CategorySeeder extends Seeder
         ]);
         DB::table('categories')->insert([
             'category_name' => "Bags & shoe",
-            'slug' => 'bags & shoe',
+            'slug' => 'bags-and-shoe',
             'description' => 'In the combination of bags and shoes, to find the right balance, you must first decide on which of the two elements we want attention to be...',
             'thumbnail' => '20224623.png',
             'status' => 'unpublished',
@@ -82,7 +82,7 @@ class CategorySeeder extends Seeder
         ]);
         DB::table('categories')->insert([
             'category_name' => "Outdoor and Nature",
-            'slug' => 'outdoor and nature',
+            'slug' => 'outdoor-and-nature',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'thumbnail' => '20228818.png',
             'status' => 'published',

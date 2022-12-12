@@ -6,6 +6,7 @@ use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
 use App\Models\{Cart, Category, Inventory, Invoice ,Order_Detail,Product,User};
+use Carbon\Carbon;
 use Khsing\World\World;
 use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
@@ -16,7 +17,12 @@ class FrontEndController extends Controller
 
     function single_product ($id){
         $single_product = Product::findOrFail($id);
-        return view('frontend.single.product', compact('single_product'));
+        $recommendedProducts=Product::where([
+            'parent_category_slug'=>$single_product->parent_category_slug,
+            'status'=>'published',
+            'vendorProductStatus'=>'published',
+            ])->where('id','!=',$id)->limit(4)->get();
+        return view('frontend.single.product', compact('single_product','recommendedProducts'));
     }
     function contact_us_index(){
         return view('frontend.contact_us');

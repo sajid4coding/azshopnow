@@ -14,7 +14,7 @@ class ProductListController extends Controller
      */
     public function index()
     {
-        $products= Product::where('vendor_id',auth()->id())->latest()->get();
+        $products= Product::where('vendor_id',auth()->id())->get();
         return view('vendor.product.list.list',compact('products'));
     }
 
