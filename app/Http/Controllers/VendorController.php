@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Coupon;
 use App\Models\SubCategory;
 use App\Models\User;
@@ -21,7 +22,9 @@ class vendorController extends Controller
 
 
      function vendor_index(){
-         return view('vendor.registration');
+         return view('vendor.registration',[
+            'banners' => Banner::all()->first(),
+         ]);
      }
      function vendor_post(Request $request){
         // return  $request;
@@ -44,7 +47,9 @@ class vendorController extends Controller
 
         }
         function vendor_login(){
-             return view('vendor.login');
+             return view('vendor.login',[
+                'banners' => Banner::all()->first(),
+             ]);
         }
         function vendor_login_post_form(Request $request){
 

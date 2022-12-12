@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, CustomermanagementController, DashboardController, InventoryController, ProductController, ProductListController, ShippingController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ProductListController, ShippingController};
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -50,6 +50,13 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::resource('adminmanagement', AdminmanagementController::class);
     //CustomermanagementController Resource
     Route::resource('customermanagement', CustomermanagementController::class);
+
+    // All Banner Management Controller
+    Route::get('banner-edit',[BannerController::class,'index'])->name('banner.edit');
+    Route::post('shop-page-banner-post',[BannerController::class,'shop_page'])->name('shop.banner.edit');
+    Route::post('vendor-page-banner-post',[BannerController::class,'vendor_page'])->name('vendor.banner.edit');
+    Route::post('customer-page-banner-post',[BannerController::class,'customer_page'])->name('customer.banner.edit');
+    Route::post('cart-page-banner-post',[BannerController::class,'cart_page'])->name('cart.banner.edit');
 
     // ProfileController
     Route::get('admin/profile', [ProfileController::class, 'admin_profile'])->name('admin.profile');

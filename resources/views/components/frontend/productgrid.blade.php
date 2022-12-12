@@ -20,8 +20,18 @@
                 <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div class="content-bottom">
-                <h4 class="price">${{$product->product_price}}</h4>
-                <p>0 orders <span>-35%</span></p>
+                @if ($product->discount_price)
+                    <h4>
+                        ${{$product->discount_price}}
+                        <span class="price text-muted">
+                            <del> ${{$product->product_price}}</del>
+                         </span>
+                    </h4>
+                    <p>0 orders <span>-{{Floor(((100*$product->product_price)-(100*$product->discount_price))/$product->product_price)}}%</span></p>
+                @else
+                    <h4 class="price">${{$product->product_price}}</h4>
+                    <p>0 orders</p>
+                @endif
             </div>
         </div>
     </div>
