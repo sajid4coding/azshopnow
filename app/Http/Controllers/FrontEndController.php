@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
-use App\Models\{Cart, Category, Inventory, Invoice ,Order_Detail,Product,User};
+use App\Models\{Banner, Cart, Category, Inventory, Invoice ,Order_Detail,Product,User};
 use Khsing\World\World;
 use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
@@ -23,7 +23,8 @@ class FrontEndController extends Controller
     }
     function shop_page(){
         $products=Product::where('status','published')->where('vendorProductStatus','published')->get()->shuffle();
-        return view('frontend.shop',compact('products'));
+        $banners = Banner::all()->first();
+        return view('frontend.shop',compact('products','banners'));
     }
     function categoryProduct($slug){
         $categoryName=Category::where('slug', $slug)->first();
@@ -37,7 +38,9 @@ class FrontEndController extends Controller
         return view('frontend.vendorProduct', compact('products','shopName'));
     }
     function cart(){
-        return view('frontend.cart');
+        return view('frontend.cart',[
+            'banners' => Banner::all()->first(),
+        ]);
     }
     function checkout(){
         $explode_cart = explode('/', url()->previous());
@@ -149,7 +152,8 @@ class FrontEndController extends Controller
     public function index(){
         return view('index', [
             'categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
-            'auth_categories' => Category::where('status','published')->latest()->limit(20)->get()->shuffle()
+            'auth_categories' => Category::where('status','published')->latest()->limit(20)->get()->shuffle(),
+
         ]);
     }
 }

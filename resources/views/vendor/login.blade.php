@@ -3,7 +3,7 @@
    <!-- main-area -->
    <main>
     <!-- breadcrumb-area -->
-    <section class="breadcrumb-area-four" style="padding:50px 0;background: url(https://static05.cminds.com/wp-content/uploads/WordPress_multivendorstor_rectangle_2_Illustrative_Banner_Blog.jpg) no-repeat center; background-size:cover" >
+    <section class="breadcrumb-area-four" style="padding:50px 0;background: url(@if($banners->vendor_login_banner) {{ asset('uploads/banners') }}/{{ $banners->vendor_login_banner }} @else https://flevix.com/wp-content/uploads/2020/07/Red-Blue-Abstract-Background.jpg @endif) no-repeat bottom; background-size:cover" >
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-7">

@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- breadcrumb-area -->
-            <section class="breadcrumb-area-four breadcrumb-bg">
+            <section class="breadcrumb-area-four"  style="padding:50px 0;background: url(@if($banners->customer_login_banner) {{ asset('uploads/banners') }}/{{ $banners->customer_login_banner }} @else https://flevix.com/wp-content/uploads/2020/07/Red-Blue-Abstract-Background.jpg @endif) no-repeat bottom; background-size:cover;background-origin: border-box" >
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-md-7">
@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-md-5">
                             <div class="breadcrumb-img text-end">
-                                <img src="{{ asset('frontend_assets') }}/img/images/breadcrumb_img.png" alt="img">
+
                             </div>
                         </div>
                     </div>
