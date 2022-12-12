@@ -53,6 +53,10 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     // All Banner Management Controller
     Route::get('banner-edit',[BannerController::class,'index'])->name('banner.edit');
+    Route::post('shop-page-banner-post',[BannerController::class,'shop_page'])->name('shop.banner.edit');
+    Route::post('vendor-page-banner-post',[BannerController::class,'vendor_page'])->name('vendor.banner.edit');
+    Route::post('customer-page-banner-post',[BannerController::class,'customer_page'])->name('customer.banner.edit');
+    Route::post('cart-page-banner-post',[BannerController::class,'cart_page'])->name('cart.banner.edit');
 
     // ProfileController
     Route::get('admin/profile', [ProfileController::class, 'admin_profile'])->name('admin.profile');

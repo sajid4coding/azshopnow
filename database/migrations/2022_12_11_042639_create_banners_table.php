@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
+            $table->longText('customer_login_banner')->nullable();
+            $table->longText('vendor_login_banner')->nullable();
+            $table->longText('shop_page_banner')->nullable();
+            $table->longText('cart_page_banner')->nullable();
             $table->timestamps();
         });
     }
