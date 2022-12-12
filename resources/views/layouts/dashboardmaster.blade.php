@@ -16,6 +16,7 @@
 		<link rel="shortcut icon" href="{{ asset('dashboard_assets') }}/media/logos/favicon.ico" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 		<!--end::Fonts-->
 		<!--begin::Page Vendor Stylesheets(used by this page)-->
 		<link href="{{ asset('dashboard_assets') }}/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
@@ -171,6 +172,20 @@
 											</div>
 										</div>
 									</div>
+                                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+										<div  class="menu-item menu-accordion">
+
+                                                <a class="menu-link" href="{{ route('banner.edit') }}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Banners</span>
+                                                </a>
+
+										</div>
+									</div>
+                                    
+
 								</div>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">

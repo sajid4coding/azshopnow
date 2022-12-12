@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table) {
             $table->id();
-            $table->string('category_name');
-            $table->string('slug')->nullable();
-            $table->longText('description')->nullable();
-            $table->longText('icon')->nullable();
-            $table->string('thumbnail')->default('default.png');
-            $table->string('status');
+            $table->longText('customer_login_banner')->nullable();
+            $table->longText('vendor_login_banner')->nullable();
+            $table->longText('shop_page_banner')->nullable();
+            $table->longText('cart_page_banner')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('banners');
     }
 };

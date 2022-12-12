@@ -3,16 +3,9 @@
 @section('content')
 <!-- main-area -->
 <main>
-    <style>
 
-        .Shop_BG{
-            background: url( https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg);
-            repeat: no-repeat;
-            background-size: cover;
-        }
-    </style>
     <!-- breadcrumb-area -->
-    <section class="breadcrumb-area breadcrumb-bg Shop_BG" >
+    <section class="breadcrumb-area" style="padding:50px 0;background: url(@if($banners->shop_page_banner) {{ asset('uploads/banners') }}/{{ $banners->shop_page_banner }} @else https://flevix.com/wp-content/uploads/2020/07/Red-Blue-Abstract-Background.jpg @endif) no-repeat center; background-size:cover;background-position:center" >
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-xl-3 col-lg-4 col-md-5 col-sm-8 order-2 order-md-0">
