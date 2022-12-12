@@ -101,7 +101,9 @@ Route::middleware(['customer'])->group(function(){
     Route::get('edit/profile', [CustomerController::class, 'edit_profile'])->name('edit.profile');
     Route::post('password/update', [CustomerController::class, 'password_update'])->name('password.update');
     Route::post('change/profile/post', [CustomerController::class, 'change_profile_post'])->name('change.profile.post');
-
+    Route::get('customer/profile/acounts/details', [CustomerController::class, 'customer_account_details'])->name('customer.account.details');
+    Route::get('customer/profile/invoice', [CustomerController::class, 'customer_invoice_details'])->name('customer.invoice.details');
+    Route::get('customer/profile-invoice-download/{id}', [CustomerController::class, 'invoice_download'])->name('invoice.download');
 });
 
 Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome')->middleware(['auth', 'verified']);

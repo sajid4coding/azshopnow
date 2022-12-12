@@ -188,6 +188,20 @@
                                 <!--end::Description-->
                             </div>
                             <!--end::Input group-->
+                            {{-- ICONS START --}}
+                            @php
+                                $fonts = fonts();
+                            @endphp
+                            <div style="margin-top:45px">
+                                <label for="fact_input" class="form-label">Choose The Fonts Below</label> <span id="icon_viwer" class="{{ $icon }}"><i></i></span>
+                                <input readonly id="fact_input" name="icon" placeholder="Select Icon" type="text" class="form-control form-control-solid-bordered m-b-sm" style="margin-bottom:15px" value="{{ $icon }}">
+                                <div style="overflow-y:scroll; height:200px; width:630px;">
+                                    @foreach ($fonts as $font)
+                                        <i class="fa-2x {{ $font }} m-1 font_span" id="{{ $font }}" name="icon"></i>
+                                    @endforeach
+                                </div>
+                            </div>
+                            {{-- ICONS END --}}
                         </div>
                         <!--end::Card header-->
                     </div>
@@ -212,4 +226,15 @@
     </div>
     <!--end::Content-->
 </div>
+@endsection
+@section('footer_script')
+<script>
+    $(document).ready(function(){
+        $('.font_span').click(function(){
+            $('#fact_input').val($(this).attr('id'));
+            $('#icon_viwer').removeClass();
+            $('#icon_viwer').addClass($(this).attr('id'));
+        })
+    })
+</script>
 @endsection

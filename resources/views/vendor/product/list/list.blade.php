@@ -30,9 +30,24 @@
                     @endif
                 </td>
                  <td>
-                    <div class="badge bg-success">
-                        {{ $product->status }}
-                    </div>
+                    @if ($product->status == 'unpublished')
+                        <div class="badge bg-warning text-dark">
+                            Pending
+                        </div>
+                    @else
+                        @if ($product->vendorProductStatus == 'draft')
+                            <div class="badge bg-danger">
+                                Draft
+                            </div>
+                            <div class="badge bg-success">
+                                Approved
+                            </div>
+                        @else
+                            <div class="badge bg-success">
+                                Approved
+                            </div>
+                        @endif
+                    @endif
                 </td>
                  <td><a href="{{ route('inventory', $product->id) }}" class="btn btn-primary btn-sm py-2 px-3">Add Inventory</a></td>
                  <td>
