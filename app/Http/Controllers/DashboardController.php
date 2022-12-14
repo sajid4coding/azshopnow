@@ -19,7 +19,7 @@ class DashboardController extends Controller
 
     function product_lists(){
         return view('dashboard.product.product-lists',[
-            'products' => Product::all()
+            'products' => Product::where('vendorProductStatus','published')->get()
         ]);
     }
 

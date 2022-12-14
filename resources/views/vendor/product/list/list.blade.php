@@ -26,7 +26,7 @@
                  <td>
                     {{ Str::title($product->parent_category_slug) }} <br>
                     @if ($product->sub_category_id)
-                        <h5>Sub-Category: {{ $product->relationwith_subcategory->category_name }}</h5>
+                        <span>Sub-Category: {{ $product->relationwith_subcategory->category_name }}</span>
                     @endif
                 </td>
                  <td>
@@ -51,9 +51,17 @@
                 </td>
                  <td><a href="{{ route('inventory', $product->id) }}" class="btn btn-primary btn-sm py-2 px-3">Add Inventory</a></td>
                  <td>
-                     <a href="{{route('product.edit',$product->id)}}"><i class="fas fa-edit"></i></a>
-                     <a href="#" class="mx-2"><i class="fas fa-trash-alt"></i></a>
-                     <span class="text-info "><i class="fas fa-eye"></i></span>
+                     <div>
+                        <a href="{{route('product.edit',$product->id)}}"><i class="fas fa-edit"></i></a>
+                        <a href="{{route('single.product', $product->id )}}" class="text-info "><i class="fas fa-eye"></i></a>
+                     </div>
+                     <div>
+                        <form action="{{route('product.destroy',$product->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="mx-2" style="border: none;"><i class="fas fa-trash-alt text-danger"></i></button>
+                        </form>
+                     </div>
                  </td>
              </tr>
            @endforeach
@@ -81,5 +89,25 @@ $(document).ready(function () {
     $('#example').DataTable();
 });
 
+</script>
+<script>
+    @if (session('success'))
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        Toast.fire({
+        icon: 'success',
+        title: "{{session('success')}}"
+        });
+    @endif
 </script>
 @endsection

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Banner, Invoice, User, Order_Detail, Product};
+use App\Models\{Banner, Invoice, User, Order_Detail, Product, ProductReview};
 use Carbon\Carbon;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Str;
@@ -125,6 +125,35 @@ class CustomerController extends Controller
     public function invoice_download($id){
         $pdf = Pdf::loadView('pdf.invoice');
         return $pdf->setPaper('a4', 'portrait')->download('invoice.pdf');
+    }
+
+    public function product_review_list(){
+        return view('frontend.customer.review_product_list',[
+            'orders' => Invoice::where([
+                'user_id' => auth()->id(),
+                'payment' => 'unpaid',
+                'payment_status' => 'processing',
+            ])->get()
+        ]);
+    }
+
+
+    public function product_review($id){
+        return view('frontend.customer.product_review', compact('id'));
+    }
+
+
+    public function product_review_post(Request $request, $id){
+        ProductReview::insert([
+            'invoice_id' => Order_Detail::where('invoice_id', $id)->first()->invoice_id,
+            'user_id' => auth()->id(),
+            'vendor_id' => Invoice::find($id)->vendor_id,
+            'product_id' => Order_Detail::find($id)->product_id,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+            'created_at' => now()
+        ]);
+        return redirect('customer/product-review-list');
     }
 
 

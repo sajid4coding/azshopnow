@@ -1,6 +1,117 @@
 @extends('layouts/frontendmaster')
-
 @section('content')
+<style>
+#review_section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:100%;
+}
+#review_section .testimonial-heading{
+    letter-spacing: 1px;
+    margin: 30px 0px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#review_section .testimonial-heading span{
+    font-size: 1.3rem;
+    color: #252525;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+#review_section .testimonial-box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width:100%;
+}
+#review_section .testimonial-box{
+    width:500px;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 15px;
+    cursor: pointer;
+}
+#review_section .profile-img{
+    width:50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+#review_section .profile-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+#review_section .profile{
+    display: flex;
+    align-items: center;
+}
+#review_section .name-user{
+    display: flex;
+    flex-direction: column;
+}
+#review_section .name-user strong{
+    color: #3d3d3d;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+#review_section .name-user span{
+    color: #979797;
+    font-size: 0.8rem;
+}
+#review_section .reviews{
+    color: #f9d71c;
+}
+#review_section .box-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+#review_section .client-comment p{
+    font-size: 0.9rem;
+    color: #4b4b4b;
+}
+#review_section .testimonial-box:hover{
+    transform: translateY(-10px);
+    transition: all ease 0.3s;
+}
+
+@media(max-width:1060px){
+    #review_section .testimonial-box{
+        width:45%;
+        padding: 10px;
+    }
+}
+@media(max-width:790px){
+    #review_section .testimonial-box{
+        width:100%;
+    }
+    #review_section .testimonial-heading h1{
+        font-size: 1.4rem;
+    }
+}
+@media(max-width:340px){
+    #review_section .box-top{
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+    #review_section .reviews{
+        margin-top: 10px;
+    }
+}
+</style>
 
   <!-- main-area -->
         <main>
@@ -130,50 +241,20 @@
                             <div class="recommended-item-wrap">
                                 <div class="recommended scroll">
                                     <span>Recommended For You :</span>
-                                    <div class="recommended-item mb-25">
-                                        <div class="thumb">
-                                            <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/recommended_img01.jpg" alt="img"></a>
+                                    @foreach ($recommendedProducts as $product)
+                                        <div class="recommended-item mb-25">
+                                            <div class="thumb">
+                                                <a href="shop-details.html"><img src="{{ asset('uploads/product_photo') }}/{{$product->thumbnail}}" alt="img"></a>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="title">{{$product->product_title}}</h5>
+                                                <h5 class="price">$39.08</h5>
+                                                <ul>
+                                                    <li>by <a href="vendor-profile.html">{{$product->relationwithuser->shop_name}}</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <div class="content">
-                                            <h5 class="price">$39.08</h5>
-                                            <ul>
-                                                <li>by <a href="vendor-profile.html">Market Store</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="recommended-item mb-25">
-                                        <div class="thumb">
-                                            <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/recommended_img02.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="price">$29.08</h5>
-                                            <ul>
-                                                <li>by <a href="vendor-profile.html">Olle Store</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="recommended-item mb-25">
-                                        <div class="thumb">
-                                            <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/recommended_img03.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="price">$25.08</h5>
-                                            <ul>
-                                                <li>by <a href="vendor-profile.html">max shop</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="recommended-item mb-25">
-                                        <div class="thumb">
-                                            <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/recommended_img01.jpg" alt="img"></a>
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="price">$39.08</h5>
-                                            <ul>
-                                                <li>by <a href="vendor-profile.html">Market Store</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -194,7 +275,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="best-sell-nav">
+                            {{-- <div class="best-sell-nav">
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button"
@@ -239,7 +320,7 @@
                                         </button>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> --}}
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
                                     <div class="row mb-20">
@@ -253,10 +334,13 @@
                                                                     <i class="fa-solid fa-sliders"></i>
                                                                 </div>
                                                                 <div class="content">
-                                                                    <h2 class="title"><a href="#">Theme Beyond Technology.Ltd</a>
+                                                                    <h2 class="title"><a href="{{route('vendor.product',$single_product->vendor_id)}}">{{$single_product->relationwithuser->shop_name}}</a>
                                                                     </h2>
                                                                     <ul>
-                                                                        <li>2 year</li>
+                                                                        @php
+                                                                            $createdTime=$single_product->relationwithuser->created_at->diffForHumans()
+                                                                        @endphp
+                                                                        <li>{{$createdTime}}</li>
                                                                         <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png"
                                                                                     alt=""></a></li>
                                                                         <li>40k Customer</li>
@@ -289,47 +373,22 @@
                                                     </div>
                                                     <div class="col-xl-7 col-lg-12">
                                                         <div class="vendor-product-wrap">
+                                                            @php
+                                                               $vendorProducts= vendorProducts($single_product->vendor_id)
+                                                            @endphp
                                                             <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product01.png" alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Gloves $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product02.png" alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">watch $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product03.png" alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Shoes $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product04.png" alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Cap $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
+                                                                @foreach ($vendorProducts as $vendorProduct)
+                                                                    <li class="vendor-product">
+                                                                        <div class="thumb">
+                                                                            <a href="{{route('single.product', $vendorProduct->id )}}"><img
+                                                                                    src="{{ asset('uploads/product_photo') }}/{{$vendorProduct->thumbnail}}" alt=""></a>
+                                                                        </div>
+                                                                        <div class="content">
+                                                                            <h2 class="title"><a href="{{route('single.product', $vendorProduct->id )}}">{{$vendorProduct->product_title}}</a></h2>
+                                                                            <span>15 (Sale)</span>
+                                                                        </div>
+                                                                    </li>
+                                                                @endforeach
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -844,7 +903,7 @@
                                                 <button class="nav-link" id="specifications-tab" data-bs-toggle="tab"
                                                     data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications"
                                                     aria-selected="false">costumer reviews
-                                                    (0)</button>
+                                                    ({{ $product_reviews->count() }})</button>
                                             </li>
                                         </ul>
                                     </div>
@@ -865,10 +924,59 @@
                                         <div class="product-desc-content">
                                             <div class="product-desc-review">
                                                 <div class="review-title mb-20">
-                                                    <h4 class="title">Customer Reviews (0)</h4>
+                                                    <h4 class="title">Customer Reviews ({{ $product_reviews->count() }})</h4>
                                                 </div>
                                                 <div class="left-rc">
-                                                    <p>No reviews yet</p>
+                                                    <section id="review_section">
+                                                        <!--testimonials-box-container------>
+                                                        <div class="testimonial-box-container">
+                                                            <!--BOX-1-------------->
+                                                            @forelse ($product_reviews as $product_review)
+                                                                <div class="testimonial-box">
+                                                                    <!--top------------------------->
+                                                                    <div class="box-top">
+                                                                        <!--profile----->
+                                                                        <div class="profile">
+                                                                            <!--img---->
+                                                                            <div class="profile-img">
+                                                                                <img src="{{ asset('uploads/product_photo') }}/{{ $product_review->relationwithuser->profile_photo }}" />
+                                                                            </div>
+                                                                            <!--name-and-username-->
+                                                                            <div class="name-user">
+                                                                                <strong>{{ $product_review->relationwithuser->name }}</strong>
+                                                                                <span>@liammendes</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--reviews------>
+                                                                        {{-- <div class="reviews">
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="far fa-star"></i><!--Empty star-->
+                                                                        </div> --}}
+                                                                        <div class="reviews">
+                                                                            @for ($x = 1; $x <= 5; $x++)
+                                                                                @if ($x <= $product_review->rating)
+                                                                                    <i class="fas fa-star"></i>
+                                                                                @else
+                                                                                    <i class="far fa-star"></i><!--Empty star-->
+                                                                                @endif
+                                                                            @endfor
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--Comments---------------------------------------->
+                                                                    <div class="client-comment">
+                                                                        <p>{{ $product_review->comment }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            @empty
+                                                                <div class="left-rc">
+                                                                    <p>No reviews yet</p>
+                                                                </div>
+                                                            @endforelse
+                                                        </div>
+                                                      </section>
                                                 </div>
                                                 <div class="right-rc">
                                                     <a href="#">Write a review</a>

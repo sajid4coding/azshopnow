@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\{Category, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Facades\Image;
-use  Carbon\Carbon;
-use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -58,6 +57,7 @@ class CategoryController extends Controller
             'category_name'=> $request->category_name,
             'slug'=> Str::slug($category_slug, '-'),
             'description'=> $request->category_description,
+            'icon'=> $request->icon,
             'status'=> $request->status,
             'created_at' => now()
         ]);
@@ -97,7 +97,8 @@ class CategoryController extends Controller
     public function edit($id)
     {
         return view('dashboard.category.editcategory',[
-            'category' => Category::find($id)
+            'category' => Category::find($id),
+            'icon' => Category::find($id)->icon
         ]);
     }
 
@@ -123,7 +124,8 @@ class CategoryController extends Controller
             'category_name' => $request->category_name,
             'slug' => $request->slug,
             'description' => $request->description,
-            'status' => $request->status
+            'status' => $request->status,
+            'icon'=> $request->icon
         ]);
         return back();
     }

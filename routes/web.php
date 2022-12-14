@@ -112,6 +112,9 @@ Route::middleware(['customer'])->group(function(){
     Route::get('customer/profile/acounts/details', [CustomerController::class, 'customer_account_details'])->name('customer.account.details');
     Route::get('customer/profile/invoice', [CustomerController::class, 'customer_invoice_details'])->name('customer.invoice.details');
     Route::get('customer/profile-invoice-download/{id}', [CustomerController::class, 'invoice_download'])->name('invoice.download');
+    Route::get('customer/product-review-list/', [CustomerController::class, 'product_review_list'])->name('product.review.list');
+    Route::get('customer/product-review/{id}', [CustomerController::class, 'product_review'])->name('product.review');
+    Route::post('customer/product-review-post/{id}', [CustomerController::class, 'product_review_post'])->name('product.review.post');
 });
 
 Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome')->middleware(['auth', 'verified']);
