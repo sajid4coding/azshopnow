@@ -4,6 +4,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Inventory;
 use App\Models\Product;
+use App\Models\ProductReview;
 use App\Models\User;
 
  function cart()
@@ -860,10 +861,15 @@ function fonts(){
     return $fonts;
 }
 function vendorProducts($vendorId)
- {
+{
     return Product::where([
         'vendor_id'=>$vendorId,
         'status'=>'published',
         'vendorProductStatus'=>'published',
     ])->latest()->limit(4)->get();
- }
+}
+function review($id)
+{
+    return ProductReview::where('product_id', $id)->avg('rating');
+
+}

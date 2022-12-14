@@ -148,9 +148,11 @@ class ProductController extends Controller
                 $gellery_img->save(base_path('public/uploads/product_gellery_photo/'.$gellery_photo), 70);
                 $galleryProductId=ProductGallery::where('product_id',$id)->exists();
                 if($galleryProductId ){
-                    ProductGallery::where('product_id',$id)->update([
-                        'product_gallery' => $gellery_photo,
-                    ]);
+                    foreach(){
+                        ProductGallery::where('product_id',$id)->update([
+                            'product_gallery' => $gellery_photo,
+                        ]);
+                    }
                 }else{
                     ProductGallery::insert([
                         'product_id' => $id,

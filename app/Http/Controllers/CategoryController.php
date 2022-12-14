@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\{Category, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Facades\Image;
-use  Carbon\Carbon;
-use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
