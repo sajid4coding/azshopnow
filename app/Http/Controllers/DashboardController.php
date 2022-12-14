@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductGallery;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
 class DashboardController extends Controller
 {
     function dashboard(){
-        return view('layouts.dashboardmaster');
+        $users = User::all();
+        $products = Product::all();
+        return view('dashboard',compact('users','products'));
     }
 
     function product_lists(){
