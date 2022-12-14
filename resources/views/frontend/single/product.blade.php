@@ -35,12 +35,14 @@
                                             <img src="{{ asset('uploads/product_photo') }}/{{$single_product->thumbnail}}" alt="img" width="100%">
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="nav-item-two" role="tabpanel" aria-labelledby="nav-item-two-tab">
-                                        <div class="shop-details-img">
-                                            <img src="{{ asset('frontend_assets') }}/img/product/shop_details02.jpg" alt="img">
+                                    @foreach ($productGalleries as $productGallery)
+                                        <div class="tab-pane" id="nav-item-two-{{$productGallery->id}}" role="tabpanel" aria-labelledby="nav-item-two-tab">
+                                            <div class="shop-details-img">
+                                                <img src="{{ asset('uploads/product_gellery_photo') }}/{{$productGallery->product_gallery}}"width="100%"alt="img">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="tab-pane" id="nav-item-three" role="tabpanel" aria-labelledby="nav-item-three-tab">
+                                    @endforeach
+                                    {{-- <div class="tab-pane" id="nav-item-three" role="tabpanel" aria-labelledby="nav-item-three-tab">
                                         <div class="shop-details-img">
                                             <img src="{{ asset('frontend_assets') }}/img/product/shop_details03.jpg" alt="img">
                                         </div>
@@ -49,7 +51,7 @@
                                         <div class="shop-details-img">
                                             <img src="{{ asset('frontend_assets') }}/img/product/shop_details04.jpg" alt="img">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="shop-details-nav-wrap">
@@ -57,20 +59,22 @@
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                         <button class="nav-link active" id="nav-item-one-tab" data-bs-toggle="tab" data-bs-target="#nav-item-one"
                                             type="button" role="tab" aria-controls="nav-item-one" aria-selected="true">
-                                            <img src="{{ asset('frontend_assets') }}/img/product/shop_nav_img01.jpg" alt="img">
+                                            <img src="{{ asset('uploads/product_photo') }}/{{$single_product->thumbnail}}" width="104" alt="img">
                                         </button>
-                                        <button class="nav-link" id="nav-item-two-tab" data-bs-toggle="tab" data-bs-target="#nav-item-two" type="button"
-                                            role="tab" aria-controls="nav-item-two" aria-selected="false">
-                                            <img src="{{ asset('frontend_assets') }}/img/product/shop_nav_img02.jpg" alt="img">
-                                        </button>
-                                        <button class="nav-link" id="nav-item-three-tab" data-bs-toggle="tab" data-bs-target="#nav-item-three"
+                                        @foreach ($productGalleries as $productGallery)
+                                            <button class="nav-link" id="nav-item-two-tab" data-bs-toggle="tab" data-bs-target="#nav-item-two-{{$productGallery->id}}" type="button"
+                                                role="tab" aria-controls="nav-item-two" aria-selected="false">
+                                                <img src="{{ asset('uploads/product_gellery_photo') }}/{{$productGallery->product_gallery}}" width="104" alt="img">
+                                            </button>
+                                        @endforeach
+                                        {{-- <button class="nav-link" id="nav-item-three-tab" data-bs-toggle="tab" data-bs-target="#nav-item-three"
                                             type="button" role="tab" aria-controls="nav-item-three" aria-selected="false">
                                             <img src="{{ asset('frontend_assets') }}/img/product/shop_nav_img03.jpg" alt="img">
                                         </button>
                                         <button class="nav-link" id="nav-item-four-tab" data-bs-toggle="tab" data-bs-target="#nav-item-four"
                                             type="button" role="tab" aria-controls="nav-item-four" aria-selected="false">
                                             <img src="{{ asset('frontend_assets') }}/img/product/shop_nav_img04.jpg" alt="img">
-                                        </button>
+                                        </button> --}}
                                     </div>
                                 </nav>
                             </div>

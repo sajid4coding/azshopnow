@@ -26,6 +26,7 @@ class ProductSeeder extends Seeder
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Pant",
@@ -39,6 +40,7 @@ class ProductSeeder extends Seeder
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Shoe",
@@ -51,6 +53,7 @@ class ProductSeeder extends Seeder
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Abaya-Khimar",
@@ -63,6 +66,7 @@ class ProductSeeder extends Seeder
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Mobile",
@@ -75,6 +79,7 @@ class ProductSeeder extends Seeder
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Table",
@@ -87,6 +92,7 @@ class ProductSeeder extends Seeder
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "School Bag",
@@ -99,6 +105,7 @@ class ProductSeeder extends Seeder
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Power Oil",
@@ -111,6 +118,7 @@ class ProductSeeder extends Seeder
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Shampoo",
@@ -123,6 +131,7 @@ class ProductSeeder extends Seeder
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "LED Light",
@@ -135,6 +144,7 @@ class ProductSeeder extends Seeder
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
     }
 }

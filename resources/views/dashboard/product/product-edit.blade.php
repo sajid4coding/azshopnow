@@ -76,11 +76,11 @@
                                     <div class="image-input-wrapper w-150px h-150px"></div>
                                     <!--end::Preview existing avatar-->
                                     <!--begin::Label-->
-                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-                                        <i class="bi bi-pencil-fill fs-7"></i>
+                                    {{-- <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar"> --}}
+                                        {{-- <i class="bi bi-pencil-fill fs-7"></i> --}}
                                         <!--begin::Inputs-->
-                                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                                        <input type="hidden" name="avatar_remove" />
+                                        {{-- <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                        <input type="hidden" name="avatar_remove" /> --}}
                                         <!--end::Inputs-->
                                     </label>
                                     <!--end::Label-->
@@ -125,7 +125,7 @@
                                 <!--begin::Select2-->
                                 <select name="status" class="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_product_status_select" data-select2-id="select2-data-kt_ecommerce_add_product_status_select" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
                                     <option value="published" @if ($product->status == 'published') selected="selected" @endif data-select2-id="select2-data-11-rkcp">Published</option>
-                                    <option value="draft" @if ($product->status == 'draft') selected="selected" @endif>Draft</option>
+                                    {{-- <option value="draft" @if ($product->status == 'draft') selected="selected" @endif>Draft</option> --}}
                                     <option value="unpublished" @if ($product->status == 'unpublished') selected="selected" @endif>Unpublished</option>
                                 </select>
                                 <!--end::Select2-->
