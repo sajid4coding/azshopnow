@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Coupon;
+use App\Models\Invoice;
 use App\Models\SubCategory;
 use App\Models\User;
 use Carbon\Carbon;
@@ -71,9 +72,9 @@ class vendorController extends Controller
             }
         }
         function vendor_dashboard(){
-
+            $invoices_info = Invoice::where('vendor_id',auth()->user()->id)->get();
             $coupons =  Coupon::where('vendor_id',auth()->user()->id)->get();
-            return view('vendor.dashboard',compact('coupons'));
+            return view('vendor.dashboard',compact('coupons','invoices_info'));
         }
         function vendor_update_info(Request $request){
 
@@ -222,6 +223,10 @@ class vendorController extends Controller
         function vendor_product_upload(){
 
             return view('vendor.product_upload');
+        }
+        function vendor_orders(){
+            $invoices = Invoice::where('vendor_id',auth()->id())->get();
+            return view('vendor.orders',compact('invoices'));
         }
 
 
