@@ -38,7 +38,7 @@
                 {{-- PHP Code End --}}
                 <div class="container  my-5">
                     <div class="row my-5">
-                        <div class="col-lg-3 account_menu " style="margin: 100px 0 1000px 0;">
+                        <div class="col-lg-3 account_menu " style="margin: 100px 0 100px 0;">
                             <ul class="form">
                               <li class="@if ($current_page == 'customerhome') selected @endif"><a class="profile" href="{{ route('customerhome') }}"><i class="fas fa-columns"></i>Dashboard</a></li>
                                 <li class=" @if ($current_page == 'details') selected @endif"><a class="messages" href="{{ route('customer.account.details') }}"><i class="fas fa-user"></i> Profile </a></li>
