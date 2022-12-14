@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Mail;
 class DashboardController extends Controller
 {
     function dashboard(){
-        return view('layouts.dashboardmaster');
+        $users = User::all();
+        $products = Product::all();
+        return view('dashboard',compact('users','products'));
     }
 
     function product_lists(){

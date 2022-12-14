@@ -1,39 +1,39 @@
-@extends('layouts.customermaster')
-@section('customermasert_body')
-<div class="">
-    <h5 class="text-center pb-3">Your Orders</h5>
-    <table class="table table-bordered">
-        <tr>
-            <th>SL</th>
-            <th>Payment Method</th>
-            <th>Payment</th>
-            <th>Payment Status</th>
-            <th>Total</th>
-            <th>Action</th>
-        </tr>
-        @php
-            $sl = 1;
-        @endphp
-        @forelse ($orders as $order)
-            <tr>
-                <td>{{ $sl++ }}</td>
-                <td>{{ $order->payment_method }}</td>
-                <td>{{ $order->payment }}</td>
-                <td>{{ $order->payment_status }}</td>
-                <td>{{ $order->total_price }}</td>
-                <td>
-                    <a href="{{ route('invoice.download', $order->id) }}" class="btn btn-primary">Download Invoice</a>
-                </td>
-            </tr>
+@extends('layouts.vendor_master')
 
-            <tr style="background: #09091a !important;">
+@section('vendor_body_content')
+<div class="col-lg-9">
+
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Cus. Name</th>
+                <th>Pay. System</th>
+                <th>Pay. Status</th>
+                <th>Order Status</th>
+                <th>Total Amount</th>
+                <th>Order Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($invoices as $invoice)
+             <tr>
+                <td>{{ $loop->index + 1 }}</td>
+                <td>{{ $invoice->billing_first_name }}</td>
+                <td>{{ $invoice->payment_method }}</td>
+                <td>{{ $invoice->payment }}</td>
+                <td>{{ $invoice->payment_method }}</td>
+                <td>{{ $invoice->total_price }}</td>
+                <td>{{ $invoice->created_at->format('d/m/y') }}</td>
+             </tr>
+             <tr style="background: #09091a !important">
                 <td colspan="7" style="background: #26303d !important; color:white;padding:10px;">
                     <span style="font-weight: 500;font-size:18px">
                         Details :
                     </span>
-                    @foreach (App\Models\Order_Detail::where('invoice_id', $order->id)->get() as $order)
+                    @foreach (App\Models\Order_Detail::where('invoice_id', $invoice->id)->get() as $order)
                         <span style="display: block;padding-left:30px">
-                                Name:  <span style="color:#00d9ff !important;margin-right:20px"><a  style="color:#00d9ff !important;margin-right:20px" href="{{ route('single.product', $order->relationwithproduct->id) }}">{{ $order->relationwithproduct->product_title }}</a>  </span>
+                                Name:  <span style="color:#00d9ff !important;margin-right:20px">{{ $order->relationwithproduct->product_title }}  </span>
                                 @if ($order->relationwithsize->size && $order->relationwithcolor->color_name)
                                     Color:  <span style="color:#00d9ff !important;margin-right:20px">{{ $order->relationwithcolor->color_name }} </span>
                                     Size:  <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $order->relationwithsize->size }}  </span>
@@ -50,15 +50,15 @@
                     @endforeach
                 </td>
              </tr>
-
-
-        @empty
-            <tr>
-                <td colspan="50" class="text-center text-danger">
-                    <span>No Data Available</span>
-                </td>
-            </tr>
-        @endforelse
+           @endforeach
+        </tbody>
     </table>
+
 </div>
 @endsection
+@section('footer_script')
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@endsection
+

@@ -102,7 +102,7 @@
                                         </li>
 
 
-                                        <li class="nav-item dropdown">
+                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="fas fa-cloud-upload"></i>  Product Settings
                                             </a>
@@ -112,6 +112,10 @@
                                               <li><a class="dropdown-item" href="{{ route('attributes.index') }}">Attributes</a></li>
                                             </ul>
                                           </li>
+                                        <li class="nav-item" >
+                                            <a class="nav-link cust_a" href="{{ route('vendor.orders') }}"> <i class="fas fa-store"></i> Orders</a>
+                                        </li>
+
                                         <li class="mb-3">
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
