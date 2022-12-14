@@ -24,6 +24,7 @@
                             <i class="far fa-star"></i><!--Empty star-->
                         @endif
                     @endfor
+                    <span style="font-size: 10px;">({{ count_review($product->id) }})</span>
                 @else
                     <span class="text-danger">No Review</span>
                 @endif
