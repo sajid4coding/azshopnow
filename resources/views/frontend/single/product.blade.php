@@ -956,8 +956,12 @@
                                                                             <i class="far fa-star"></i><!--Empty star-->
                                                                         </div> --}}
                                                                         <div class="reviews">
-                                                                            @for ($x = 1; $x <= $product_review->rating; $x++)
-                                                                                <i class="fas fa-star"></i>
+                                                                            @for ($x = 1; $x <= 5; $x++)
+                                                                                @if ($x <= $product_review->rating)
+                                                                                    <i class="fas fa-star"></i>
+                                                                                @else
+                                                                                    <i class="far fa-star"></i><!--Empty star-->
+                                                                                @endif
                                                                             @endfor
                                                                         </div>
                                                                     </div>
