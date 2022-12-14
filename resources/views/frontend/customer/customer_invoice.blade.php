@@ -28,17 +28,20 @@
             <tr class="mb-2">
                 <td colspan="50" class="bg-secondary bg-gradient">
                     <div class="m-4">
-                        <span>Product Name: <a href="{{ route('single.product', $order->relationwith_orderinvoice->relationwithproduct->id) }}">{{ $order->relationwith_orderinvoice->relationwithproduct->product_title }}</a></span><br>
-                        @if ($order->relationwith_orderinvoice->size_id && $order->relationwith_orderinvoice->color_id)
-                            <span>Size: {{ $order->relationwith_orderinvoice->relationwithsize->size }}</span><br>
-                            <span>Color: {{ $order->relationwith_orderinvoice->relationwithcolor->color_name }}</span>
+                        @foreach (App\Models\Order_Detail::where('invoice_id', $order->id)->get() as $order)
+                            <span>Product Name: <a href="{{ route('single.product', $order->relationwithproduct->id) }}">{{ $order->relationwithproduct->product_title }}</a></span> | 
+                            <span>Quantity: {{ $order->quantity }}</span><br>
+                            @if ($order->size_id && $order->color_id)
+                                <span>Size: {{ $order->relationwithsize->size }}</span><br>
+                                <span>Color: {{ $order->relationwithcolor->color_name }}</span>
 
-                        @elseif($order->relationwith_orderinvoice->size_id)
-                            <span>Size: {{ $order->relationwith_orderinvoice->relationwithsize->size }}</span>
+                            @elseif($order->size_id)
+                                <span>Size: {{ $order->relationwithsize->size }}</span>
 
-                        @elseif($order->relationwith_orderinvoice->color_id)
-                            <span>Color: {{ $order->relationwith_orderinvoice->relationwithcolor->color_name }}</span>
-                        @endif
+                            @elseif($order->color_id)
+                                <span>Color: {{ $order->relationwithcolor->color_name }}</span>
+                            @endif
+                        @endforeach
                     </div>
                 </td>
             </tr>

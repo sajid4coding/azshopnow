@@ -1,6 +1,117 @@
 @extends('layouts/frontendmaster')
-
 @section('content')
+<style>
+#review_section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:100%;
+}
+#review_section .testimonial-heading{
+    letter-spacing: 1px;
+    margin: 30px 0px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#review_section .testimonial-heading span{
+    font-size: 1.3rem;
+    color: #252525;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+#review_section .testimonial-box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width:100%;
+}
+#review_section .testimonial-box{
+    width:500px;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 15px;
+    cursor: pointer;
+}
+#review_section .profile-img{
+    width:50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+#review_section .profile-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+#review_section .profile{
+    display: flex;
+    align-items: center;
+}
+#review_section .name-user{
+    display: flex;
+    flex-direction: column;
+}
+#review_section .name-user strong{
+    color: #3d3d3d;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+#review_section .name-user span{
+    color: #979797;
+    font-size: 0.8rem;
+}
+#review_section .reviews{
+    color: #f9d71c;
+}
+#review_section .box-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+#review_section .client-comment p{
+    font-size: 0.9rem;
+    color: #4b4b4b;
+}
+#review_section .testimonial-box:hover{
+    transform: translateY(-10px);
+    transition: all ease 0.3s;
+}
+
+@media(max-width:1060px){
+    #review_section .testimonial-box{
+        width:45%;
+        padding: 10px;
+    }
+}
+@media(max-width:790px){
+    #review_section .testimonial-box{
+        width:100%;
+    }
+    #review_section .testimonial-heading h1{
+        font-size: 1.4rem;
+    }
+}
+@media(max-width:340px){
+    #review_section .box-top{
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+    #review_section .reviews{
+        margin-top: 10px;
+    }
+}
+</style>
 
   <!-- main-area -->
         <main>
@@ -792,7 +903,7 @@
                                                 <button class="nav-link" id="specifications-tab" data-bs-toggle="tab"
                                                     data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications"
                                                     aria-selected="false">costumer reviews
-                                                    (0)</button>
+                                                    ({{ $product_reviews->count() }})</button>
                                             </li>
                                         </ul>
                                     </div>
@@ -813,10 +924,59 @@
                                         <div class="product-desc-content">
                                             <div class="product-desc-review">
                                                 <div class="review-title mb-20">
-                                                    <h4 class="title">Customer Reviews (0)</h4>
+                                                    <h4 class="title">Customer Reviews ({{ $product_reviews->count() }})</h4>
                                                 </div>
                                                 <div class="left-rc">
-                                                    <p>No reviews yet</p>
+                                                    <section id="review_section">
+                                                        <!--testimonials-box-container------>
+                                                        <div class="testimonial-box-container">
+                                                            <!--BOX-1-------------->
+                                                            @forelse ($product_reviews as $product_review)
+                                                                <div class="testimonial-box">
+                                                                    <!--top------------------------->
+                                                                    <div class="box-top">
+                                                                        <!--profile----->
+                                                                        <div class="profile">
+                                                                            <!--img---->
+                                                                            <div class="profile-img">
+                                                                                <img src="{{ asset('uploads/product_photo') }}/{{ $product_review->relationwithuser->profile_photo }}" />
+                                                                            </div>
+                                                                            <!--name-and-username-->
+                                                                            <div class="name-user">
+                                                                                <strong>{{ $product_review->relationwithuser->name }}</strong>
+                                                                                <span>@liammendes</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--reviews------>
+                                                                        {{-- <div class="reviews">
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="fas fa-star"></i>
+                                                                            <i class="far fa-star"></i><!--Empty star-->
+                                                                        </div> --}}
+                                                                        <div class="reviews">
+                                                                            @for ($x = 1; $x <= 5; $x++)
+                                                                                @if ($x <= $product_review->rating)
+                                                                                    <i class="fas fa-star"></i>
+                                                                                @else
+                                                                                    <i class="far fa-star"></i><!--Empty star-->
+                                                                                @endif
+                                                                            @endfor
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--Comments---------------------------------------->
+                                                                    <div class="client-comment">
+                                                                        <p>{{ $product_review->comment }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            @empty
+                                                                <div class="left-rc">
+                                                                    <p>No reviews yet</p>
+                                                                </div>
+                                                            @endforelse
+                                                        </div>
+                                                      </section>
                                                 </div>
                                                 <div class="right-rc">
                                                     <a href="#">Write a review</a>
