@@ -156,7 +156,6 @@ class ProductController extends Controller
                         ProductGallery::find($galleryId->id)->update([
                             'product_gallery' => $gellery_photo,
                         ]);
-                        // return $galleryId->id;
                     }
                 }else{
                     ProductGallery::insert([
