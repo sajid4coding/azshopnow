@@ -48,6 +48,15 @@
                                 </label>
                                 </div>
                                 <div class="upload__img-wrap"></div>
+                                @if ($productGalleries->count() !=0)
+                                    <div class="col-md-6">
+                                        @foreach ($productGalleries as $productGallery)
+                                            <img style="width:70px" src="{{asset('uploads/product_gellery_photo')}}/{{$productGallery->product_gallery}}" alt="">
+                                        @endforeach
+                                        <br>
+                                        <span class="text-muted" style="font-size: 12px">Current Product Galleries</span>
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
