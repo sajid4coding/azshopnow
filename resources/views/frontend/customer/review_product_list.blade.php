@@ -35,8 +35,12 @@
 
                         @if (App\Models\ProductReview::find($order->id))
                             <div class="rating">
-                                @for ($x = 1; $x <= $review->rating; $x++)
-                                    <i class="fa-solid fa-star text-warning"></i>
+                                @for ($x = 1; $x <= 5; $x++)
+                                    @if ($x <= $review->rating)
+                                        <i class="fas fa-star text-warning"></i>
+                                    @else
+                                        <i class="far fa-star"></i><!--Empty star-->
+                                    @endif
                                 @endfor
                                 <textarea readonly class="form-control" cols="5" rows="2" style="overflow-y: scroll;  height: 100px;">{{ $review->comment }}</textarea>
                             </div>

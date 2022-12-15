@@ -34,6 +34,8 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('edit_product/{id}',[DashboardController::class, 'product_edit'])->middleware(['auth', 'verified'])->name('product_edit');
     Route::post('status_product/{id}',[DashboardController::class, 'product_status'])->middleware(['auth', 'verified'])->name('product_status');
     Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
+    Route::get('review',[DashboardController::class, 'reviews'])->middleware(['auth', 'verified'])->name('review');
+    Route::get('view-review/{id}',[DashboardController::class, 'view_reviews'])->middleware(['auth', 'verified'])->name('view.review');
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);

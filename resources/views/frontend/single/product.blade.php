@@ -948,7 +948,6 @@
                                                                             <!--name-and-username-->
                                                                             <div class="name-user">
                                                                                 <strong>{{ $product_review->relationwithuser->name }}</strong>
-                                                                                <span>@liammendes</span>
                                                                             </div>
                                                                         </div>
                                                                         <!--reviews------>
@@ -980,7 +979,7 @@
                                                                 </div>
                                                             @endforelse
                                                         </div>
-                                                      </section>
+                                                    </section>
                                                 </div>
                                                 <div class="right-rc">
                                                     <a href="#">Write a review</a>

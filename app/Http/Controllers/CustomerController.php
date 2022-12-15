@@ -134,7 +134,7 @@ class CustomerController extends Controller
             'orders' => Invoice::where([
                 'user_id' => auth()->id(),
                 'payment' => 'unpaid',
-                'payment_status' => 'processing',
+                'order_status' => 'processing',
             ])->latest()->get()
         ]);
     }

@@ -45,7 +45,7 @@
          <form action="{{ route('vendor.banner.edit') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row mt-5">
-                <div class="col-lg-2"><p></p> Vendor Page Banner :</div>
+                <div class="col-lg-2"><p></p> Vendor Login Banner :</div>
                 <div class="col-lg-2">
                     <input type='file' name="vendor_login_banner"/>
                     <button type="submit" class="btn btn-primary mt-5">Change</button>
@@ -62,7 +62,7 @@
    <form action="{{ route('customer.banner.edit') }}" method="post" enctype="multipart/form-data">
      @csrf
     <div class="row mt-5">
-        <div class="col-lg-2"><p></p> Customer Page Banner :</div>
+        <div class="col-lg-2"><p></p> Customer Login Banner :</div>
         <div class="col-lg-2">
             <input type='file' name="customer_login_banner" />
             <button type="submit" class="btn btn-primary mt-5">Change</button>
@@ -89,7 +89,7 @@
 
             <div class="col-lg-2"></div>
             <div class="col-lg-6">
-                <img class="img"  src="{{ asset('uploads/banners') }}/{{ $banners->cart_page_banner }}" alt="No image selected" />
+                <img class="img"  src="{{ asset('uploads/banner_img') }}/{{ $banners->cart_page_banner }}" alt="No image selected" />
             </div>
         </div>
       </form>

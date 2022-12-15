@@ -7,7 +7,7 @@
             <th>SL</th>
             <th>Payment Method</th>
             <th>Payment</th>
-            <th>Payment Status</th>
+            <th>Order Status</th>
             <th>Total</th>
             <th>Action</th>
         </tr>
@@ -19,7 +19,7 @@
                 <td>{{ $sl++ }}</td>
                 <td>{{ $order->payment_method }}</td>
                 <td>{{ $order->payment }}</td>
-                <td>{{ $order->payment_status }}</td>
+                <td>{{ $order->order_status }}</td>
                 <td>{{ $order->total_price }}</td>
                 <td>
                     <a href="{{ route('invoice.download', $order->id) }}" class="btn btn-primary">Download Invoice</a>
