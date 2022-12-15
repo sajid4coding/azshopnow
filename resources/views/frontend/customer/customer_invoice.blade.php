@@ -22,7 +22,7 @@
                 <td>{{ $order->payment_status }}</td>
                 <td>{{ $order->total_price }}</td>
                 <td>
-                    <a href="{{ route('invoice.download', $order->id) }}" class="btn btn-primary">Download Invoice</a>
+                    <a href="{{ route('invoice.download', $order->id) }}" class="btn btn-primary p-3">Download Invoice</a>
                 </td>
             </tr>
 

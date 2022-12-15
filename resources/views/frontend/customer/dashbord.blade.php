@@ -128,13 +128,12 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="card avtivity-card">
-                    <div class="card-body">
-                        <div class="media align-items-center">
-                            <span class="activity-icon bgl-success mr-md-4 mr-3">
-                              <img width="50px" src="{{ asset('frontend_assets/img/report_image/order.png') }}" alt="frontend_assets/img/report_image/order.png'">
-
+                    <div class="card-body" style="height: 100px !important">
+                        <div class="media d-flex align-items-center gap-2" >
+                            <span class="activity-icon bgl-success mr-md-4 mr-5">
+                               <img width="50px" src="{{ asset('frontend_assets/img/report_image/order.png') }}" alt="frontend_assets/img/report_image/order.png'">
                             </span>
-                            <div class="media-body">
+                            <div class="media-body" style="margin-left: 20px">
                                 <p class="fs-14 mb-2">Total Order</p>
                                 <span class="title text-black font-w600">{{ $invoices_info->count() }}</span>
                             </div>
@@ -151,12 +150,12 @@
             <div class="col-sm-6">
                 <div class="card avtivity-card">
                     <div class="card-body">
-                        <div class="media align-items-center">
+                        <div class="media  d-flex align-items-center gap-2">
                             <span class="activity-icon bgl-secondary  mr-md-4 mr-3">
                               <img width="50px" src="{{ asset('frontend_assets/img/report_image/paper-money.png') }}" alt="frontend_assets/img/report_image/order.png'">
 
                             </span>
-                            <div class="media-body">
+                            <div class="media-body"  style="margin-left: 20px">
                                 <p class="fs-14 mb-2">Unpaid Amount</p>
                                 <span class="title text-black font-w600">${{ $invoices_info->where('payment','unpaid')->sum('total_price') }}</span>
                             </div>
@@ -173,12 +172,12 @@
             <div class="col-sm-6">
                 <div class="card avtivity-card">
                     <div class="card-body">
-                        <div class="media align-items-center">
+                        <div class="media  d-flex align-items-center gap-2">
                             <span class="activity-icon bgl-danger mr-md-4 mr-3">
                               <img width="50px" src="{{ asset('frontend_assets/img/report_image/pay.png') }}" alt="frontend_assets/img/report_image/order.png'">
 
                             </span>
-                            <div class="media-body">
+                            <div class="media-body"  style="margin-left: 20px">
                                 <p class="fs-14 mb-2">Paid Amount</p>
                                 <span class="title text-black font-w600">${{ $invoices_info->where('payment','paid')->sum('total_price') }}</span>
                             </div>
@@ -195,7 +194,7 @@
             <div class="col-sm-6">
                 <div class="card avtivity-card">
                     <div class="card-body">
-                        <div class="media align-items-center">
+                        <div class="media  d-flex align-items-center gap-2">
                             <span class="activity-icon bgl-warning  mr-md-4 mr-3">
                                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M19.9996 10.0001C22.7611 10.0001 24.9997 7.76148 24.9997 5.00004C24.9997 2.23859 22.7611 0 19.9996 0C17.2382 0 14.9996 2.23859 14.9996 5.00004C14.9996 7.76148 17.2382 10.0001 19.9996 10.0001Z" fill="#FFBC11"></path>
@@ -205,7 +204,7 @@
                                     <path d="M37.5001 20.0001H31.5455L27.2364 11.3819C26.7886 10.4871 25.8776 9.97737 24.9388 10.0001L19.9996 10.0001L15.061 10.0001C14.1223 9.97737 13.2125 10.4872 12.7637 11.3819L8.45457 20.0001H2.49998C1.1194 20.0001 0 21.1195 0 22.5001C0 23.8807 1.1194 25.0001 2.49998 25.0001H10C10.9473 25.0001 11.8128 24.4654 12.2363 23.6183L15 18.0909V27.4724L19.9998 29.3472L25 27.4719V18.0909L27.7637 23.6183C28.1873 24.4655 29.0528 25.0001 30 25.0001H37.5C38.8806 25.0001 40 23.8807 40 22.5001C40 21.1195 38.8807 20.0001 37.5001 20.0001Z" fill="#FFBC11"></path>
                                 </svg>
                             </span>
-                            <div class="media-body">
+                            <div class="media-body"  style="margin-left: 20px">
                                 <p class="fs-14 mb-2">Morning Yoga</p>
                                 <span class="title text-black font-w600">18:34:21”</span>
                             </div>
@@ -222,13 +221,13 @@
         </div>
     </div>
     {{-- <hr> --}}
-    <h3 class="text-center">My Order chart</h3>
+    {{-- <h3 class="text-center">My Order chart</h3>
     <div class="col-6">
         <canvas id="myChart"></canvas>
     </div>
     <div class="col-6">
         <canvas id="myChart1"></canvas>
-    </div>
+    </div> --}}
 </div>
 </div>
 </div>
