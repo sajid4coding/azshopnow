@@ -943,7 +943,7 @@
                                                                         <div class="profile">
                                                                             <!--img---->
                                                                             <div class="profile-img">
-                                                                                <img src="{{ asset('uploads/product_photo') }}/{{ $product_review->relationwithuser->profile_photo }}" />
+                                                                                <img src="{{ asset('uploads/profile_photo') }}/{{ $product_review->relationwithuser->profile_photo }}" />
                                                                             </div>
                                                                             <!--name-and-username-->
                                                                             <div class="name-user">

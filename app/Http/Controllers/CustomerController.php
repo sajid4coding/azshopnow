@@ -118,12 +118,14 @@ class CustomerController extends Controller
        }
        function customer_invoice_details(){
             return view('frontend.customer.customer_invoice',[
-                'orders' => Invoice::where('user_id', auth()->id())->get(),
+                'orders' => Invoice::where('user_id', auth()->id())->latest()->get(),
             ]);
        }
 
     public function invoice_download($id){
-        $pdf = Pdf::loadView('pdf.invoice');
+        $invoice = Invoice::find($id);
+        $order_details = Order_Detail::where('invoice_id', $id)->get();
+        $pdf = Pdf::loadView('pdf.invoice', compact('invoice', 'order_details'));
         return $pdf->setPaper('a4', 'portrait')->download('invoice.pdf');
     }
 
@@ -133,7 +135,7 @@ class CustomerController extends Controller
                 'user_id' => auth()->id(),
                 'payment' => 'unpaid',
                 'payment_status' => 'processing',
-            ])->get()
+            ])->latest()->get()
         ]);
     }
 
