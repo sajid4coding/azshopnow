@@ -3,32 +3,55 @@
 @yield('customermasert_css')
 @endsection
 @section('content')
-
-<!-- breadcrumb-area -->
-            <section class="breadcrumb-area-four breadcrumb-bg">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-7">
-                            <div class="breadcrumb-content">
-                                <h2 class="title">Customer dashbord</h2>
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{ route('customerhome') }}">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Customer dashbord</li>
-                                    </ol>
-                                </nav>
-                            </div>
+  <!-- main-area -->
+  <main>
+    <!-- breadcrumb-area -->
+    <section class="breadcrumb-area-four breadcrumb-bg vendor-profile-breadcrumb" style='background: url(@if (auth()->user()->banner)  {{ asset('uploads/banner_img') }}/{{ auth()->user()->banner }}  @else https://www.cohesity.com/wp-content/new_media/2021/03/demo-days-lp-banner.png @endif) no-repeat center;background-size:cover;''>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="store-product">
+                        <div class="store-thumb" style="overflow: hidden">
+                            {{-- https://pondokindahmall.co.id/assets/img/default.png --}}
+                            @if (auth()->user()->profile_photo)
+                               <img  src="{{ asset('uploads/customer_profile') }}/{{ auth()->user()->profile_photo }}" alt="img">
+                            @else
+                               <img src="https://pondokindahmall.co.id/assets/img/default.png" alt="img">
+                            @endif
                         </div>
-                        <div class="col-md-5">
-                            <div class="breadcrumb-img text-end">
-                                <img src="{{ asset('frontend_assets') }}/img/images/breadcrumb_img.png" alt="img">
-                            </div>
+                        <div class="store-content">
+                            <span class="verified">Verified <i class="fa-solid fa-crown"></i></span>
+                            @if (auth()->user()->shop_name)
+                            <h2 class="title">  {{ auth()->user()->shop_name }} </h2>
+                            <ul>
+                                <li class="customer">Owner Name : <span style="color: #FF4800 !important;padding-left:10px;font-size:1.2rem">{{ auth()->user()->name }}</span> </li>
+                            </ul>
+                            @else
+                            <h2 class="title">  {{ auth()->user()->name }} </h2>
+                            @endif
                         </div>
                     </div>
                 </div>
-            </section>
-            <!-- breadcrumb-area-end -->
-
+            </div>
+        </div>
+        <div class="breadcrumb-list">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb-content">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Customer setting</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb-area-end -->
 
                 {{-- PHP Code Start --}}
                 @php
@@ -55,110 +78,108 @@
                             </ul>
                          </div>
                         <style>
-                                  ul.form {
-                                      position:relative;
-                                      background:#fff;
-                                      width:250px;
-                                      margin:auto;
-                                      padding:0;
-                                      list-style: none;
-                                      overflow:hidden;
+                            ul.form {
+                                position:relative;
+                                background:#fff;
+                                width:250px;
+                                margin:auto;
+                                padding:0;
+                                list-style: none;
+                                overflow:hidden;
 
-                                      -webkit-border-radius: 5px;
-                                      -moz-border-radius: 5px;
-                                      border-radius: 5px;
+                                -webkit-border-radius: 5px;
+                                -moz-border-radius: 5px;
+                                border-radius: 5px;
 
-                                      -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
-                                      -moz-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
-                                      box-shadow:  1px 1px 10px rgba(0, 0, 0, 0.1);
-                                  }
+                                -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+                                -moz-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+                                box-shadow:  1px 1px 10px rgba(0, 0, 0, 0.1);
+                            }
 
-                                  .form li a {
-                                      width:225px;
-                                      padding-left:20px;
-                                      height:50px;
-                                      line-height:50px;
-                                      display:block;
-                                      overflow:hidden;
-                                      position:relative;
-                                      text-decoration:none;
-                                      text-transform:uppercase;
-                                      font-size:14px;
-                                      color:#686868;
+                            .form li a {
+                                width:225px;
+                                padding-left:20px;
+                                height:50px;
+                                line-height:50px;
+                                display:block;
+                                overflow:hidden;
+                                position:relative;
+                                text-decoration:none;
+                                text-transform:uppercase;
+                                font-size:14px;
+                                color:#686868;
 
-                                      -webkit-transition:all 0.2s linear;
-                                      -moz-transition:all 0.2s linear;
-                                      -o-transition:all 0.2s linear;
-                                      transition:all 0.2s linear;
-                                  }
+                                -webkit-transition:all 0.2s linear;
+                                -moz-transition:all 0.2s linear;
+                                -o-transition:all 0.2s linear;
+                                transition:all 0.2s linear;
+                            }
 
-                                  .form li a:hover {
-                                      background:#efefef;
-                                  }
+                            .form li a:hover {
+                                background:#efefef;
+                            }
 
-                                  .form li a.profile {
-                                      border-left:5px solid #008747;
-                                  }
+                            .form li a.profile {
+                                border-left:5px solid #008747;
+                            }
+                            .form li a.messages {
+                                    border-left:5px solid #000a99;
+                            }
 
-                                  .form li a.messages {
-                                          border-left:5px solid #000a99;
-                                  }
+                            .form li a.settings {
+                                    border-left:5px solid #cf2130;
+                            }
+                            .form li a.review {
+                                    border-left:5px solid #fecf54;
+                            }
+                            .form li a.logout {
+                                    border-left:5px solid #dde2d5;
+                            }
 
-                                  .form li a.settings {
-                                          border-left:5px solid #cf2130;
-                                  }
-                                  .form li a.review {
-                                          border-left:5px solid #fecf54;
-                                  }
+                            .form li:first-child a:hover, .form li:first-child a {
+                                -webkit-border-radius: 5px 5px 0 0;
+                                -moz-border-radius: 5px 5px 0 0;
+                                border-radius: 5px 5px 0 0;
+                            }
 
-                                  .form li a.logout {
-                                          border-left:5px solid #dde2d5;
-                                  }
+                            .form li:last-child a:hover, .form li:last-child a {
+                                -webkit-border-radius: 0 0 5px 5px;
+                                -moz-border-radius: 0 0 5px 5px;
+                                border-radius: 0 0 5px 5px;
+                            }
 
-                                  .form li:first-child a:hover, .form li:first-child a {
-                                      -webkit-border-radius: 5px 5px 0 0;
-                                      -moz-border-radius: 5px 5px 0 0;
-                                      border-radius: 5px 5px 0 0;
-                                  }
+                            .form li a:hover i {
+                                color:#ea4f35;
+                            }
 
-                                  .form li:last-child a:hover, .form li:last-child a {
-                                      -webkit-border-radius: 0 0 5px 5px;
-                                      -moz-border-radius: 0 0 5px 5px;
-                                      border-radius: 0 0 5px 5px;
-                                  }
+                            .form i {
+                                margin-right:15px;
 
-                                  .form li a:hover i {
-                                      color:#ea4f35;
-                                  }
+                                -webkit-transition:all 0.2s linear;
+                                -moz-transition:all 0.2s linear;
+                                -o-transition:all 0.2s linear;
+                                transition:all 0.2s linear;
+                            }
 
-                                  .form i {
-                                      margin-right:15px;
+                            .form em {
+                                font-size: 10px;
+                                background: #ea4f35;
+                                padding: 3px 5px;
+                                -webkit-border-radius: 10px;
+                                -moz-border-radius: 10px;
+                                border-radius: 10px;
+                                font-style: normal;
+                                color: #fff;
+                                margin-top: 17px;
+                                margin-right: 15px;
+                                line-height: 10px;
+                                height: 10px;
+                                float:right;
+                            }
 
-                                      -webkit-transition:all 0.2s linear;
-                                      -moz-transition:all 0.2s linear;
-                                      -o-transition:all 0.2s linear;
-                                      transition:all 0.2s linear;
-                                  }
-
-                                  .form em {
-                                      font-size: 10px;
-                                      background: #ea4f35;
-                                      padding: 3px 5px;
-                                      -webkit-border-radius: 10px;
-                                      -moz-border-radius: 10px;
-                                      border-radius: 10px;
-                                      font-style: normal;
-                                      color: #fff;
-                                      margin-top: 17px;
-                                      margin-right: 15px;
-                                      line-height: 10px;
-                                      height: 10px;
-                                      float:right;
-                                  }
-
-                                  .form li.selected a {
-                                      background:#efefef;
-                                  }
+                            .form li.selected a {
+                                background:#efefef;
+                            }
 
                         </style>
 

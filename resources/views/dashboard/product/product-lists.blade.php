@@ -90,7 +90,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            Name : {{ $product->relationwithuser->name }} <br>
+                                            Owner Name : {{ $product->relationwithuser->name }} <br>
                                             Shop Name : {{ $product->relationwithuser->shop_name }} <br>
                                             Email : {{ $product->relationwithuser->email }}
                                         </td>
