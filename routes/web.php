@@ -128,6 +128,7 @@ Route::get('customer/register', [CustomerController::class, 'customer_register']
 Route::post('customer/register/post', [CustomerController::class, 'customer_register_post'])->name('customer.register.post');
 Route::get('customer/login', [CustomerController::class, 'customer_login'])->name('customer.login');
 Route::post('customer/login/post', [CustomerController::class, 'customer_login_post'])->name('customer.login.post');
+Route::post('customer/profile/submit', [CustomerController::class, 'customer_profile_submit'])->name('customer.profile.submit');
 
 // CUSTOMER CONTROLLER END
 

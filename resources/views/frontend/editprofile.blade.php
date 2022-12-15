@@ -2,29 +2,57 @@
 
 @section('content')
 
+  <!-- main-area -->
+  <main>
     <!-- breadcrumb-area -->
-            <section class="breadcrumb-area-four breadcrumb-bg">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-7">
-                            <div class="breadcrumb-content">
-                                <h2 class="title">Edit your Password</h2>
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{ route('customerhome') }}">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Edit Your password</li>
-                                    </ol>
-                                </nav>
-                            </div>
+    <section class="breadcrumb-area-four breadcrumb-bg vendor-profile-breadcrumb" style='background: url(@if (auth()->user()->banner)  {{ asset('uploads/banner_img') }}/{{ auth()->user()->banner }}  @else https://www.cohesity.com/wp-content/new_media/2021/03/demo-days-lp-banner.png @endif) no-repeat center;background-size:cover;''>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="store-product">
+                        <div class="store-thumb" style="overflow: hidden">
+                            {{-- https://pondokindahmall.co.id/assets/img/default.png --}}
+                            @if (auth()->user()->profile_photo)
+                               <img  src="{{ asset('uploads/vendor_profile') }}/{{ auth()->user()->profile_photo }}" alt="img">
+                            @else
+                               <img src="https://pondokindahmall.co.id/assets/img/default.png" alt="img">
+                            @endif
                         </div>
-                        <div class="col-md-5">
-                            <div class="breadcrumb-img text-end">
-                                <img src="{{ asset('frontend_assets') }}/img/images/breadcrumb_img.png" alt="img">
-                            </div>
+                        <div class="store-content">
+                            <span class="verified">Verified <i class="fa-solid fa-crown"></i></span>
+                            @if (auth()->user()->shop_name)
+                            <h2 class="title">  {{ auth()->user()->shop_name }} </h2>
+                            <ul>
+                                <li class="customer">Owner Name : <span style="color: #FF4800 !important;padding-left:10px;font-size:1.2rem">{{ auth()->user()->name }}</span> </li>
+                            </ul>
+                            @else
+                            <h2 class="title">  {{ auth()->user()->name }} </h2>
+                            @endif
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+
+        <div class="breadcrumb-list">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb-content">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Edit  profile</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb-area-end -->
+
 <!-- breadcrumb-area-end -->
     <section class="register_section section_space">
     <div class="container">

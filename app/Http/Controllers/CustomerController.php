@@ -11,6 +11,8 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Image;
+
 
 
 class CustomerController extends Controller
@@ -154,6 +156,69 @@ class CustomerController extends Controller
             'created_at' => now()
         ]);
         return redirect('customer/product-review-list');
+    }
+
+
+    public function customer_profile_submit(Request $request){
+         if($request->hasFile('profile_photo') && $request->hasFile('banner')){
+
+                $photo= 'customer_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
+                $img = Image::make($request->file('profile_photo'))->resize(300, 300);
+                $img->save(base_path('public/uploads/customer_profile/'.$photo), 60);
+
+
+                $banner_photo= 'banner'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('banner')->getClientOriginalExtension();
+                $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
+                $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
+
+                if(auth()->user()->banner !== NULL){
+                    unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                }
+
+                if(auth()->user()->profile_photo !== NULL){
+                    unlink(base_path('public/uploads/customer_profile/'.auth()->user()->profile_photo));
+                }
+
+                 User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
+                    'profile_photo' =>  $photo,
+                    'banner' =>  $banner_photo,
+                 ]);
+            }else{
+                if($request->hasFile('profile_photo')){
+
+
+                    $photo= 'customer_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
+                    $img = Image::make($request->file('profile_photo'))->resize(300, 300);
+                    $img->save(base_path('public/uploads/customer_profile/'.$photo), 60);
+
+                    if(auth()->user()->profile_photo !== NULL){
+                        unlink(base_path('public/uploads/customer_profile/'.auth()->user()->profile_photo));
+                    }
+
+                     User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
+                        'profile_photo' =>  $photo,
+                     ]);
+                }else if($request->hasFile('banner')){
+
+
+                    $banner_photo= 'banner'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('banner')->getClientOriginalExtension();
+                    $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
+                    $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
+
+                    if(auth()->user()->banner !== NULL){
+                        unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                    }
+
+                     User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
+                        'banner' =>  $banner_photo,
+                     ]);
+                }else{
+                    User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner'));
+                }
+            }
+
+
+             return back();
     }
 
 

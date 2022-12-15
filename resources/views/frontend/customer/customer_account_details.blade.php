@@ -1,7 +1,45 @@
 @extends('layouts.customermaster')
 @section('customermasert_body')
 <div>
-    <h5 class="text-center pb-3">Account Details</h5>
+    <div class="col-lg-9 col-md-9">
+
+            <div class="tab-pane" >
+                <div class="product-upload-wrap">
+                    <form action="{{ route('customer.profile.submit') }}" enctype="multipart/form-data" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="container">
+                                    <div class="avatar-upload">
+                                        <div class="avatar-edit">
+                                            <input type='file' id="imageUpload" name="profile_photo" accept=".png, .jpg, .jpeg" />
+                                            <label for="imageUpload"></label>
+                                        </div>
+                                        <div class="avatar-preview">
+                                            <div id="imagePreview" style="background-image: url({{ asset('uploads/customer_profile/'.auth()->user()->profile_photo) }});">
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                 <div class="form-grp">
+                                     <label >Banner Photo : </label>
+                                    <input type='file'  name="banner" accept=".png, .jpg, .jpeg" />
+                                 </div>
+                            </div>
+                            <div class="">
+                                <button type="submit">Update</button>
+                            </div>
+
+                    </form>
+                </div>
+            </div>
+
+    </div>
+
+ {{-- ============================== --}}
+    <h5 class="text-center pb-3 mt-5">Account Details</h5>
     <form class="row g-3 p-2">
         <div class="col-md-6">
             <label for="inputnamel4" class="form-label">Name</label>

@@ -16,7 +16,8 @@
     transition: all 0.5s;
     border-radius: 100%;
     line-height: 80px;
-    text-align: center; }
+    text-align: center;
+}
   .avtivity-card .title {
     font-size: 28px; }
   .avtivity-card .progress {
