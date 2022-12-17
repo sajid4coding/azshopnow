@@ -21,4 +21,11 @@ class Product extends Model
     public function relationwith_subcategory(){
         return $this->hasOne(SubCategory::class, 'id', 'sub_category_id');
     }
+
+    public function relationwith_review(){
+        return $this->hasOne(ProductReview::class, 'product_id', 'id');
+    }
+    public function relationwith_vendor_review(){
+        return $this->hasOne(ProductReview::class, 'vendor_id', 'id');
+    }
 }

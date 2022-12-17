@@ -228,7 +228,4 @@ class vendorController extends Controller
             $invoices = Invoice::where('vendor_id',auth()->id())->get();
             return view('vendor.orders',compact('invoices'));
         }
-
-
-
 }
