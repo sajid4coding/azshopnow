@@ -5,48 +5,43 @@
     <table class="table table-breviewed">
         <tr>
             <th>SL</th>
-            <th>Product Name</th>
+            <th>Product</th>
             <th>Action</th>
         </tr>
         @php
             $sl = 1;
         @endphp
-            @forelse ($orders as $order)
+            @forelse ($reviews as $review)
                 <tr>
                     <td>{{ $sl++ }}</td>
-                    <td>
-                        <a href="{{ route('single.product', $order->relationwith_orderinvoice->relationwithproduct->id) }}">{{ $order->relationwith_orderinvoice->relationwithproduct->product_title }}</a> <br>
-                        @if ($order->relationwith_orderinvoice->size_id && $order->relationwith_orderinvoice->color_id)
-                            <span>Size: {{ $order->relationwith_orderinvoice->relationwithsize->size }}</span><br>
-                            <span>Color: {{ $order->relationwith_orderinvoice->relationwithcolor->color_name }}</span>
+                    <td style="gap: 20px;">
+                        <img width="70px" height="70px" src="{{ asset('uploads/product_photo') }}/{{ $review->relationwithproduct->thumbnail }}" alt="">
 
-                        @elseif($order->relationwith_orderinvoice->size_id)
-                            <span>Size: {{ $order->relationwith_orderinvoice->relationwithsize->size }}</span>
+                        <span>
+                            <a  style="font-size: 16px; color:rgb(255, 38, 0);font-weight:500" href="{{ route('single.product', $review->relationwithproduct->id) }}">{{ $review->relationwithproduct->product_title }}</a> <br>
+                            @if ($review->size_id && $review->color_id)
+                                <span style="font-size: 12px; color:#3a3a3a;font-weight:500" >Size: {{ $review->relationwithsize->size }}</span><br>
+                                <span style="font-size: 12px; color:#3a3a3a;font-weight:500" >Color: {{ $review->relationwithcolor->color_name }}</span>
 
-                        @elseif($order->relationwith_orderinvoice->color_id)
-                            <span>Color: {{ $order->relationwith_orderinvoice->relationwithcolor->color_name }}</span>
-                        @endif
+                            @elseif($review->size_id)
+                                <span style="font-size: 12px; color:#3a3a3a;font-weight:500" >Size: {{ $review->relationwithsize->size }}</span>
+
+                            @elseif($review->color_id)
+                                <span style="font-size: 12px; color:#3a3a3a;font-weight:500" >Color: {{ $review->relationwithcolor->color_name }}</span>
+                            @endif
+                        </span>
                     </td>
                     <td>
-
-                       @php
-                           $review = App\Models\ProductReview::find($order->id);
-                       @endphp
-
-                        @if (App\Models\ProductReview::find($order->id))
-                            <div class="rating">
-                                @for ($x = 1; $x <= 5; $x++)
-                                    @if ($x <= $review->rating)
-                                        <i class="fas fa-star text-warning"></i>
-                                    @else
-                                        <i class="far fa-star"></i><!--Empty star-->
-                                    @endif
-                                @endfor
-                                <textarea readonly class="form-control" cols="5" rows="2" style="overflow-y: scroll;  height: 100px;">{{ $review->comment }}</textarea>
-                            </div>
-                        @else
-                            <a href="{{ route('product.review', $order->id) }}" class="btn btn-warning py-2 px-4">Write Review</a>
-                        @endif
+                        <div class="rating">
+                            @for ($x = 1; $x <= 5; $x++)
+                                @if ($x <= $review->rating)
+                                    <i class="fas fa-star text-warning"></i>
+                                @else
+                                    <i class="far fa-star"></i><!--Empty star-->
+                                @endif
+                            @endfor
+                            <textarea readonly class="form-control" cols="5" rows="2" style="overflow-y: scroll;  height: 70px;resize:none">{{ $review->comment }}</textarea>
+                        </div>
                     </td>
                 </tr>
             @empty

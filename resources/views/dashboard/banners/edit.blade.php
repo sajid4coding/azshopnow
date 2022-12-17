@@ -29,14 +29,32 @@
     @csrf
         <div class="row mt-5">
             <div class="col-lg-2"><p></p> Shop Page Banner :</div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <input type='file' name="shop_page_banner"/>
                 <button type="submit" class="btn btn-primary mt-5">Change</button>
+                @error('shop_page_banner')
+                @if ($message == 'The shop page banner must not be greater than 2048 kilobytes.')
+                    <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
+                        <strong>The image not be greater than 2 mb</strong>
+                    </div>
+                @else
+                    <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
+                        <strong>The image required</strong>
+                    </div>
+                @endif
+              @enderror
             </div>
 
-            <div class="col-lg-2"></div>
+
+
+            <div class="col-lg-1"></div>
             <div class="col-lg-6">
+                @if ($banners->shop_page_banner)
                 <img class="img"  src="{{ asset('uploads/banners') }}/{{ $banners->shop_page_banner }}" alt="No image selected" />
+
+                @else
+                <img class="img"  src="{{ asset('uploads/demo/demo_banner.jpg') }}" alt="No image selected" />
+                @endif
             </div>
         </div>
     </form>
@@ -46,14 +64,35 @@
             @csrf
             <div class="row mt-5">
                 <div class="col-lg-2"><p></p> Vendor Login Banner :</div>
+<<<<<<< HEAD
                 <div class="col-lg-2">
+=======
+                <div class="col-lg-3">
+>>>>>>> ab31b6e15423ed00c68c5185ef50b45f1b826c79
                     <input type='file' name="vendor_login_banner"/>
                     <button type="submit" class="btn btn-primary mt-5">Change</button>
+                    @error('vendor_login_banner')
+                    @if ($message == 'The vendor login banner must not be greater than 2048 kilobytes.')
+                        <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
+                            <strong>The image not be greater than 2 mb</strong>
+                        </div>
+
+                    @else
+                         <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
+                            <strong>The image required</strong>
+                        </div>
+                     @endif
+                  @enderror
                 </div>
 
-                <div class="col-lg-2"></div>
+                <div class="col-lg-1"></div>
                 <div class="col-lg-6">
-                   <img class="img"  src="{{ asset('uploads/banners') }}/{{ $banners->vendor_login_banner }}" alt="No image selected" />
+                    @if ($banners->vendor_login_banner)
+                    <img class="img"  src="{{ asset('uploads/banners') }}/{{ $banners->vendor_login_banner }}" alt="No image selected" />
+                    @else
+                    <img class="img"  src="{{ asset('uploads/demo/demo_banner.jpg') }}" alt="No image selected" />
+                    @endif
+
                 </div>
             </div>
           </form>
@@ -63,14 +102,34 @@
      @csrf
     <div class="row mt-5">
         <div class="col-lg-2"><p></p> Customer Login Banner :</div>
+<<<<<<< HEAD
         <div class="col-lg-2">
+=======
+        <div class="col-lg-3">
+>>>>>>> ab31b6e15423ed00c68c5185ef50b45f1b826c79
             <input type='file' name="customer_login_banner" />
             <button type="submit" class="btn btn-primary mt-5">Change</button>
+            @error('customer_login_banner')
+            @if ($message == 'The customer login banner must not be greater than 2048 kilobytes.')
+                <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
+                    <strong>The image not be greater than 2 mb</strong>
+                </div>
+
+            @else
+                <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
+                    <strong> The image required</strong>
+                </div>
+            @endif
+          @enderror
         </div>
 
-        <div class="col-lg-2"></div>
+        <div class="col-lg-1"></div>
         <div class="col-lg-6">
+            @if ($banners->customer_login_banner)
             <img class="img"  src="{{ asset('uploads/banners') }}/{{ $banners->customer_login_banner }}" alt="No image selected" />
+            @else
+            <img class="img"  src="{{ asset('uploads/demo/demo_banner.jpg') }}" alt="No image selected" />
+            @endif
         </div>
     </div>
   </form>
@@ -82,14 +141,34 @@
          @csrf
         <div class="row mt-5">
             <div class="col-lg-2"><p></p> Cart Page Banner :</div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <input type='file' name="cart_page_banner" />
                 <button type="submit" class="btn btn-primary mt-5">Change</button>
+                @error('cart_page_banner')
+                @if ($message == 'The cart page banner must not be greater than 2048 kilobytes.')
+                    <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
+                        <strong>The image not be greater than 2 mb</strong>
+                    </div>
+
+                @else
+                    <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
+                        <strong> {{ $message }} The image required</strong>
+                    </div>
+                @endif
+              @enderror
             </div>
 
-            <div class="col-lg-2"></div>
+            <div class="col-lg-1"></div>
             <div class="col-lg-6">
+<<<<<<< HEAD
                 <img class="img"  src="{{ asset('uploads/banner_img') }}/{{ $banners->cart_page_banner }}" alt="No image selected" />
+=======
+                @if ($banners->cart_page_banner)
+                <img class="img"  src="{{ asset('uploads/banners') }}/{{ $banners->cart_page_banner }}" alt="No image selected" />
+                @else
+                <img class="img"  src="{{ asset('uploads/demo/demo_banner.jpg') }}" alt="No image selected" />
+                @endif
+>>>>>>> ab31b6e15423ed00c68c5185ef50b45f1b826c79
             </div>
         </div>
       </form>

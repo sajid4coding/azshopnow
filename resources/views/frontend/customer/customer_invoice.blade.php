@@ -22,7 +22,7 @@
                 <td>{{ $order->order_status }}</td>
                 <td>{{ $order->total_price }}</td>
                 <td>
-                    <a href="{{ route('invoice.download', $order->id) }}" class="btn btn-primary">Download Invoice</a>
+                    <a href="{{ route('invoice.download', $order->id) }}" class="btn btn-primary p-3">Download Invoice</a>
                 </td>
             </tr>
 
@@ -31,21 +31,29 @@
                     <span style="font-weight: 500;font-size:18px">
                         Details :
                     </span>
-                    @foreach (App\Models\Order_Detail::where('invoice_id', $order->id)->get() as $order)
+                    @foreach (App\Models\Order_Detail::where('invoice_id', $order->id)->get() as $review)
                         <span style="display: block;padding-left:30px">
-                            Product Name:  <span style="color:#00d9ff !important;margin-right:20px"><a  style="color:#00d9ff !important;" href="{{ route('single.product', $order->relationwithproduct->id) }}">{{ $order->relationwithproduct->product_title }}</a>  </span>
-                            @if ($order->size_id && $order->color_id)
-                                Color: <span style="color:#00d9ff !important;margin-right:20px">{{ $order->relationwithcolor->color_name }} </span>
-                                Size: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $order->relationwithsize->size }}  </span>
-                            @elseif($order->size_id)
-                                Size: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $order->relationwithsize->size }}  </span>
-                            @elseif( $order->color_id)
-                                Color: <span style="color:#00d9ff !important;margin-right:20px">{{ $order->relationwithcolor->color_name }} </span>
+                            Product Name:  <span style="color:#00d9ff !important;margin-right:20px"><a  style="color:#00d9ff !important;" href="{{ route('single.product', $review->relationwithproduct->id) }}">{{ $review->relationwithproduct->product_title }}</a>  </span>
+                            @if ($review->size_id && $review->color_id)
+                                Color: <span style="color:#00d9ff !important;margin-right:20px">{{ $review->relationwithcolor->color_name }} </span>
+                                Size: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $review->relationwithsize->size }}  </span>
+                            @elseif($review->size_id)
+                                Size: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $review->relationwithsize->size }}  </span>
+                            @elseif( $review->color_id)
+                                Color: <span style="color:#00d9ff !important;margin-right:20px">{{ $review->relationwithcolor->color_name }} </span>
                             @endif
 
-                            Quantity: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $order->quantity }}  </span>
+                            Quantity: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $review->quantity }}  </span>
 
-                            Unit Price: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">${{ $order->total_price }} </span>
+                            Unit Price: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">${{ $review->total_price }}</span>
+                            @php
+                                $reviews = App\Models\ProductReview::where([
+                                    'order_detail_id' => $review->id,
+                                ])->exists();
+                            @endphp
+                            @if (!$reviews)
+                                <a href="{{ route('product.review', $review->id) }}" class="btn btn-warning py-2 px-4" style="margin:10px">Write Review</a>
+                            @endif
                         </span>
                     @endforeach
                 </td>

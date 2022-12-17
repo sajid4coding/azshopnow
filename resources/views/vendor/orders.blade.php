@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($invoices as $invoice)
+            @forelse ($invoices as $invoice)
             <tr>
                 <td>{{ $loop->index + 1 }}</td>
                 <td>{{ $invoice->billing_first_name }}</td>
@@ -33,19 +33,19 @@
                     </span>
                     @foreach (App\Models\Order_Detail::where('invoice_id', $invoice->id)->get() as $order)
                         <span style="display: block;padding-left:30px">
-                                Product Name:  <span style="color:#00d9ff !important;margin-right:20px"><a style="color:#00d9ff !important;" href="{{ route('single.product',$order->relationwithproduct->id) }}">{{ $order->relationwithproduct->product_title }}</a></span>
-                                @if ($order->size_id && $order->color_id)
-                                    Color:  <span style="color:#00d9ff !important;margin-right:20px">{{ $order->relationwithcolor->color_name }} </span>
-                                    Size:  <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $order->relationwithsize->size }}  </span>
-                                @elseif($order->size_id)
-                                    Size:  <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $order->relationwithsize->size }}  </span>
-                                @elseif($order->color_id)
-                                    Color:  <span style="color:#00d9ff !important;margin-right:20px">{{ $order->relationwithcolor->color_name }} </span>
-                                @endif
+                        Product Name:  <span style="color:#00d9ff !important;margin-right:20px"><a style="color:#00d9ff !important;" href="{{ route('single.product',$order->relationwithproduct->id) }}">{{ $order->relationwithproduct->product_title }}</a></span>
+                        @if ($order->size_id && $order->color_id)
+                            Color:  <span style="color:#00d9ff !important;margin-right:20px">{{ $order->relationwithcolor->color_name }} </span>
+                            Size:  <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $order->relationwithsize->size }}  </span>
+                        @elseif($order->size_id)
+                            Size:  <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $order->relationwithsize->size }}  </span>
+                        @elseif($order->color_id)
+                            Color:  <span style="color:#00d9ff !important;margin-right:20px">{{ $order->relationwithcolor->color_name }} </span>
+                        @endif
 
-                                Quantity :  <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $order->quantity }}  </span>
+                        Quantity :  <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $order->quantity }}  </span>
 
-                                Unit Price :  <span style="color:rgb(0, 217, 255) !important;margin-right:20px">${{ $order->total_price }} </span>
+                        Unit Price :  <span style="color:rgb(0, 217, 255) !important;margin-right:20px">${{ $order->total_price }} </span>
                         </span>
                     @endforeach
                 </td>
@@ -71,7 +71,13 @@
                     </td>
                 @endif
              </tr>
-           @endforeach
+        @empty
+            <tr>
+                <td colspan="50" class="text-center">
+                    <span class="text-danger">No available data</span>
+                </td>
+            </tr>
+        @endforelse
         </tbody>
     </table>
 
