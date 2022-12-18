@@ -24,6 +24,9 @@ Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
 Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
 Route::post('checkout_post',[FrontEndController::class,'checkout_post'])->name('checkout_post');
 Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->name('single.product');
+Route::get('top-selection',[FrontEndController::class,'topSelection'])->name('top.selection');
+Route::get('new-arrivals',[FrontEndController::class,'newArrivals'])->name('new.arrivals');
+Route::get('search',[FrontEndController::class,'search'])->name('search');
 
 
 Route::middleware(['admin', 'verified'])->group(function () {

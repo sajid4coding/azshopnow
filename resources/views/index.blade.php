@@ -69,7 +69,7 @@
                                         <h2 class="title">Always <br> Be Your <span>MULTIVENDOR</span></h2>
                                         <h4 class="small-title">Women <span>Fashion</span></h4>
                                         <h5 class="price">Total order : <span>$30.00</span></h5>
-                                        <a href="shop.html" class="btn">Shop Now</a>
+                                        <a href="{{route('shop.page')}}" class="btn">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -268,44 +268,27 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="view-more text-end">
-                                            <a href="shop.html">View more</a>
+                                            <a href="{{route('top.selection')}}">View more</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row custom justify-content-center">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product07.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">launch $29.08<span>-30%</span></a></h4>
-                                                <p>40 orders</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product08.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">Watch $29.08<span>-40%</span></a></h4>
-                                                <p>20 orders</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product09.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">phone $29.08<span>-10%</span></a></h4>
-                                                <p>30 orders</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @foreach ($products as $product)
+                                            @if (floor(review($product->id)) ==5)
+                                                <div class="col-md-4 col-sm-6">
+                                                    <div class="product-item mb-30">
+                                                        <div class="product-thumb">
+                                                            <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product07.jpg" alt=""></a>
+                                                        </div>
+                                                        {{floor(review($product->id))}}
+                                                        <div class="product-content">
+                                                            <h4 class="title"><a href="shop-details.html">{{Str::limit($product->product_title,7)}} $29.08<span>-30%</span></a></h4>
+                                                            <p>40 orders</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -319,23 +302,32 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="view-more text-end">
-                                            <a href="shop.html">View more</a>
+                                            <a href="{{route('new.arrivals')}}">View more</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row custom justify-content-center">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product10.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">launch $29.08<span>-30%</span></a></h4>
-                                                <p>40 orders</p>
+                                    @foreach ($products as $product)
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="product-item mb-30">
+                                                <div class="product-thumb">
+                                                    <a href="shop-details.html"><img src="{{asset('uploads/product_photo')}}/{{$product->thumbnail}}" alt=""></a>
+                                                </div>
+                                                <div class="product-content">
+                                                    <h4 class="title"><a href="{{route('single.product', $product->id )}}">{{Str::limit($product->product_title,7)}} @if ($product->discount_price)
+                                                        <p style="display: inline-block; float:right">
+                                                            ${{$product->discount_price}}
+                                                            <del> ${{$product->product_price}}</del>
+                                                            <span>-{{Floor(((100*$product->product_price)-(100*$product->discount_price))/$product->product_price)}}%</span>
+                                                        </p>
+                                                    @else
+                                                        <p style="display: inline-block; float:right" class="price">${{$product->product_price}}</p>
+                                                    @endif</a></h4>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
+                                    @endforeach
+                                    {{-- <div class="col-md-4 col-sm-6">
                                         <div class="product-item mb-30">
                                             <div class="product-thumb">
                                                 <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product11.jpg" alt=""></a>
@@ -356,7 +348,7 @@
                                                 <p>30 orders</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

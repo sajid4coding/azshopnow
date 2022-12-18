@@ -91,8 +91,8 @@
                         <div class="col-xl-10 col-lg-9">
                             <div class="d-block d-sm-flex align-items-center justify-content-end">
                                 <div class="header-search-wrap">
-                                    <form action="#">
-                                        <input type="text" placeholder="Search for product...">
+                                    <form action="{{route('search')}}">
+                                        <input type="search" name="q" placeholder="Search for product...">
                                         <select class="custom-select">
                                             {{-- @foreach ($fix_categories as $category)
                                                 <option>{{ $category->category_name }}</option>

@@ -15,6 +15,7 @@ class FrontEndController extends Controller
 {
 
     function single_product ($id){
+        $inventory=Inventory::where('product_id',$id)->first();
         $productGalleries= ProductGallery::where('product_id',$id)->get();
         $product_reviews = ProductReview::where('product_id', $id)->get();
         $single_product = Product::findOrFail($id);
@@ -23,10 +24,21 @@ class FrontEndController extends Controller
             'status'=>'published',
             'vendorProductStatus'=>'published',
             ])->where('id','!=',$id)->limit(4)->get();
-        return view('frontend.single.product', compact('single_product','recommendedProducts', 'productGalleries','product_reviews',));
+        return view('frontend.single.product', compact('single_product','recommendedProducts', 'productGalleries','product_reviews','inventory'));
     }
     function contact_us_index(){
         return view('frontend.contact_us');
+    }
+    function newArrivals(){
+        $products=Product::where('status','published')->where('vendorProductStatus','published')->latest()->get();
+        $banners = Banner::all()->first();
+        return view('frontend.newArrivals',compact('products','banners'));
+    }
+    function topSelection(){
+        $topReviews=ProductReview::all();
+        $products=Product::where('status','published')->where('vendorProductStatus','published')->latest()->get();
+        $banners = Banner::all()->first();
+        return view('frontend.topSelection',compact('products','banners','topReviews'));
     }
     function shop_page(){
         $products=Product::where('status','published')->where('vendorProductStatus','published')->get()->shuffle();
@@ -156,11 +168,21 @@ class FrontEndController extends Controller
         return back()->with('contact_success_message','Your message successfully we have received!');
     }
 
+    public function search (Request $request){
+        $banners = Banner::all()->first();
+        $searchResult=$request->q;
+        $products=Product::where('product_title','LIKE','%'.$searchResult.'%')
+        ->orWhere('tag','LIKE','%'.$searchResult.'%')
+        ->get()
+        ->shuffle();
+        return view('frontend.search',compact('searchResult','products','banners'));
+    }
     public function index(){
         return view('index', [
             'categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
             'auth_categories' => Category::where('status','published')->latest()->limit(20)->get()->shuffle(),
-
+            'products' => Product::where('status','published')->where('vendorProductStatus','published')->latest()->limit(3)->get(),
+            'topReviews' =>ProductReview::all(),
         ]);
     }
 }

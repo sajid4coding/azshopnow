@@ -27,7 +27,7 @@
                         @endif
                     @endfor
                 @else
-                    <span class="text-danger">No Review</span>
+                    <span class="text-danger">No Review Yet</span>
                 @endif
             </div>
             <span>Already Sold : 75%</span>

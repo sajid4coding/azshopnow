@@ -54,6 +54,7 @@ class ProductController extends Controller
             'vendor_id'=>auth()->id(),
             'shop_name'=>auth()->user()->shop_name,
             'sku'=>$request->sku,
+            'tag'=>$request->product_tag,
             'short_description'=>htmlspecialchars($request->short_description),
             'description'=>htmlspecialchars($request->description),
         ]);
@@ -128,6 +129,7 @@ class ProductController extends Controller
             'vendor_id'=>auth()->id(),
             'shop_name'=>auth()->user()->shop_name,
             'sku'=>$request->sku,
+            'tag'=>$request->product_tag,
             'short_description'=>htmlspecialchars($request->short_description),
             'description'=>htmlspecialchars($request->description),
             'vendorProductStatus'=>$request->vendorProductStatus,
@@ -148,11 +150,11 @@ class ProductController extends Controller
                 $gellery_img->save(base_path('public/uploads/product_gellery_photo/'.$gellery_photo), 70);
                 $galleryProductId=ProductGallery::where('product_id',$id)->exists();
                 if($galleryProductId ){
-                    foreach(){
+                    // foreach(){
                         ProductGallery::where('product_id',$id)->update([
                             'product_gallery' => $gellery_photo,
                         ]);
-                    }
+                    // }
                 }else{
                     ProductGallery::insert([
                         'product_id' => $id,

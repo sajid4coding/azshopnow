@@ -192,7 +192,11 @@
                         </div>
                         <div class="col-xl-5 col-lg-6 col-md-8">
                             <div class="shop-details-content">
-                                <span><i class="fa-solid fa-check"></i>In Stock</span>
+                                @if ($inventory && $inventory->quantity)
+                                    <span><i class="fa-solid fa-check"></i>In Stock</span>
+                                @else
+                                    <span class="bg-warning text-dark"><i class="fa-solid fa-close"></i>Stock out</span>
+                                @endif
                                 <h2 class="title">{{$single_product->product_title}}</h2>
                                 <ul>
                                     {{-- <li data-background="{{ asset('frontend_assets') }}/img/images/coupon_bg01.png">
@@ -224,11 +228,15 @@
                                     <ul>
                                         <li class="sd-category">
                                             <span class="title">Categories :</span>
-                                            <a href="#!">{{Str::title($single_product->parent_category_slug)}}</a>
+                                            <a href="{{route('category.product',$single_product->parent_category_slug)}}">{{Str::title($single_product->parent_category_slug)}}</a>
                                         </li>
                                         <li class="sd-sku">
                                             <span class="title">SKU :</span>
                                             <a href="shop.html">{{$single_product->sku}}</a>
+                                        </li>
+                                        <li class="sd-sku">
+                                            <span class="title">Tags :</span>
+                                            <a href="{{route('shop.page')}}">{{$single_product->tag}}</a>
                                         </li>
                                         <li class="sd-share">
                                             <span class="title">Share Now :</span>
