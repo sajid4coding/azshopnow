@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('role');
             $table->string('shop_name')->nullable();
             $table->string('status')->default('deactive');
-            $table->string('profile_photo')->nullable();
+            $table->string('profile_photo')->default('default.png');
             $table->rememberToken();
             $table->timestamps();
         });
