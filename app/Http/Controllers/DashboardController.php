@@ -43,7 +43,7 @@ class DashboardController extends Controller
             $productName=Product::find($id)->product_title;
             $vendorId=Product::where('id',$id)->first()->vendor_id;
             $vendorDetails=User::find($vendorId);
-            Mail::to('patowaririaz@gmail.com')->send(new productApproved($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
+            Mail::to($vendorDetails->email)->send(new productApproved($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
         }else{
             Product::find($id)->update([
                 'status' => $request->status
@@ -52,7 +52,7 @@ class DashboardController extends Controller
             $vendorId=Product::where('id',$id)->first()->vendor_id;
             $vendorDetails=User::find($vendorId);
             // $vendorDetails->email
-            Mail::to('patowaririaz@gmail.com')->send(new productBan($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
+            Mail::to($vendorDetails->email)->send(new productBan($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
         }
         return redirect('product_lists')->with('success','Vendor Product Status Changed Successfully');
     }

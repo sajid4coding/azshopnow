@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-xl-9 col-lg-8 col-md-7">
                     <div class="breadcrumb-content">
-                        <h2 class="title">Discount shop</h2>
+                        <h2 class="title text-light">{{$categoryName->category_name}}</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>

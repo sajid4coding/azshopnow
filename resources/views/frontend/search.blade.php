@@ -5,9 +5,9 @@
 <main>
 
     <!-- breadcrumb-area -->
-    <section class="breadcrumb-area" style="padding:50px 0;background: url(@if($banners->shop_page_banner) {{ asset('uploads/banners') }}/{{ $banners->shop_page_banner }} @else https://flevix.com/wp-content/uploads/2020/07/Red-Blue-Abstract-Background.jpg @endif) no-repeat center; background-size:cover;background-position:center" >
+    <section class="breadcrumb-area"  style="padding:50px 0;background: url(@if($banners->shop_page_banner) {{ asset('uploads/banners') }}/{{ $banners->shop_page_banner }} @else https://flevix.com/wp-content/uploads/2020/07/Red-Blue-Abstract-Background.jpg @endif) no-repeat center; background-size:cover;background-position:center">
         <div class="container">
-            <div class="row align-items-center justify-content-center">
+            {{-- <div class="row align-items-center justify-content-center">
                 <div class="col-xl-3 col-lg-4 col-md-5 col-sm-8 order-2 order-md-0">
                     <div class="breadcrumb-product text-center">
                         <div class="thumb">
@@ -26,14 +26,14 @@
                             <h5 class="price">$37.00</h5>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-9 col-lg-8 col-md-7">
+                </div> --}}
+                <div class="col-xl-9 col-lg-8 col-md-7 mt-5">
                     <div class="breadcrumb-content">
-                        <h2 class="title text-light">Shopping with AZ SHOP NOW</h2>
+                        <h4 class="title text-light">Search: {{$searchResult}}</h4>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a class="text-light" href="{{route('home')}}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                                <li class="breadcrumb-item "><a class="text-light" href="{{route('home')}}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Search - {{$searchResult}}</li>
                             </ol>
                         </nav>
                     </div>
