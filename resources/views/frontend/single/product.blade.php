@@ -111,6 +111,7 @@
         margin-top: 10px;
     }
 }
+/* Image PopUp */
 </style>
 
   <!-- main-area -->
@@ -915,12 +916,13 @@
                                                 <button class="nav-link" id="specifications-tab" data-bs-toggle="tab"
                                                     data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications"
                                                     aria-selected="false">costumer reviews
-                                                    ({{ $product_reviews->count() }})</button>
+                                                    ({{ $product_reviews->count() }})
+                                                </button>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="product-report">
-                                        <a href="contact.html">Report Item</a>
+                                        <a href="http://127.0.0.1:8000/contact-us">Report Item</a>
                                     </div>
                                 </div>
                                 <div class="tab-content" id="productTabContent">
@@ -978,7 +980,15 @@
                                                                     </div>
                                                                     <!--Comments---------------------------------------->
                                                                     <div class="client-comment">
-                                                                        <p>{{ $product_review->comment }}</p>
+                                                                        <p class="mb-3">{{ $product_review->comment }}</p>
+                                                                        @php
+                                                                            $product_galleries = App\Models\ReviewGallery::where('product_review_id', $product_review->id)->get();
+                                                                        @endphp
+                                                                        @if ($product_galleries)
+                                                                            @foreach ($product_galleries as $product_gallery)
+                                                                                <img class="m-2" height="100" src="{{ asset('uploads/product_review_images') }}/{{ $product_gallery->review_image }}" alt="azshopshow">
+                                                                            @endforeach
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             @empty
@@ -989,9 +999,9 @@
                                                         </div>
                                                     </section>
                                                 </div>
-                                                <div class="right-rc">
+                                                {{-- <div class="right-rc">
                                                     <a href="#">Write a review</a>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -1107,6 +1117,10 @@
                 </div>
             </section>
             <!-- popular-product-area-end -->
+
+@endsection
+
+@section('footer_script')
 
 @endsection
 
