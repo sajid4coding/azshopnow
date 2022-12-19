@@ -7,6 +7,7 @@ use App\Mail\productBan;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductGallery;
+use App\Models\ProductReview;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -16,7 +17,9 @@ use Illuminate\Support\Facades\Mail;
 class DashboardController extends Controller
 {
     function dashboard(){
-        return view('layouts.dashboardmaster');
+        $users = User::all();
+        $products = Product::all();
+        return view('dashboard',compact('users','products'));
     }
 
     function product_lists(){
@@ -53,8 +56,20 @@ class DashboardController extends Controller
         }
         return redirect('product_lists')->with('success','Vendor Product Status Changed Successfully');
     }
+
     function product_delete($id){
         Product::find($id)->delete();
         return back();
+    }
+
+    function reviews(){
+        return view('dashboard.review.review',[
+            'products' => Product::all()
+        ]);
+    }
+    function view_reviews($product_id){
+        return view('dashboard.review.view-review',[
+            'view_reviews' => ProductReview::where('product_id', $product_id)->get()
+        ]);
     }
 }

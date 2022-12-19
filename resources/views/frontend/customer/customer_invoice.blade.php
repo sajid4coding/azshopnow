@@ -7,7 +7,7 @@
             <th>SL</th>
             <th>Payment Method</th>
             <th>Payment</th>
-            <th>Payment Status</th>
+            <th>Order Status</th>
             <th>Total</th>
             <th>Action</th>
         </tr>
@@ -19,32 +19,47 @@
                 <td>{{ $sl++ }}</td>
                 <td>{{ $order->payment_method }}</td>
                 <td>{{ $order->payment }}</td>
-                <td>{{ $order->payment_status }}</td>
+                <td>{{ $order->order_status }}</td>
                 <td>{{ $order->total_price }}</td>
                 <td>
-                    <a href="{{ route('invoice.download', $order->id) }}" class="btn btn-primary">Download Invoice</a>
+                    <a href="{{ route('invoice.download', $order->id) }}" class="btn btn-primary p-3">Download Invoice</a>
                 </td>
             </tr>
-            <tr class="mb-2">
-                <td colspan="50" class="bg-secondary bg-gradient">
-                    <div class="m-4">
-                        @foreach (App\Models\Order_Detail::where('invoice_id', $order->id)->get() as $order)
-                            <span>Product Name: <a href="{{ route('single.product', $order->relationwithproduct->id) }}">{{ $order->relationwithproduct->product_title }}</a></span> | 
-                            <span>Quantity: {{ $order->quantity }}</span><br>
-                            @if ($order->size_id && $order->color_id)
-                                <span>Size: {{ $order->relationwithsize->size }}</span><br>
-                                <span>Color: {{ $order->relationwithcolor->color_name }}</span>
 
-                            @elseif($order->size_id)
-                                <span>Size: {{ $order->relationwithsize->size }}</span>
-
-                            @elseif($order->color_id)
-                                <span>Color: {{ $order->relationwithcolor->color_name }}</span>
+            <tr style="background: #09091a !important;">
+                <td colspan="7" style="background: #26303d !important; color:white;padding:10px;">
+                    <span style="font-weight: 500;font-size:18px">
+                        Details :
+                    </span>
+                    @foreach (App\Models\Order_Detail::where('invoice_id', $order->id)->get() as $review)
+                        <span style="display: block;padding-left:30px">
+                            Product Name:  <span style="color:#00d9ff !important;margin-right:20px"><a  style="color:#00d9ff !important;" href="{{ route('single.product', $review->relationwithproduct->id) }}">{{ $review->relationwithproduct->product_title }}</a>  </span>
+                            @if ($review->size_id && $review->color_id)
+                                Color: <span style="color:#00d9ff !important;margin-right:20px">{{ $review->relationwithcolor->color_name }} </span>
+                                Size: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $review->relationwithsize->size }}  </span>
+                            @elseif($review->size_id)
+                                Size: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $review->relationwithsize->size }}  </span>
+                            @elseif( $review->color_id)
+                                Color: <span style="color:#00d9ff !important;margin-right:20px">{{ $review->relationwithcolor->color_name }} </span>
                             @endif
-                        @endforeach
-                    </div>
+
+                            Quantity: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $review->quantity }}  </span>
+
+                            Unit Price: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">${{ $review->total_price }}</span>
+                            @php
+                                $reviews = App\Models\ProductReview::where([
+                                    'order_detail_id' => $review->id,
+                                ])->exists();
+                            @endphp
+                            @if (!$reviews)
+                                <a href="{{ route('product.review', $review->id) }}" class="btn btn-warning py-2 px-4" style="margin:10px">Write Review</a>
+                            @endif
+                        </span>
+                    @endforeach
                 </td>
-            </tr>
+             </tr>
+
+
         @empty
             <tr>
                 <td colspan="50" class="text-center text-danger">

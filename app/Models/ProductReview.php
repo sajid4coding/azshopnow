@@ -12,4 +12,7 @@ class ProductReview extends Model
     public function relationwithuser(){
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+    public function relationwithproduct(){
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
 }

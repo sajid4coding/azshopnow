@@ -37,6 +37,8 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('edit_product/{id}',[DashboardController::class, 'product_edit'])->middleware(['auth', 'verified'])->name('product_edit');
     Route::post('status_product/{id}',[DashboardController::class, 'product_status'])->middleware(['auth', 'verified'])->name('product_status');
     Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
+    Route::get('review',[DashboardController::class, 'reviews'])->middleware(['auth', 'verified'])->name('review');
+    Route::get('view-review/{id}',[DashboardController::class, 'view_reviews'])->middleware(['auth', 'verified'])->name('view.review');
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
@@ -82,6 +84,7 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('vendor/setting', [VendorController::class, 'vendor_setting'])->name('vendor.setting');
     Route::get('vendor/coupon/add', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
     Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
+    Route::get('vendor/order',[VendorController::class,'vendor_orders'])->name('vendor.orders');
     Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
     Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
     Route::post('coupon/add', [VendorController::class, 'coupon_store'])->name('coupon.add');
@@ -131,6 +134,7 @@ Route::get('customer/register', [CustomerController::class, 'customer_register']
 Route::post('customer/register/post', [CustomerController::class, 'customer_register_post'])->name('customer.register.post');
 Route::get('customer/login', [CustomerController::class, 'customer_login'])->name('customer.login');
 Route::post('customer/login/post', [CustomerController::class, 'customer_login_post'])->name('customer.login.post');
+Route::post('customer/profile/submit', [CustomerController::class, 'customer_profile_submit'])->name('customer.profile.submit');
 
 // CUSTOMER CONTROLLER END
 

@@ -86,6 +86,7 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                            <p>If you have already account <a href="{{ route('customer.login') }}">LOGIN</a> here!</p>
                                     </div>
                                     <div class="">
                                         {!! NoCaptcha::display() !!}

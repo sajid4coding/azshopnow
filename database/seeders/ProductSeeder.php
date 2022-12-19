@@ -26,6 +26,7 @@ class ProductSeeder extends Seeder
             'tag' => 'T-shirt ,Polo T-shirt',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
             'created_at' => now(),
         ]);
@@ -41,6 +42,7 @@ class ProductSeeder extends Seeder
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
             'created_at' => now(),
         ]);
@@ -55,6 +57,7 @@ class ProductSeeder extends Seeder
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
             'created_at' => now(),
         ]);
@@ -69,6 +72,7 @@ class ProductSeeder extends Seeder
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
             'created_at' => now(),
         ]);
@@ -83,6 +87,7 @@ class ProductSeeder extends Seeder
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
             'created_at' => now(),
         ]);
@@ -97,6 +102,7 @@ class ProductSeeder extends Seeder
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
             'created_at' => now(),
         ]);
@@ -111,6 +117,7 @@ class ProductSeeder extends Seeder
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
             'created_at' => now(),
         ]);
@@ -125,6 +132,7 @@ class ProductSeeder extends Seeder
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
             'created_at' => now(),
         ]);
@@ -139,6 +147,7 @@ class ProductSeeder extends Seeder
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
             'created_at' => now(),
         ]);
@@ -153,6 +162,7 @@ class ProductSeeder extends Seeder
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
             'created_at' => now(),
         ]);
