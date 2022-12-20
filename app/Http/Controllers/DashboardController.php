@@ -7,6 +7,7 @@ use App\Mail\productBan;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductGallery;
+use App\Models\ProductReview;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -42,7 +43,7 @@ class DashboardController extends Controller
             $productName=Product::find($id)->product_title;
             $vendorId=Product::where('id',$id)->first()->vendor_id;
             $vendorDetails=User::find($vendorId);
-            Mail::to('patowaririaz@gmail.com')->send(new productApproved($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
+            Mail::to($vendorDetails->email)->send(new productApproved($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
         }else{
             Product::find($id)->update([
                 'status' => $request->status
@@ -51,12 +52,24 @@ class DashboardController extends Controller
             $vendorId=Product::where('id',$id)->first()->vendor_id;
             $vendorDetails=User::find($vendorId);
             // $vendorDetails->email
-            Mail::to('patowaririaz@gmail.com')->send(new productBan($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
+            Mail::to($vendorDetails->email)->send(new productBan($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
         }
         return redirect('product_lists')->with('success','Vendor Product Status Changed Successfully');
     }
+
     function product_delete($id){
         Product::find($id)->delete();
         return back();
+    }
+
+    function reviews(){
+        return view('dashboard.review.review',[
+            'products' => Product::all()
+        ]);
+    }
+    function view_reviews($product_id){
+        return view('dashboard.review.view-review',[
+            'view_reviews' => ProductReview::where('product_id', $product_id)->get()
+        ]);
     }
 }

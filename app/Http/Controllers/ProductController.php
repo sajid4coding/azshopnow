@@ -54,6 +54,7 @@ class ProductController extends Controller
             'vendor_id'=>auth()->id(),
             'shop_name'=>auth()->user()->shop_name,
             'sku'=>$request->sku,
+            'tag'=>$request->product_tag,
             'short_description'=>htmlspecialchars($request->short_description),
             'description'=>htmlspecialchars($request->description),
         ]);
@@ -128,6 +129,7 @@ class ProductController extends Controller
             'vendor_id'=>auth()->id(),
             'shop_name'=>auth()->user()->shop_name,
             'sku'=>$request->sku,
+            'tag'=>$request->product_tag,
             'short_description'=>htmlspecialchars($request->short_description),
             'description'=>htmlspecialchars($request->description),
             'vendorProductStatus'=>$request->vendorProductStatus,
@@ -163,7 +165,7 @@ class ProductController extends Controller
                         'product_gallery' => $gellery_photo,
                         'created_at' => now()
                     ]);
-                }
+                };
             }
         }
         return redirect('product-list')->with('success','Product updated successfully');

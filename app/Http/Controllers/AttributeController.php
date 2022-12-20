@@ -46,9 +46,9 @@ class AttributeController extends Controller
             'size' => $request->size,
             'created_at' => now()
         ]);
-        return back()->with('size_success_message', 'Congratulation! Size Added Successfully');
+        return back()->with('size_success_message', 'Size Added Successfully');
     }
-    
+
     public function store_color(Request $request)
     {
         $request->validate([
@@ -61,7 +61,7 @@ class AttributeController extends Controller
             'color' => $request->color,
             'created_at' => now()
         ]);
-        return back()->with('color_success_message', 'Congratulation! Color Added Successfully');
+        return back()->with('color_success_message', '+Color Added Successfully');
     }
 
     /**

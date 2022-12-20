@@ -15,4 +15,10 @@ class Invoice extends Model
     function relationwith_orderinvoice(){
         return $this->hasOne(Order_Detail::class, 'invoice_id', 'id');
     }
+    function relationwithuser(){
+        return $this->hasOne(User::class, 'id', 'vendor_id');
+    }
+    // function relationwithuser(){
+    //     return $this->hasMany(User::class, 'id');
+    // }
 }

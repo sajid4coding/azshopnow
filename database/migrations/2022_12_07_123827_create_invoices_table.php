@@ -32,7 +32,7 @@ return new class extends Migration
             $table->integer('total_price');
             $table->string('payment_method');
             $table->string('payment')->default('unpaid');
-            $table->string('payment_status')->default('processing');
+            $table->string('order_status')->default('processing');
             $table->timestamps();
             $table->SoftDeletes();
         });

@@ -64,7 +64,11 @@
             @csrf
             <div class="row mt-5">
                 <div class="col-lg-2"><p></p> Vendor Login Banner :</div>
+<<<<<<< HEAD
+                <div class="col-lg-2">
+=======
                 <div class="col-lg-3">
+>>>>>>> ab31b6e15423ed00c68c5185ef50b45f1b826c79
                     <input type='file' name="vendor_login_banner"/>
                     <button type="submit" class="btn btn-primary mt-5">Change</button>
                     @error('vendor_login_banner')
@@ -98,7 +102,11 @@
      @csrf
     <div class="row mt-5">
         <div class="col-lg-2"><p></p> Customer Login Banner :</div>
+<<<<<<< HEAD
+        <div class="col-lg-2">
+=======
         <div class="col-lg-3">
+>>>>>>> ab31b6e15423ed00c68c5185ef50b45f1b826c79
             <input type='file' name="customer_login_banner" />
             <button type="submit" class="btn btn-primary mt-5">Change</button>
             @error('customer_login_banner')
@@ -152,11 +160,15 @@
 
             <div class="col-lg-1"></div>
             <div class="col-lg-6">
+<<<<<<< HEAD
+                <img class="img"  src="{{ asset('uploads/banner_img') }}/{{ $banners->cart_page_banner }}" alt="No image selected" />
+=======
                 @if ($banners->cart_page_banner)
                 <img class="img"  src="{{ asset('uploads/banners') }}/{{ $banners->cart_page_banner }}" alt="No image selected" />
                 @else
                 <img class="img"  src="{{ asset('uploads/demo/demo_banner.jpg') }}" alt="No image selected" />
                 @endif
+>>>>>>> ab31b6e15423ed00c68c5185ef50b45f1b826c79
             </div>
         </div>
       </form>
