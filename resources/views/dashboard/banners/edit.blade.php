@@ -39,7 +39,7 @@
                     </div>
                 @else
                     <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
-                        <strong>The image required</strong>
+                        <strong>{{ $message }}</strong>
                     </div>
                 @endif
               @enderror
@@ -75,7 +75,7 @@
 
                     @else
                          <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
-                            <strong>The image required</strong>
+                            <strong>{{ $message }}</strong>
                         </div>
                      @endif
                   @enderror
@@ -109,7 +109,7 @@
 
             @else
                 <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
-                    <strong> The image required</strong>
+                    <strong>{{ $message }}</strong>
                 </div>
             @endif
           @enderror
@@ -144,7 +144,7 @@
 
                 @else
                     <div class="alert alert-danger p-2 mt-1" style="width:120%;" role="alert">
-                        <strong> {{ $message }} The image required</strong>
+                        <strong>{{ $message }}</strong>
                     </div>
                 @endif
               @enderror

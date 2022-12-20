@@ -189,16 +189,7 @@
             height: 200,
         });
     });
-//     document.getElementById('readUrl').addEventListener('change', function(){
-//   if (this.files[0] ) {
-//     var picture = new FileReader();
-//     picture.readAsDataURL(this.files[0]);
-//     picture.addEventListener('load', function(event) {
-//       document.getElementById('uploadedImage').setAttribute('src', event.target.result);
-//       document.getElementById('uploadedImage').style.display = 'block';
-//     });
-//   }
-// });
+
 const inputFile = document.querySelector("#picture__input");
 const pictureImage = document.querySelector(".picture__image");
 const pictureImageTxt = "Choose an thumnail";
