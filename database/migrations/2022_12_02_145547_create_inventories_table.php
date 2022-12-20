@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('product_id');
             $table->integer('vendor_id');
-            $table->string('size')->nullable();
-            $table->string('color')->nullable();
+            $table->integer('size')->nullable();
+            $table->integer('color')->nullable();
             $table->integer('quantity');
             $table->string('price')->nullable();
             $table->timestamps();

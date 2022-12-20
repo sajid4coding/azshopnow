@@ -125,25 +125,16 @@ class FrontEndController extends Controller
                 "user_id" => $order_detail->user_id,
                 "vendor_id" => $order_detail->vendor_id,
                 "product_id" => $order_detail->product_id,
-                "size_id" => $order_detail->size_id,
-                "color_id" => $order_detail->color_id,
+                "size_id" => $order_detail->size_id ?? NULL,
+                "color_id" => $order_detail->color_id ?? NULL,
                 "quantity" => $order_detail->quantity,
                 "total_price" => $unit_price,
                 "created_at" => now()
             ]);
-        }
-        if(Inventory::where([
-            'product_id' => $order_detail->product_id,
-            'vendor_id' => $order_detail->vendor_id,
-            'size' =>  $order_detail->size,
-            'color' => $order_detail->color
-        ])->exists()){
-            Inventory::where([
-                'product_id' => $order_detail->product_id,
-                'vendor_id' => $order_detail->vendor_id,
-                'size' =>  $order_detail->size,
-                'color' => $order_detail->color
-            ])->decrement('quantity', $order_detail->quantity);
+
+            if(Inventory::find($order_detail->inventory_id)->exists()){
+                Inventory::find($order_detail->inventory_id)->decrement('quantity', $order_detail->quantity);
+            }
         }
 
         if($request->payment_method == "COD"){
@@ -158,7 +149,6 @@ class FrontEndController extends Controller
 
         Cart::where('user_id', auth()->id())->delete();
         return redirect('customer/profile/invoice');
-
     }
 
 
