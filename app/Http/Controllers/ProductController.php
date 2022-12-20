@@ -158,14 +158,14 @@ class ProductController extends Controller
                         ProductGallery::find($galleryId->id)->update([
                             'product_gallery' => $gellery_photo,
                         ]);
-                    // }
+                    }
                 }else{
                     ProductGallery::insert([
                         'product_id' => $id,
                         'product_gallery' => $gellery_photo,
                         'created_at' => now()
                     ]);
-                }
+                };
             }
         }
         return redirect('product-list')->with('success','Product updated successfully');

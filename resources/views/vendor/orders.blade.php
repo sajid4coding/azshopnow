@@ -27,7 +27,7 @@
                 <td>{{ $invoice->created_at->format('d/m/y') }}</td>
             </tr>
             <tr style="background: #09091a !important">
-                <td colspan="5" style="background: #26303d !important; color:white;padding:10px;">
+                <td colspan="7" style="background: #26303d !important; color:white;padding:10px;">
                     <span style="font-weight: 500;font-size:18px">
                         Details :
                     </span>
@@ -50,26 +50,28 @@
                     @endforeach
                 </td>
 
-                @php
-                    $review = App\Models\ProductReview::find($invoice->id);
+                {{-- @php
+                    $reviews = App\Models\ProductReview::where('order_detail_id', $order->id)->get();
                 @endphp
-                @if ($review)
-                    <td colspan="2" style="background: #26303d83 !important; color:white;padding:10px;">
-                        <span style="font-weight: 500;font-size:18px">
-                            Review :
-                        </span>
-                        <div class="rating">
-                            @for ($x = 1; $x <= 5; $x++)
-                                @if ($x <= $review->rating)
-                                    <i class="fas fa-star text-warning"></i>
-                                @else
-                                    <i class="far fa-star"></i><!--Empty star-->
-                                @endif
-                            @endfor
-                            <textarea readonly class="form-control" cols="5" rows="4" style="overflow-y: scroll;  height: 100px; resize:none; font-size:12px;">{{ $review->comment }}</textarea>
-                        </div>
-                    </td>
-                @endif
+                @if ($reviews)
+                    @foreach ($reviews as $review)
+                        <td colspan="2" style="background: #26303d83 !important; color:white;padding:10px;">
+                            <span style="font-weight: 500;font-size:18px">
+                                Review :
+                            </span>
+                            <div class="rating">
+                                @for ($x = 1; $x <= 5; $x++)
+                                    @if ($x <= $review->rating)
+                                        <i class="fas fa-star text-warning"></i>
+                                    @else
+                                        <i class="far fa-star"></i><!--Empty star-->
+                                    @endif
+                                @endfor
+                                <textarea readonly class="form-control" cols="5" rows="4" style="overflow-y: scroll;  height: 100px; resize:none; font-size:12px;">{{ $review->comment }}</textarea>
+                            </div>
+                        </td>
+                    @endforeach
+                @endif --}}
              </tr>
         @empty
             <tr>

@@ -1,7 +1,6 @@
 @extends('layouts.vendor_master')
 @section('vendor_body_content')
 <style>
-
     .tags-input-wrapper{
         background: transparent;
         padding: 10px;
@@ -31,7 +30,9 @@
         display: inline-block;
         cursor: pointer;
     }
-    </style>
+</style>
+
+
 <div class="col-lg-9 col-md-9">
 
     <div class="tab-pane" id="productSection">
@@ -192,9 +193,6 @@
 @endsection
 @section('footer_script')
 <script>
-
-
-
     $(document).ready(function(){
          $('#EditcategoryDropDown').change(function(){
              var category_id = $(this).val()
@@ -226,16 +224,23 @@
             height: 200,
         });
     });
-//     document.getElementById('readUrl').addEventListener('change', function(){
-//   if (this.files[0] ) {
-//     var picture = new FileReader();
-//     picture.readAsDataURL(this.files[0]);
-//     picture.addEventListener('load', function(event) {
-//       document.getElementById('uploadedImage').setAttribute('src', event.target.result);
-//       document.getElementById('uploadedImage').style.display = 'block';
-//     });
-//   }
-// });
+
+    document.getElementById('readUrl').addEventListener('change', function(){
+  if (this.files[0] ) {
+    var picture = new FileReader();
+    picture.readAsDataURL(this.files[0]);
+    picture.addEventListener('load', function(event) {
+      document.getElementById('uploadedImage').setAttribute('src', event.target.result);
+      document.getElementById('uploadedImage').style.display = 'block';
+    });
+  }
+});
+
+
+
+
+
+
 const inputFile = document.querySelector("#picture__input");
 const pictureImage = document.querySelector(".picture__image");
 const pictureImageTxt = "Choose an thumnail";
@@ -265,26 +270,7 @@ inputFile.addEventListener("change", function (e) {
   }
 });
 
-</script>
-<script>
-    @if (session('success'))
-        const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-        })
 
-        Toast.fire({
-        icon: 'success',
-        title: "{{session('success')}}"
-        });
-    @endif
 </script>
 <script>
     (function(){
@@ -461,12 +447,9 @@ var tagInput1 = new TagsInput({
         max : 10
     });
     // tagInput1.addData(['PHP' , 'JavaScript' , 'CSS'])
-    <?php
-        $tag=explode(',', $products->tag)
-    ?>
-    @foreach ($tags as $tag)
-    tagInput1.addData(["{{$tag}}" ])
-    @endforeach
+    tagInput1.addData([ ])
 
 </script>
+
+
 @endsection
