@@ -185,7 +185,7 @@ class FrontEndController extends Controller
     public function index(){
         return view('index', [
             'categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
-            'auth_categories' => Category::where('status','published')->latest()->limit(20)->get()->shuffle(),
+            'auth_categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
             'products' => Product::where('status','published')->where('vendorProductStatus','published')->latest()->limit(3)->get(),
             'topReviews' =>ProductReview::all(),
         ]);

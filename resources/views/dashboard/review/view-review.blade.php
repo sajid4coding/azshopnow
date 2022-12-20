@@ -154,6 +154,14 @@
                 <!--Comments---------------------------------------->
                 <div class="client-comment">
                     <p>{{ $view_review->comment }}</p>
+                    @php
+                        $product_galleries = App\Models\ReviewGallery::where('product_review_id', $view_review->id)->get();
+                    @endphp
+                    @if ($product_galleries)
+                        @foreach ($product_galleries as $product_gallery)
+                            <img class="m-2" height="100" src="{{ asset('uploads/product_review_images') }}/{{ $product_gallery->review_image }}" alt="azshopshow">
+                        @endforeach
+                    @endif
                 </div>
             </div>
         @endforeach
