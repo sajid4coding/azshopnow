@@ -18,7 +18,7 @@ class BannerController extends Controller
 
 
        $request->validate([
-           'shop_page_banner' =>'required|max:2048',
+           'shop_page_banner' =>'required|max:2048|mimes:jpg,bmp,png',
         ]);
 
         // $validator = Validator::make($request->all(), [
@@ -49,7 +49,7 @@ class BannerController extends Controller
    }
    function vendor_page(Request $request){
       $request->validate([
-        'vendor_login_banner' =>'required|max:2048',
+        'vendor_login_banner' =>'required|max:2048|mimes:jpg,bmp,png',
       ]);
       $old_image = Banner::select('vendor_login_banner')->first()->vendor_login_banner;
 
@@ -72,7 +72,7 @@ class BannerController extends Controller
    }
    function customer_page(Request $request){
       $request->validate([
-        'customer_login_banner' =>'required|max:2048',
+        'customer_login_banner' =>'required|max:2048|mimes:jpg,bmp,png',
       ]);
       $old_image = Banner::select('customer_login_banner')->first()->customer_login_banner;
 
@@ -94,7 +94,7 @@ class BannerController extends Controller
    }
    function cart_page(Request $request){
        $request->validate([
-          'cart_page_banner' =>'required|max:2048',
+          'cart_page_banner' =>'required|max:2048|mimes:jpg,bmp,png',
         ]);
         $old_image = Banner::select('cart_page_banner')->first()->cart_page_banner;
 

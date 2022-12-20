@@ -928,8 +928,11 @@
                                 <div class="tab-content" id="productTabContent">
                                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                         <div class="product-desc-content">
-                                            <p>
-                                                {{htmlspecialchars($single_product->description)}}
+                                            <p id="single_product_description">
+                                                {!! $single_product->description !!}
+                                                {{-- @php
+                                                    echo strip_tags( $single_product->description )
+                                                @endphp --}}
                                             </p>
                                         </div>
                                     </div>
@@ -1117,6 +1120,12 @@
                 </div>
             </section>
             <!-- popular-product-area-end -->
+
+<script>
+    $(document).ready(function(){
+        $('#single_product_description').innerHTML({{ $single_product->description }})
+    })
+</script>
 
 @endsection
 

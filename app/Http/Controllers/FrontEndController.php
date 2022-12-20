@@ -149,9 +149,11 @@ class FrontEndController extends Controller
         if($request->payment_method == "COD"){
             Cart::where('user_id', auth()->id())->delete();
             return redirect('customer/profile/invoice');
+        }elseif($request->payment_method == "paypal"){
+            return redirect('/payment')->with('invoice_id', $invoice_id);
         }
         else{
-            return redirect('pay')->with('invoice_id', $invoice_id);
+            return redirect('stripe/checkout/post')->with('invoice_id', $invoice_id);
         }
 
         Cart::where('user_id', auth()->id())->delete();
@@ -189,5 +191,132 @@ class FrontEndController extends Controller
             'products' => Product::where('status','published')->where('vendorProductStatus','published')->latest()->limit(3)->get(),
             'topReviews' =>ProductReview::all(),
         ]);
+    }
+    public function stateTex(Request $request){
+
+          if($request->stateCode == 'AZ'){
+            $value = 1.60;
+
+          }elseif($request->stateCode == 'AL'){
+            $value = 1.60;
+
+          }elseif($request->stateCode == 'AK'){
+            $value = 1.60;
+
+          }elseif($request->stateCode == 'AR'){
+            $value = 1.30;
+          }elseif($request->stateCode == 'CA'){
+            $value = 1.20;
+          }elseif($request->stateCode == 'CO'){
+            $value = 1.10;
+          }elseif($request->stateCode == 'CT'){
+            $value = 1.80;
+          }elseif($request->stateCode == 'DE'){
+            $value = 1.60;
+          }elseif($request->stateCode == 'FL'){
+            $value = 1.10;
+          }elseif($request->stateCode == 'GA'){
+            $value = 1.25;
+          }elseif($request->stateCode == 'HI'){
+            $value = 1.33;
+          }elseif($request->stateCode == 'ID'){
+            $value = 1.55;
+          }elseif($request->stateCode == 'IL'){
+            $value = 1.66;
+          }elseif($request->stateCode == 'IN'){
+            $value = 1.99;
+          }elseif($request->stateCode == 'IA'){
+            $value = 5.2;
+          }elseif($request->stateCode == 'KS'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'KY'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'LA'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'ME'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'MD'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'MA'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'MI'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'MN'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'MS'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'MO'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'MT'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'NE'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'NV'){
+            $value = 2.3;
+          }elseif($request->stateCode == 'NH'){
+            $value = 3.30;
+          }elseif($request->stateCode == 'NJ'){
+            $value = 3.0;
+          }elseif($request->stateCode == 'NM'){
+            $value = 1.40;
+          }elseif($request->stateCode == 'NY'){
+            $value = 1.63;
+          }elseif($request->stateCode == 'NC'){
+            $value = 1.44;
+          }elseif($request->stateCode == 'ND'){
+            $value = 1.98;
+          }elseif($request->stateCode == 'OH'){
+            $value = 1.95;
+          }elseif($request->stateCode == 'OK'){
+            $value = 1.49;
+          }elseif($request->stateCode == 'OR'){
+            $value = 1.47;
+          }elseif($request->stateCode == 'PA'){
+            $value = 1.47;
+          }elseif($request->stateCode == 'RI'){
+            $value = 1.49;
+          }elseif($request->stateCode == 'SC'){
+            $value = 1.43;
+          }elseif($request->stateCode == 'SD'){
+            $value = 1.42;
+          }elseif($request->stateCode == 'TN'){
+            $value = 1.44;
+          }elseif($request->stateCode == 'TX'){
+            $value = 1.10;
+          }elseif($request->stateCode == 'UT'){
+            $value = 1.20;
+          }elseif($request->stateCode == 'VT'){
+            $value = 1.30;
+          }elseif($request->stateCode == 'VA'){
+            $value = 1.40;
+
+          }elseif($request->stateCode == 'WA'){
+            $value = 1.50;
+
+          }elseif($request->stateCode == 'DC'){
+            $value = 1.60;
+
+          }elseif($request->stateCode == 'WV'){
+            $value = 1.70;
+
+          }elseif($request->stateCode == 'WI'){
+            $value = 1.8;
+
+          }elseif($request->stateCode == 'WY'){
+            $value = 1.90;
+
+          };
+
+         $rent = ($request->subtotal*$value)/100;
+         $tax = $value;
+
+         $totalValue = $request->total + $rent;
+        //  number_format(('round')$totalValue);
+
+         $allData = ['tax'=>"$tax %",'total'=>round($totalValue)];
+
+
+
+         return json_encode($allData, JSON_PRETTY_PRINT);
     }
 }

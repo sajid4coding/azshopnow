@@ -9,6 +9,7 @@
             <div class="col col-xs-12">
             <div class="woocommerce bg-light p-3">
                 <form action="{{ route('checkout_post') }}" method="POST">
+                {{-- <form action="{{ route('stripe_checkout_post') }}" method="POST"> --}}
                     @csrf
                     <div class="row gx-5">
                             <div class="col-md-8">
@@ -106,6 +107,7 @@
                                                 </td>
                                             </tr>
                                         @endif
+
                                         <tr class="delivery">
                                             <th>Delivery Charge (+)</th>
                                             <td>
@@ -113,22 +115,32 @@
                                                 <input type="hidden" name="delivery_change" value="{{ session('shipping_cost') }}" />
                                             </td>
                                         </tr>
+                                        <tr class="delivery">
+                                            <th>Tax (%)</th>
+                                            <td>
+                                            <span class="woocommerce-Price-currencySymbol"></span>
+                                                <span id="spanTaxValue"> 00.00% </span>
+                                                <input   readonly id="stateTax" placeholder="00.00%" type="text" hidden name="taxvalue" value="" />
+                                            </td>
+                                        </tr>
                                         <tr class="order-total">
                                             <th>Total</th>
                                             <td>
                                                 <strong>
-                                                    <span class="text-success">&dollar;
+                                                    <span  class="text-success">&dollar;
                                                     @if (session('after_discount'))
-                                                        {{ session('after_discount') + session('shipping_cost') }}
-                                                        <input type="hidden" name="total_price" value="{{ session('after_discount') + session('shipping_cost') }}" />
+                                                      <span id="spanTotalValue">  {{ session('after_discount') + session('shipping_cost') }} </span>
+
+                                                        <input id="totalValue" type="text" hidden name="total_price" value="{{ session('after_discount') + session('shipping_cost') }}" />
                                                         @php
-                                                            session(['total' => session('after_discount') + session('shipping_cost')])
+                                                            session(['total' => session('after_discount') + session('shipping_cost')  ])
                                                         @endphp
                                                     @else
-                                                        {{ session('subtotal') + session('shipping_cost') }}
-                                                        <input type="hidden" name="total_price" value="{{ session('subtotal') + session('shipping_cost') }}" />
+                                                        <span id="spanTotalValue"> {{ session('subtotal') + session('shipping_cost') }}</span>
+
+                                                        <input id="totalValue" type="text" hidden name="total_price" value="{{ session('subtotal') + session('shipping_cost') + session('tax')}}" />
                                                         @php
-                                                            session(['total' => session('subtotal') + session('shipping_cost')])
+                                                            session(['total' => session('subtotal') + session('shipping_cost') ])
                                                         @endphp
                                                     @endif
                                                 </span>
@@ -136,10 +148,18 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <div class="bg-secondary text-white p-3 mb-2 py-3 mt-5">
+                                    <div class="bg-dark text-white p-3 mb-2 py-3 mt-5">
                                         <div class="form-check mb-2">
                                             <input id="payment_method_cheque" type="radio" class="form-check-input" name="payment_method" value="COD" checked='checked' />
                                             <label for="payment_method_cheque" class="form-check-label text-white">Cash On Delivery</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input id="payment_method_paypal" type="radio" class="form-check-input" name="payment_method" value="paypal"  />
+                                            <label for="payment_method_paypal" class="form-check-label text-white">Paypal</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input id="payment_method_stripe" type="radio" class="form-check-input" name="payment_method" value="stripe"  />
+                                            <label for="payment_method_stripe" class="form-check-label text-white">Stripe</label>
                                         </div>
                                         {{-- <div class="form-check mb-2">
                                             <input id="payment_method_ssl" type="radio" class="form-check-input" name="payment_method" value="SSL" />
@@ -150,6 +170,9 @@
                                             <label for="payment_method_stripe" class="form-check-label">Stripe Payment</label>
                                         </div> --}}
                                         <hr>
+                                        <div id="payment-request-button">
+                                            <!-- A Stripe Element will be inserted here. -->
+                                          </div>
                                         <div class="d-grid">
                                             <button type="submit" class="btn btn-primary">PLACE ORDER</button>
                                         </div>
@@ -165,5 +188,68 @@
 </section>
 <!-- checkout-section - end
 ================================================== -->
+@endsection
+@section('footer_script')
+<script src="https://js.stripe.com/v3/"></script>
+
+
+
+
+
+
+
+ <script>
+
+const stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', {
+    apiVersion: "2022-11-15",
+  });
+  const paymentRequest = stripe.paymentRequest({
+  country: 'US',
+  currency: 'usd',
+  total: {
+    label: 'Demo total',
+    amount: 1099,
+  },
+  requestPayerName: true,
+  requestPayerEmail: true,
+});
+
+       $(document).ready(function(){
+          $('#billing_country_id').change(function(){
+              var state_code = $(this).val()
+            //    @php
+            //      session()->forget(['tax_value', '']);
+            //    @endphp
+
+              if(state_code){
+             $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+             $.ajax({
+                type: 'post',
+                url: '/getStateCode',
+                data: {
+                    stateCode:state_code,
+                    subtotal:  <?=(session('after_discount'))? session('after_discount'):session('subtotal')?>,
+                    total:{{ session('total') }},
+                },
+                success: function (data) {
+
+                    // session::put('tax_value',data);
+                    var value = JSON.parse(data)
+
+                    $('#stateTax').val(value.tax)
+                    $('#totalValue').val(value.total)
+                    $('#spanTotalValue').text(value.total)
+                    $('#spanTaxValue').text(value.tax,'%')
+
+                }
+            });
+                }
+          })
+       })
+ </script>
 @endsection
 
