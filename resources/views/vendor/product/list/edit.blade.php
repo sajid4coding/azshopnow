@@ -131,6 +131,39 @@
                 </div>
 
             @endif
+            <div class="row product-upload-box text-center">
+                <div class="col-md-4">
+                    @if ($products->thumbnail)
+                        <div class="col-md-6">
+                            {{-- <form action="{{route('thumbnailImg.Delete',$products->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button style="padding: 2px; display:inline-block">X</button>
+                            </form> --}}
+                            <img style="width:200px" src="{{asset('uploads/product_photo')}}/{{$products->thumbnail}}" alt="">
+                            <span class="text-muted" style="font-size: 12px">Current Thumbnail Image</span>
+                        </div>
+                    @endif
+                </div>
+                <div class="col-md-8" style="display: flex; align-item:center; height:200px">
+                    @if ($productGalleries->count() !=0)
+                            <div>
+                                @foreach ($productGalleries as $productGallery)
+                                <div style="display: inline-block; ">
+                                    <form action="{{route('galleryImg.Delete',$productGallery->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                        <button class="p-1">x</button>
+                                        <img style="width:100px" src="{{asset('uploads/product_gellery_photo')}}/{{$productGallery->product_gallery}}" alt="">
+                                    </form>
+                                </div>
+                                @endforeach
+                                <br>
+                                <span class="text-muted" style="font-size: 12px">Current Gallery Images</span>
+                            </div>
+                    @endif
+                </div>
+            </div>
             <form action="{{route('product.update',$products->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
@@ -146,12 +179,6 @@
                                     </label>
                                       <input type="file" name="thumbnail" id="picture__input">
                                 </div>
-                                @if ($products->thumbnail)
-                                    <div class="col-md-6">
-                                        <img style="width:200px" src="{{asset('uploads/product_photo')}}/{{$products->thumbnail}}" alt="">
-                                        <span class="text-muted" style="font-size: 12px">Current Product Thumbnail</span>
-                                    </div>
-                                @endif
                             </div>
                             {{-- <label style="width: 200px" class="picture" for="picture__input" tabIndex="0">
                                 <span  class="picture__image"></span>
@@ -169,15 +196,6 @@
                                 </label>
                                 </div>
                                 <div class="upload__img-wrap"></div>
-                                @if ($productGalleries->count() !=0)
-                                    <div class="col-md-6">
-                                        @foreach ($productGalleries as $productGallery)
-                                            <img style="width:70px" src="{{asset('uploads/product_gellery_photo')}}/{{$productGallery->product_gallery}}" alt="">
-                                        @endforeach
-                                        <br>
-                                        <span class="text-muted" style="font-size: 12px">Current Product Galleries</span>
-                                    </div>
-                                @endif
                             </div>
                         </div>
 
@@ -543,8 +561,12 @@ inputFile.addEventListener("change", function (e) {
             max : 10
         });
         // tagInput1.addData(['PHP' , 'JavaScript' , 'CSS'])
-        tagInput1.addData([ ])
-
+        <?php
+        $tag=explode(',', $products->tag)
+        ?>
+        @foreach ($tags as $tag)
+        tagInput1.addData(["{{$tag}}" ])
+        @endforeach
 </script>
 
 
