@@ -165,10 +165,9 @@ class ProductController extends Controller
         //                 'product_gallery' => $gellery_photo,
         //                 'created_at' => now()
         //             ]);
-        //         }
+        //         };
         //     }
         // }
-        
         return redirect('product-list')->with('success','Product updated successfully');
     }
 

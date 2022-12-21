@@ -13,6 +13,7 @@
                 <th>Category</th>
                 <th>Status</th>
                 <th>Inventory</th>
+                <th>Review</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -50,6 +51,7 @@
                     @endif
                 </td>
                  <td><a href="{{ route('inventory', $product->id) }}" class="btn btn-primary btn-sm py-2 px-3">Add Inventory</a></td>
+                 <td><h6 class="bg-secondary text-center text-white"><i class="fas fa-star text-warning"></i> {{ round(review($product->id)) }}</h6></td>
                  <td>
                      <div>
                         <a href="{{route('product.edit',$product->id)}}"><i class="fas fa-edit"></i></a>

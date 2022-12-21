@@ -1,9 +1,12 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ProductListController, ShippingController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, PaymentController, ProductController, ProductListController, ShippingController, StripeController};
 use App\Models\Product;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Action;
+// use App\Http\Controllers\PaymentController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -22,6 +25,15 @@ Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->na
 Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
 Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
 Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
+
+// PAYMENTS METHOD INTEGRATION ROUTE START
+Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('stripe_checkout_post');
+Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
+
+
+// PAYMENTS METHOD INTEGRATION ROUTE END
+
+Route::post('/getStateCode',[FrontEndController::class,'stateTex']);
 Route::post('checkout_post',[FrontEndController::class,'checkout_post'])->name('checkout_post');
 Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->name('single.product');
 Route::get('top-selection',[FrontEndController::class,'topSelection'])->name('top.selection');
