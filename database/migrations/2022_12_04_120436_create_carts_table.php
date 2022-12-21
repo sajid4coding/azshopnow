@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('product_id');
             $table->integer('inventory_id');
             $table->integer('quantity')->nullable();
-            $table->string('size_id')->nullable();
-            $table->string('color_id')->nullable();
+            $table->integer('size_id')->nullable();
+            $table->integer('color_id')->nullable();
             $table->timestamps();
         });
     }
