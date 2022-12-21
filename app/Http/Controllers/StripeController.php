@@ -14,7 +14,10 @@ class StripeController extends Controller
     //       return view('index');
     // }
     public function checkout(){
+
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $total_price = Invoice::find(session('invoice_id'))->total_price;
 
         $session = \Stripe\Checkout\Session::create([
             'line_items' =>[
@@ -23,11 +26,11 @@ class StripeController extends Controller
                     'currency' =>'USD',
 
                     'product_data' => [
-                        'name' => 'send me money!!!',
+                        'name' => 'Total Price',
                     ],
-                    'unit_amount' => 500
+                    'unit_amount' => $total_price * 100,
                 ],
-                'quantity' => 5,
+                'quantity' => 1,
                ],
             ],
             'mode' => 'payment',

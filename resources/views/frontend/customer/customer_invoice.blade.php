@@ -16,18 +16,18 @@
         @endphp
         @forelse ($orders as $order)
             <tr>
-                <td>{{ $sl++ }}</td>
+                <td style="padding: 10px">{{ $sl++ }}</td>
                 <td>{{ $order->payment_method }}</td>
                 <td>{{ $order->payment }}</td>
                 <td>{{ $order->order_status }}</td>
                 <td>{{ $order->total_price }}</td>
                 <td>
-                    <a href="{{ route('invoice.download', $order->id) }}" class="btn btn-primary p-3">Download Invoice</a>
+                    <a href="{{ route('invoice.download', $order->id) }}">Invoice <i class="fas fa-download"></i></a>
                 </td>
             </tr>
 
             <tr style="background: #09091a !important;">
-                <td colspan="7" style="background: #26303d !important; color:white;padding:10px;">
+                <td colspan="7" style="background: #3c4550 !important; color:white;padding:10px;">
                     <span style="font-weight: 500;font-size:18px">
                         Details :
                     </span>
@@ -52,7 +52,7 @@
                                 ])->exists();
                             @endphp
                             @if (!$reviews)
-                                <a href="{{ route('product.review', $review->id) }}" class="btn btn-warning py-2 px-4" style="margin:10px">Write Review</a>
+                                <a href="{{ route('product.review', $review->id) }}" class="btn btn-danger py-2 px-4" style="margin:10px;background:#FF4800;font-weight:300">Review <i class="fas fa-pen-alt"></i> </a>
                             @endif
                         </span>
                     @endforeach

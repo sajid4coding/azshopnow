@@ -185,115 +185,115 @@ class FrontEndController extends Controller
     public function stateTex(Request $request){
 
           if($request->stateCode == 'AZ'){
-            $value = 1.60;
+            $value = 5.60;
 
           }elseif($request->stateCode == 'AL'){
-            $value = 1.60;
+            $value = 4.00;
 
           }elseif($request->stateCode == 'AK'){
-            $value = 1.60;
+            $value = 0.00;
 
           }elseif($request->stateCode == 'AR'){
-            $value = 1.30;
+            $value = 6.50;
           }elseif($request->stateCode == 'CA'){
-            $value = 1.20;
+            $value = 7.25;
           }elseif($request->stateCode == 'CO'){
-            $value = 1.10;
+            $value = 2.90;
           }elseif($request->stateCode == 'CT'){
-            $value = 1.80;
+            $value = 6.35;
           }elseif($request->stateCode == 'DE'){
-            $value = 1.60;
+            $value = 0.00;
           }elseif($request->stateCode == 'FL'){
-            $value = 1.10;
+            $value = 6.00;
           }elseif($request->stateCode == 'GA'){
-            $value = 1.25;
+            $value = 4.00;
           }elseif($request->stateCode == 'HI'){
-            $value = 1.33;
+            $value = 4.00;
           }elseif($request->stateCode == 'ID'){
-            $value = 1.55;
+            $value = 6.00;
           }elseif($request->stateCode == 'IL'){
-            $value = 1.66;
+            $value = 6.25;
           }elseif($request->stateCode == 'IN'){
-            $value = 1.99;
+            $value = 7.00;
           }elseif($request->stateCode == 'IA'){
-            $value = 5.2;
+            $value = 6.00;
           }elseif($request->stateCode == 'KS'){
-            $value = 1.40;
+            $value = 6.50;
           }elseif($request->stateCode == 'KY'){
-            $value = 1.40;
+            $value = 6.00;
           }elseif($request->stateCode == 'LA'){
-            $value = 1.40;
+            $value = 4.45;
           }elseif($request->stateCode == 'ME'){
-            $value = 1.40;
+            $value = 5.50;
           }elseif($request->stateCode == 'MD'){
-            $value = 1.40;
+            $value = 6.00;
           }elseif($request->stateCode == 'MA'){
-            $value = 1.40;
+            $value = 6.25;
           }elseif($request->stateCode == 'MI'){
-            $value = 1.40;
+            $value = 6.00;
           }elseif($request->stateCode == 'MN'){
-            $value = 1.40;
+            $value = 6.88;
           }elseif($request->stateCode == 'MS'){
-            $value = 1.40;
+            $value = 7.00;
           }elseif($request->stateCode == 'MO'){
-            $value = 1.40;
+            $value = 4.23;
           }elseif($request->stateCode == 'MT'){
-            $value = 1.40;
+            $value = 0.00;
           }elseif($request->stateCode == 'NE'){
-            $value = 1.40;
+            $value = 5.50;
           }elseif($request->stateCode == 'NV'){
-            $value = 2.3;
+            $value = 6.85;
           }elseif($request->stateCode == 'NH'){
-            $value = 3.30;
+            $value = 0.00;
           }elseif($request->stateCode == 'NJ'){
-            $value = 3.0;
+            $value = 6.63;
           }elseif($request->stateCode == 'NM'){
-            $value = 1.40;
+            $value = 5.13;
           }elseif($request->stateCode == 'NY'){
-            $value = 1.63;
+            $value = 4.00;
           }elseif($request->stateCode == 'NC'){
-            $value = 1.44;
+            $value = 4.75;
           }elseif($request->stateCode == 'ND'){
-            $value = 1.98;
+            $value = 5.00;
           }elseif($request->stateCode == 'OH'){
-            $value = 1.95;
+            $value = 5.75;
           }elseif($request->stateCode == 'OK'){
-            $value = 1.49;
+            $value = 4.50;
           }elseif($request->stateCode == 'OR'){
-            $value = 1.47;
+            $value = 0.00;
           }elseif($request->stateCode == 'PA'){
-            $value = 1.47;
+            $value = 6.00;
           }elseif($request->stateCode == 'RI'){
-            $value = 1.49;
+            $value = 7.00;
           }elseif($request->stateCode == 'SC'){
-            $value = 1.43;
+            $value = 6.00;
           }elseif($request->stateCode == 'SD'){
-            $value = 1.42;
+            $value = 4.50;
           }elseif($request->stateCode == 'TN'){
-            $value = 1.44;
+            $value = 7.00;
           }elseif($request->stateCode == 'TX'){
-            $value = 1.10;
+            $value = 6.25;
           }elseif($request->stateCode == 'UT'){
-            $value = 1.20;
+            $value = 5.95;
           }elseif($request->stateCode == 'VT'){
-            $value = 1.30;
+            $value = 6.00;
           }elseif($request->stateCode == 'VA'){
-            $value = 1.40;
+            $value = 5.30;
 
           }elseif($request->stateCode == 'WA'){
-            $value = 1.50;
+            $value = 6.50;
 
           }elseif($request->stateCode == 'DC'){
-            $value = 1.60;
+            $value = 6.00;
 
           }elseif($request->stateCode == 'WV'){
-            $value = 1.70;
+            $value = 6.00;
 
           }elseif($request->stateCode == 'WI'){
-            $value = 1.8;
+            $value = 5.00;
 
           }elseif($request->stateCode == 'WY'){
-            $value = 1.90;
+            $value = 4.00;
 
           };
 
