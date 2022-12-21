@@ -142,32 +142,33 @@ class ProductController extends Controller
                 'thumbnail'=>$photo,
             ]);
         }
-        $gelleries = $request->file('gellery');
-        if($gelleries){
-            $galleryProductId=ProductGallery::select('id')->where('product_id',$id)->groupBy('id')->get();
-            foreach($gelleries as $gellery){
-                $gellery_photo= Carbon::now()->format('Y').rand(1,9999).".".$gellery->getClientOriginalExtension();
-                $gellery_img = Image::make($gellery)->resize(207, 232);
-                $gellery_img->save(base_path('public/uploads/product_gellery_photo/'.$gellery_photo), 70);
-                // $galleryProductId=ProductGallery::where('product_id',$id)->exists();
-                // foreach ($galleryProductId as $galleryId) {
-                //     return $galleryId;
-                // }
-                if($galleryProductId){
-                    foreach ($galleryProductId as $galleryId) {
-                        ProductGallery::find($galleryId->id)->update([
-                            'product_gallery' => $gellery_photo,
-                        ]);
-                    // }
-                }else{
-                    ProductGallery::insert([
-                        'product_id' => $id,
-                        'product_gallery' => $gellery_photo,
-                        'created_at' => now()
-                    ]);
-                }
-            }
-        }
+        // $gelleries = $request->file('gellery');
+        // if($gelleries){
+        //     $galleryProductId=ProductGallery::select('id')->where('product_id',$id)->groupBy('id')->get();
+        //     foreach($gelleries as $gellery){
+        //         $gellery_photo= Carbon::now()->format('Y').rand(1,9999).".".$gellery->getClientOriginalExtension();
+        //         $gellery_img = Image::make($gellery)->resize(207, 232);
+        //         $gellery_img->save(base_path('public/uploads/product_gellery_photo/'.$gellery_photo), 70);
+        //         // $galleryProductId=ProductGallery::where('product_id',$id)->exists();
+        //         // foreach ($galleryProductId as $galleryId) {
+        //         //     return $galleryId;
+        //         // }
+        //         if($galleryProductId){
+        //             foreach ($galleryProductId as $galleryId) {
+        //                 ProductGallery::find($galleryId->id)->update([
+        //                     'product_gallery' => $gellery_photo,
+        //                 ]);
+        //             }
+        //         }else{
+        //             ProductGallery::insert([
+        //                 'product_id' => $id,
+        //                 'product_gallery' => $gellery_photo,
+        //                 'created_at' => now()
+        //             ]);
+        //         }
+        //     }
+        // }
+        
         return redirect('product-list')->with('success','Product updated successfully');
     }
 
