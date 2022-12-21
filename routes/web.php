@@ -103,11 +103,14 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('coupon/delete/{id}', [VendorController::class, 'coupon_delete'])->name('coupon.delete');
     //ProductController Resource
     Route::resource('product', ProductController::class);
+    Route::delete('galleryImgDelete/{id}',[ProductController::class, 'galleryImgDelete'])->name('galleryImg.Delete');
+     //AttributeController Resource
     Route::resource('attributes', AttributeController::class);
     Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
     Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
     Route::post('/getIDFromCategory',[VendorController::class,'getIDFromCategory']);
     Route::post('/getIDFromCategoryForEdit',[VendorController::class,'getIDFromCategoryEdit']);
+     //ProductListController Resource
     Route::resource('product-list',ProductListController::class);
 
     //InventoryController

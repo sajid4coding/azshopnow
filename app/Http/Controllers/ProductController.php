@@ -72,7 +72,7 @@ class ProductController extends Controller
         if($gelleries){
             foreach($gelleries as $gellery){
                 $gellery_photo= Carbon::now()->format('Y').rand(1,9999).".".$gellery->getClientOriginalExtension();
-                $gellery_img = Image::make($gellery)->resize(207, 232);
+                $gellery_img = Image::make($gellery)->resize(566, 570);
                 $gellery_img->save(base_path('public/uploads/product_gellery_photo/'.$gellery_photo), 70);
                 ProductGallery::insert([
                     'product_id' => $product->id,
@@ -144,30 +144,18 @@ class ProductController extends Controller
         }
         $gelleries = $request->file('gellery');
         if($gelleries){
-            $galleryProductId=ProductGallery::select('id')->where('product_id',$id)->groupBy('id')->get();
             foreach($gelleries as $gellery){
                 $gellery_photo= Carbon::now()->format('Y').rand(1,9999).".".$gellery->getClientOriginalExtension();
-                $gellery_img = Image::make($gellery)->resize(207, 232);
+                $gellery_img = Image::make($gellery)->resize(566, 570);
                 $gellery_img->save(base_path('public/uploads/product_gellery_photo/'.$gellery_photo), 70);
-                // $galleryProductId=ProductGallery::where('product_id',$id)->exists();
-                // foreach ($galleryProductId as $galleryId) {
-                //     return $galleryId;
-                // }
-                if($galleryProductId){
-                    foreach ($galleryProductId as $galleryId) {
-                        ProductGallery::find($galleryId->id)->update([
-                            'product_gallery' => $gellery_photo,
-                        ]);
-                    }
-                }else{
-                    ProductGallery::insert([
-                        'product_id' => $id,
-                        'product_gallery' => $gellery_photo,
-                        'created_at' => now()
-                    ]);
-                };
+                ProductGallery::insert([
+                    'product_id' => $id,
+                    'product_gallery' => $gellery_photo,
+                    'created_at' => now()
+                ]);
             }
         }
+
         return redirect('product-list')->with('success','Product updated successfully');
     }
 
@@ -182,4 +170,14 @@ class ProductController extends Controller
         Product::find($id)->delete();
         return back()->with('success','Product deleted successfully.');
     }
+    public function galleryImgDelete ($id)
+    {
+        ProductGallery::findOrFail($id)->delete();
+        return back()->with('success','Gallery image deleted successfully.');
+    }
+    // public function thumbnailImgDelete ($id)
+    // {
+    //     Product::findOrFail($id)->delete();
+    //     return back();
+    // }
 }
