@@ -141,7 +141,7 @@ class FrontEndController extends Controller
             Cart::where('user_id', auth()->id())->delete();
             return redirect('customer/profile/invoice');
         }elseif($request->payment_method == "paypal"){
-            return redirect('/payment')->with('invoice_id', $invoice_id);
+            return redirect('paypal/checkout/post')->with('invoice_id', $invoice_id);
         }
         else{
             return redirect('stripe/checkout/post')->with('invoice_id', $invoice_id);
