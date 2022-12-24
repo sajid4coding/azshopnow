@@ -9,31 +9,74 @@
    @if ($inventories)
 
    <div class="shop-details-price">
-             {{-- @if (!$inventory->price) --}}
+    {{-- {{$inventoriesQuantity}} --}}
+                    {{-- @if ($inventory)
+                     {{$inventory->quantity}}
+                    @endif --}}
+                    {{-- @if ($justQuantity)
+                        <h1>{{$justQuantity->quantity}}</h1>
+                    @endif --}}
+
              @if ($productPrice->discount_price)
                 @if ($inventoryPrice == 0)
                     <h2 class="title">${{$productPrice->discount_price * $quantity}}</h2>
-                    <h4 class="stock-status">- IN Stock</h4>
+                    @if ($justQuantity)
+                        @if ($justQuantity->quantity > 0)
+                            <h4 class="stock-status bg-primary p-1 text-light">- IN Stock</h4>
+                        @else
+                            <h4 class="stock-status bg-warning p-1 text-dark">- Stock Out</h4>
+                        @endif
+                    @endif
                 @else
                     @if ($inventory->price == 0)
                     <h2 class="title">${{$productPrice->discount_price * $quantity}}</h2>
-                    <h4 class="stock-status">- IN Stock</h4>
+                    @if ($justQuantity)
+                        @if ($justQuantity->quantity > 0)
+                            <h4 class="stock-status bg-primary p-1 text-light">- IN Stock</h4>
+                        @else
+                            <h4 class="stock-status bg-warning p-1 text-dark">- Stock Out</h4>
+                        @endif
+                    @endif
                     @else
                         <h2 class="title">${{$inventory->price * $quantity}}</h2>
-                        <h4 class="stock-status">- IN Stock</h4>
+                        @if ($justQuantity)
+                            @if ($justQuantity->quantity > 0)
+                                <h4 class="stock-status bg-primary p-1 text-light">- IN Stock</h4>
+                            @else
+                                <h4 class="stock-status bg-warning p-1 text-dark">- Stock Out</h4>
+                            @endif
+                        @endif
                     @endif
                 @endif
             @else
                 @if ($inventoryPrice == 0)
                     <h2 class="title">${{$productPrice->product_price * $quantity}}</h2>
-                    <h4 class="stock-status">- IN Stock</h4>
+                    @if ($justQuantity)
+                        @if ($justQuantity->quantity > 0)
+                            <h4 class="stock-status bg-primary p-1 text-light">- IN Stock</h4>
+                        @else
+                            <h4 class="stock-status bg-warning p-1 text-dark">- Stock Out</h4>
+                        @endif
+                    @endif
                 @else
                     @if ($inventory->price == 0)
                         <h2 class="title">${{$productPrice->product_price * $quantity}}</h2>
-                        <h4 class="stock-status">- IN Stock</h4>
+                        @if ($justQuantity)
+                            @if ($justQuantity->quantity > 0)
+                                <h4 class="stock-status bg-primary p-1 text-light">- IN Stock</h4>
+                            @else
+                                <h4 class="stock-status bg-warning p-1 text-dark">- Stock Out</h4>
+                            @endif
+                        @endif
                     @else
                         <h2 class="title">${{$inventory->price * $quantity}}</h2>
-                        <h4 class="stock-status">- IN Stock</h4>
+                        @if ($justQuantity)
+                            @if ($justQuantity->quantity > 0)
+                                <h4 class="stock-status bg-primary p-1 text-light">- IN Stock</h4>
+                            @else
+                                <h4 class="stock-status bg-warning p-1 text-dark">- Stock Out</h4>
+                            @endif
+                        @endif
                     @endif
                 @endif
             @endif
@@ -46,7 +89,7 @@
         @endif
      {{-- <form wire:submit.prevent="cart"> --}}
          {{-- @if ($inventory->size) --}}
-     @if ($inventories)
+     @if ($inventories && $inventories->size && $inventories->color )
               @if ($inventories->size != NULL)
                   <div class="shop-details-color">
                       <span>Size :</span>
@@ -74,14 +117,38 @@
                           @endif
                       </select>
               @endif
-              {{-- <ul>
-                  <li class="active"></li>
-                  <li class="black"></li>
-                  <li class="green"></li>
-                  <li class="blue"></li>
-              </ul> --}}
           </div>
-     @endif
+
+    @elseif ($inventories && $inventories->size && $inventories->color== NULL )
+        <div class="shop-details-color">
+
+            <span>Size :</span>
+            <select wire:model="justSize" id="" class="form-select w-50">
+                <option value="">- Select Size -</option>
+                @foreach ($sizes as $size)
+                    <option value="{{$size->relationwithsize->id}}">{{$size->relationwithsize->size}}</option>
+                @endforeach
+            </select>
+        </div>
+    @elseif ($inventories && $inventories->size==NULL && $inventories->color )
+        <div class="shop-details-color">
+            <span>Color :</span>
+            <select wire:model="justColor" id="" class="form-select w-50">
+                <option value="">- Select Color -</option>
+                @foreach ($justColors as $justColor)
+                    <option value="{{$justColor->relationwithcolor->id}}">{{$justColor->relationwithcolor->color_name}}</option>
+                @endforeach
+            </select>
+        </div>
+    @else
+    @foreach ($JustQuantity as $Quantity)
+        @if ($Quantity->quantity >0)
+            <span class="stock-status bg-primary p-1 text-light" style="font-size: 12px">- IN Stock</span>
+        @else
+            <span class="stock-status bg-warning p-1 text-dark" style="font-size: 12px">- Stock Out</span>
+        @endif
+    @endforeach
+    @endif
          <div class="shop-details-quantity">
              <span>Quantity :</span>
              <div>
@@ -98,15 +165,32 @@
                  </span>
              </div>
              @auth
-                 @if ($inventories->size && $inventories->color)
-                    @if ($colors)
-                        <button wire:click='addtocartWithSizeColor' class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                 @if (auth()->user()->role=='customer')
+                    @if ($inventories->size && $inventories->color)
+                        @if ($inventoryPrice == 1)
+                           <button wire:click='addtocartWithSizeColor' class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                        {{-- @elseif () --}}
+                        @else
+                           <button id="selectVariationFirst" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                        @endif
+                    @elseif ($inventories->size && $inventories->color==NULL)
+                        @if ($justSize)
+                            <button wire:click="addcartwithjustSize({{$inventories->id}})" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                        @else
+                            <button id="selectVariationFirst" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                        @endif
+                    @elseif ($inventories->size==NULL && $inventories->color)
+                        @if ($justSize)
+                            <button wire:click="addcartwithjustcolor({{$inventories->id}})" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                        @else
+                            <button id="selectVariationFirst" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                        @endif
                     @else
-                        <button id="selectVariationFirst" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                        <button wire:click='addtocart({{$inventories->id}})' class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
                     @endif
-                 @else
-                     <button wire:click='addtocart({{$inventories->id}})' class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
-                 @endif
+                @else
+                <button id="not_customer" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                @endif
              @else
                  <button id="not_logged_in" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
              @endauth
@@ -128,6 +212,18 @@
             title: 'Oops...',
             text: 'You have to need Login first!',
             footer: '<a href="{{route('customer.login')}}">Click here to login</a>'
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $('#not_customer').click(function(){
+            Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You are not a Customer!',
+            footer: 'Please, Create a customer account then try to shopping'
             });
         });
     });
