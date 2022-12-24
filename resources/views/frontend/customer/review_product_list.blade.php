@@ -6,6 +6,7 @@
         <tr>
             <th>SL</th>
             <th>Product</th>
+            <th>Date</th>
             <th>Action</th>
         </tr>
         @php
@@ -30,6 +31,9 @@
                                 <span style="font-size: 12px; color:#3a3a3a;font-weight:500" >Color: {{ $review->relationwithcolor->color_name }}</span>
                             @endif
                         </span>
+                    </td>
+                    <td>
+                        <span>{{ $review->created_at }}</span>
                     </td>
                     <td>
                         <div class="rating">

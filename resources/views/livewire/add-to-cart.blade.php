@@ -9,14 +9,6 @@
    @if ($inventories)
 
    <div class="shop-details-price">
-    {{-- {{$inventoriesQuantity}} --}}
-                    {{-- @if ($inventory)
-                     {{$inventory->quantity}}
-                    @endif --}}
-                    {{-- @if ($justQuantity)
-                        <h1>{{$justQuantity->quantity}}</h1>
-                    @endif --}}
-
              @if ($productPrice->discount_price)
                 @if ($inventoryPrice == 0)
                     <h2 class="title">${{$productPrice->discount_price * $quantity}}</h2>
@@ -81,14 +73,12 @@
                 @endif
             @endif
 
-     </div>
+        </div>
         @if (session()->has('message'))
             <div class="alert alert-success">
                 {{ session('message') }}
             </div>
         @endif
-     {{-- <form wire:submit.prevent="cart"> --}}
-         {{-- @if ($inventory->size) --}}
      @if ($inventories && $inventories->size && $inventories->color )
               @if ($inventories->size != NULL)
                   <div class="shop-details-color">
@@ -196,6 +186,14 @@
              @endauth
              {{-- <a href="shop-details.html" class="cart-btn">Buy now</a> --}}
          </div>
+         <div class="shop-details-Wishlist">
+            <ul>
+                <li>
+                    <a wire:click="wishlist({{$inventories->id}})" href="#!"><i class="fa-regular fa-heart"></i>Add to Wishlist</a>
+                </li>
+                {{-- <li><a href="#"><i class="fa-solid fa-chart-column"></i>Compare</a></li> --}}
+            </ul>
+        </div>
      @else
      <div class="alert alert-danger">
         <span>This product inventory is not updated yet!</span>
@@ -203,6 +201,8 @@
    @endif
 
 </div>
+
+
 @section('footer_script')
 <script>
     $(document).ready(function(){

@@ -200,7 +200,7 @@
                                 @endif --}}
                                 <h2 class="title">{{$single_product->product_title}}</h2>
                                 <ul>
-                                    {{-- <li data-background="{{ asset('frontend_assets') }}/img/images/coupon_bg01.png">
+                                    <li data-background="{{ asset('frontend_assets') }}/img/images/coupon_bg01.png">
                                         $29.30 Coupons For You
                                     </li>
                                     <li data-background="{{ asset('frontend_assets') }}/img/images/coupon_bg02.png">
@@ -208,23 +208,19 @@
                                     </li>
                                     <li>
                                         <a href="#">Get Coupons</a>
-                                    </li> --}}
+                                    </li>
                                 </ul>
 
                                 <p>{{$single_product->short_description}}</p>
-                                {{-- <div class="shop-details-price">
-                                    <h2 class="title">${{$single_product->product_price}}</h2>
-                                    <h4 class="stock-status">- IN Stock</h4>
-                                </div> --}}
+
+
+                                {{-- LIVEWIRE PART START --}}
+
                                 @livewire('add-to-cart',['productID'=>$single_product->id])
-                                <div class="shop-details-Wishlist">
-                                    <ul>
-                                        <li>
-                                            <a href="#"><i class="fa-regular fa-heart"></i>Add to Wishlist</a>
-                                        </li>
-                                        {{-- <li><a href="#"><i class="fa-solid fa-chart-column"></i>Compare</a></li> --}}
-                                    </ul>
-                                </div>
+                                
+                                {{-- LIVEWIRE PART END --}}
+
+
                                 <div class="shop-details-bottom">
                                     <ul>
                                         <li class="sd-category">

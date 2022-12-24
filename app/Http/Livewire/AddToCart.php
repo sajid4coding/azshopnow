@@ -6,6 +6,7 @@ use App\Models\AttributeSize;
 use App\Models\Cart;
 use App\Models\Inventory as ModelInventory;
 use App\Models\Product as ModelProduct;
+use App\Models\Wishlist;
 use Livewire\Component;
 
 class AddToCart extends Component
@@ -24,6 +25,7 @@ class AddToCart extends Component
     public $justSize;
     public $justColor;
     public $justQuantity;
+    public $wishlist;
 
     public function decrement_quantity()
     {
@@ -221,5 +223,31 @@ class AddToCart extends Component
         $sizes=ModelInventory::select('size')->where('product_id',$this->productID)->groupBy('size')->get();
         $justColors=ModelInventory::select('color')->where('product_id',$this->productID)->groupBy('color')->get();
         return view('livewire.add-to-cart', compact('sizes','inventories','productPrice','justColors'));
+    }
+
+    public function wishlist($id){
+        $inventory = ModelInventory::find($id);
+
+        if(Wishlist::where([
+            'user_id' => auth()->id(),
+            'vendor_id' => $inventory->vendor_id,
+            'product_id' => $inventory->product_id,
+            'inventory_id' => $inventory->id,
+        ])->exists()){
+            Wishlist::where([
+                'user_id' => auth()->id(),
+                'vendor_id' => $inventory->vendor_id,
+                'product_id' => $inventory->product_id,
+                'inventory_id' => $inventory->id,
+            ])->delete();
+        }else{
+            Wishlist::insert([
+                'user_id' => auth()->id(),
+                'vendor_id' => $inventory->vendor_id,
+                'product_id' => $inventory->product_id,
+                'inventory_id' => $inventory->id,
+                'created_at' => now()
+            ]);
+        }
     }
 }

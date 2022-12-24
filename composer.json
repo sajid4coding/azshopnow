@@ -14,8 +14,8 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "league/omnipay": "^3.2",
         "livewire/livewire": "^2.10",
-        "srmklive/paypal": "~3.0",
         "stripe/stripe-php": "^10.2"
     },
     "require-dev": {
