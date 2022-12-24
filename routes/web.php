@@ -20,6 +20,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::get('/categories/{slug}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
 Route::get('/vendor/all/product/{id}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
+// Route::get('/vendor/all/product/{id}/{shopname}', 'FrontEndController@vendorProduct')->name('vendor.product');
 Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
 Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
 Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');

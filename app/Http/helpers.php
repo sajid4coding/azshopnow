@@ -877,3 +877,7 @@ function count_review($id)
 {
     return ProductReview::where('product_id', $id)->count();
 }
+function vendors()
+{
+    return User::where('role', 'vendor')->where('status','active')->get()->shuffle();
+}
