@@ -6,7 +6,7 @@
     border-radius: 5px;
     color: #333;
     font-size: 32px;
-    margin: 0 0 20px;
+    /* margin: 0 0 20px; */
     padding: .5rem 1rem;
     width: 100%;
 
@@ -47,12 +47,13 @@
                         @endif
                         <div class="alert alert-warning">
                             <h6>NOTE:</h6>
-                            <span class="text-center d-block text-danger">- Fill just Quantity field, If your product is simple</span>
-                        <span class="text-center d-block text-danger mb-2">- Size, Color and Price just for variable products</span>
+                            <span class=" d-block text-danger">- Fill just Quantity field, If your product is simple</span>
+                            <span class=" d-block text-danger mb-2">- Fill Size or Color or Both when your product has variation</span>
                         </div>
                         <h6 class="card-title mt-4">Quantity<span class="text-danger">*</span></h6>
                         <input class="form-control" type="number" name="quantity" placeholder="Add your product quantity...">
-                        <h6 class="card-title">Add Size Attribute</h6>
+                        <h6 class="text-center text-muted mt-4">For Variable Products</h6>
+                        <h6 class="card-title ">Add Size Attribute</h6>
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="size">
                             <option value="">- Select Size Attribute -</option>
                             @foreach ($attributesizes as $attributesize)
@@ -79,8 +80,8 @@
                 </form>
             </div>
             <div class="col-6">
-                <div class="card text-start">
-                  <div class="card-body">
+                <div class="card text-start" >
+                  <div class="card-body" style="max-height:300px; overflow-y:scroll">
                     <h6 class="card-title">Inventory Lists</h6>
                     <table class="table table-bordered">
                         <thead>
@@ -142,6 +143,28 @@
                         </tbody>
                     </table>
                   </div>
+                </div>
+                <div class="mt-3">
+                    <form action="{{ route('add_inventory', $product->id) }}" method="POST">
+                        @csrf
+                        <div class="card">
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <h6>NOTE:</h6>
+                                <span class=" d-block text-danger">- Product Shipment</span>
+                            </div>
+                            <h6 class="card-title mt-4">Weight<span class="text-danger">( kg )</span></h6>
+                            <input class="form-control" type="number" name="weight" >
+                            <h6 class="text-center text-muted mt-4">Dimensions <span>( cm )</span></h6>
+                            <input class="form-control" type="number" name="lenth" placeholder="Lenth">
+                            <input class="form-control my-3" type="number" name="width" placeholder="Width">
+                            <input class="form-control" type="number" name="height" placeholder="Height">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary m-3 py-2 px-3">Submit</button>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

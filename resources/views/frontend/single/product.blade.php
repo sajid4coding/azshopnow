@@ -193,11 +193,11 @@
                         </div>
                         <div class="col-xl-5 col-lg-6 col-md-8">
                             <div class="shop-details-content">
-                                @if ($inventory && $inventory->quantity)
+                                {{-- @if ($inventory && $inventory->quantity >0)
                                     <span><i class="fa-solid fa-check"></i>In Stock</span>
                                 @else
                                     <span class="bg-warning text-dark"><i class="fa-solid fa-close"></i>Stock out</span>
-                                @endif
+                                @endif --}}
                                 <h2 class="title">{{$single_product->product_title}}</h2>
                                 <ul>
                                     <li data-background="{{ asset('frontend_assets') }}/img/images/coupon_bg01.png">
@@ -253,13 +253,22 @@
                                     @foreach ($recommendedProducts as $product)
                                         <div class="recommended-item mb-25">
                                             <div class="thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('uploads/product_photo') }}/{{$product->thumbnail}}" alt="img"></a>
+                                                <a href="{{route('single.product', $product->id )}}"><img src="{{ asset('uploads/product_photo') }}/{{$product->thumbnail}}" alt="img"></a>
                                             </div>
                                             <div class="content">
-                                                <h5 class="title">{{$product->product_title}}</h5>
-                                                <h5 class="price">$39.08</h5>
+                                                <h5 class="title">{{Str::limit($product->product_title,10)}}</h5>
+                                                @if ($product->discount_price)
+                                                    <h4>
+                                                        <span>${{$product->discount_price}} <del class="text-muted"> ${{$product->product_price}}</del></span>
+                                                        <span class="bg-warning text-dark p-1" style="display: inline-block">-{{Floor(((100*$product->product_price)-(100*$product->discount_price))/$product->product_price)}}%</span>
+                                                    </h4>
+                                                @else
+                                                    <h4>
+                                                        <span>${{$product->product_price}}</span>
+                                                    </h4>
+                                                @endif
                                                 <ul>
-                                                    <li>by <a href="vendor-profile.html">{{$product->relationwithuser->shop_name}}</a></li>
+                                                    <li>by <a href="{{route('vendor.product',$single_product->vendor_id)}}">{{$product->relationwithuser->shop_name}}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1023,7 +1032,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="vendor-profile text-end">
-                                <a href="vendor-profile.html">Go Vendor Profile<i class="fa-regular fa-circle-right"></i></a>
+                                <a href="{{route('vendor.product',$single_product->vendor_id)}}">Go Vendor Profile<i class="fa-regular fa-circle-right"></i></a>
                             </div>
                         </div>
                     </div>

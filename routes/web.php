@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, PaymentController, ProductController, ShippingController, StripeController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController};
 use App\Models\Product;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +19,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::get('/categories/{slug}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
 Route::get('/vendor/all/product/{id}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
+// Route::get('/vendor/all/product/{id}/{shopname}', 'FrontEndController@vendorProduct')->name('vendor.product');
 Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
 Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
 Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
@@ -39,19 +40,6 @@ Route::get('search',[FrontEndController::class,'search'])->name('search');
 //STRIPE
 Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('stripe_checkout_post');
 Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
-
-//PAYPAL
-Route::get('paypal/checkout/post', [PaymentController::class, 'checkout'])->name('stripe.checkout.post');
-Route::post('paypal/charge', [PaymentController::class, 'charge'])->name('paypal.charge');
-Route::get('paypal/success', [PaymentController::class, 'success'])->name('paypal.success');
-Route::get('paypal/error', [PaymentController::class, 'error'])->name('paypal.error');
-// Route::get('cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
-// Route::get('payment', 'PaymentController@index');
-// Route::post('charge', 'PaymentController@charge');
-// Route::get('success', 'PaymentController@success');
-// Route::get('error', 'PaymentController@error');
-
-
 // PAYMENTS METHOD INTEGRATION ROUTE END
 
 

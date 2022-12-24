@@ -96,15 +96,17 @@
                                 </div>
                                 <div class="widget">
                                     <div class="widget-title mb-15">
-                                        <h4 class="title">Product Brand</h4>
+                                        <h4 class="title">All Vendors</h4>
                                     </div>
                                     <div class="shop-brand-list">
+                                        @php
+                                            $vendors=vendors()
+                                        @endphp
                                         <ul>
-                                            <li><a href="#">New Arrivals <i class="fa-solid fa-angles-right"></i></a></li>
-                                            <li><a href="#">Clothing & Accessories <i class="fa-solid fa-angles-right"></i></a></li>
-                                            <li><a href="#">Electronics <i class="fa-solid fa-angles-right"></i></a></li>
-                                            <li><a href="#">Home Appliance <i class="fa-solid fa-angles-right"></i></a></li>
-                                            <li><a href="#">Gaming Accessories <i class="fa-solid fa-angles-right"></i></a></li>
+                                            @foreach ($vendors as $vendor)
+                                                <li><a href="{{route('vendor.product',['id'=>$vendor->id])}}">{{$vendor->shop_name}} <i class="fa-solid fa-angles-right"></i></a></li>
+                                                {{-- <li><a href="/vendor/all/product?id={{$vendor->id}}&shopname={{$vendor->shop_name}}">{{$vendor->shop_name}} <i class="fa-solid fa-angles-right"></i></a></li> --}}
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
