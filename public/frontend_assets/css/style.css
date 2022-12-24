@@ -232,9 +232,9 @@ label {
 
 /* button style */
 .btn {
-    user-select: none;
+    /* user-select: none;
     -moz-user-select: none;
-    background: #1339fe none repeat scroll 0 0;
+    background: #ff4800 none repeat scroll 0 0;
     border: medium none;
     border-radius: 24px;
     color: #fff;
@@ -250,10 +250,22 @@ label {
     text-transform: capitalize;
     transition: all 0.3s ease 0s;
     vertical-align: middle;
-    white-space: nowrap;
+    white-space: nowrap; */
+
+    background: #ff4800;
+    outline: none;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 50px;
+    display: inline-block;
+    padding: 10px 33px 7px;
+    text-transform: capitalize;
+    -webkit-transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .btn:hover {
-	background: #ff4800;
+	background: #1339fe;
 	color: #fff;
 }
 .btn-two {
@@ -534,7 +546,8 @@ label {
     text-transform: uppercase;
     color: #fff;
     font-weight: 600;
-    background: #1339fe;
+    /* background: #1339fe; */
+    background: #ff4800;
 }
 .header-category > a i:first-child {
     margin-right: 18px;

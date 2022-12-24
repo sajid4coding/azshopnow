@@ -23,9 +23,19 @@ Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('c
 Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
 Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
 Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
+Route::get('wishlist',[FrontEndController::class,'wishlist'])->name('wishlist');
+Route::get('delete-wishlist/{id}',[FrontEndController::class,'wishlist_delete_row'])->name('wishlist.delete');
 Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
 
+Route::post('/getStateCode',[FrontEndController::class,'stateTex']);
+Route::post('checkout_post',[FrontEndController::class,'checkout_post'])->name('checkout_post');
+Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->name('single.product');
+Route::get('top-selection',[FrontEndController::class,'topSelection'])->name('top.selection');
+Route::get('new-arrivals',[FrontEndController::class,'newArrivals'])->name('new.arrivals');
+Route::get('search',[FrontEndController::class,'search'])->name('search');
+
 // PAYMENTS METHOD INTEGRATION ROUTE START
+
 //STRIPE
 Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('stripe_checkout_post');
 Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
@@ -43,13 +53,6 @@ Route::get('paypal/error', [PaymentController::class, 'error'])->name('paypal.er
 
 
 // PAYMENTS METHOD INTEGRATION ROUTE END
-
-Route::post('/getStateCode',[FrontEndController::class,'stateTex']);
-Route::post('checkout_post',[FrontEndController::class,'checkout_post'])->name('checkout_post');
-Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->name('single.product');
-Route::get('top-selection',[FrontEndController::class,'topSelection'])->name('top.selection');
-Route::get('new-arrivals',[FrontEndController::class,'newArrivals'])->name('new.arrivals');
-Route::get('search',[FrontEndController::class,'search'])->name('search');
 
 
 Route::middleware(['admin', 'verified'])->group(function () {
@@ -116,7 +119,7 @@ Route::middleware(['vendor'])->group(function(){
     //ProductController Resource
     Route::resource('product', ProductController::class);
     Route::delete('galleryImgDelete/{id}',[ProductController::class, 'galleryImgDelete'])->name('galleryImg.Delete');
-    
+
      //AttributeController Resource
     Route::resource('attributes', AttributeController::class);
     Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
