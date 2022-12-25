@@ -38,8 +38,16 @@
                         background: rgba(196, 53, 53, 0.507);
                     }
                 </style>
+                    @php
+                        $flag = false;
+                    @endphp
                 @foreach ($carts as $cart)
-                    <div class="row mb-4 d-flex justify-content-between align-items-center @if(get_inventory($cart->product_id, $cart->size_id, $cart->color_id) < $cart->quantity) light_red ? '' @endif">
+                    @php
+                        if(get_inventory($cart->product_id, $cart->size_id, $cart->color_id) < $cart->quantity){
+                            $flag = true;
+                        }
+                    @endphp
+                    <div class="row mb-4 d-flex justify-content-between align-items-center @if ($flag == true) light_red @endif">
                         <div class="col-md-2 col-lg-2 col-xl-2">
                             <img
                             src="{{ asset('uploads/product_photo') }}/{{ $cart->relationwithproduct->thumbnail }}" class="img-fluid rounded-3" alt="Cotton T-shirt">
@@ -183,10 +191,13 @@
                         @endif
                     </h5>
                 </div>
-                @if ($shipping_id != 0)
-                    <div class="d-flex justify-content-center">
-                        <a href="{{ route('checkout') }}" class="btn btn-dark my-2 btn btn-sm">Procced to checkout</a>
-                    </div>
+                {{ session('cart_detail') }}
+                @if ($flag == false)
+                    @if ($shipping_id != 0)
+                        <div class="d-flex justify-content-center">
+                            <a href="{{ route('checkout') }}" class="btn btn-dark my-2 btn btn-sm">Procced to checkout</a>
+                        </div>
+                    @endif
                 @endif
                 </div>
             </div>

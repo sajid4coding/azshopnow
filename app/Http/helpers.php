@@ -6,10 +6,18 @@ use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\User;
+use App\Models\Wishlist;
 
+function getWishListProduct(){
+     return  Wishlist::where('user_id',auth()->id())->get();
+}
  function cart()
  {
     return Cart::where('user_id',auth()->id())->count();
+ }
+ function wishlish()
+ {
+    return Wishlist::where('user_id',auth()->id())->count();
  }
  function category()
  {
@@ -876,4 +884,8 @@ function review($id)
 function count_review($id)
 {
     return ProductReview::where('product_id', $id)->count();
+}
+function vendors()
+{
+    return User::where('role', 'vendor')->where('status','active')->get()->shuffle();
 }

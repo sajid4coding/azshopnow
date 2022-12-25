@@ -154,10 +154,6 @@
                                             <label for="payment_method_cheque" class="form-check-label text-white">Cash On Delivery</label>
                                         </div>
                                         <div class="form-check mb-2">
-                                            <input id="payment_method_paypal" type="radio" class="form-check-input" name="payment_method" value="paypal"  />
-                                            <label for="payment_method_paypal" class="form-check-label text-white">Paypal</label>
-                                        </div>
-                                        <div class="form-check mb-2">
                                             <input id="payment_method_stripe" type="radio" class="form-check-input" name="payment_method" value="stripe"  />
                                             <label for="payment_method_stripe" class="form-check-label text-white">Stripe</label>
                                         </div>

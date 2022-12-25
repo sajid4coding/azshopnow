@@ -1,35 +1,35 @@
 @extends('layouts/frontendmaster')
 
 @section('content')
-  <!-- breadcrumb-area -->
-            <section class="breadcrumb-area-four" style="padding:50px 0;background: url(@if($banners->cart_page_banner) {{ asset('uploads/banners') }}/{{ $banners->cart_page_banner }} @else https://flevix.com/wp-content/uploads/2020/07/Red-Blue-Abstract-Background.jpg @endif) no-repeat center; background-size:cover;" >
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-7">
-                            <div class="breadcrumb-content">
-                                <h2 class="title">Cart</h2>
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{ route('customerhome') }}">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Cart Page</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="breadcrumb-img text-end">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- breadcrumb-area-end -->
-            <div class="container py-5 h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    @livewire('cart-page')
+<!-- breadcrumb-area -->
+<section class="breadcrumb-area-four" style="padding:50px 0;background: url(@if($banners->cart_page_banner) {{ asset('uploads/banners') }}/{{ $banners->cart_page_banner }} @else https://flevix.com/wp-content/uploads/2020/07/Red-Blue-Abstract-Background.jpg @endif) no-repeat center; background-size:cover;" >
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <div class="breadcrumb-content">
+                    <h2 class="title">Cart</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('customerhome') }}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cart Page</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
+            <div class="col-md-5">
+                <div class="breadcrumb-img text-end">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb-area-end -->
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        @livewire('cart-page')
+    </div>
+</div>
 
 <style>
     @media (min-width: 1025px) {

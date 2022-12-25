@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
-use App\Models\{Banner, Cart, Category, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReview, ReviewGallery, User};
+use App\Models\{Banner, Cart, Category, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReview, ReviewGallery, User, Wishlist};
 use Khsing\World\World;
 use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
@@ -19,12 +19,14 @@ class FrontEndController extends Controller
         $productGalleries= ProductGallery::where('product_id',$id)->get();
         $product_reviews = ProductReview::where('product_id', $id)->get();
         $single_product = Product::findOrFail($id);
+        $product_id = $id;
         $recommendedProducts=Product::where([
             'parent_category_slug'=>$single_product->parent_category_slug,
             'status'=>'published',
             'vendorProductStatus'=>'published',
             ])->where('id','!=',$id)->limit(4)->get();
-        return view('frontend.single.product', compact('single_product','recommendedProducts', 'productGalleries','product_reviews','inventory'));
+
+        return view('frontend.single.product', compact('single_product','recommendedProducts', 'productGalleries','product_reviews','inventory','product_id'));
     }
     function contact_us_index(){
         return view('frontend.contact_us');
@@ -52,7 +54,7 @@ class FrontEndController extends Controller
     }
 
     function vendorProduct($id){
-        $shopName=User::find($id);
+        $shopName=User::findOrFail($id);
         $products=Product::where('vendor_id',$id)->where('status','published')->where('vendorProductStatus','published')->latest()->get();
         return view('frontend.vendorProduct', compact('products','shopName'));
     }
@@ -60,6 +62,16 @@ class FrontEndController extends Controller
         return view('frontend.cart',[
             'banners' => Banner::all()->first(),
         ]);
+    }
+    function wishlist(){
+        return view('frontend.wishlist',[
+            'banners' => Banner::all()->first(),
+            'wishlists' => Wishlist::where('user_id', auth()->id())->get()
+        ]);
+    }
+    function wishlist_delete_row($inventory_id){
+        Wishlist::where('inventory_id', $inventory_id)->delete();
+        return back();
     }
     function checkout(){
         $explode_cart = explode('/', url()->previous());
@@ -141,7 +153,7 @@ class FrontEndController extends Controller
             Cart::where('user_id', auth()->id())->delete();
             return redirect('customer/profile/invoice');
         }elseif($request->payment_method == "paypal"){
-            return redirect('/payment')->with('invoice_id', $invoice_id);
+            return redirect('paypal/checkout/post')->with('invoice_id', $invoice_id);
         }
         else{
             return redirect('stripe/checkout/post')->with('invoice_id', $invoice_id);
