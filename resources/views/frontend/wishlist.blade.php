@@ -1,4 +1,7 @@
 @extends('layouts/frontendmaster')
+@section('header_css')
+
+@endsection
 @section('content')
     <!-- breadcrumb-area -->
     <section class="breadcrumb-area-four" style="padding:50px 0;background: url(@if($banners->cart_page_banner) {{ asset('uploads/banners') }}/{{ $banners->cart_page_banner }} @else https://flevix.com/wp-content/uploads/2020/07/Red-Blue-Abstract-Background.jpg @endif) no-repeat center; background-size:cover;" >
@@ -26,8 +29,9 @@
     <!-- breadcrumb-area-end -->
     <!-- cart_section - start
     ================================================== -->
-    <section class="cart_section section_space">
+    <section class="cart_section section_space py-5">
         <div class="container">
+            <div class="card p-5">
             <div class="cart_table">
                 <table class="table mb-0">
                     <thead>
@@ -43,12 +47,14 @@
                         @forelse ($wishlists as $wishlist)
                             <tr>
                                 <td>
+
+
                                     <div class="cart_product">
-                                        <img width="100" src="{{ asset('uploads/product_photo') }}/{{ $wishlist->relationwithproduct->thumbnail }}" alt="image_not_found" />
-                                        <span>{{ $wishlist->relationwithproduct->product_title }}</span>
+                                        <img width="50" src="{{ asset('uploads/product_photo') }}/{{ $wishlist->relationwithproduct->thumbnail }}" alt="image_not_found" />
+                                        <a class="" style="color:#FF4800;" href="{{ route('single.product', $wishlist->relationwithproduct->id) }}">{{ $wishlist->relationwithproduct->product_title }}</span>
                                     </div>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center" style="padding-top: 20px">
                                     @if ($wishlist->relationwithproduct->discount_price)
                                         <span class="price_text">${{ $wishlist->relationwithproduct->discount_price }}</span>
                                         <del>${{ $wishlist->relationwithproduct->product_price }}</del>
@@ -57,14 +63,14 @@
                                     @endif
                                 </td>
                                 @if ($wishlist->relationwithinventory->quantity ==0)
-                                    <td class="text-center"><span class="price_text text-danger">Out Stock</span></td>
+                                    <td class="text-center" style="padding-top: 20px"><span class="price_text text-danger">Out Stock</span></td>
                                 @else
-                                    <td class="text-center"><span class="price_text text-success">In Stock</span></td>
+                                    <td class="text-center" style="padding-top: 20px"><span class="price_text text-success">In Stock</span></td>
                                 @endif
-                                <td class="text-center">
-                                    <a href="#!" class="btn btn_primary">Add To Cart</a>
+                                <td class="text-center" style="padding-top: 20px">
+                                    <a href="#!" style="padding: 5px 10px; font-size: 10px;" class="btn btn_primary">Add To Cart</a>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center" style="padding-top: 20px">
                                     <a href="{{ route('wishlist.delete', $wishlist->inventory_id) }}" class="remove_btn"><i class="fa fa-trash-alt"></i></a>
                                 </td>
                             </tr>
@@ -108,6 +114,7 @@
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     </section>
     <!-- cart_section - end
