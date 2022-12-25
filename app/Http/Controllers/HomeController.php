@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 
@@ -19,9 +20,12 @@ class HomeController extends Controller
         if(auth()->user()->role == 'customer'){
              return view('frontend.customer.dashbord',[
                 'invoices_info' => Invoice::where('user_id',auth()->user()->id)->get(),
+                'banners' => Banner::all()->first(),
              ]);
         }else{
-             return view('frontend.customerlogin');
+             return view('frontend.customerlogin',[
+                'banners' => Banner::all()->first(),
+             ]);
         }
     }
 }
