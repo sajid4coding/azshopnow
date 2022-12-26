@@ -18,6 +18,9 @@ class Invoice extends Model
     function relationwithuser(){
         return $this->hasOne(User::class, 'id', 'vendor_id');
     }
+    function relationwithCustomerUser(){
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
     // function relationwithuser(){
     //     return $this->hasMany(User::class, 'id');
     // }

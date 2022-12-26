@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Mail\productApproved;
 use App\Mail\productBan;
 use App\Models\Category;
+use App\Models\Invoice;
+use App\Models\Order_Detail;
 use App\Models\Product;
 use App\Models\ProductGallery;
 use App\Models\ProductReview;
@@ -71,5 +73,48 @@ class DashboardController extends Controller
         return view('dashboard.review.view-review',[
             'view_reviews' => ProductReview::where('product_id', $product_id)->get()
         ]);
+    }
+    function AllOrder(){
+        return view('dashboard.orders.allOrder',[
+         'invoices' => Invoice::all(),
+
+        ]);
+    }
+    function DeliveredOrder(){
+        return view('dashboard.orders.deliveredOrder',[
+         'invoices' => Invoice::all(),
+
+        ]);
+    }
+    function PendingOrder(){
+        return view('dashboard.orders.pendingOrder',[
+         'invoices' => Invoice::all(),
+
+        ]);
+    }
+    function ProcessingOrder(){
+        return view('dashboard.orders.processingOrder',[
+         'invoices' => Invoice::all(),
+
+        ]);
+    }
+    function CanceledOrder(){
+        return view('dashboard.orders.canceledOrder',[
+         'invoices' => Invoice::all(),
+
+        ]);
+    }
+    function OrderDetails($id){
+        return view('dashboard.orders.orderDetails',[
+         'invoice' => Invoice::find($id),
+         'invoice' => Invoice::find($id),
+         'orders' => Order_Detail::where('invoice_id',$id)->get(),
+
+        ]);
+    }
+    function OrderDelete($id){
+         Invoice::find($id)->delete();
+         Order_Detail::where('invoice_id',$id)->delete();
+         return back()->with('delete_success','Successfully Deleted Invoice History');
     }
 }

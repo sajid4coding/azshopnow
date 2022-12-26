@@ -53,7 +53,13 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
     Route::get('review',[DashboardController::class, 'reviews'])->middleware(['auth', 'verified'])->name('review');
     Route::get('view-review/{id}',[DashboardController::class, 'view_reviews'])->middleware(['auth', 'verified'])->name('view.review');
-
+    Route::get('admin/order/details/{id}',[DashboardController::class,'OrderDetails'])->name('order.details');
+    Route::get('admin/all/order',[DashboardController::class,'AllOrder'])->name('all.order');
+    Route::get('admin/delivered/order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
+    Route::get('admin/pending/order',[DashboardController::class,'PendingOrder'])->name('pending.order');
+    Route::get('admin/processing/order',[DashboardController::class,'ProcessingOrder'])->name('processing.order');
+    Route::get('admin/canceled/order',[DashboardController::class,'CanceledOrder'])->name('canceled.order');
+    Route::get('admin/order/delete/{id}',[DashboardController::class,'OrderDelete'])->name('order.delete');
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
 
