@@ -1,9 +1,12 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ProductListController, ShippingController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, PaymentController, ProductController, ProductListController, ShippingController, StripeController};
 use App\Models\Product;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Action;
+// use App\Http\Controllers\PaymentController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -22,8 +25,22 @@ Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->na
 Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
 Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
 Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
+Route::post('newsletter',[FrontEndController::class,'newsletter'])->name('newsletter');
+
+
+// PAYMENTS METHOD INTEGRATION ROUTE START
+Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('stripe_checkout_post');
+Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
+
+
+// PAYMENTS METHOD INTEGRATION ROUTE END
+
+Route::post('/getStateCode',[FrontEndController::class,'stateTex']);
 Route::post('checkout_post',[FrontEndController::class,'checkout_post'])->name('checkout_post');
 Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->name('single.product');
+Route::get('top-selection',[FrontEndController::class,'topSelection'])->name('top.selection');
+Route::get('new-arrivals',[FrontEndController::class,'newArrivals'])->name('new.arrivals');
+Route::get('search',[FrontEndController::class,'search'])->name('search');
 
 
 Route::middleware(['admin', 'verified'])->group(function () {
@@ -34,9 +51,12 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('edit_product/{id}',[DashboardController::class, 'product_edit'])->middleware(['auth', 'verified'])->name('product_edit');
     Route::post('status_product/{id}',[DashboardController::class, 'product_status'])->middleware(['auth', 'verified'])->name('product_status');
     Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
+    Route::get('review',[DashboardController::class, 'reviews'])->middleware(['auth', 'verified'])->name('review');
+    Route::get('view-review/{id}',[DashboardController::class, 'view_reviews'])->middleware(['auth', 'verified'])->name('view.review');
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
+
 
     //SubCategoryController Resource
     Route::resource('subcategory', SubCategoryController::class);
@@ -79,17 +99,21 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('vendor/setting', [VendorController::class, 'vendor_setting'])->name('vendor.setting');
     Route::get('vendor/coupon/add', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
     Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
+    Route::get('vendor/order',[VendorController::class,'vendor_orders'])->name('vendor.orders');
     Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
     Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
     Route::post('coupon/add', [VendorController::class, 'coupon_store'])->name('coupon.add');
     Route::get('coupon/delete/{id}', [VendorController::class, 'coupon_delete'])->name('coupon.delete');
     //ProductController Resource
     Route::resource('product', ProductController::class);
+    Route::delete('galleryImgDelete/{id}',[ProductController::class, 'galleryImgDelete'])->name('galleryImg.Delete');
+     //AttributeController Resource
     Route::resource('attributes', AttributeController::class);
     Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
     Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
     Route::post('/getIDFromCategory',[VendorController::class,'getIDFromCategory']);
     Route::post('/getIDFromCategoryForEdit',[VendorController::class,'getIDFromCategoryEdit']);
+     //ProductListController Resource
     Route::resource('product-list',ProductListController::class);
 
     //InventoryController

@@ -23,9 +23,12 @@ class ProductSeeder extends Seeder
             'shop_name' => 'AZ Shop Now',
             'sku' => 226699,
             'status' => 'published',
+            'tag' => 'T-shirt ,Polo T-shirt',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Pant",
@@ -35,10 +38,13 @@ class ProductSeeder extends Seeder
             'vendor_id' => 3,
             'shop_name' => 'AZ Shop Now',
             'sku' => 226699,
+            'tag' => 'Under World, Boxer, half Pant',
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Shoe",
@@ -47,10 +53,13 @@ class ProductSeeder extends Seeder
             'vendor_id' => 3,
             'shop_name' => 'AZ Shop Now',
             'sku' => 226699,
+            'tag' => 'Juta ,Sandle, shoe',
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Abaya-Khimar",
@@ -59,10 +68,13 @@ class ProductSeeder extends Seeder
             'vendor_id' => 3,
             'shop_name' => 'AZ Shop Now',
             'sku' => 226699,
+            'tag' => 'Irani borka , Khimar, abaya',
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Mobile",
@@ -71,10 +83,13 @@ class ProductSeeder extends Seeder
             'vendor_id' => 3,
             'shop_name' => 'AZ Shop Now',
             'sku' => 226699,
+            'tag' => 'Apple, Sony, infinix, Nokia',
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Table",
@@ -83,10 +98,13 @@ class ProductSeeder extends Seeder
             'vendor_id' => 3,
             'shop_name' => 'AZ Shop Now',
             'sku' => 226699,
+            'tag' => 'Gamming Table, Wood table ',
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "School Bag",
@@ -95,10 +113,13 @@ class ProductSeeder extends Seeder
             'vendor_id' => 3,
             'shop_name' => 'AZ Shop Now',
             'sku' => 226699,
+            'tag' => 'Children bag, office bag',
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Power Oil",
@@ -107,10 +128,13 @@ class ProductSeeder extends Seeder
             'vendor_id' => 3,
             'shop_name' => 'AZ Shop Now',
             'sku' => 226699,
+            'tag' => 'mobile, gear oil',
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "Shampoo",
@@ -119,10 +143,13 @@ class ProductSeeder extends Seeder
             'vendor_id' => 3,
             'shop_name' => 'AZ Shop Now',
             'sku' => 226699,
+            'tag' => 'sunsilik, clear men, body shapoo',
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
         DB::table('products')->insert([
             'product_title' => "LED Light",
@@ -131,10 +158,13 @@ class ProductSeeder extends Seeder
             'vendor_id' => 3,
             'shop_name' => 'AZ Shop Now',
             'sku' => 226699,
+            'tag' => 'Tube light, table lamp',
             'status' => 'published',
             'short_description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
             'description' => 'Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas! Outdoor learning ideas and nature activities for kids of all ages; including fun outside activities, nature crafts, and nature study ideas!',
+            'thumbnail' => 'default.png',
             'vendorProductStatus' => 'published',
+            'created_at' => now(),
         ]);
     }
 }

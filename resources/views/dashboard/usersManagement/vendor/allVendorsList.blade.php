@@ -60,8 +60,9 @@
 
                                     <th class="min-w-250px sorting">Vendor Details</th>
                                     <th class="min-w-150px sorting">Status</th>
+                                    
                                     <th class="text-end min-w-70px sorting_disabled">Actions</th>
-                                
+
 
                             </thead>
 

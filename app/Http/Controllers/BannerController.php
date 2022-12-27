@@ -6,7 +6,8 @@ use App\Models\Banner;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 class BannerController extends Controller
 {
    function index(){
@@ -17,8 +18,13 @@ class BannerController extends Controller
 
 
        $request->validate([
-           '*' =>'required',
+           'shop_page_banner' =>'required|max:2048|mimes:jpg,bmp,png',
         ]);
+
+        // $validator = Validator::make($request->all(), [
+        //     'file' => 'max:500000',
+        // ]);
+
         $old_image = Banner::select('shop_page_banner')->first()->shop_page_banner;
 
         $localStore =  $request->file('shop_page_banner');
@@ -43,7 +49,7 @@ class BannerController extends Controller
    }
    function vendor_page(Request $request){
       $request->validate([
-        '*' =>'required',
+        'vendor_login_banner' =>'required|max:2048|mimes:jpg,bmp,png',
       ]);
       $old_image = Banner::select('vendor_login_banner')->first()->vendor_login_banner;
 
@@ -66,7 +72,7 @@ class BannerController extends Controller
    }
    function customer_page(Request $request){
       $request->validate([
-        '*' =>'required',
+        'customer_login_banner' =>'required|max:2048|mimes:jpg,bmp,png',
       ]);
       $old_image = Banner::select('customer_login_banner')->first()->customer_login_banner;
 
@@ -88,7 +94,7 @@ class BannerController extends Controller
    }
    function cart_page(Request $request){
        $request->validate([
-           '*' =>'required',
+          'cart_page_banner' =>'required|max:2048|mimes:jpg,bmp,png',
         ]);
         $old_image = Banner::select('cart_page_banner')->first()->cart_page_banner;
 

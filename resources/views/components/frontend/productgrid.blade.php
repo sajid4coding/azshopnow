@@ -1,7 +1,9 @@
    <div class="shop-product-item mb-30">
         <div class="shop-thumb">
             <a href="{{route('single.product', $product->id )}}"><img src="{{asset('uploads/product_photo')}}/{{$product->thumbnail}}" alt="img"></a>
-            <span>New</span>
+            @if ($product->created_at->diffInDays(\Carbon\Carbon::now()) < 2)
+                <span>New</span>
+            @endif
         </div>
         <div class="shop-content">
             <ul class="tag">
@@ -24,8 +26,9 @@
                             <i class="far fa-star"></i><!--Empty star-->
                         @endif
                     @endfor
+                    <span style="font-size: 10px;">({{ count_review($product->id) }})</span>
                 @else
-                    <span class="text-danger">No Review</span>
+                    <span class="text-danger">No Review Yet</span>
                 @endif
             </div>
             <span>Already Sold : 75%</span>

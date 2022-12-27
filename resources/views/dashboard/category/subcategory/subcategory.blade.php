@@ -53,7 +53,7 @@
                 <div class="card-header align-items-center py-5 gap-2 gap-md-5">
                     <div class="card-toolbar">
                         <!--begin::Add customer-->
-                        <a href="{{ route('subcategory.create') }}" class="btn btn-primary">Add Sub Category</a>
+                        <a href="{{ route('subcategory.create') }}" class="btn btn-primary form-prevent-multiple-submits">Add Sub Category</a>
                         <!--end::Add customer-->
                     </div>
 

@@ -61,12 +61,12 @@
                 {{-- PHP Code End --}}
                 <div class="container  my-5">
                     <div class="row my-5">
-                        <div class="col-lg-3 account_menu " style="margin: 100px 0 1000px 0;">
+                        <div class="col-lg-3 account_menu " style="margin: 100px 0 100px 0;">
                             <ul class="form">
                               <li class="@if ($current_page == 'customerhome') selected @endif"><a class="profile" href="{{ route('customerhome') }}"><i class="fas fa-columns"></i>Dashboard</a></li>
                                 <li class=" @if ($current_page == 'details') selected @endif"><a class="messages" href="{{ route('customer.account.details') }}"><i class="fas fa-user"></i> Profile </a></li>
                                   <li class="@if ($current_page == 'invoice') selected @endif"><a class="settings" href="{{ route('customer.invoice.details') }}"><i class="fas fa-file-invoice"></i> Orders</a></li>
-                                  <li class="@if ($current_page == 'product-review') selected @endif"><a class="settings" href="{{ route('product.review.list') }}"><i class="fas fa-file-invoice"></i>Reviews</a></li>
+                                  <li class="@if ($current_page == 'product-review-list') selected @endif"><a class="review" href="{{ route('product.review.list') }}"><i class="fas fa-file-invoice"></i>Reviews</a></li>
                                      <li>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
@@ -122,15 +122,16 @@
                             .form li a.profile {
                                 border-left:5px solid #008747;
                             }
-
                             .form li a.messages {
-                                    border-left:5px solid #fecf54;
+                                    border-left:5px solid #000a99;
                             }
 
                             .form li a.settings {
                                     border-left:5px solid #cf2130;
                             }
-
+                            .form li a.review {
+                                    border-left:5px solid #fecf54;
+                            }
                             .form li a.logout {
                                     border-left:5px solid #dde2d5;
                             }

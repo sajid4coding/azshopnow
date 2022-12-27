@@ -29,10 +29,10 @@
                 </div>
                 <div class="col-xl-9 col-lg-8 col-md-7">
                     <div class="breadcrumb-content">
-                        <h2 class="title">Discount shop</h2>
+                        <h2 class="title text-light">Shopping with AZ SHOP NOW</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                                <li class="breadcrumb-item"><a class="text-light" href="{{route('home')}}">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Shop</li>
                             </ol>
                         </nav>

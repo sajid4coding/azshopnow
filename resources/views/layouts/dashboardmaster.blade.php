@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css">
+        <link rel="stylesheet" href="{{ asset('dashboard_assets') }}/css/submits.css">
 		<!--end::Fonts-->
 		<!--begin::Page Vendor Stylesheets(used by this page)-->
 		<link href="{{ asset('dashboard_assets') }}/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
@@ -186,7 +187,7 @@
 
 										</div>
 									</div>
-                                    
+
 
 								</div>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
@@ -241,6 +242,23 @@
 											<!--end::Svg Icon-->
 										</span>
 										<a href="{{ route('shipping.index') }}" class="menu-title">Shipping</a>
+									</span>
+								</div>
+								<div class="menu-item @if ($current_page == 'review') here show @endif menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+													<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+													<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+													<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<a href="{{ route('review') }}" class="menu-title">Reviews</a>
 									</span>
 								</div>
 								<div class="menu-item">
@@ -8406,6 +8424,7 @@
 		<script src="{{ asset('dashboard_assets') }}/js/custom/apps/chat/chat.js"></script>
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/upgrade-plan.js"></script>
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/users-search.js"></script>
+        <script src="{{ asset('dashboard_assets') }}/js/submits.js"></script>
 		<!--end::Page Custom Javascript-->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @yield('footer_script')

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Banner, Invoice, User, Order_Detail, Product, ProductReview};
+use App\Models\{Banner, Invoice, User, Order_Detail, Product, ProductReview, ReviewGallery};
 use Carbon\Carbon;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Str;
@@ -11,7 +11,7 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Image;
+use Intervention\Image\Facades\Image;
 
 
 
@@ -120,22 +120,21 @@ class CustomerController extends Controller
        }
        function customer_invoice_details(){
             return view('frontend.customer.customer_invoice',[
-                'orders' => Invoice::where('user_id', auth()->id())->get(),
+                'orders' => Invoice::where('user_id', auth()->id())->latest()->get(),
+                // 'order_details' => Order_Detail::where('user_id', auth()->id())->get(),
             ]);
        }
 
     public function invoice_download($id){
-        $pdf = Pdf::loadView('pdf.invoice');
+        $invoice = Invoice::find($id);
+        $order_details = Order_Detail::where('invoice_id', $id)->get();
+        $pdf = Pdf::loadView('pdf.invoice', compact('invoice', 'order_details'));
         return $pdf->setPaper('a4', 'portrait')->download('invoice.pdf');
     }
 
     public function product_review_list(){
         return view('frontend.customer.review_product_list',[
-            'orders' => Invoice::where([
-                'user_id' => auth()->id(),
-                'payment' => 'unpaid',
-                'payment_status' => 'processing',
-            ])->get()
+            'reviews' => ProductReview::where('user_id', auth()->id())->latest()->get(),
         ]);
     }
 
@@ -146,8 +145,13 @@ class CustomerController extends Controller
 
 
     public function product_review_post(Request $request, $id){
-        ProductReview::insert([
-            'invoice_id' => Order_Detail::where('invoice_id', $id)->first()->invoice_id,
+        $request->validate([
+            'rating' => 'required',
+            'comment' => 'required',
+        ]);
+        $product_review_id = ProductReview::insertGetId([
+            'invoice_id' => Order_Detail::find($id)->invoice_id,
+            'order_detail_id' => $id,
             'user_id' => auth()->id(),
             'vendor_id' => Invoice::find($id)->vendor_id,
             'product_id' => Order_Detail::find($id)->product_id,
@@ -155,6 +159,20 @@ class CustomerController extends Controller
             'comment' => $request->comment,
             'created_at' => now()
         ]);
+
+        $review_images = $request->file('review_images');
+        if($review_images){
+            foreach($review_images as $review_image){
+                $review_gallery= Carbon::now()->format('Y').rand(1,9999).".".$review_image->getClientOriginalExtension();
+                $review_img = Image::make($review_image)->resize(207, 232);
+                $review_img->save(base_path('public/uploads/product_review_images/'.$review_gallery), 70);
+                ReviewGallery::insert([
+                    'product_review_id' => $product_review_id,
+                    'review_image' => $review_gallery,
+                    'created_at' => now()
+                ]);
+            }
+        }
         return redirect('customer/product-review-list');
     }
 

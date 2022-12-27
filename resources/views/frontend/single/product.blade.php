@@ -111,6 +111,7 @@
         margin-top: 10px;
     }
 }
+/* Image PopUp */
 </style>
 
   <!-- main-area -->
@@ -146,12 +147,14 @@
                                             <img src="{{ asset('uploads/product_photo') }}/{{$single_product->thumbnail}}" alt="img" width="100%">
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="nav-item-two" role="tabpanel" aria-labelledby="nav-item-two-tab">
-                                        <div class="shop-details-img">
-                                            <img src="{{ asset('frontend_assets') }}/img/product/shop_details02.jpg" alt="img">
+                                    @foreach ($productGalleries as $productGallery)
+                                        <div class="tab-pane" id="nav-item-two-{{$productGallery->id}}" role="tabpanel" aria-labelledby="nav-item-two-tab">
+                                            <div class="shop-details-img">
+                                                <img src="{{ asset('uploads/product_gellery_photo') }}/{{$productGallery->product_gallery}}"width="100%"alt="img">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="tab-pane" id="nav-item-three" role="tabpanel" aria-labelledby="nav-item-three-tab">
+                                    @endforeach
+                                    {{-- <div class="tab-pane" id="nav-item-three" role="tabpanel" aria-labelledby="nav-item-three-tab">
                                         <div class="shop-details-img">
                                             <img src="{{ asset('frontend_assets') }}/img/product/shop_details03.jpg" alt="img">
                                         </div>
@@ -160,7 +163,7 @@
                                         <div class="shop-details-img">
                                             <img src="{{ asset('frontend_assets') }}/img/product/shop_details04.jpg" alt="img">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="shop-details-nav-wrap">
@@ -168,27 +171,33 @@
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                         <button class="nav-link active" id="nav-item-one-tab" data-bs-toggle="tab" data-bs-target="#nav-item-one"
                                             type="button" role="tab" aria-controls="nav-item-one" aria-selected="true">
-                                            <img src="{{ asset('frontend_assets') }}/img/product/shop_nav_img01.jpg" alt="img">
+                                            <img src="{{ asset('uploads/product_photo') }}/{{$single_product->thumbnail}}" width="104" alt="img">
                                         </button>
-                                        <button class="nav-link" id="nav-item-two-tab" data-bs-toggle="tab" data-bs-target="#nav-item-two" type="button"
-                                            role="tab" aria-controls="nav-item-two" aria-selected="false">
-                                            <img src="{{ asset('frontend_assets') }}/img/product/shop_nav_img02.jpg" alt="img">
-                                        </button>
-                                        <button class="nav-link" id="nav-item-three-tab" data-bs-toggle="tab" data-bs-target="#nav-item-three"
+                                        @foreach ($productGalleries as $productGallery)
+                                            <button class="nav-link" id="nav-item-two-tab" data-bs-toggle="tab" data-bs-target="#nav-item-two-{{$productGallery->id}}" type="button"
+                                                role="tab" aria-controls="nav-item-two" aria-selected="false">
+                                                <img src="{{ asset('uploads/product_gellery_photo') }}/{{$productGallery->product_gallery}}" width="104" alt="img">
+                                            </button>
+                                        @endforeach
+                                        {{-- <button class="nav-link" id="nav-item-three-tab" data-bs-toggle="tab" data-bs-target="#nav-item-three"
                                             type="button" role="tab" aria-controls="nav-item-three" aria-selected="false">
                                             <img src="{{ asset('frontend_assets') }}/img/product/shop_nav_img03.jpg" alt="img">
                                         </button>
                                         <button class="nav-link" id="nav-item-four-tab" data-bs-toggle="tab" data-bs-target="#nav-item-four"
                                             type="button" role="tab" aria-controls="nav-item-four" aria-selected="false">
                                             <img src="{{ asset('frontend_assets') }}/img/product/shop_nav_img04.jpg" alt="img">
-                                        </button>
+                                        </button> --}}
                                     </div>
                                 </nav>
                             </div>
                         </div>
                         <div class="col-xl-5 col-lg-6 col-md-8">
                             <div class="shop-details-content">
-                                <span><i class="fa-solid fa-check"></i>In Stock</span>
+                                @if ($inventory && $inventory->quantity)
+                                    <span><i class="fa-solid fa-check"></i>In Stock</span>
+                                @else
+                                    <span class="bg-warning text-dark"><i class="fa-solid fa-close"></i>Stock out</span>
+                                @endif
                                 <h2 class="title">{{$single_product->product_title}}</h2>
                                 <ul>
                                     {{-- <li data-background="{{ asset('frontend_assets') }}/img/images/coupon_bg01.png">
@@ -220,11 +229,15 @@
                                     <ul>
                                         <li class="sd-category">
                                             <span class="title">Categories :</span>
-                                            <a href="#!">{{Str::title($single_product->parent_category_slug)}}</a>
+                                            <a href="{{route('category.product',$single_product->parent_category_slug)}}">{{Str::title($single_product->parent_category_slug)}}</a>
                                         </li>
                                         <li class="sd-sku">
                                             <span class="title">SKU :</span>
                                             <a href="shop.html">{{$single_product->sku}}</a>
+                                        </li>
+                                        <li class="sd-sku">
+                                            <span class="title">Tags :</span>
+                                            <a href="{{route('shop.page')}}">{{$single_product->tag}}</a>
                                         </li>
                                         <li class="sd-share">
                                             <span class="title">Share Now :</span>
@@ -903,19 +916,23 @@
                                                 <button class="nav-link" id="specifications-tab" data-bs-toggle="tab"
                                                     data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications"
                                                     aria-selected="false">costumer reviews
-                                                    ({{ $product_reviews->count() }})</button>
+                                                    ({{ $product_reviews->count() }})
+                                                </button>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="product-report">
-                                        <a href="contact.html">Report Item</a>
+                                        <a href="http://127.0.0.1:8000/contact-us">Report Item</a>
                                     </div>
                                 </div>
                                 <div class="tab-content" id="productTabContent">
                                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                         <div class="product-desc-content">
-                                            <p>
-                                                {{htmlspecialchars($single_product->description)}}
+                                            <p id="single_product_description">
+                                                {!! $single_product->description !!}
+                                                {{-- @php
+                                                    echo strip_tags( $single_product->description )
+                                                @endphp --}}
                                             </p>
                                         </div>
                                     </div>
@@ -939,12 +956,11 @@
                                                                         <div class="profile">
                                                                             <!--img---->
                                                                             <div class="profile-img">
-                                                                                <img src="{{ asset('uploads/product_photo') }}/{{ $product_review->relationwithuser->profile_photo }}" />
+                                                                                <img src="{{ asset('uploads/profile_photo') }}/{{ $product_review->relationwithuser->profile_photo }}" />
                                                                             </div>
                                                                             <!--name-and-username-->
                                                                             <div class="name-user">
                                                                                 <strong>{{ $product_review->relationwithuser->name }}</strong>
-                                                                                <span>@liammendes</span>
                                                                             </div>
                                                                         </div>
                                                                         <!--reviews------>
@@ -967,7 +983,15 @@
                                                                     </div>
                                                                     <!--Comments---------------------------------------->
                                                                     <div class="client-comment">
-                                                                        <p>{{ $product_review->comment }}</p>
+                                                                        <p class="mb-3">{{ $product_review->comment }}</p>
+                                                                        @php
+                                                                            $product_galleries = App\Models\ReviewGallery::where('product_review_id', $product_review->id)->get();
+                                                                        @endphp
+                                                                        @if ($product_galleries)
+                                                                            @foreach ($product_galleries as $product_gallery)
+                                                                                <img class="m-2" height="100" src="{{ asset('uploads/product_review_images') }}/{{ $product_gallery->review_image }}" alt="azshopshow">
+                                                                            @endforeach
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             @empty
@@ -976,11 +1000,11 @@
                                                                 </div>
                                                             @endforelse
                                                         </div>
-                                                      </section>
+                                                    </section>
                                                 </div>
-                                                <div class="right-rc">
+                                                {{-- <div class="right-rc">
                                                     <a href="#">Write a review</a>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -1096,6 +1120,16 @@
                 </div>
             </section>
             <!-- popular-product-area-end -->
+
+<script>
+    $(document).ready(function(){
+        $('#single_product_description').innerHTML({{ $single_product->description }})
+    })
+</script>
+
+@endsection
+
+@section('footer_script')
 
 @endsection
 

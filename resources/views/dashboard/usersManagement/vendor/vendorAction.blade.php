@@ -139,10 +139,7 @@
                     </div>
                     <!--end::Menu 1-->
                 </div>
-                <!--end::Filter menu-->
-                <!--begin::Secondary button-->
-                <!--end::Secondary button-->
-                <!--begin::Primary button-->
+
                 <a href="../../demo1/dist/.html" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app">Create</a>
                 <!--end::Primary button-->
             </div>
@@ -188,7 +185,7 @@
                                 <!--end::Position-->
                             </div>
 
-                                   
+
                             <!--end::User Info-->
                             <!--end::Summary-->
                             <!--begin::Details toggle-->
@@ -209,6 +206,7 @@
                                 </span>
                             </div>
 
+
                             <!--end::Details toggle-->
                             <div class="separator"></div>
                             <!--begin::Details content-->
@@ -226,31 +224,20 @@
                                     <!--begin::Details item-->
                                     <!--begin::Details item-->
                                     <div class="fw-bolder mt-5">Address</div>
-                                    <div class="text-gray-600">{{$vendor->address}}</div>
-                                    <!--begin::Details item-->
-                                    <!--begin::Details item-->
-                                    {{-- <div class="fw-bolder mt-5">Language</div>
-                                    <div class="text-gray-600">English</div>
-                                    <!--begin::Details item-->
-                                    <!--begin::Details item-->
-                                    <div class="fw-bolder mt-5">Last Login</div>
-                                    <div class="text-gray-600">25 Jul 2022, 2:40 pm</div> --}}
-                                    <!--begin::Details item-->
+
                                 </div>
                             </div>
                             <!--end::Details content-->
                         </div>
-                        <!--end::Card body-->
+
+
                     </div>
-                    <!--end::Card-->
                 </div>
-                <!--end::Sidebar-->
             </div>
 
 
-            <!--end::Layout-->
-            <!--begin::Modals-->
-            <!--begin::Modal - Update user details-->
+
+
             <div class="modal fade" id="kt_modal_update_details" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
                 <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -277,6 +264,7 @@
                                         <!--end::Svg Icon-->
                                     </span></div>
                                     <!--end::User toggle-->
+
                                     <!--begin::User form-->
                                     <div id="kt_modal_update_user_user_info" class="collapse show">
                                         <div class="fv-row mb-7">
@@ -296,6 +284,7 @@
                                 </div>
                                 <!--end::Scroll-->
                             </div>
+
                             <!--end::Modal body-->
                             <!--begin::Modal footer-->
                             <div class="modal-footer flex-center">
@@ -313,16 +302,52 @@
                         <!--end::Form-->
                     </div>
                 </div>
+
             </div>
 
 
-            <!--end::Modal - Update user details-->
-            <!--end::Modals-->
         </div>
-        <!--end::Container-->
     </div>
+</div>
 
-    <!--end::Post-->
+<div class="col-md-9">
+    <div class="row " style="max-height:100vh!important; overflow-y:scroll">
+        <div class="col-lg-12">
+            @foreach ($vendorProducts as  $vendorProduct)
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img style="width:150px!important; height:150px!important;"  src="{{asset('uploads/product_photo')}}/{{$vendorProduct->thumbnail}}" alt="image">
+                        </div>
+                        <div class="col-md-10">
+                            <h2>{{ $vendorProduct->product_title }}</h2>
+                            <span style="font-size:18px!important">{{ Str::title($vendorProduct->parent_category_slug)  }}</span>
+                            <br>
+                            <span style="font-size:18px!important">SKU: {{ $vendorProduct->sku }}</span>
+                            <div class="rating">
+                                @if (review($vendorProduct->id))
+                                    @for ($x = 1; $x <= 5; $x++)
+                                        @if ($x <= review($vendorProduct->id))
+                                            <i class="fas fa-star"></i>
+                                        @else
+                                            <i class="far fa-star"></i><!--Empty star-->
+                                        @endif
+                                    @endfor
+                                    <span style="font-size: 10px;">({{ count_review($vendorProduct->id) }})</span>
+                                @else
+                                    <span class="text-danger">No Review Yet</span>
+                                @endif
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+          </div>
+          @endforeach
+      </div>
+   </div>
 </div>
 
 @endsection

@@ -91,8 +91,8 @@
                         <div class="col-xl-10 col-lg-9">
                             <div class="d-block d-sm-flex align-items-center justify-content-end">
                                 <div class="header-search-wrap">
-                                    <form action="#">
-                                        <input type="text" placeholder="Search for product...">
+                                    <form action="{{route('search')}}">
+                                        <input type="search" name="q" placeholder="Search for product...">
                                         <select class="custom-select">
                                             {{-- @foreach ($fix_categories as $category)
                                                 <option>{{ $category->category_name }}</option>
@@ -717,8 +717,12 @@
                                 <p>Get 10% off new collection special Investigationes demonstraverunt</p>
                             </div>
                             <div class="newsletter-form">
-                                <form action="#">
-                                    <input type="text" placeholder="Your email here...">
+                                @if($errors->any('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                                @endif
+                                <form action="{{ route('newsletter') }}" method="post">
+                                    @csrf
+                                    <input type="text" placeholder="Your email here..." name="email">
                                     <button type="submit">Subscribe</button>
                                 </form>
                             </div>
