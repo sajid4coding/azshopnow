@@ -198,21 +198,50 @@
                                             <span class="menu-title">Product Mangement</span>
                                             <span class="menu-arrow"></span>
                                         </span>
-                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'product_lists' || $current_page == 'category' || $current_page == 'subcategory') here show @endif">
+                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'product_lists' || $current_page == 'pending-products' || $current_page == 'banned-products') here show @endif">
                                             <div class="menu-item @if ($current_page == 'product_lists') here show @endif">
                                                 <a class="menu-link" href="{{ route('product_lists') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Product List</span>
+                                                    <span class="menu-title">Approved Products</span>
                                                 </a>
                                             </div>
+                                            <div class="menu-item @if ($current_page == 'pending-products') here show @endif">
+                                                <a class="menu-link" href="{{ route('pending.products') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Pendding Products</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item @if ($current_page == 'banned-products') here show @endif">
+                                                <a class="menu-link" href="{{ route('banned.products') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Banned Products</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+								</div>
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <i class="fas fa-store"></i>
+                                            </span>
+                                            <span class="menu-title">Product Categories</span>
+                                            <span class="menu-arrow"></span>
+                                        </span>
+                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'category' || $current_page == 'subcategory') here show @endif">
                                             <div class="menu-item @if ($current_page == 'category') here show @endif">
                                                 <a class="menu-link" href="{{ route('category.index') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Category</span>
+                                                    <span class="menu-title">Main Category</span>
                                                 </a>
                                             </div>
                                             <div class="menu-item @if ($current_page == 'subcategory') here show @endif">
@@ -260,9 +289,26 @@
 										<a href="{{ route('review') }}" class="menu-title">Reviews</a>
 									</span>
 								</div>
+								<div class="menu-item @if ($current_page == 'packaging') here show @endif menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+													<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+													<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+													<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<a href="{{ route('packaging.index') }}" class="menu-title"> Product Packaging</a>
+									</span>
+								</div>
 								<div class="menu-item">
 									<div class="menu-content pt-8 pb-2">
-										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Apps</span>
+										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Settings</span>
 									</div>
 								</div>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
@@ -276,7 +322,33 @@
 										<span class="menu-arrow"></span>
 									</span>
 									<div class="menu-sub menu-sub-accordion">
-										<div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
+                                        <div class="menu-sub menu-sub-accordion">
+                                            <div class="menu-item">
+                                                <a class="menu-link" href="{{route('adminmanagement.index')}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Admin</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link" href="{{route('vendormanagement.index')}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Vendor</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link" href="{{route('customermanagement.index')}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Customer</span>
+                                                </a>
+                                            </div>
+                                        </div>
+										{{-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
 											<span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -284,33 +356,8 @@
 												<span class="menu-title">Users</span>
 												<span class="menu-arrow"></span>
 											</span>
-											<div class="menu-sub menu-sub-accordion">
-												<div class="menu-item">
-													<a class="menu-link" href="{{route('adminmanagement.index')}}">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-														<span class="menu-title">Admin</span>
-													</a>
-												</div>
-												<div class="menu-item">
-													<a class="menu-link" href="{{route('vendormanagement.index')}}">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-														<span class="menu-title">Vendor</span>
-													</a>
-												</div>
-												<div class="menu-item">
-													<a class="menu-link" href="{{route('customermanagement.index')}}">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-														<span class="menu-title">Customer</span>
-													</a>
-												</div>
-											</div>
-										</div>
+
+										</div> --}}
 									</div>
 								</div>
 							</div>

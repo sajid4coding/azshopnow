@@ -74,7 +74,7 @@ class SubCategoryController extends Controller
             ]);
         }
 
-        return redirect('subcategory');
+        return redirect('subcategory')->with('success','New product sub-category added successfully.');
     }
 
     /**
@@ -127,7 +127,7 @@ class SubCategoryController extends Controller
             'description' => $request->description,
             'status' => $request->status
         ]);
-        return redirect('subcategory');
+        return redirect('subcategory')->with('success','Product sub-category updated successfully.');
     }
 
     /**
@@ -139,6 +139,6 @@ class SubCategoryController extends Controller
     public function destroy(SubCategory $subCategory, $id)
     {
         SubCategory::find($id)->delete();
-        return redirect('subcategory');
+        return redirect('subcategory')->with('success','Product category deleted successfully.');
     }
 }
