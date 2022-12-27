@@ -7,6 +7,7 @@ use App\Mail\productBan;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductGallery;
+use App\Models\ProductReport;
 use App\Models\ProductReview;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -70,6 +71,12 @@ class DashboardController extends Controller
     function view_reviews($product_id){
         return view('dashboard.review.view-review',[
             'view_reviews' => ProductReview::where('product_id', $product_id)->get()
+        ]);
+    }
+
+    function report(){
+        return view('dashboard.report.report',[
+            'reports' => ProductReport::all(),
         ]);
     }
 }

@@ -243,7 +243,36 @@
 										<a href="{{ route('shipping.index') }}" class="menu-title">Shipping</a>
 									</span>
 								</div>
-								<div class="menu-item @if ($current_page == 'review') here show @endif menu-accordion">
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <i class="fas fa-store"></i>
+                                            </span>
+                                            <span class="menu-title">Product Discussion</span>
+                                            <span class="menu-arrow"></span>
+                                        </span>
+                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'review' || $current_page == 'reports') here show @endif">
+                                            <div class="menu-item @if ($current_page == 'review') here show @endif">
+                                                <a class="menu-link" href="{{ route('review') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Reviews</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item @if ($current_page == 'reports') here show @endif">
+                                                <a class="menu-link" href="{{ route('report') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Reports</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+								</div>
+								{{-- <div class="menu-item @if ($current_page == 'review') here show @endif menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -259,7 +288,7 @@
 										</span>
 										<a href="{{ route('review') }}" class="menu-title">Reviews</a>
 									</span>
-								</div>
+								</div> --}}
 								<div class="menu-item">
 									<div class="menu-content pt-8 pb-2">
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Apps</span>
