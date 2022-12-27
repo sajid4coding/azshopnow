@@ -29,6 +29,8 @@ return new class extends Migration
             $table->integer('coupon_discount')->nullable();
             $table->integer('after_coupon_discount')->nullable();
             $table->integer('delivery_change');
+            $table->integer('tax');
+            $table->integer('tax_amount');
             $table->integer('total_price');
             $table->string('payment_method');
             $table->string('payment')->default('unpaid');

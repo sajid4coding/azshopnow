@@ -6,6 +6,7 @@ use App\Models\AttributeSize;
 use App\Models\Cart;
 use App\Models\Inventory as ModelInventory;
 use App\Models\Product as ModelProduct;
+use App\Models\Wishlist;
 use Livewire\Component;
 
 class AddToCart extends Component
@@ -21,6 +22,11 @@ class AddToCart extends Component
     public $decrement_quantity;
     public $price;
     public $vendor;
+    public $justSize;
+    public $justColor;
+    public $justQuantity;
+    public $wishlist;
+    public $wishlistIcon = false;
 
     public function decrement_quantity()
     {
@@ -33,12 +39,23 @@ class AddToCart extends Component
         $this->quantity ++;
     }
 
+    public function updatedJustSize($size_id){
+        $this->justQuantity= ModelInventory::where('product_id',$this->productID)->where('size',$size_id)->first();
+        // $this->justSizeQuantity=10;
+        // $this->visibility='d-none';
+    }
+    public function updatedJustColor($color_id){
+        $this->justQuantity= ModelInventory::where('product_id',$this->productID)->where('color',$color_id)->first();
+        // $this->justSizeQuantity=10;
+        // $this->visibility='d-none';
+    }
     public function updatedSizeDropdown($size_id){
         $this->colors= ModelInventory::where('product_id',$this->productID)->where('size',$size_id)->get();
         // $this->visibility='d-none';
     }
     public function updatedColorDropdown($inventoryId){
         $this->inventory=ModelInventory::find($inventoryId);
+        $this->justQuantity=ModelInventory::find($inventoryId);
         $this->inventoryPrice=1;
     }
 
@@ -80,6 +97,84 @@ class AddToCart extends Component
         }
         $this->reset('quantity');
         $this->dispatchBrowserEvent('msg', $swalData);
+    }
+    public function addcartwithjustSize($__inventoryId)
+    {
+        if(
+            Cart::where([
+                'user_id'=>auth()->id(),
+                'product_id'=>$this->productID,
+                'size_id'=>$this->justSize,
+            ])->exists()
+        ){
+            Cart::where([
+                'user_id'=>auth()->id(),
+                'vendor_id'=>$this->vendor,
+                'product_id'=>$this->productID,
+                'size_id'=>$this->justSize,
+            ])->increment('quantity',$this->quantity);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
+        }else{
+
+            Cart::insert([
+                'user_id'=>auth()->id(),
+                'vendor_id'=>$this->vendor,
+                'product_id'=>$this->productID,
+                'size_id'=>$this->justSize,
+                'quantity'=>$this->quantity,
+                'inventory_id'=>$__inventoryId,
+                'created_at'=>now(),
+            ]);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
+        }
+        $this->reset('quantity');
+        $this->dispatchBrowserEvent('msg', $swalData);
+
+    }
+    public function addcartwithjustcolor($__inventoryId)
+    {
+        if(
+            Cart::where([
+                'user_id'=>auth()->id(),
+                'product_id'=>$this->productID,
+                'color_id'=>$this->justColor,
+            ])->exists()
+        ){
+            Cart::where([
+                'user_id'=>auth()->id(),
+                'vendor_id'=>$this->vendor,
+                'product_id'=>$this->productID,
+                'color_id'=>$this->justColor,
+            ])->increment('quantity',$this->quantity);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
+        }else{
+
+            Cart::insert([
+                'user_id'=>auth()->id(),
+                'vendor_id'=>$this->vendor,
+                'product_id'=>$this->productID,
+                'color_id'=>$this->justColor,
+                'quantity'=>$this->quantity,
+                'inventory_id'=>$__inventoryId,
+                'created_at'=>now(),
+            ]);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
+        }
+        $this->reset('quantity');
+        $this->dispatchBrowserEvent('msg', $swalData);
+
     }
     public function addtocart($__inventoryId)
     {
@@ -123,7 +218,40 @@ class AddToCart extends Component
         $this->vendor=ModelProduct::find($this->productID)->vendor_id;
         $productPrice=ModelProduct::find($this->productID);
         $inventories=ModelInventory::where('product_id',$this->productID)->first();
+        $this->JustQuantity=ModelInventory::where('product_id',$this->productID)->get();
+        // $this->justQuantity= ModelInventory::where('product_id',$this->productID)->where('color',$color_id)->first();
+        // $this->inventoriesQuantity=$inventories->quantity;
         $sizes=ModelInventory::select('size')->where('product_id',$this->productID)->groupBy('size')->get();
-        return view('livewire.add-to-cart', compact('sizes','inventories','productPrice'));
+        $justColors=ModelInventory::select('color')->where('product_id',$this->productID)->groupBy('color')->get();
+        return view('livewire.add-to-cart', compact('sizes','inventories','productPrice','justColors'));
+    }
+
+    public function wishlist($id){
+        $inventory = ModelInventory::find($id);
+
+
+        if(Wishlist::where([
+            'user_id' => auth()->id(),
+            'vendor_id' => $inventory->vendor_id,
+            'product_id' => $inventory->product_id,
+            'inventory_id' => $inventory->id,
+        ])->exists()){
+            $this->wishlistIcon = false;
+            Wishlist::where([
+                'user_id' => auth()->id(),
+                'vendor_id' => $inventory->vendor_id,
+                'product_id' => $inventory->product_id,
+                'inventory_id' => $inventory->id,
+            ])->delete();
+        }else{
+            Wishlist::insert([
+                'user_id' => auth()->id(),
+                'vendor_id' => $inventory->vendor_id,
+                'product_id' => $inventory->product_id,
+                'inventory_id' => $inventory->id,
+                'created_at' => now()
+            ]);
+            $this->wishlistIcon = true;
+        }
     }
 }

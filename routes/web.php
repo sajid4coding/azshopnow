@@ -1,12 +1,11 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, PaymentController, ProductController, ProductListController, ShippingController, StripeController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController};
 use App\Models\Product;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Action;
-// use App\Http\Controllers\PaymentController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -20,20 +19,16 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::get('/categories/{slug}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
 Route::get('/vendor/all/product/{id}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
+// Route::get('/vendor/all/product/{id}/{shopname}', 'FrontEndController@vendorProduct')->name('vendor.product');
 Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
 Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
 Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
 Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
+Route::get('wishlist',[FrontEndController::class,'wishlist'])->name('wishlist');
+Route::get('delete-wishlist/{id}',[FrontEndController::class,'wishlist_delete_row'])->name('wishlist.delete');
 Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
 Route::post('newsletter',[FrontEndController::class,'newsletter'])->name('newsletter');
 
-
-// PAYMENTS METHOD INTEGRATION ROUTE START
-Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('stripe_checkout_post');
-Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
-
-
-// PAYMENTS METHOD INTEGRATION ROUTE END
 
 Route::post('/getStateCode',[FrontEndController::class,'stateTex']);
 Route::post('checkout_post',[FrontEndController::class,'checkout_post'])->name('checkout_post');
@@ -42,17 +37,40 @@ Route::get('top-selection',[FrontEndController::class,'topSelection'])->name('to
 Route::get('new-arrivals',[FrontEndController::class,'newArrivals'])->name('new.arrivals');
 Route::get('search',[FrontEndController::class,'search'])->name('search');
 
+// PAYMENTS METHOD INTEGRATION ROUTE START
+
+//STRIPE
+Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('stripe_checkout_post');
+Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
+// PAYMENTS METHOD INTEGRATION ROUTE END
+
 
 Route::middleware(['admin', 'verified'])->group(function () {
 
     //DashboardController
     Route::get('dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
     Route::get('product_lists',[DashboardController::class, 'product_lists'])->middleware(['auth', 'verified'])->name('product_lists');
+    Route::get('pending-products',[DashboardController::class, 'pendingProducts'])->middleware(['auth', 'verified'])->name('pending.products');
+    Route::get('banned-products',[DashboardController::class, 'bannedProducts'])->middleware(['auth', 'verified'])->name('banned.products');
     Route::get('edit_product/{id}',[DashboardController::class, 'product_edit'])->middleware(['auth', 'verified'])->name('product_edit');
     Route::post('status_product/{id}',[DashboardController::class, 'product_status'])->middleware(['auth', 'verified'])->name('product_status');
     Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
     Route::get('review',[DashboardController::class, 'reviews'])->middleware(['auth', 'verified'])->name('review');
     Route::get('view-review/{id}',[DashboardController::class, 'view_reviews'])->middleware(['auth', 'verified'])->name('view.review');
+    Route::get('admin/order/details/{id}',[DashboardController::class,'OrderDetails'])->name('order.details');
+    Route::get('admin/all/order',[DashboardController::class,'AllOrder'])->name('all.order');
+    Route::get('admin/delivered/order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
+    Route::get('admin/pending/order',[DashboardController::class,'PendingOrder'])->name('pending.order');
+    Route::get('admin/processing/order',[DashboardController::class,'ProcessingOrder'])->name('processing.order');
+    Route::get('admin/canceled/order',[DashboardController::class,'CanceledOrder'])->name('canceled.order');
+    Route::get('admin/order/delete/{id}',[DashboardController::class,'OrderDelete'])->name('order.delete');
+    Route::get('admin/tax/earning',[DashboardController::class,'TaxEarning'])->name('tax.earning');
+    Route::get('admin/total/earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
+    Route::get('admin/subscription/earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
+    Route::get('admin/commission/earning',[DashboardController::class,'CommissionEarning'])->name('commission.earning');
+
+    //PackagingController Resource
+    Route::resource('packaging', PackagingController::class);
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
@@ -104,17 +122,17 @@ Route::middleware(['vendor'])->group(function(){
     Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
     Route::post('coupon/add', [VendorController::class, 'coupon_store'])->name('coupon.add');
     Route::get('coupon/delete/{id}', [VendorController::class, 'coupon_delete'])->name('coupon.delete');
+
     //ProductController Resource
     Route::resource('product', ProductController::class);
     Route::delete('galleryImgDelete/{id}',[ProductController::class, 'galleryImgDelete'])->name('galleryImg.Delete');
+
      //AttributeController Resource
     Route::resource('attributes', AttributeController::class);
     Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
     Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
     Route::post('/getIDFromCategory',[VendorController::class,'getIDFromCategory']);
     Route::post('/getIDFromCategoryForEdit',[VendorController::class,'getIDFromCategoryEdit']);
-     //ProductListController Resource
-    Route::resource('product-list',ProductListController::class);
 
     //InventoryController
     Route::get('inventory/{product}', [InventoryController::class, 'inventory'])->name('inventory');
@@ -172,6 +190,8 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 // EMAIL VERIFY ROUTE END
+
+
 
 
 

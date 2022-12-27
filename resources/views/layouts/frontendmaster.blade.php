@@ -25,6 +25,7 @@
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-lite.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css">
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
         @livewireStyles
         @yield('header_css')
     </head>
@@ -105,11 +106,19 @@
                                 </div>
                                 <div class="header-action">
                                     <ul>
-                                        <li><a href="#"><i class="far fa-star"></i>Wishlist</a></li>
+                                        <li class="header-shop">
+                                            <a href="{{ route('wishlist') }}">
+                                                <i class="fa-regular fa-heart"></i>Wishlist
+                                                <span class="cart-count" style="right: 2px !important;">{{ wishlish() }}</span>
+                                            </a>
+                                        </li>
                                         <li><a href="#"><i class="fas fa-redo"></i>Compare</a></li>
-                                        <li class="header-shop"><a href="{{ route('cart') }}"><i class="flaticon-shopping-bag"></i>Cart
-                                        <span class="cart-count">{{ cart() }}</span>
-                                        </a></li>
+                                        <li class="header-shop">
+                                            <a href="{{ route('cart') }}">
+                                                <i class="flaticon-shopping-bag"></i>Cart
+                                                <span class="cart-count">{{ cart() }}</span>
+                                            </a>
+                                        </li>
                                         @auth
                                         <li class="header-sine-in">
                                                  @if (auth()->user()->role == 'vendor')
@@ -644,10 +653,15 @@
                                         </ul>
                                     </div>
                                     <div class="navbar-wrap main-menu d-none d-lg-flex">
+
+                                        @php
+                                            $url = explode('/',url()->current());
+                                            $current_page = end($url);
+                                        @endphp
                                         <ul class="navigation">
-                                            <li class="active"><a href="{{ route('home') }}">Home</a>
+                                            <li class="@if ($current_page == '127.0.0.1:8000') active @endif"><a href="{{ route('home') }}">Home</a>
                                             </li>
-                                            <li class="menu-item-has-children"><a href="{{ route('shop.page') }}">SHOP</a>
+                                            <li class="@if ($current_page == 'shop') active @endif"><a href="{{ route('shop.page') }}">SHOP</a>
                                             {{-- <li><a href="{{ route('single.product') }}">single Product</a></li> --}}
 
                                                {{-- <ul class="submenu">
@@ -852,8 +866,8 @@
     <script src="{{ asset('frontend_assets') }}/js/custom.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/summernote-lite.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs4.js"></script> --}}
-    {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs5.js"></script> --}}
+    {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs4.js"></script>
+    <script src="{{ asset('frontend_assets') }}/js/summernote-bs5.js"></script> --}}
 
 
 {{-- charts js start --}}

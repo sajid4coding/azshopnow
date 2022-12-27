@@ -120,6 +120,7 @@
                                     <option value="published" @if ($product->status == 'published') selected="selected" @endif data-select2-id="select2-data-11-rkcp">Published</option>
                                     {{-- <option value="draft" @if ($product->status == 'draft') selected="selected" @endif>Draft</option> --}}
                                     <option value="unpublished" @if ($product->status == 'unpublished') selected="selected" @endif>Unpublished</option>
+                                    <option value="banned" @if ($product->status == 'banned') selected="selected" @endif>Banned</option>
                                 </select>
                                 <!--end::Select2-->
                                 <!--begin::Description-->

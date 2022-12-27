@@ -1,6 +1,7 @@
 @extends('layouts.frontendmaster')
 @section('header_css')
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
+@yield('vendor_css')
 
 @endsection
 @section('content')
@@ -108,7 +109,7 @@
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                               <li><a class="dropdown-item"  href="{{ route('vendor.product.upload') }}">Product Add</a></li>
-                                              <li><a class="dropdown-item" href="{{ route('product-list.index') }}">Product List</a></li>
+                                              <li><a class="dropdown-item" href="{{ route('product.index') }}">Product List</a></li>
                                               <li><a class="dropdown-item" href="{{ route('attributes.index') }}">Attributes</a></li>
                                             </ul>
                                           </li>
@@ -166,7 +167,11 @@
 <!-- main-area-end -->
 @endsection
 @section('footer_script')
-
+{{-- <script type="text/javascript">
+    $(document).ready(function() {
+      $('.summernote').summernote();
+    });
+</script> --}}
 <script>
 
     $(document).ready(function(){

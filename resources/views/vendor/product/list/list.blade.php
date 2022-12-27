@@ -35,6 +35,10 @@
                         <div class="badge bg-warning text-dark">
                             Pending
                         </div>
+                    @elseif ($product->status == 'banned')
+                        <div class="badge bg-danger text-light">
+                            Banned
+                        </div>
                     @else
                         @if ($product->vendorProductStatus == 'draft')
                             <div class="badge bg-danger">
