@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css">
+        <link rel="stylesheet" href="{{ asset('dashboard_assets') }}/css/submits.css">
 		<!--end::Fonts-->
 		<!--begin::Page Vendor Stylesheets(used by this page)-->
 		<link href="{{ asset('dashboard_assets') }}/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
@@ -186,10 +187,8 @@
 
 										</div>
 									</div>
-
-
 								</div>
-								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                         <span class="menu-link">
                                             <span class="menu-icon">
@@ -198,33 +197,138 @@
                                             <span class="menu-title">Product Mangement</span>
                                             <span class="menu-arrow"></span>
                                         </span>
-                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'product_lists' || $current_page == 'category' || $current_page == 'subcategory') here show @endif">
+                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'product_lists' || $current_page == 'pending-products' || $current_page == 'banned-products') here show @endif">
                                             <div class="menu-item @if ($current_page == 'product_lists') here show @endif">
                                                 <a class="menu-link" href="{{ route('product_lists') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Product List</span>
+                                                    <span class="menu-title">Approved Products</span>
                                                 </a>
                                             </div>
-                                            <div class="menu-item @if ($current_page == 'category') here show @endif">
-                                                <a class="menu-link" href="{{ route('category.index') }}">
+                                            <div class="menu-item @if ($current_page == 'pending-products') here show @endif">
+                                                <a class="menu-link" href="{{ route('pending.products') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Category</span>
+                                                    <span class="menu-title">Pendding Products</span>
                                                 </a>
                                             </div>
-                                            <div class="menu-item @if ($current_page == 'subcategory') here show @endif">
-                                                <a class="menu-link" href="{{ route('subcategory.index') }}">
+                                            <div class="menu-item @if ($current_page == 'banned-products') here show @endif">
+                                                <a class="menu-link" href="{{ route('banned.products') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Sub Category</span>
+                                                    <span class="menu-title">Banned Products</span>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
+								</div>
+                                <div data-kt-menu-trigger="click" class="menu-item  menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm001.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<path opacity="0.3" d="M18.041 22.041C18.5932 22.041 19.041 21.5932 19.041 21.041C19.041 20.4887 18.5932 20.041 18.041 20.041C17.4887 20.041 17.041 20.4887 17.041 21.041C17.041 21.5932 17.4887 22.041 18.041 22.041Z" fill="currentColor"></path>
+													<path opacity="0.3" d="M6.04095 22.041C6.59324 22.041 7.04095 21.5932 7.04095 21.041C7.04095 20.4887 6.59324 20.041 6.04095 20.041C5.48867 20.041 5.04095 20.4887 5.04095 21.041C5.04095 21.5932 5.48867 22.041 6.04095 22.041Z" fill="currentColor"></path>
+													<path opacity="0.3" d="M7.04095 16.041L19.1409 15.1409C19.7409 15.1409 20.141 14.7409 20.341 14.1409L21.7409 8.34094C21.9409 7.64094 21.4409 7.04095 20.7409 7.04095H5.44095L7.04095 16.041Z" fill="currentColor"></path>
+													<path d="M19.041 20.041H5.04096C4.74096 20.041 4.34095 19.841 4.14095 19.541C3.94095 19.241 3.94095 18.841 4.14095 18.541L6.04096 14.841L4.14095 4.64095L2.54096 3.84096C2.04096 3.64096 1.84095 3.04097 2.14095 2.54097C2.34095 2.04097 2.94096 1.84095 3.44096 2.14095L5.44096 3.14095C5.74096 3.24095 5.94096 3.54096 5.94096 3.84096L7.94096 14.841C7.94096 15.041 7.94095 15.241 7.84095 15.441L6.54096 18.041H19.041C19.641 18.041 20.041 18.441 20.041 19.041C20.041 19.641 19.641 20.041 19.041 20.041Z" fill="currentColor"></path>
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Order</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'order' || $current_page == 'processing-order' || $current_page == 'pending-order' || $current_page == 'delivered-order' || $current_page == 'canceled-order') here show @endif">
+                                        <div class="menu-item @if ($current_page == 'order') here show @endif">
+                                            <a class="menu-link" href="{{ route('all.order') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">All Orders</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item @if ($current_page == 'processing-order') here show @endif">
+                                            <a class="menu-link" href="{{ route('processing.order') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Processing Orders</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item @if ($current_page == 'pending-order') here show @endif">
+                                            <a class="menu-link" href="{{ route('pending.order') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Pending Orders</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item @if ($current_page == 'delivered-order') here show @endif">
+                                            <a class="menu-link" href="{{ route('delivered.order') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Delivered Orders</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item @if ($current_page == 'canceled-order') here show @endif">
+                                            <a class="menu-link" href="{{ route('canceled.order') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Canceled Orders</span>
+                                            </a>
+                                        </div>
+									</div>
+								</div>
+                                <div data-kt-menu-trigger="click" class="menu-item  menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm001.svg-->
+											<span class="svg-icon svg-icon-2">
+                                                <i class="fas fa-money-bill-alt"></i>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Earnings</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion "  style="display: none; overflow: hidden;">
+										<div  class="menu-item menu-accordion">
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('total.earning') }}"><span class="menu-title">Total Earnings </span></a>
+											</span>
+                                            <span class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+												</span>
+                                            <a href="{{ route('tax.earning') }}">
+											   <span class="menu-title">Tax Calcutate</span>
+                                            </a>
+											</span>
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('subscription.earning') }}"><span class="menu-title">Subscription Earning</span></a>
+											</span>
+
+
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('commission.earning') }}"><span class="menu-title"> Commission Earning</span></a>
+											</span>
+										</div>
+									</div>
 								</div>
 								<div class="menu-item @if ($current_page == 'shipping.index') here show @endif menu-accordion">
 									<span class="menu-link">
@@ -8452,6 +8556,7 @@
 		<script src="{{ asset('dashboard_assets') }}/js/custom/apps/chat/chat.js"></script>
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/upgrade-plan.js"></script>
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/users-search.js"></script>
+        <script src="{{ asset('dashboard_assets') }}/js/submits.js"></script>
 		<!--end::Page Custom Javascript-->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @yield('footer_script')

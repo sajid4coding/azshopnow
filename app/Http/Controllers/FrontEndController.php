@@ -11,6 +11,7 @@ use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Mail;
 
+
 class FrontEndController extends Controller
 {
 

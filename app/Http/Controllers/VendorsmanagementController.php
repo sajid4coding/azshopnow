@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VendorActivation;
 use App\Mail\VendorBan;
+use App\Models\Product;
 
 class VendorsmanagementController extends Controller
 {
@@ -61,8 +62,10 @@ class VendorsmanagementController extends Controller
      */
     public function edit($id)
     {
+       $vendorProducts= Product::where('vendor_id', $id)->where('status', 'published')->where('vendorProductStatus', 'published')->latest()->get();
         $vendor=User::findOrFail($id);
-        return view('dashboard.usersManagement.vendor.vendorAction',compact('vendor'));
+        return view('dashboard.usersManagement.vendor.vendorAction',compact('vendor', 'vendorProducts'));
+
     }
 
     /**

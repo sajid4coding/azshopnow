@@ -43,7 +43,7 @@
         <div class="row justify-content-center align-items-center g-2">
             <div class="col" style="margin: 0 5px">
                 <div class="card text-start">
-                    <form action="{{ route('shipping.store') }}" method="POST">
+                    <form class="form d-flex flex-column flex-lg-row form-prevent-multiple-submits" action="{{ route('shipping.store') }}" method="POST">
                         @csrf
                         <div class="card-body">
                             <label class="mb-2 fw-bold" for="shipping_name">Shipping Name</label>
@@ -51,7 +51,7 @@
                             <label class="mb-2 fw-bold" for="shipping_name">Shipping Cost</label>
                             <input name="shipping_cost" class="form-control mb-2" type="number" placeholder="type shipping cost...">
                             <div class="col-md-12 text-center">
-                                <button class="btn btn-primary btn btn-sm">Add Shipping</button>
+                                <button class="btn btn-primary btn btn-sm button-prevent-multiple-submits">Add Shipping</button>
                             </div>
                         </div>
                     </form>
