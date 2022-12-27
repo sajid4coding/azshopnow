@@ -26,7 +26,17 @@ class DashboardController extends Controller
 
     function product_lists(){
         return view('dashboard.product.product-lists',[
-            'products' => Product::where('vendorProductStatus','published')->get()
+            'products' => Product::where('vendorProductStatus','published')->where('status','published')->latest()->get()
+        ]);
+    }
+    function pendingProducts (){
+        return view('dashboard.product.pending-products',[
+            'products' => Product::where('vendorProductStatus','published')->where('status','unpublished')->latest()->get()
+        ]);
+    }
+    function bannedProducts(){
+        return view('dashboard.product.banned-products',[
+            'products' => Product::where('vendorProductStatus','published')->where('status','banned')->latest()->get()
         ]);
     }
 
@@ -46,6 +56,15 @@ class DashboardController extends Controller
             $vendorId=Product::where('id',$id)->first()->vendor_id;
             $vendorDetails=User::find($vendorId);
             Mail::to($vendorDetails->email)->send(new productApproved($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
+        }elseif(($request->status=='published')){
+            Product::find($id)->update([
+                'status' => $request->status
+            ]);
+            $productName=Product::find($id)->product_title;
+            $vendorId=Product::where('id',$id)->first()->vendor_id;
+            $vendorDetails=User::find($vendorId);
+            // $vendorDetails->email
+            Mail::to($vendorDetails->email)->send(new productBan($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
         }else{
             Product::find($id)->update([
                 'status' => $request->status

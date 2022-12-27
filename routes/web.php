@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController};
 use App\Models\Product;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +48,8 @@ Route::middleware(['admin', 'verified'])->group(function () {
     //DashboardController
     Route::get('dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
     Route::get('product_lists',[DashboardController::class, 'product_lists'])->middleware(['auth', 'verified'])->name('product_lists');
+    Route::get('pending-products',[DashboardController::class, 'pendingProducts'])->middleware(['auth', 'verified'])->name('pending.products');
+    Route::get('banned-products',[DashboardController::class, 'bannedProducts'])->middleware(['auth', 'verified'])->name('banned.products');
     Route::get('edit_product/{id}',[DashboardController::class, 'product_edit'])->middleware(['auth', 'verified'])->name('product_edit');
     Route::post('status_product/{id}',[DashboardController::class, 'product_status'])->middleware(['auth', 'verified'])->name('product_status');
     Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
@@ -64,6 +66,9 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('admin/total/earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
     Route::get('admin/subscription/earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
     Route::get('admin/commission/earning',[DashboardController::class,'CommissionEarning'])->name('commission.earning');
+
+    //PackagingController Resource
+    Route::resource('packaging', PackagingController::class);
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
