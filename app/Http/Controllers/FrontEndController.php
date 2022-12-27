@@ -102,6 +102,8 @@ class FrontEndController extends Controller
                 'coupon_discount' => session('coupon_info')->coupon_amount,
                 'after_coupon_discount' => session('after_discount'),
                 'delivery_change' => session('shipping_cost'),
+                'tax' => $request->tax,
+                'tax_amount' => (session('after_discount'))? session('after_discount')*($request->tax/100) : $request->subtotal*($request->tax/100) ,
                 'total_price' => $request->total_price,
                 'payment_method' => $request->payment_method,
                 'created_at' => now()
@@ -120,6 +122,7 @@ class FrontEndController extends Controller
                 'order_comments' => $request->order_comments,
                 'subtotal' => $request->subtotal,
                 'delivery_change' => session('shipping_cost'),
+                'tax' => $request->tax,
                 'total_price' => $request->total_price,
                 'payment_method' => $request->payment_method,
                 'created_at' => now()
@@ -198,13 +201,10 @@ class FrontEndController extends Controller
 
           if($request->stateCode == 'AZ'){
             $value = 5.60;
-
           }elseif($request->stateCode == 'AL'){
             $value = 4.00;
-
           }elseif($request->stateCode == 'AK'){
             $value = 0.00;
-
           }elseif($request->stateCode == 'AR'){
             $value = 6.50;
           }elseif($request->stateCode == 'CA'){
@@ -315,7 +315,7 @@ class FrontEndController extends Controller
          $totalValue = $request->total + $rent;
         //  number_format(('round')$totalValue);
 
-         $allData = ['tax'=>"$tax %",'total'=>round($totalValue)];
+         $allData = ['tax'=>"$tax ",'total'=>round($totalValue)];
 
 
 

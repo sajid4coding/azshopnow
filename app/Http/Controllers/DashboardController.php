@@ -107,7 +107,6 @@ class DashboardController extends Controller
     function OrderDetails($id){
         return view('dashboard.orders.orderDetails',[
          'invoice' => Invoice::find($id),
-         'invoice' => Invoice::find($id),
          'orders' => Order_Detail::where('invoice_id',$id)->get(),
 
         ]);
@@ -116,5 +115,23 @@ class DashboardController extends Controller
          Invoice::find($id)->delete();
          Order_Detail::where('invoice_id',$id)->delete();
          return back()->with('delete_success','Successfully Deleted Invoice History');
+    }
+    function TaxEarning(){
+
+        return view('dashboard.earnigns.tax_calculate',[
+         'invoices' => Invoice::all(),
+
+        ]);
+    }
+    function TotalEarning(){
+        return view('dashboard.earnigns.total_earning',[
+         'invoices' => Invoice::all(),
+        ]);
+    }
+    function SubscriptionEarning(){
+        return view('dashboard.earnigns.subscription');
+    }
+    function CommissionEarning(){
+        return view('dashboard.earnigns.commission');
     }
 }

@@ -281,6 +281,51 @@
 										</div>
 									</div>
 								</div>
+                                <div data-kt-menu-trigger="click" class="menu-item  menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm001.svg-->
+											<span class="svg-icon svg-icon-2">
+                                                <i class="fas fa-money-bill-alt"></i>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Earnings</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion "  style="display: none; overflow: hidden;">
+										<div  class="menu-item menu-accordion">
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('total.earning') }}"><span class="menu-title">Total Earnings </span></a>
+											</span>
+                                            <span class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+												</span>
+                                            <a href="{{ route('tax.earning') }}">
+											   <span class="menu-title">Tax Calcutate</span>
+                                            </a>
+											</span>
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('subscription.earning') }}"><span class="menu-title">Subscription Earning</span></a>
+											</span>
+
+
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('commission.earning') }}"><span class="menu-title"> Commission Earning</span></a>
+											</span>
+										</div>
+									</div>
+								</div>
 								<div class="menu-item @if ($current_page == 'shipping.index') here show @endif menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">

@@ -119,8 +119,8 @@
                                             <th>Tax (%)</th>
                                             <td>
                                             <span class="woocommerce-Price-currencySymbol"></span>
-                                                <span id="spanTaxValue"> 00.00% </span>
-                                                <input   readonly id="stateTax" placeholder="00.00%" type="text" hidden name="taxvalue" value="" />
+                                                <span id="spanTaxValue"> 00.00 </span>
+                                                <input   readonly id="stateTax" placeholder="00.00" type="text" hidden name="tax" value="" />
                                             </td>
                                         </tr>
                                         <tr class="order-total">
@@ -138,7 +138,7 @@
                                                     @else
                                                         <span id="spanTotalValue"> {{ session('subtotal') + session('shipping_cost') }}</span>
 
-                                                        <input id="totalValue" type="text" hidden name="total_price" value="{{ session('subtotal') + session('shipping_cost') + session('tax')}}" />
+                                                        <input id="totalValue" type="text" hidden name="total_price" value="{{ session('subtotal') + session('shipping_cost')}}" />
                                                         @php
                                                             session(['total' => session('subtotal') + session('shipping_cost') ])
                                                         @endphp
@@ -239,7 +239,7 @@ const stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', {
                     $('#stateTax').val(value.tax)
                     $('#totalValue').val(value.total)
                     $('#spanTotalValue').text(value.total)
-                    $('#spanTaxValue').text(value.tax,'%')
+                    $('#spanTaxValue').text(value.tax)
 
                 }
             });
