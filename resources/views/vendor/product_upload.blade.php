@@ -1,3 +1,4 @@
+
 @extends('layouts.vendor_master')
 
 <style>

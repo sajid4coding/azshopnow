@@ -8,6 +8,9 @@ use App\Models\ProductReview;
 use App\Models\User;
 use App\Models\Wishlist;
 
+function getWishListProduct(){
+     return  Wishlist::where('user_id',auth()->id())->get();
+}
  function cart()
  {
     return Cart::where('user_id',auth()->id())->count();

@@ -1,6 +1,7 @@
 @extends('layouts.frontendmaster')
 @section('header_css')
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
+@yield('vendor_css')
 
 @endsection
 @section('content')
@@ -166,7 +167,11 @@
 <!-- main-area-end -->
 @endsection
 @section('footer_script')
-
+{{-- <script type="text/javascript">
+    $(document).ready(function() {
+      $('.summernote').summernote();
+    });
+</script> --}}
 <script>
 
     $(document).ready(function(){

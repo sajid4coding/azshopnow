@@ -272,7 +272,7 @@
                                         </div>
                                     </div>
 								</div>
-								{{-- <div class="menu-item @if ($current_page == 'review') here show @endif menu-accordion">
+                                <div class="menu-item @if ($current_page == 'packaging') here show @endif menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -286,9 +286,9 @@
 											</span>
 											<!--end::Svg Icon-->
 										</span>
-										<a href="{{ route('review') }}" class="menu-title">Reviews</a>
+										<a href="{{ route('packaging.index') }}" class="menu-title"> Product Packaging</a>
 									</span>
-								</div> --}}
+								</div>
 								<div class="menu-item">
 									<div class="menu-content pt-8 pb-2">
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Apps</span>

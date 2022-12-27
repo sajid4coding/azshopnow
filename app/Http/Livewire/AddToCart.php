@@ -26,6 +26,7 @@ class AddToCart extends Component
     public $justColor;
     public $justQuantity;
     public $wishlist;
+    public $wishlistIcon = false;
 
     public function decrement_quantity()
     {
@@ -228,12 +229,14 @@ class AddToCart extends Component
     public function wishlist($id){
         $inventory = ModelInventory::find($id);
 
+
         if(Wishlist::where([
             'user_id' => auth()->id(),
             'vendor_id' => $inventory->vendor_id,
             'product_id' => $inventory->product_id,
             'inventory_id' => $inventory->id,
         ])->exists()){
+            $this->wishlistIcon = false;
             Wishlist::where([
                 'user_id' => auth()->id(),
                 'vendor_id' => $inventory->vendor_id,
@@ -248,6 +251,7 @@ class AddToCart extends Component
                 'inventory_id' => $inventory->id,
                 'created_at' => now()
             ]);
+            $this->wishlistIcon = true;
         }
     }
 }
