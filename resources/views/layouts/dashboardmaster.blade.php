@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css">
+        <link rel="stylesheet" href="{{ asset('dashboard_assets') }}/css/submits.css">
 		<!--end::Fonts-->
 		<!--begin::Page Vendor Stylesheets(used by this page)-->
 		<link href="{{ asset('dashboard_assets') }}/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
@@ -8570,6 +8571,7 @@
 		<script src="{{ asset('dashboard_assets') }}/js/custom/apps/chat/chat.js"></script>
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/upgrade-plan.js"></script>
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/users-search.js"></script>
+        <script src="{{ asset('dashboard_assets') }}/js/submits.js"></script>
 		<!--end::Page Custom Javascript-->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @yield('footer_script')

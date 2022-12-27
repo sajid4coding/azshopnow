@@ -38,7 +38,7 @@
     <div id="kt_app_content" class="app-content flex-column-fluid" data-select2-id="select2-data-kt_app_content">
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-xxl" data-select2-id="select2-data-kt_app_content_container">
-            <form action="{{ route('packaging.update',$packaging->id) }}" method="POST" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
+            <form action="{{ route('packaging.update',$packaging->id) }}" method="POST" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework form-prevent-multiple-submits">
                 @csrf
                 @method('PATCH')
                 <!--begin::Main column-->
@@ -80,7 +80,7 @@
                     <!--end::General options-->
                     <div class="d-flex justify-content-end">
                         <!--begin::Button-->
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary button-prevent-multiple-submits">
                             <span class="indicator-label">Update</span>
                             <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

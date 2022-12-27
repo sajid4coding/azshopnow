@@ -27,6 +27,8 @@ Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
 Route::get('wishlist',[FrontEndController::class,'wishlist'])->name('wishlist');
 Route::get('delete-wishlist/{id}',[FrontEndController::class,'wishlist_delete_row'])->name('wishlist.delete');
 Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
+Route::post('newsletter',[FrontEndController::class,'newsletter'])->name('newsletter');
+
 
 Route::post('/getStateCode',[FrontEndController::class,'stateTex']);
 Route::post('checkout_post',[FrontEndController::class,'checkout_post'])->name('checkout_post');
@@ -72,6 +74,7 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
+
 
     //SubCategoryController Resource
     Route::resource('subcategory', SubCategoryController::class);

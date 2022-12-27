@@ -11,6 +11,7 @@ use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Mail;
 
+
 class FrontEndController extends Controller
 {
 
@@ -28,9 +29,18 @@ class FrontEndController extends Controller
 
         return view('frontend.single.product', compact('single_product','recommendedProducts', 'productGalleries','product_reviews','inventory','product_id'));
     }
+    function newsletter(Request $request){
+         $request -> validate([
+            'email' => 'required|email'
+         ]);
+
+    }
+
     function contact_us_index(){
         return view('frontend.contact_us');
     }
+
+
     function newArrivals(){
         $products=Product::where('status','published')->where('vendorProductStatus','published')->latest()->get();
         $banners = Banner::all()->first();

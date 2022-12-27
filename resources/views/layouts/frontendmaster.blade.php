@@ -731,8 +731,12 @@
                                 <p>Get 10% off new collection special Investigationes demonstraverunt</p>
                             </div>
                             <div class="newsletter-form">
-                                <form action="#">
-                                    <input type="text" placeholder="Your email here...">
+                                @if($errors->any('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                                @endif
+                                <form action="{{ route('newsletter') }}" method="post">
+                                    @csrf
+                                    <input type="text" placeholder="Your email here..." name="email">
                                     <button type="submit">Subscribe</button>
                                 </form>
                             </div>
