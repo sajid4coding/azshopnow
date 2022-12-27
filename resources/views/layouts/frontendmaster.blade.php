@@ -25,6 +25,7 @@
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-lite.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css">
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
         @livewireStyles
         @yield('header_css')
     </head>
@@ -861,8 +862,8 @@
     <script src="{{ asset('frontend_assets') }}/js/custom.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/summernote-lite.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs4.js"></script> --}}
-    {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs5.js"></script> --}}
+    {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs4.js"></script>
+    <script src="{{ asset('frontend_assets') }}/js/summernote-bs5.js"></script> --}}
 
 
 {{-- charts js start --}}

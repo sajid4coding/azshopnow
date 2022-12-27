@@ -217,7 +217,7 @@
                                 {{-- LIVEWIRE PART START --}}
 
                                 @livewire('add-to-cart',['productID'=>$single_product->id])
-                                
+
                                 {{-- LIVEWIRE PART END --}}
 
 
@@ -1128,7 +1128,7 @@
 
 <script>
     $(document).ready(function(){
-        $('#single_product_description').innerHTML({{ $single_product->description }})
+        $('#single_product_description').innerHTML({ $single_product->description }})
     })
 </script>
 

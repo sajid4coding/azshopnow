@@ -53,6 +53,17 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
     Route::get('review',[DashboardController::class, 'reviews'])->middleware(['auth', 'verified'])->name('review');
     Route::get('view-review/{id}',[DashboardController::class, 'view_reviews'])->middleware(['auth', 'verified'])->name('view.review');
+    Route::get('admin/order/details/{id}',[DashboardController::class,'OrderDetails'])->name('order.details');
+    Route::get('admin/all/order',[DashboardController::class,'AllOrder'])->name('all.order');
+    Route::get('admin/delivered/order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
+    Route::get('admin/pending/order',[DashboardController::class,'PendingOrder'])->name('pending.order');
+    Route::get('admin/processing/order',[DashboardController::class,'ProcessingOrder'])->name('processing.order');
+    Route::get('admin/canceled/order',[DashboardController::class,'CanceledOrder'])->name('canceled.order');
+    Route::get('admin/order/delete/{id}',[DashboardController::class,'OrderDelete'])->name('order.delete');
+    Route::get('admin/tax/earning',[DashboardController::class,'TaxEarning'])->name('tax.earning');
+    Route::get('admin/total/earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
+    Route::get('admin/subscription/earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
+    Route::get('admin/commission/earning',[DashboardController::class,'CommissionEarning'])->name('commission.earning');
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
