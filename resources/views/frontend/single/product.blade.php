@@ -253,7 +253,7 @@
                                     @foreach ($recommendedProducts as $product)
                                         <div class="recommended-item mb-25">
                                             <div class="thumb">
-                                                <a href="{{route('single.product', $product->id )}}"><img src="{{ asset('uploads/product_photo') }}/{{$product->thumbnail}}" alt="img"></a>
+                                                <a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}"><img src="{{ asset('uploads/product_photo') }}/{{$product->thumbnail}}" alt="img"></a>
                                             </div>
                                             <div class="content">
                                                 <h5 class="title">{{Str::limit($product->product_title,10)}}</h5>
@@ -399,11 +399,11 @@
                                                                 @foreach ($vendorProducts as $vendorProduct)
                                                                     <li class="vendor-product">
                                                                         <div class="thumb">
-                                                                            <a href="{{route('single.product', $vendorProduct->id )}}"><img
+                                                                            <a href="{{route('single.product', ['id'=>$vendorProduct->id,'title'=>Str::slug($vendorProduct->product_title)])}}"><img
                                                                                     src="{{ asset('uploads/product_photo') }}/{{$vendorProduct->thumbnail}}" alt=""></a>
                                                                         </div>
                                                                         <div class="content">
-                                                                            <h2 class="title"><a href="{{route('single.product', $vendorProduct->id )}}">{{$vendorProduct->product_title}}</a></h2>
+                                                                            <h2 class="title"><a href="{{route('single.product', ['id'=>$vendorProduct->id,'title'=>Str::slug($vendorProduct->product_title)] )}}">{{$vendorProduct->product_title}}</a></h2>
                                                                             <span>15 (Sale)</span>
                                                                         </div>
                                                                     </li>

@@ -96,6 +96,14 @@
                 <div class="p-5">
                 <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                 <hr class="my-4 bg-success">
+                <div class="bg-dark text-white p-3 mb-2 py-3 mb-4">
+                    @foreach ($packagings as $packaging)
+                        <div class="form-check mb-2">
+                            <input id="packaging{{$packaging->id}}" type="radio" wire:click="packagingSelect({{$packaging->id}})" class="form-check-input" name="packaging" value="packagingCost"  />
+                            <label for="packaging{{$packaging->id}}" class="form-check-label text-white">{{$packaging->packaging_name}} - ${{$packaging->cost}}</label>
+                        </div>
+                    @endforeach
+                </div>
 
                 <div class="d-flex justify-content-between mb-2">
                     <h5 class="text-uppercase">Subtotal</h5>
@@ -138,15 +146,21 @@
                     <h5 class="text-uppercase text-success">Delivery Charge (+)</h5>
                     <h5>${{ session('shipping_cost') ?? 0 }}</h5>
                 </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <h5 class="text-uppercase text-success">Packaging Charge (+)</h5>
+                    <h5>${{ session('packagingCost')->cost ?? 0 }}</h5>
+                </div>
                 <div class="d-flex justify-content-between mb-4">
                     <h5 class="text-uppercase">Order Total</h5>
                     <h5>$@if (session('coupon_info'))
-                        {{ session('after_discount') + session('shipping_cost') }}
+                        {{ session('after_discount') + session('shipping_cost')+ session('packagingCost')->cost }}
                         @else
-                            @if (session('shipping_cost') != 0)
+                            @if (session('shipping_cost') != 0 && session('packagingCost'))
                                 {{-- {{ session('after_discount') + session('shipping_charge') }} --}}
-                                {{ session('subtotal') + session('shipping_cost') }}
-                            @else
+                                {{ session('subtotal') + session('shipping_cost') + session('packagingCost')->cost}}
+                            @elseif(session('packagingCost'))
+                                {{ round(session('subtotal')+ session('packagingCost')->cost) }}
+                                @else
                                 {{ round(session('subtotal')) }}
                             @endif
                         @endif
@@ -181,10 +195,12 @@
                 <div class="d-flex justify-content-between mb-5">
                     <h5 class="text-uppercase">Total price</h5>
                     <h5>$@if(session('coupon_info'))
-                            {{ session('after_discount') + session('shipping_cost') }}
+                            {{ session('after_discount') + session('shipping_cost') + session('packagingCost')->cost }}
                         @else
-                            @if (session('shipping_cost') != 0)
-                                {{ session('subtotal') + session('shipping_cost') }}
+                            @if (session('shipping_cost') != 0 )
+                                {{ session('subtotal') + session('shipping_cost') + session('packagingCost')->cost }}
+                            @elseif (session('packagingCost'))
+                                {{ round(session('subtotal')+ session('packagingCost')->cost) }}
                             @else
                                 {{ round(session('subtotal')) }}
                             @endif

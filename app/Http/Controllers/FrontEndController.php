@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 class FrontEndController extends Controller
 {
 
-    function single_product ($id){
+    function single_product ($id,$title){
         $inventory=Inventory::where('product_id',$id)->first();
         $productGalleries= ProductGallery::where('product_id',$id)->get();
         $product_reviews = ProductReview::where('product_id', $id)->get();
