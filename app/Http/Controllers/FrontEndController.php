@@ -42,6 +42,7 @@ class FrontEndController extends Controller
             'subject' => 'required',
             'customer_message' => 'required'
         ]);
+
         ProductReport::insert([
             'user_id' => auth()->id(),
             'product_id' => $id,

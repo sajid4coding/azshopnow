@@ -88,15 +88,16 @@
                                         @if (session('coupon_info'))
                                             <tr class="cart-subtotal">
                                                 <th>Discount (-)</th>
-                                                <td><span class="text-danger">&dollar;
-                                                    @if (session('coupon_info')->coupon_type == 'percentage')
-                                                        {{ session('coupon_info')->coupon_amount }}% <small>({{ session('coupon_info')->coupon_code }})</small>
-                                                        <input type="hidden" name="coupon_discount" value="{{ session('coupon_info')->coupon_amount }}%" />
-                                                    @else
-                                                        {{ session('coupon_info')->coupon_amount }} <small>({{ session('coupon_info')->coupon_code }})</small>
-                                                        <input type="hidden" name="coupon_discount" value="{{ session('coupon_info')->coupon_amount }}" />
-                                                    @endif
-                                                </span>
+                                                <td>
+                                                    <span class="text-danger">&dollar;
+                                                        @if (session('coupon_info')->coupon_type == 'percentage')
+                                                            {{ session('coupon_info')->coupon_amount }}% <small>({{ session('coupon_info')->coupon_code }})</small>
+                                                            <input type="hidden" name="coupon_discount" value="{{ session('coupon_info')->coupon_amount }}%" />
+                                                        @else
+                                                            {{ session('coupon_info')->coupon_amount }} <small>({{ session('coupon_info')->coupon_code }})</small>
+                                                            <input type="hidden" name="coupon_discount" value="{{ session('coupon_info')->coupon_amount }}" />
+                                                        @endif
+                                                    </span>
                                                 </td>
                                             </tr>
                                             <tr class="coupon_discount">

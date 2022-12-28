@@ -27,6 +27,29 @@
         </div>
     </section>
     <!-- breadcrumb-area-end -->
+
+    @if (wishlist() == 0)
+    <!-- empty_wishlist_section - start
+    ================================================== -->
+    <section class="empty_cart_section section_space">
+        <div class="container m-5">
+            <div class="empty_cart_content text-center">
+                <span class="cart_icon display-4 text-primary">
+                    <i class="fa-solid fa-heart"></i>
+                </span>
+                <h3 class="text-primary">This wishlist is empty.</h3>
+                <p>
+                    You don't have any products in the wishlist yet. <br>
+                    You will find a lot of interesting products on our "Shop" page.
+                </p>
+                <a class="btn btn_secondary" href="{{ route('shop.page') }}"><i class="fa fa-chevron-left"></i> Continue shopping </a>
+            </div>
+        </div>
+    </section>
+    <!-- empty_wishlist_section - end
+    ================================================== -->
+    @else
+
     <!-- cart_section - start
     ================================================== -->
     <section class="cart_section section_space py-5">
@@ -119,4 +142,5 @@
     </section>
     <!-- cart_section - end
     ================================================== -->
+    @endif
 @endsection
