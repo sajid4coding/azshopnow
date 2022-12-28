@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Mail;
 class FrontEndController extends Controller
 {
 
-    function single_product ($id){
+    function single_product ($id,$title){
         $inventory=Inventory::where('product_id',$id)->first();
         $productGalleries= ProductGallery::where('product_id',$id)->get();
         $product_reviews = ProductReview::where('product_id', $id)->get();
@@ -76,7 +76,7 @@ class FrontEndController extends Controller
         return view('frontend.categoryProduct', compact('products','categoryName'));
     }
 
-    function vendorProduct($id){
+    function vendorProduct($id, $shopname){
         $shopName=User::findOrFail($id);
         $products=Product::where('vendor_id',$id)->where('status','published')->where('vendorProductStatus','published')->latest()->get();
         return view('frontend.vendorProduct', compact('products','shopName'));

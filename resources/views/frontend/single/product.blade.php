@@ -253,7 +253,7 @@
                                     @foreach ($recommendedProducts as $product)
                                         <div class="recommended-item mb-25">
                                             <div class="thumb">
-                                                <a href="{{route('single.product', $product->id )}}"><img src="{{ asset('uploads/product_photo') }}/{{$product->thumbnail}}" alt="img"></a>
+                                                <a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}"><img src="{{ asset('uploads/product_photo') }}/{{$product->thumbnail}}" alt="img"></a>
                                             </div>
                                             <div class="content">
                                                 <h5 class="title">{{Str::limit($product->product_title,10)}}</h5>
@@ -268,7 +268,7 @@
                                                     </h4>
                                                 @endif
                                                 <ul>
-                                                    <li>by <a href="{{route('vendor.product',$single_product->vendor_id)}}">{{$product->relationwithuser->shop_name}}</a></li>
+                                                    <li>by <a href="{{route('vendor.product',['id'=>$single_product->vendor_id,'shopname'=>Str::slug($single_product->relationwithuser->shop_name)])}}">{{$single_product->relationwithuser->shop_name}}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -352,7 +352,8 @@
                                                                     <i class="fa-solid fa-sliders"></i>
                                                                 </div>
                                                                 <div class="content">
-                                                                    <h2 class="title"><a href="{{route('vendor.product',$single_product->vendor_id)}}">{{$single_product->relationwithuser->shop_name}}</a>
+                                                                   <h2>
+                                                                    <a href="{{route('vendor.product',['id'=>$single_product->vendor_id,'shopname'=>Str::slug($single_product->relationwithuser->shop_name)])}}">{{$single_product->relationwithuser->shop_name}}</a>
                                                                     </h2>
                                                                     <ul>
                                                                         @php
@@ -398,11 +399,11 @@
                                                                 @foreach ($vendorProducts as $vendorProduct)
                                                                     <li class="vendor-product">
                                                                         <div class="thumb">
-                                                                            <a href="{{route('single.product', $vendorProduct->id )}}"><img
+                                                                            <a href="{{route('single.product', ['id'=>$vendorProduct->id,'title'=>Str::slug($vendorProduct->product_title)])}}"><img
                                                                                     src="{{ asset('uploads/product_photo') }}/{{$vendorProduct->thumbnail}}" alt=""></a>
                                                                         </div>
                                                                         <div class="content">
-                                                                            <h2 class="title"><a href="{{route('single.product', $vendorProduct->id )}}">{{$vendorProduct->product_title}}</a></h2>
+                                                                            <h2 class="title"><a href="{{route('single.product', ['id'=>$vendorProduct->id,'title'=>Str::slug($vendorProduct->product_title)] )}}">{{$vendorProduct->product_title}}</a></h2>
                                                                             <span>15 (Sale)</span>
                                                                         </div>
                                                                     </li>
@@ -990,10 +991,10 @@
                                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                         <div class="product-desc-content">
                                             <p id="single_product_description">
-                                                {!! $single_product->description !!}
-                                                {{-- @php
-                                                    echo strip_tags( $single_product->description )
-                                                @endphp --}}
+                                                {{-- {!! $single_product->description !!} --}}
+                                                @php
+                                                    echo ( $single_product->description )
+                                                @endphp
                                             </p>
                                         </div>
                                     </div>
@@ -1088,7 +1089,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="vendor-profile text-end">
-                                <a href="{{route('vendor.product',$single_product->vendor_id)}}">Go Vendor Profile<i class="fa-regular fa-circle-right"></i></a>
+                                <a href="{{route('vendor.product',['id'=>$single_product->vendor_id,'shopname'=>Str::slug($single_product->relationwithuser->shop_name)])}}">{{$single_product->relationwithuser->shop_name}}</a>
                             </div>
                         </div>
                     </div>

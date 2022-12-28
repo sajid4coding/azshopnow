@@ -56,8 +56,8 @@ class ProductController extends Controller
             'shop_name'=>auth()->user()->shop_name,
             'sku'=>$request->sku,
             'tag'=>$request->product_tag,
-            'short_description'=>htmlspecialchars($request->short_description),
-            'description'=>htmlspecialchars($request->description),
+            'short_description'=>$request->short_description,
+            'description'=>$request->description,
         ]);
 
         if($request->hasFile('thumbnail')){
