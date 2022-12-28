@@ -7,7 +7,7 @@
         </div>
         <div class="shop-content">
             <ul class="tag">
-                <li>Sold by <a href="{{route('vendor.product',$product->vendor_id)}}">{{shopName($product->vendor_id)->shop_name}}</a></li>
+                <li>Sold by <a href="{{route('vendor.product',['id'=>$vendor->id ,'shopname'=>Str::slug($vendor->shop_name)])}}">{{shopName($product->vendor_id)->shop_name}}</a></li>
             </ul>
             <h2 class="title"><a href="{{route('single.product', $product->id )}}">{{$product->product_title}}</a></h2>
             {{-- <div class="rating">

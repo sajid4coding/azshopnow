@@ -53,7 +53,7 @@ class FrontEndController extends Controller
         return view('frontend.categoryProduct', compact('products','categoryName'));
     }
 
-    function vendorProduct($id){
+    function vendorProduct($id, $shopname){
         $shopName=User::findOrFail($id);
         $products=Product::where('vendor_id',$id)->where('status','published')->where('vendorProductStatus','published')->latest()->get();
         return view('frontend.vendorProduct', compact('products','shopName'));
