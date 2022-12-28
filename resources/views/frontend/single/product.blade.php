@@ -253,7 +253,7 @@
                                     @foreach ($recommendedProducts as $product)
                                         <div class="recommended-item mb-25">
                                             <div class="thumb">
-                                                <a href="{{route('single.product', $product->id )}}"><img src="{{ asset('uploads/product_photo') }}/{{$product->thumbnail}}" alt="img"></a>
+                                                <a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}"><img src="{{ asset('uploads/product_photo') }}/{{$product->thumbnail}}" alt="img"></a>
                                             </div>
                                             <div class="content">
                                                 <h5 class="title">{{Str::limit($product->product_title,10)}}</h5>
@@ -268,7 +268,7 @@
                                                     </h4>
                                                 @endif
                                                 <ul>
-                                                    <li>by <a href="{{route('vendor.product',$single_product->vendor_id)}}">{{$product->relationwithuser->shop_name}}</a></li>
+                                                    <li>by <a href="{{route('vendor.product',['id'=>$single_product->vendor_id,'shopname'=>Str::slug($single_product->relationwithuser->shop_name)])}}">{{$single_product->relationwithuser->shop_name}}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -352,7 +352,8 @@
                                                                     <i class="fa-solid fa-sliders"></i>
                                                                 </div>
                                                                 <div class="content">
-                                                                    <h2 class="title"><a href="{{route('vendor.product',$single_product->vendor_id)}}">{{$single_product->relationwithuser->shop_name}}</a>
+                                                                   <h2>
+                                                                    <a href="{{route('vendor.product',['id'=>$single_product->vendor_id,'shopname'=>Str::slug($single_product->relationwithuser->shop_name)])}}">{{$single_product->relationwithuser->shop_name}}</a>
                                                                     </h2>
                                                                     <ul>
                                                                         @php
@@ -398,11 +399,11 @@
                                                                 @foreach ($vendorProducts as $vendorProduct)
                                                                     <li class="vendor-product">
                                                                         <div class="thumb">
-                                                                            <a href="{{route('single.product', $vendorProduct->id )}}"><img
+                                                                            <a href="{{route('single.product', ['id'=>$vendorProduct->id,'title'=>Str::slug($vendorProduct->product_title)])}}"><img
                                                                                     src="{{ asset('uploads/product_photo') }}/{{$vendorProduct->thumbnail}}" alt=""></a>
                                                                         </div>
                                                                         <div class="content">
-                                                                            <h2 class="title"><a href="{{route('single.product', $vendorProduct->id )}}">{{$vendorProduct->product_title}}</a></h2>
+                                                                            <h2 class="title"><a href="{{route('single.product', ['id'=>$vendorProduct->id,'title'=>Str::slug($vendorProduct->product_title)] )}}">{{$vendorProduct->product_title}}</a></h2>
                                                                             <span>15 (Sale)</span>
                                                                         </div>
                                                                     </li>
@@ -926,18 +927,74 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="product-report">
-                                        <a href="http://127.0.0.1:8000/contact-us">Report Item</a>
+                                    {{-- <div class="product-report">
+                                        <a href="#">Report Item</a>
+                                    </div> --}}
+                                    <!-- Button trigger modal -->
+                                    <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Report Item
+                                    </a>
+
+                                    <!-- Modal Start-->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Report Item</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('report.product', $single_product->id) }}" method="POST">
+                                            @csrf
+                                                <div class="modal-body">
+                                                    @foreach ($errors->all() as $error)
+                                                        <li class="text-danger">
+                                                            {{ $error }}
+                                                        </li>
+                                                    @endforeach
+                                                    <div class="contact-form">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <input type="text" name="customer_name" placeholder="Your Name *">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" name="customer_email" placeholder="Your Email *">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="phone" name="phone_number" placeholder="Your Phone">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" name="subject" placeholder="Subject">
+                                                                </div>
+                                                            </div>
+                                                            <textarea name="customer_message" placeholder="Your Message"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                                    @auth
+                                                        <button type="submit" class="btn btn-primary">Report Item</button>
+                                                    @endauth
+
+                                                    @guest()
+                                                        <button id="not_logged_in" type="button" class="btn btn-primary">Report Item</button>
+                                                    @endguest
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                        </div>
                                     </div>
+                                    <!-- Modal End-->
                                 </div>
                                 <div class="tab-content" id="productTabContent">
                                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                         <div class="product-desc-content">
                                             <p id="single_product_description">
-                                                {!! $single_product->description !!}
-                                                {{-- @php
-                                                    echo strip_tags( $single_product->description )
-                                                @endphp --}}
+                                                {{-- {!! $single_product->description !!} --}}
+                                                @php
+                                                    echo ( $single_product->description )
+                                                @endphp
                                             </p>
                                         </div>
                                     </div>
@@ -1032,7 +1089,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="vendor-profile text-end">
-                                <a href="{{route('vendor.product',$single_product->vendor_id)}}">Go Vendor Profile<i class="fa-regular fa-circle-right"></i></a>
+                                <a href="{{route('vendor.product',['id'=>$single_product->vendor_id,'shopname'=>Str::slug($single_product->relationwithuser->shop_name)])}}">{{$single_product->relationwithuser->shop_name}}</a>
                             </div>
                         </div>
                     </div>
@@ -1128,7 +1185,7 @@
 
 <script>
     $(document).ready(function(){
-        $('#single_product_description').innerHTML({ $single_product->description }})
+        $('#single_product_description').innerHTML({{  $single_product->description  }})
     })
 </script>
 
@@ -1136,5 +1193,38 @@
 
 @section('footer_script')
 
+    <script>
+        @if (session('report_success'))
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully'
+            })
+        @endif
+    </script>
+
+    <script>
+        $(document).ready(function(){
+        $('#not_logged_in').click(function(){
+            Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You have to need Login first!',
+            footer: '<a href="{{route('customer.login')}}">Click here to login</a>'
+            });
+            });
+        });
+    </script>
 @endsection
 

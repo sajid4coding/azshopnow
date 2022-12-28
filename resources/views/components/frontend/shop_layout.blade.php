@@ -104,8 +104,9 @@
                                         @endphp
                                         <ul>
                                             @foreach ($vendors as $vendor)
-                                                <li><a href="{{route('vendor.product',['id'=>$vendor->id])}}">{{$vendor->shop_name}} <i class="fa-solid fa-angles-right"></i></a></li>
-                                                {{-- <li><a href="/vendor/all/product?id={{$vendor->id}}&shopname={{$vendor->shop_name}}">{{$vendor->shop_name}} <i class="fa-solid fa-angles-right"></i></a></li> --}}
+                                                <li>
+                                                    <a href="{{route('vendor.product',['id'=>$vendor->id ,'shopname'=>Str::slug($vendor->shop_name)])}}">{{$vendor->shop_name}} <i class="fa-solid fa-angles-right"></i></a>
+                                                </li>
                                             @endforeach
                                         </ul>
                                     </div>
