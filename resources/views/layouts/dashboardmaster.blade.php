@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css">
+        <link rel="stylesheet" href="{{ asset('dashboard_assets') }}/css/submits.css">
 		<!--end::Fonts-->
 		<!--begin::Page Vendor Stylesheets(used by this page)-->
 		<link href="{{ asset('dashboard_assets') }}/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
@@ -186,11 +187,8 @@
 
 										</div>
 									</div>
-
-
 								</div>
-
-								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                         <span class="menu-link">
                                             <span class="menu-icon">
@@ -199,29 +197,29 @@
                                             <span class="menu-title">Product Mangement</span>
                                             <span class="menu-arrow"></span>
                                         </span>
-                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'product_lists' || $current_page == 'category' || $current_page == 'subcategory') here show @endif">
+                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'product_lists' || $current_page == 'pending-products' || $current_page == 'banned-products') here show @endif">
                                             <div class="menu-item @if ($current_page == 'product_lists') here show @endif">
                                                 <a class="menu-link" href="{{ route('product_lists') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Product List</span>
+                                                    <span class="menu-title">Approved Products</span>
                                                 </a>
                                             </div>
-                                            <div class="menu-item @if ($current_page == 'category') here show @endif">
-                                                <a class="menu-link" href="{{ route('category.index') }}">
+                                            <div class="menu-item @if ($current_page == 'pending-products') here show @endif">
+                                                <a class="menu-link" href="{{ route('pending.products') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Category</span>
+                                                    <span class="menu-title">Pendding Products</span>
                                                 </a>
                                             </div>
-                                            <div class="menu-item @if ($current_page == 'subcategory') here show @endif">
-                                                <a class="menu-link" href="{{ route('subcategory.index') }}">
+                                            <div class="menu-item @if ($current_page == 'banned-products') here show @endif">
+                                                <a class="menu-link" href="{{ route('banned.products') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Sub Category</span>
+                                                    <span class="menu-title">Banned Products</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -244,41 +242,47 @@
 										<span class="menu-title">Order</span>
 										<span class="menu-arrow"></span>
 									</span>
-									<div class="menu-sub menu-sub-accordion "  style="display: none; overflow: hidden;">
-										<div  class="menu-item menu-accordion">
-											<span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<a href="{{ route('all.order') }}"><span class="menu-title">All Orders</span></a>
-											</span>
-                                            <span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<a href="{{ route('processing.order') }}"><span class="menu-title">Processing Orders</span></a>
-											</span>
-
-											<span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<a href="{{ route('pending.order') }}"><span class="menu-title">Pending Orders</span></a>
-											</span>
-                                            <span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<a href="{{ route('delivered.order') }}"><span class="menu-title">Delivered Orders</span></a>
-											</span>
-                                            <span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<a href="{{ route('canceled.order') }}"><span class="menu-title">Canceled Orders</span></a>
-											</span>
-
-										</div>
+									<div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'order' || $current_page == 'processing-order' || $current_page == 'pending-order' || $current_page == 'delivered-order' || $current_page == 'canceled-order') here show @endif">
+                                        <div class="menu-item @if ($current_page == 'order') here show @endif">
+                                            <a class="menu-link" href="{{ route('all.order') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">All Orders</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item @if ($current_page == 'processing-order') here show @endif">
+                                            <a class="menu-link" href="{{ route('processing.order') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Processing Orders</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item @if ($current_page == 'pending-order') here show @endif">
+                                            <a class="menu-link" href="{{ route('pending.order') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Pending Orders</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item @if ($current_page == 'delivered-order') here show @endif">
+                                            <a class="menu-link" href="{{ route('delivered.order') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Delivered Orders</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item @if ($current_page == 'canceled-order') here show @endif">
+                                            <a class="menu-link" href="{{ route('canceled.order') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Canceled Orders</span>
+                                            </a>
+                                        </div>
 									</div>
 								</div>
                                 <div data-kt-menu-trigger="click" class="menu-item  menu-accordion">
@@ -343,7 +347,36 @@
 										<a href="{{ route('shipping.index') }}" class="menu-title">Shipping</a>
 									</span>
 								</div>
-								<div class="menu-item @if ($current_page == 'review') here show @endif menu-accordion">
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <i class="fas fa-store"></i>
+                                            </span>
+                                            <span class="menu-title">Product Discussion</span>
+                                            <span class="menu-arrow"></span>
+                                        </span>
+                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'review' || $current_page == 'reports') here show @endif">
+                                            <div class="menu-item @if ($current_page == 'review') here show @endif">
+                                                <a class="menu-link" href="{{ route('review') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Reviews</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item @if ($current_page == 'reports') here show @endif">
+                                                <a class="menu-link" href="{{ route('report') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Reports</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+								</div>
+                                <div class="menu-item @if ($current_page == 'packaging') here show @endif menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -357,7 +390,7 @@
 											</span>
 											<!--end::Svg Icon-->
 										</span>
-										<a href="{{ route('review') }}" class="menu-title">Reviews</a>
+										<a href="{{ route('packaging.index') }}" class="menu-title"> Product Packaging</a>
 									</span>
 								</div>
 								<div class="menu-item">
@@ -8523,6 +8556,7 @@
 		<script src="{{ asset('dashboard_assets') }}/js/custom/apps/chat/chat.js"></script>
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/upgrade-plan.js"></script>
 		<script src="{{ asset('dashboard_assets') }}/js/custom/utilities/modals/users-search.js"></script>
+        <script src="{{ asset('dashboard_assets') }}/js/submits.js"></script>
 		<!--end::Page Custom Javascript-->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @yield('footer_script')

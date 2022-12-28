@@ -74,7 +74,7 @@ class CategoryController extends Controller
             ]);
         }
 
-        return redirect('category');
+        return redirect('category')->with('success','New product category added successfully.');
     }
 
     /**
@@ -127,7 +127,7 @@ class CategoryController extends Controller
             'status' => $request->status,
             'icon'=> $request->icon
         ]);
-        return back();
+        return redirect('category')->with('success','New product category updated successfully.');
     }
 
     /**
@@ -139,6 +139,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::find($id)->delete();
-        return redirect('category');
+        return redirect('category')->with('success','New product category deleted successfully.');
     }
 }
