@@ -23,6 +23,10 @@ class DatabaseSeeder extends Seeder
             ColorSeeder::class,
             InventorySeeder::class,
             PackagingSeeder::class,
+            NewsletterSeeder::class,
+
+
+
         ]);
     }
 }

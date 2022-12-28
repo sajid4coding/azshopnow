@@ -4163,6 +4163,8 @@
         },
         {
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
             "name": "stripe/stripe-php",
             "version": "v10.3.0",
             "source": {
@@ -4382,6 +4384,7 @@
         {
 =======
 >>>>>>> 304ae55b22fb62157687a794a690de1b584b6285
+>>>>>>> 7c14c93364709a191927cf6310d13411f207fbe5
             "name": "stripe/stripe-php",
             "version": "v10.3.0",
             "source": {
