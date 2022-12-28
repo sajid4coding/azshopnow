@@ -117,6 +117,13 @@
                                             </td>
                                         </tr>
                                         <tr class="delivery">
+                                            <th>Packaging Charge (+)</th>
+                                            <td>
+                                            <span class="woocommerce-Price-currencySymbol">&dollar; {{ session('packagingCost')->cost }}</span>
+                                                <input type="hidden" name="delivery_change" value="{{ session('packagingCost')->cost }}" />
+                                            </td>
+                                        </tr>
+                                        <tr class="delivery">
                                             <th>Tax (%)</th>
                                             <td>
                                             <span class="woocommerce-Price-currencySymbol"></span>
@@ -130,18 +137,18 @@
                                                 <strong>
                                                     <span  class="text-success">&dollar;
                                                     @if (session('after_discount'))
-                                                      <span id="spanTotalValue">  {{ session('after_discount') + session('shipping_cost') }} </span>
+                                                      <span id="spanTotalValue">  {{ session('after_discount') + session('shipping_cost') +session('packagingCost')->cost}} </span>
 
-                                                        <input id="totalValue" type="text" hidden name="total_price" value="{{ session('after_discount') + session('shipping_cost') }}" />
+                                                        <input id="totalValue" type="text" hidden name="total_price" value="{{ session('after_discount') + session('shipping_cost')+session('packagingCost')->cost }}" />
                                                         @php
-                                                            session(['total' => session('after_discount') + session('shipping_cost')  ])
+                                                            session(['total' => session('after_discount') + session('shipping_cost') + session('packagingCost')->cost ])
                                                         @endphp
                                                     @else
-                                                        <span id="spanTotalValue"> {{ session('subtotal') + session('shipping_cost') }}</span>
+                                                        <span id="spanTotalValue"> {{ session('subtotal') + session('shipping_cost') +session('packagingCost')->cost}}</span>
 
-                                                        <input id="totalValue" type="text" hidden name="total_price" value="{{ session('subtotal') + session('shipping_cost')}}" />
+                                                        <input id="totalValue" type="text" hidden name="total_price" value="{{ session('subtotal') + session('shipping_cost') +session('packagingCost')->cost}}" />
                                                         @php
-                                                            session(['total' => session('subtotal') + session('shipping_cost') ])
+                                                            session(['total' => session('subtotal') + session('shipping_cost') +session('packagingCost')->cost])
                                                         @endphp
                                                     @endif
                                                 </span>
@@ -174,6 +181,7 @@
                                             <button type="submit" class="btn btn-primary">PLACE ORDER</button>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                     </div>

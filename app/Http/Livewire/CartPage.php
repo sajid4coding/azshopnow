@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\{Cart, Coupon, Inventory, Shipping};
+use App\Models\{Cart, Coupon, Inventory, Shipping, Packaging};
 use Livewire\Component;
 
 class CartPage extends Component
@@ -16,7 +16,8 @@ class CartPage extends Component
     {
         return view('livewire.cart-page',[
             'carts' => Cart::where('user_id', auth()->id())->get(),
-            'shippings' => Shipping::all()
+            'shippings' => Shipping::all(),
+            'packagings'=>Packaging::all(),
         ]);
     }
 
@@ -74,5 +75,9 @@ class CartPage extends Component
         }else{
             session(['shipping_cost' => Shipping::find($this->shipping_id)->cost]);
         }
+    }
+    public function packagingSelect($packagingId)
+    {
+        session(['packagingCost' => Packaging::find($packagingId)]);
     }
 }

@@ -18,8 +18,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 // FrontEndController
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::get('/categories/{slug}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
-Route::get('/vendor/all/product/{id}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
-// Route::get('/vendor/all/product/{id}/{shopname}', 'FrontEndController@vendorProduct')->name('vendor.product');
+Route::get('/vendor/all/product/{id}/{shopname}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
 Route::get('contact-us',[FrontEndController::class,'contact_us_index'])->name('contact.us');
 Route::post('contact-us-post',[FrontEndController::class,'contact_us_post'])->name('contact.us.post');
 Route::get('shop',[FrontEndController::class,'shop_page'])->name('shop.page');
@@ -32,7 +31,7 @@ Route::post('newsletter',[FrontEndController::class,'newsletter'])->name('newsle
 
 Route::post('/getStateCode',[FrontEndController::class,'stateTex']);
 Route::post('checkout_post',[FrontEndController::class,'checkout_post'])->name('checkout_post');
-Route::get('single/product/{id}',[FrontEndController::class,'single_product'])->name('single.product');
+Route::get('single/product/{id}/{title}',[FrontEndController::class,'single_product'])->name('single.product');
 Route::post('report-product/{id}',[FrontEndController::class,'report_product'])->name('report.product');
 Route::get('top-selection',[FrontEndController::class,'topSelection'])->name('top.selection');
 Route::get('new-arrivals',[FrontEndController::class,'newArrivals'])->name('new.arrivals');

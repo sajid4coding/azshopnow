@@ -314,7 +314,7 @@
                                                     <a href="shop-details.html"><img src="{{asset('uploads/product_photo')}}/{{$product->thumbnail}}" alt=""></a>
                                                 </div>
                                                 <div class="product-content">
-                                                    <h4 class="title"><a href="{{route('single.product', $product->id )}}">{{Str::limit($product->product_title,7)}} @if ($product->discount_price)
+                                                    <h4 class="title"><a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}">{{Str::limit($product->product_title,7)}} @if ($product->discount_price)
                                                         <p style="display: inline-block; float:right">
                                                             ${{$product->discount_price}}
                                                             <del> ${{$product->product_price}}</del>
