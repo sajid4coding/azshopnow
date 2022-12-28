@@ -141,7 +141,7 @@
                 <div class="d-flex justify-content-between mb-4">
                     <h5 class="text-uppercase">Order Total</h5>
                     <h5>$@if (session('coupon_info'))
-                        {{ session('after_discount') + session('shipping_cost') }}
+                            {{ session('after_discount') + session('shipping_cost') }}
                         @else
                             @if (session('shipping_cost') != 0)
                                 {{-- {{ session('after_discount') + session('shipping_charge') }} --}}
