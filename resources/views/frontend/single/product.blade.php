@@ -1188,7 +1188,7 @@
 
 <script>
     $(document).ready(function(){
-        $('#single_product_description').innerHTML({ $single_product->description }})
+        $('#single_product_description').innerHTML({{  $single_product->description  }})
     })
 </script>
 
