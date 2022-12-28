@@ -16,11 +16,6 @@
         "laravel/tinker": "^2.7",
         "league/omnipay": "^3.2",
         "livewire/livewire": "^2.10",
-<<<<<<< HEAD
-        "spatie/laravel-newsletter": "^5.0",
-        "srmklive/paypal": "~3.0",
-=======
->>>>>>> 304ae55b22fb62157687a794a690de1b584b6285
         "stripe/stripe-php": "^10.2"
     },
     "require-dev": {

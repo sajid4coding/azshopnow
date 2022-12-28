@@ -448,18 +448,29 @@
                                                     <span class="menu-title">Customer</span>
                                                 </a>
                                             </div>
-                                        </div>
-										{{-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
-											<span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<span class="menu-title">Users</span>
-												<span class="menu-arrow"></span>
-											</span>
 
-										</div> --}}
+                                        </div>
+
+
 									</div>
+								</div>
+                               
+                                <div class="menu-item @if ($current_page == 'packaging') here show @endif menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+													<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+													<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+													<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<a href="{{ route('newsletter.index') }}" class="menu-title"> Subscriber</a>
+									</span>
 								</div>
 							</div>
 							<!--end::Menu-->

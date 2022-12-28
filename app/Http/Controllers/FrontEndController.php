@@ -29,12 +29,12 @@ class FrontEndController extends Controller
 
         return view('frontend.single.product', compact('single_product','recommendedProducts', 'productGalleries','product_reviews','inventory','product_id'));
     }
-    function newsletter(Request $request){
-         $request -> validate([
-            'email' => 'required|email'
-         ]);
+    // function newsletter(Request $request){
+    //      $request -> validate([
+    //         'email' => 'required|email'
+    //      ]);
 
-    }
+    // }
 
     function contact_us_index(){
         return view('frontend.contact_us');
