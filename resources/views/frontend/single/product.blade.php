@@ -1127,14 +1127,11 @@
             <!-- popular-product-area-end -->
 
 <script>
-    $(document).ready(function(){
-        $('#single_product_description').innerHTML({ $single_product->description }})
-    })
+    // $(document).ready(function(){
+    //     $('#single_product_description').innerHTML({{  $single_product->description  }})
+    // })
 </script>
 
 @endsection
 
-@section('footer_script')
-
-@endsection
 
