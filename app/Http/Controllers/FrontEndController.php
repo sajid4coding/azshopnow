@@ -29,6 +29,12 @@ class FrontEndController extends Controller
 
         return view('frontend.single.product', compact('single_product','recommendedProducts', 'productGalleries','product_reviews','inventory','product_id'));
     }
+     function newsletter(Request $request){
+         $request -> validate([
+            'email' => 'required|email'
+         ]);
+
+    }
     function report_product(Request $request, $id){
         $request->validate([
             'customer_name' => 'required',
