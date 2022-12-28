@@ -46,7 +46,7 @@
     <div id="kt_app_content" class="app-content flex-column-fluid" data-select2-id="select2-data-kt_app_content">
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container container-xxl" data-select2-id="select2-data-kt_app_content_container">
-            <form action="{{ route('subcategory.store') }}" method="POST" enctype="multipart/form-data" id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
+            <form class="form d-flex flex-column flex-lg-row form-prevent-multiple-submits" action="{{ route('subcategory.store') }}" method="POST" enctype="multipart/form-data" id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
                 @csrf
                 <!--begin::Aside column-->
                 <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10" data-select2-id="select2-data-131-7ecg">
@@ -214,7 +214,7 @@
                         <a href="{{ route('category.index') }}" class="btn btn-light me-5">Cancel</a>
                         <!--end::Button-->
                         <!--begin::Button-->
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary button-prevent-multiple-submits">
                             <span class="indicator-label">Add Sub Category</span>
                             <span class="indicator-progress">Please wait...
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

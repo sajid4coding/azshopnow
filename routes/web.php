@@ -26,10 +26,13 @@ Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
 Route::get('wishlist',[FrontEndController::class,'wishlist'])->name('wishlist');
 Route::get('delete-wishlist/{id}',[FrontEndController::class,'wishlist_delete_row'])->name('wishlist.delete');
 Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
+Route::post('newsletter',[FrontEndController::class,'newsletter'])->name('newsletter');
+
 
 Route::post('/getStateCode',[FrontEndController::class,'stateTex']);
 Route::post('checkout_post',[FrontEndController::class,'checkout_post'])->name('checkout_post');
 Route::get('single/product/{id}/{title}',[FrontEndController::class,'single_product'])->name('single.product');
+Route::post('report-product/{id}',[FrontEndController::class,'report_product'])->name('report.product');
 Route::get('top-selection',[FrontEndController::class,'topSelection'])->name('top.selection');
 Route::get('new-arrivals',[FrontEndController::class,'newArrivals'])->name('new.arrivals');
 Route::get('search',[FrontEndController::class,'search'])->name('search');
@@ -53,13 +56,14 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::post('status_product/{id}',[DashboardController::class, 'product_status'])->middleware(['auth', 'verified'])->name('product_status');
     Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
     Route::get('review',[DashboardController::class, 'reviews'])->middleware(['auth', 'verified'])->name('review');
+    Route::get('reports',[DashboardController::class,'report'])->name('report');
     Route::get('view-review/{id}',[DashboardController::class, 'view_reviews'])->middleware(['auth', 'verified'])->name('view.review');
     Route::get('admin/order/details/{id}',[DashboardController::class,'OrderDetails'])->name('order.details');
     Route::get('admin/all/order',[DashboardController::class,'AllOrder'])->name('all.order');
-    Route::get('admin/delivered/order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
-    Route::get('admin/pending/order',[DashboardController::class,'PendingOrder'])->name('pending.order');
-    Route::get('admin/processing/order',[DashboardController::class,'ProcessingOrder'])->name('processing.order');
-    Route::get('admin/canceled/order',[DashboardController::class,'CanceledOrder'])->name('canceled.order');
+    Route::get('admin/delivered-order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
+    Route::get('admin/pending-order',[DashboardController::class,'PendingOrder'])->name('pending.order');
+    Route::get('admin/processing-order',[DashboardController::class,'ProcessingOrder'])->name('processing.order');
+    Route::get('admin/canceled-order',[DashboardController::class,'CanceledOrder'])->name('canceled.order');
     Route::get('admin/order/delete/{id}',[DashboardController::class,'OrderDelete'])->name('order.delete');
     Route::get('admin/tax/earning',[DashboardController::class,'TaxEarning'])->name('tax.earning');
     Route::get('admin/total/earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
@@ -71,6 +75,7 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
+
 
     //SubCategoryController Resource
     Route::resource('subcategory', SubCategoryController::class);

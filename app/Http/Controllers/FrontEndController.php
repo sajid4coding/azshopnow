@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
-use App\Models\{Banner, Cart, Category, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReview, ReviewGallery, User, Wishlist};
+use App\Models\{Banner, Cart, Category, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReport, ProductReview, ReviewGallery, User, Wishlist};
 use Khsing\World\World;
 use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Mail;
+
 
 class FrontEndController extends Controller
 {
@@ -28,14 +29,36 @@ class FrontEndController extends Controller
 
         return view('frontend.single.product', compact('single_product','recommendedProducts', 'productGalleries','product_reviews','inventory','product_id'));
     }
+    function report_product(Request $request, $id){
+        $request->validate([
+            'customer_name' => 'required',
+            'customer_email' => 'required',
+            'subject' => 'required',
+            'customer_message' => 'required'
+        ]);
+        ProductReport::insert([
+            'user_id' => auth()->id(),
+            'product_id' => $id,
+            'customer_name' => $request->customer_name,
+            'customer_email' => $request->customer_email,
+            'phone_number' => $request->phone_number,
+            'subject' => $request->subject,
+            'customer_message' => $request->customer_message,
+            'created_at' => now()
+        ]);
+        return back()->with('report_success', 'Report Submit Successful');
+    }
+
     function contact_us_index(){
         return view('frontend.contact_us');
     }
+
     function newArrivals(){
         $products=Product::where('status','published')->where('vendorProductStatus','published')->latest()->get();
         $banners = Banner::all()->first();
         return view('frontend.newArrivals',compact('products','banners'));
     }
+
     function topSelection(){
         $topReviews=ProductReview::all();
         $products=Product::where('status','published')->where('vendorProductStatus','published')->latest()->get();

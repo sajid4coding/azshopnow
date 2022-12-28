@@ -50,7 +50,7 @@
             <!--begin::Content container-->
             <div id="kt_app_content_container" class="app-container container-xxl">
                 <!--begin::Form-->
-                <form class="form d-flex flex-column flex-lg-row" action="{{ route('product_status', $product->id) }}" method="POST">
+                <form class="form d-flex flex-column flex-lg-row form-prevent-multiple-submits" action="{{ route('product_status', $product->id) }}" method="POST">
                     @csrf
                     <!--begin::Aside column-->
                     <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
@@ -74,14 +74,7 @@
                                 <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
                                     <!--begin::Preview existing avatar-->
                                     <div class="image-input-wrapper w-150px h-150px"></div>
-                                    <!--end::Preview existing avatar-->
-                                    <!--begin::Label-->
-                                    {{-- <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar"> --}}
-                                        {{-- <i class="bi bi-pencil-fill fs-7"></i> --}}
-                                        <!--begin::Inputs-->
-                                        {{-- <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                                        <input type="hidden" name="avatar_remove" /> --}}
-                                        <!--end::Inputs-->
+
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Cancel-->
@@ -199,25 +192,6 @@
                             </div>
                             <!--end::Card body-->
                         </div>
-                        <!--end::Status-->
-                        <!--begin::Weekly sales-->
-                        {{-- <div class="card card-flush py-4">
-                            <!--begin::Card header-->
-                            <div class="card-header">
-                                <!--begin::Card title-->
-                                <div class="card-title">
-                                    <h2>Weekly Sales</h2>
-                                </div>
-                                <!--end::Card title-->
-                            </div>
-                            <!--end::Card header-->
-                            <!--begin::Card body-->
-                            <div class="card-body pt-0">
-                                <span class="text-muted">No data available. Sales data will begin capturing once product has been published.</span>
-                            </div>
-                            <!--end::Card body-->
-                        </div> --}}
-                        <!--end::Weekly sales-->
                     </div>
                     <!--end::Aside column-->
                     <!--begin::Main column-->
@@ -408,29 +382,11 @@
                             <a href="{{ route('product_lists') }}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
                             <!--end::Button-->
                             <!--begin::Button-->
-                            <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary" value="publish">
-                                <span class="indicator-label">Update</span>
+                            <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary button-prevent-multiple-submits" value="publish">
+                                <span class="indicator-label"><i class="spinner fa fa-spinner fa-spin"></i>Update</span>
                                 <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
-                            <!--end::Button-->
-                            {{-- @if ($product->status == 'unpublished')
-                                <!--begin::Button-->
-                                <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary" value="publish">
-                                    <span class="indicator-label">Publish</span>
-                                    <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                </button>
-                                <!--end::Button-->
-                            @else
-                                <!--begin::Button-->
-                                <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-danger" value="unpublish">
-                                    <span class="indicator-label">Unpublish</span>
-                                    <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                </button>
-                                <!--end::Button-->
-                            @endif --}}
                         </div>
                     </div>
                     <!--end::Main column-->

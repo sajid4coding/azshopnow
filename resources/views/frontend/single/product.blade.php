@@ -927,9 +927,65 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="product-report">
-                                        <a href="http://127.0.0.1:8000/contact-us">Report Item</a>
+                                    {{-- <div class="product-report">
+                                        <a href="#">Report Item</a>
+                                    </div> --}}
+                                    <!-- Button trigger modal -->
+                                    <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Report Item
+                                    </a>
+
+                                    <!-- Modal Start-->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Report Item</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('report.product', $single_product->id) }}" method="POST">
+                                            @csrf
+                                                <div class="modal-body">
+                                                    @foreach ($errors->all() as $error)
+                                                        <li class="text-danger">
+                                                            {{ $error }}
+                                                        </li>
+                                                    @endforeach
+                                                    <div class="contact-form">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <input type="text" name="customer_name" placeholder="Your Name *">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" name="customer_email" placeholder="Your Email *">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="phone" name="phone_number" placeholder="Your Phone">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" name="subject" placeholder="Subject">
+                                                                </div>
+                                                            </div>
+                                                            <textarea name="customer_message" placeholder="Your Message"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                                    @auth
+                                                        <button type="submit" class="btn btn-primary">Report Item</button>
+                                                    @endauth
+
+                                                    @guest()
+                                                        <button id="not_logged_in" type="button" class="btn btn-primary">Report Item</button>
+                                                    @endguest
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                        </div>
                                     </div>
+                                    <!-- Modal End-->
                                 </div>
                                 <div class="tab-content" id="productTabContent">
                                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
@@ -1129,7 +1185,7 @@
 
 <script>
     $(document).ready(function(){
-        $('#single_product_description').innerHTML({ $single_product->description }})
+        $('#single_product_description').innerHTML({{  $single_product->description  }})
     })
 </script>
 
@@ -1137,5 +1193,38 @@
 
 @section('footer_script')
 
+    <script>
+        @if (session('report_success'))
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully'
+            })
+        @endif
+    </script>
+
+    <script>
+        $(document).ready(function(){
+        $('#not_logged_in').click(function(){
+            Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You have to need Login first!',
+            footer: '<a href="{{route('customer.login')}}">Click here to login</a>'
+            });
+            });
+        });
+    </script>
 @endsection
 
