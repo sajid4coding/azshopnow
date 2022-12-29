@@ -15,6 +15,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\CampaignNotification;
 
 
 class DashboardController extends Controller
@@ -40,6 +41,18 @@ class DashboardController extends Controller
             'products' => Product::where('vendorProductStatus','published')->where('status','banned')->latest()->get()
         ]);
     }
+    function super_deal_products (){
+        $products = Product::where('vendorProductStatus','published')->where('status','published')->where('campaign','super-deals')->latest()->get();
+        return view('dashboard.campaign.super_deal_products',compact('products'));
+    }
+    function trending_products (){
+        $products = Product::where('vendorProductStatus','published')->where('status','published')->where('campaign','trending')->latest()->get();
+        return view('dashboard.campaign.trending_products',compact('products'));
+    }
+    function flash_sale_products (){
+        $products = Product::where('vendorProductStatus','published')->where('status','published')->where('campaign','flash-sale')->latest()->get();
+        return view('dashboard.campaign.flash_sale_products',compact('products'));
+    }
 
     function product_edit($id){
         return view('dashboard.product.product-edit',[
@@ -48,25 +61,62 @@ class DashboardController extends Controller
             'product_gellaries' => ProductGallery::where('product_id', $id)->get()
         ]);
     }
+    function product_campaign(Request $request, $id){
+          //campaign
+        if ($request->campaign=='super-deals') {
+            Product::find($id)->update([
+                'campaign' => $request->campaign
+            ]);
+            $productName=Product::find($id);
+            $vendorId=Product::where('id',$id)->first()->vendor_id;
+            $vendorDetails=User::find($vendorId);
+            Mail::to($vendorDetails->email)->send(new CampaignNotification($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName->product_title,$productName->campaign));
+        }elseif($request->campaign=='trending'){
+            Product::find($id)->update([
+                'campaign' => $request->campaign
+            ]);
+            $productName=Product::find($id);
+            $vendorId=Product::where('id',$id)->first()->vendor_id;
+            $vendorDetails=User::find($vendorId);
+            // $vendorDetails->email
+            Mail::to($vendorDetails->email)->send(new CampaignNotification($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName->product_title,$productName->campaign));
+        }elseif($request->campaign=='flash-sell'){
+            Product::find($id)->update([
+                'campaign' => $request->campaign
+            ]);
+            $productName=Product::find($id);
+            $vendorId=Product::where('id',$id)->first()->vendor_id;
+            $vendorDetails=User::find($vendorId);
+            // $vendorDetails->email
+            Mail::to($vendorDetails->email)->send(new CampaignNotification($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName->product_title,$productName->campaign));
+        }else{
+            Product::find($id)->update([
+                'campaign' => $request->campaign
+            ]);
+        }
+        return redirect('product_lists')->with('success','Product campaign updated Successfully');
+    }
     function product_status(Request $request, $id){
         if ($request->status=='published') {
             Product::find($id)->update([
-                'status' => $request->status
+                'status' => $request->status,
             ]);
             $productName=Product::find($id)->product_title;
             $vendorId=Product::where('id',$id)->first()->vendor_id;
             $vendorDetails=User::find($vendorId);
             Mail::to($vendorDetails->email)->send(new productApproved($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
-        }elseif(($request->status=='published')){
-            Product::find($id)->update([
-                'status' => $request->status
-            ]);
-            $productName=Product::find($id)->product_title;
-            $vendorId=Product::where('id',$id)->first()->vendor_id;
-            $vendorDetails=User::find($vendorId);
-            // $vendorDetails->email
-            Mail::to($vendorDetails->email)->send(new productBan($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
-        }else{
+        }
+        // elseif($request->status=='unpublished'){
+        //     Product::find($id)->update([
+        //         'status' => $request->status,
+        //     ]);
+        //     $productName=Product::find($id)->product_title;
+        //     $vendorId=Product::where('id',$id)->first()->vendor_id;
+        //     $vendorDetails=User::find($vendorId);
+        //     // $vendorDetails->email
+        //     Mail::to($vendorDetails->email)->send(new productBan($vendorDetails->name,$vendorDetails->email,$vendorDetails->shop_name,$productName));
+        // }
+        else{
             Product::find($id)->update([
                 'status' => $request->status
             ]);
