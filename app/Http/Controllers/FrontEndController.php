@@ -153,6 +153,7 @@ class FrontEndController extends Controller
                 'subtotal' => $request->subtotal,
                 'delivery_change' => session('shipping_cost'),
                 'tax' => $request->tax,
+                'tax_amount' => $request->subtotal*($request->tax/100) ,
                 'total_price' => $request->total_price,
                 'payment_method' => $request->payment_method,
                 'created_at' => now()

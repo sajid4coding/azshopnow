@@ -980,7 +980,7 @@
                                                         <button type="submit" class="btn btn-primary">Report Item</button>
                                                     @endauth
 
-                                                    @guest()
+                                                    @guest
                                                         <button id="not_logged_in" type="button" class="btn btn-primary">Report Item</button>
                                                     @endguest
 
@@ -1192,21 +1192,20 @@
         $('#single_product_description').innerHTML({{  $single_product->description  }})
     })
 </script>
-
 @endsection
 
 @section('footer_script')
-    <script>
-        $(document).ready(function(){
-        $('#not_logged_in').click(function(){
-            Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'You have to need Login first!',
-            footer: '<a href="{{route('customer.login')}}">Click here to login</a>'
-            });
-            });
+<script>
+    $(document).ready(function(){
+    $('#not_logged_in').click(function(){
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You have to need Login first!',
+        footer: '<a href="{{route('customer.login')}}">Click here to login</a>'
         });
-    </script>
+        });
+    });
+</script>
 @endsection
 

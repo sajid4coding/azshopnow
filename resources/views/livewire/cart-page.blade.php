@@ -56,7 +56,7 @@
                             @if ($cart->size_id || $cart->color_id)
                                 <h6 class="text-muted"><span>Size</span>: {{ $cart->relationwithsize->size }} | <span>Color</span>: {{ $cart->relationwithcolor->color_name  }}</h6>
                             @endif
-                            <a href="{{ route('single.product', $cart->relationwithproduct->id) }}" target="_blank" class="text-black fw-bolder">{{ $cart->relationwithproduct->product_title }}</a>
+                            <a href="{{ route('single.product', ['id'=>$cart->relationwithproduct->id,'title'=>Str::slug($cart->relationwithproduct->product_title)]) }}" target="_blank" class="text-black fw-bolder">{{ $cart->relationwithproduct->product_title }}</a>
                             <br>
                             @if (get_inventory($cart->product_id, $cart->size_id, $cart->color_id) < $cart->quantity)
                                 <small class="badge bg-primary">Available Product</small> : <small class="badge bg-info text-dark">{{ get_inventory($cart->product_id, $cart->size_id, $cart->color_id) }}</small>

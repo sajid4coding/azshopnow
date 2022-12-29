@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController};
 use App\Models\Product;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +43,14 @@ Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('s
 Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
 // PAYMENTS METHOD INTEGRATION ROUTE END
 
+//Subcription Plan Route
+// Route::middleware("auth")->group(function () {
+//     Route::get('plans', [PlanController::class, 'index']);
+//     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
+//     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
+// });
+//Newslatter Route
+Route::resource('newsletter', NewsletterController::class);
 
 Route::middleware(['admin', 'verified'])->group(function () {
 
@@ -75,7 +83,6 @@ Route::middleware(['admin', 'verified'])->group(function () {
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
 
-    Route::resource('newsletter', NewsletterController::class);
     //SubCategoryController Resource
     Route::resource('subcategory', SubCategoryController::class);
 
@@ -112,7 +119,6 @@ Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('ven
 Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
 
 Route::middleware(['vendor'])->group(function(){
-
     Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
     Route::get('vendor/setting', [VendorController::class, 'vendor_setting'])->name('vendor.setting');
     Route::get('vendor/coupon/add', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
@@ -138,6 +144,11 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('inventory/{product}', [InventoryController::class, 'inventory'])->name('inventory');
     Route::post('add_inventory/{product}', [InventoryController::class, 'add_inventory'])->name('add_inventory');
     Route::get('delete_inventory/{id}', [InventoryController::class, 'delete_inventory'])->name('delete_inventory');
+
+
+    Route::get('plans', [PlanController::class, 'index']);
+    Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
+    Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
 });
 
 

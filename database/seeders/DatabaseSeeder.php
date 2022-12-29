@@ -24,8 +24,7 @@ class DatabaseSeeder extends Seeder
             InventorySeeder::class,
             PackagingSeeder::class,
             NewsletterSeeder::class,
-
-
+            PlanSeeder::class,
 
         ]);
     }
