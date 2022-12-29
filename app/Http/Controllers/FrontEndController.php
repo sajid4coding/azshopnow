@@ -225,6 +225,9 @@ class FrontEndController extends Controller
             'auth_categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
             'products' => Product::where('status','published')->where('vendorProductStatus','published')->latest()->limit(3)->get(),
             'topReviews' =>ProductReview::all(),
+            'superDealspProducts' => Product::where('status','published')->where('campaign','super-deals')->where('vendorProductStatus','published')->latest()->limit(10)->get(),
+            'trendingProducts' => Product::where('status','published')->where('campaign','super-deals')->where('vendorProductStatus','published')->latest()->limit(4)->get(),
+            'flashSaleProducts' => Product::where('status','published')->where('vendorProductStatus','published')->latest()->limit(8)->get()->shuffle(),
         ]);
     }
     public function stateTex(Request $request){
