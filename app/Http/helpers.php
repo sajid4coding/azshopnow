@@ -15,6 +15,10 @@ function getWishListProduct(){
  {
     return Cart::where('user_id',auth()->id())->count();
  }
+ function wishlist()
+ {
+    return Wishlist::where('user_id',auth()->id())->count();
+ }
  function wishlish()
  {
     return Wishlist::where('user_id',auth()->id())->count();

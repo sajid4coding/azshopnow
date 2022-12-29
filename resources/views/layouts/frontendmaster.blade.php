@@ -734,7 +734,8 @@
                                 @if($errors->any('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
-                                <form action="{{ route('newsletter') }}" method="post">
+                                <form action="{{ route('newsletter.store') }}" method="post">
+
                                     @csrf
                                     <input type="text" placeholder="Your email here..." name="email">
                                     <button type="submit">Subscribe</button>
