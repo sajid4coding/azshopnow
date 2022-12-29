@@ -50,8 +50,7 @@
             <!--begin::Content container-->
             <div id="kt_app_content_container" class="app-container container-xxl">
                 <!--begin::Form-->
-                <form class="form d-flex flex-column flex-lg-row form-prevent-multiple-submits" action="{{ route('product_status', $product->id) }}" method="POST">
-                    @csrf
+                <div class="form d-flex flex-column flex-lg-row form-prevent-multiple-submits" >
                     <!--begin::Aside column-->
                     <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
                         <!--begin::Thumbnail settings-->
@@ -116,15 +115,63 @@
                             <!--begin::Card body-->
                             <div class="card-body pt-0">
                                 <!--begin::Select2-->
-                                <select name="status" class="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_product_status_select" data-select2-id="select2-data-kt_ecommerce_add_product_status_select" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-                                    <option value="published" @if ($product->status == 'published') selected="selected" @endif data-select2-id="select2-data-11-rkcp">Published</option>
-                                    {{-- <option value="draft" @if ($product->status == 'draft') selected="selected" @endif>Draft</option> --}}
-                                    <option value="unpublished" @if ($product->status == 'unpublished') selected="selected" @endif>Unpublished</option>
-                                    <option value="banned" @if ($product->status == 'banned') selected="selected" @endif>Banned</option>
-                                </select>
-                                <!--end::Select2-->
-                                <!--begin::Description-->
-                                <div class="text-muted fs-7">Set the product status.</div>
+                                <form action="{{ route('product_status', $product->id) }}" method="POST">
+                                    @csrf
+                                    <select name="status" class="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_product_status_select" data-select2-id="select2-data-kt_ecommerce_add_product_status_select" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
+                                        <option value="published" @if ($product->status == 'published') selected="selected" @endif data-select2-id="select2-data-11-rkcp">Published</option>
+                                        {{-- <option value="draft" @if ($product->status == 'draft') selected="selected" @endif>Draft</option> --}}
+                                        {{-- <option value="unpublished" @if ($product->status == 'unpublished') selected="selected" @endif>Unpublished</option> --}}
+                                        <option value="banned" @if ($product->status == 'banned') selected="selected" @endif>Banned</option>
+                                    </select>
+                                    <!--end::Select2-->
+                                    <!--begin::Description-->
+                                    <div class="text-danger fs-7">Set the product status.</div>
+                                    <button class="btn btn-sm btn-primary mt-3">Update</button>
+                                </form>
+                                <!--end::Description-->
+                                <!--begin::Datepicker-->
+                                <div class="d-none mt-10">
+                                    <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>
+                                    <input class="form-control flatpickr-input" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date &amp; time" type="text" readonly="readonly">
+                                </div>
+                                <!--end::Datepicker-->
+                            </div>
+                            <!--end::Card body-->
+                        </div>
+                        {{-- Status End --}}
+                        {{-- Status Start --}}
+                        <div class="card card-flush py-4">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>Product Campign</h2>
+                                </div>
+                                <!--end::Card title-->
+                                <!--begin::Card toolbar-->
+                                <div class="card-toolbar">
+                                    <div class="rounded-circle bg-success w-15px h-15px" id="Campign"></div>
+                                </div>
+                                <!--begin::Card toolbar-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-0">
+                                <!--begin::Select2-->
+                                <form action="{{ route('product_campaign', $product->id) }}" method="POST">
+                                    @csrf
+                                    <select name="campaign" class="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_product_status_select" data-select2-id="select2-data-kt_ecommerce_add_product_status_select" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
+                                        <option value="NULL">- Select Campaign -</option>
+                                        <option value="super-deals" @if ($product->campaign == 'super deals') selected="selected" @endif data-select2-id="select2-data-11-rkcp">Super Deals</option>
+                                        {{-- <option value="draft" @if ($product->status == 'draft') selected="selected" @endif>Draft</option> --}}
+                                        <option value="trending" @if ($product->campaign == 'trending') selected="selected" @endif>Trending</option>
+                                        <option value="flash-sale" @if ($product->campaign == 'flash sell') selected="selected" @endif>flash Sale</option>
+                                    </select>
+                                    <!--end::Select2-->
+                                    <!--begin::Description-->
+                                    <div class="text-danger  fs-7">Set the product campaign.</div>
+                                    <button class="btn btn-sm btn-primary mt-3">Update</button>
+                                </form>
                                 <!--end::Description-->
                                 <!--begin::Datepicker-->
                                 <div class="d-none mt-10">
@@ -390,7 +437,7 @@
                         </div>
                     </div>
                     <!--end::Main column-->
-                </form>
+                </div>
                 <!--end::Form-->
             </div>
             <!--end::Content container-->

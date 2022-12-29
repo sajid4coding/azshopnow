@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('vendor_id');
             $table->string('shop_name')->nullable();
             $table->string('status')->default('unpublished');
+            $table->string('campaign')->nullable();
             $table->string('sku')->nullable();
             $table->longText('short_description')->nullable();
             $table->longText('description')->nullable();

@@ -110,10 +110,6 @@
                                             <!--begin::Badges-->
                                             @if ($product->campaign == 'super-deals')
                                                 <div class="badge bg-danger">{{ Str::title($product->campaign) }}</div>
-                                            @elseif ($product->campaign == 'trending')
-                                                <div class="badge bg-warning text-dark">{{ Str::title($product->campaign) }}</div>
-                                            @elseif ($product->campaign == 'flash-sale')
-                                                <div class="badge bg-info">{{ Str::title($product->campaign) }}</div>
                                             @endif
                                             <!--end::Badges-->
                                         </td>

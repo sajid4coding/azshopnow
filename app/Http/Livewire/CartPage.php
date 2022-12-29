@@ -78,6 +78,7 @@ class CartPage extends Component
     }
     public function packagingSelect($packagingId)
     {
+        
         session(['packagingCost' => Packaging::find($packagingId)]);
     }
 }
