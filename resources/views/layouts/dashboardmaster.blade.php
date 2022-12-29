@@ -408,42 +408,34 @@
 										<span class="menu-title">User Management</span>
 										<span class="menu-arrow"></span>
 									</span>
+
 									<div class="menu-sub menu-sub-accordion">
-										<div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
-											<span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<span class="menu-title">Users</span>
-												<span class="menu-arrow"></span>
-											</span>
-											<div class="menu-sub menu-sub-accordion">
-												<div class="menu-item">
-													<a class="menu-link" href="{{route('adminmanagement.index')}}">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-														<span class="menu-title">Admin</span>
-													</a>
-												</div>
-												<div class="menu-item">
-													<a class="menu-link" href="{{route('vendormanagement.index')}}">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-														<span class="menu-title">Vendor</span>
-													</a>
-												</div>
-												<div class="menu-item">
-													<a class="menu-link" href="{{route('customermanagement.index')}}">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-														<span class="menu-title">Customer</span>
-													</a>
-												</div>
-											</div>
-										</div>
+                                        <div class="menu-sub menu-sub-accordion">
+                                            <div class="menu-item">
+                                                <a class="menu-link" href="{{route('adminmanagement.index')}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Admin</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link" href="{{route('vendormanagement.index')}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Vendor</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link" href="{{route('customermanagement.index')}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Customer</span>
+                                                </a>
+                                            </div>
+                                        </div>
 									</div>
 								</div>
 
