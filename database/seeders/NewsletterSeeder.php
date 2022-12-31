@@ -23,7 +23,7 @@ class NewsletterSeeder extends Seeder
             'created_at' => now(),
 
         ]);
-         DB::table('newsletters')->insert([
+        DB::table('newsletters')->insert([
             'email' => 'sanju2@azshopnow.com',
             'status' => 'subscribes',
             'created_at' => now(),

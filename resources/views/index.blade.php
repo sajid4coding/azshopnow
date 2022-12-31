@@ -111,9 +111,9 @@
                                                         <a href="shop-details.html"><img src="{{ asset('uploads/product_photo') }}/{{$Products->thumbnail}}" alt="img"></a>
                                                     </div>
                                                     <div class="product-content text-center">
-                                                        <h4 class="title"><a href="shop-details.html">{{Str::limit($Products->title,10)}}</a></h4>
+                                                        <h4 class="title"><a href="shop-details.html">{{Str::limit($Products->product_title,10)}}</a></h4>
                                                         <p>0 orders <span>-35%</span></p>
-                                                        <h4 class="price">$29.08</h4>
+                                                        <h4 class="price">$ @if ($Products->discount_price) {{ $Products->discount_price }} @else {{ $Products->product_price }} @endif </h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -352,10 +352,10 @@
                                     @foreach ($trendingProducts as $trendingProducts)
                                         <li class="trending-product-item mb-30">
                                             <div class="thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('uploads/product_photo') }}/{{$trendingProducts->thumbnail}}" alt=""></a>
+                                                <a href="{{ route('single.product', ['id'=>$trendingProducts->id,'title'=>Str::slug($trendingProducts->product_title)]) }}"><img src="{{ asset('uploads/product_photo') }}/{{$trendingProducts->thumbnail}}" alt=""></a>
                                             </div>
                                             <div class="content">
-                                                <h6 class="title"><a href="shop-details.html">{{Str::limit($trendingProducts->product_title,7)}}</a></h6>
+                                                <h6 class="title"><a href="{{ route('single.product', ['id'=>$trendingProducts->id,'title'=>Str::slug($trendingProducts->product_title)]) }}">{{Str::limit($trendingProducts->product_title,7)}}</a></h6>
                                                 <h4 class="price">$09.08 <del>$29.08</del></h4>
                                                 <div class="content-bottom">
                                                     <ul>
@@ -394,10 +394,10 @@
                                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer all @if($flashSaleProducts->campaign=='trending') {{'cat-two'}} @elseif($flashSaleProducts->campaign=='flash-sale'){{'cat-one'}} @elseif($flashSaleProducts->campaign=='super-deals'){{'cat-three'}} @endif  ">
                                             <div class="product-item-two mb-30">
                                                 <div class="product-thumb">
-                                                    <a href="shop-details.html"><img src="{{ asset('uploads/product_photo') }}/{{$flashSaleProducts->thumbnail}}" alt=""></a>
+                                                    <a href="{{ route('single.product', ['id'=>$flashSaleProducts->id,'title'=>Str::slug($flashSaleProducts->product_title)]) }}"><img src="{{ asset('uploads/product_photo') }}/{{$flashSaleProducts->thumbnail}}" alt=""></a>
                                                 </div>
                                                 <div class="product-content">
-                                                    <h6 class="title"><a href="shop-details.html">{{Str::limit($flashSaleProducts->product_title,15)}}</a></h6>
+                                                    <h6 class="title"><a href="{{ route('single.product', ['id'=>$flashSaleProducts->id,'title'=>Str::slug($flashSaleProducts->product_title)]) }}">{{Str::limit($flashSaleProducts->product_title,15)}}</a></h6>
                                                     <h4 class="price">$29.08 <span>-35%</span></h4>
                                                     <div class="content-bottom">
                                                         <ul>
