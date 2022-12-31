@@ -150,7 +150,7 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('delete_inventory/{id}', [InventoryController::class, 'delete_inventory'])->name('delete_inventory');
 
 
-    Route::get('plans', [PlanController::class, 'index']);
+    Route::get('plans', [PlanController::class, 'index'])->name("plans");;
     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
 });

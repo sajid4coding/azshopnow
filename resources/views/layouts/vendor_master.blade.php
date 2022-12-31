@@ -60,10 +60,13 @@
     <div class="vendor-setting-area pt-80 pb-90">
         <div class="container">
             <div class="row justify-content-center">
-
+                @php
+                    $url = explode('/',url()->current());
+                    $current_page = end($url);
+                @endphp
                 <div class="col-xl-12 col-lg-12">
                     <div class="vendor-setting-wrap">
-                        <h2 class="title">Dashboard</h2>
+                        <h2 class="title">{{ $current_page }}</h2>
 
                       {{-- Coupon Success Message --}}
                          @if (session('coupon_add_success'))
@@ -80,85 +83,87 @@
                          @endif
                       {{-- Cooupon Sucess Message --}}
 
-                      <div class="row">
-                        <div class="col-lg-3 col-md-3">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3">
+                                <aside class="vs-sidebar">
+                                    <div class="vs-widget">
+                                        <div class="widget-title mb-4" >
+                                            <h4 class="title">Account Details</h4>
+                                        </div>
+                                        <ul class="nav cust_ul nav-tabs gap-3" style="padding-left: 20px !important"   role="tablist">
 
-                            <aside class="vs-sidebar">
-                                <div class="vs-widget">
-                                    <div class="widget-title mb-4" >
-                                        <h4 class="title">Account Details</h4>
+                                            <li class="nav-item @if ($current_page == 'dashboard') show here @endif">
+                                                <a class="nav-link cust_a"  href="{{ route('vendor.dashboard') }}"><i class="flaticon-user"></i> Vendor Profile</a>
+                                            </li>
+                                            {{-- <div id="target" class="">dashboard</div> --}}
+
+                                            <li class="nav-item @if ($current_page == 'setting') show here @endif" >
+                                                <a class="nav-link cust_a" href="{{ route('vendor.setting') }}"><i class="far fa-edit"></i>Setting</a>
+                                            </li>
+                                            <li class="nav-item @if ($current_page == 'add') here show @endif" >
+                                                <a class="nav-link cust_a" href="{{ route('vendor.coupon.add') }}"><i class="fas fa-tag"></i>Coupon</a>
+                                            </li>
+
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-cloud-upload"></i>  Product Settings
+                                                </a>
+                                                <ul class="dropdown-menu @if ($current_page == 'upload' || $current_page == 'product' || $current_page == 'attributes') active @endif" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item @if ($current_page == 'upload') show here @endif"  href="{{ route('vendor.product.upload') }}">Product Add</a></li>
+                                                <li><a class="dropdown-item @if ($current_page == 'product') show here @endif" href="{{ route('product.index') }}">Product List</a></li>
+                                                <li><a class="dropdown-item @if ($current_page == 'attributes') show here @endif" href="{{ route('attributes.index') }}">Attributes</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item @if ($current_page == 'order') here show @endif" >
+                                                <a class="nav-link cust_a" href="{{ route('vendor.orders') }}"> <i class="fas fa-store"></i> Orders</a>
+                                            </li>
+
+                                            <li class="nav-item @if ($current_page == 'plans') here show @endif" >
+                                                <a class="nav-link cust_a" href="{{ route('plans') }}"> <i class="fas fa-store"></i>Account Upgrade</a>
+                                            </li>
+
+                                            <li class="mb-3">
+                                                <form method="POST" action="{{ route('logout') }}">
+                                                    @csrf
+                                                    <a style="color: #585B60" href="route('logout')" class="cust_a" onclick="event.preventDefault(); this.closest('form').submit();"><i style="font-size: 20px;padding-right:5px" class="fa-solid fa-arrow-right-from-bracket"></i>  Log Out</a>
+                                                </form>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <ul class="nav cust_ul nav-tabs gap-3" style="padding-left: 20px !important"   role="tablist">
-
-                                        <li class="nav-item active">
-                                            <a class="nav-link cust_a"  href="{{ route('vendor.dashboard') }}"><i class="flaticon-user"></i> Vendor Profile</a>
-                                        </li>
-                                        {{-- <div id="target" class="">dashboard</div> --}}
-
-                                        <li class="nav-item" >
-                                            <a class="nav-link cust_a" href="{{ route('vendor.setting') }}"><i class="far fa-edit"></i>Setting</a>
-                                        </li>
-                                        <li class="nav-item" >
-                                            <a class="nav-link cust_a" href="{{ route('vendor.coupon.add') }}"><i class="fas fa-tag"></i>Coupon</a>
-                                        </li>
-
-
-                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fas fa-cloud-upload"></i>  Product Settings
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                              <li><a class="dropdown-item"  href="{{ route('vendor.product.upload') }}">Product Add</a></li>
-                                              <li><a class="dropdown-item" href="{{ route('product.index') }}">Product List</a></li>
-                                              <li><a class="dropdown-item" href="{{ route('attributes.index') }}">Attributes</a></li>
-                                            </ul>
-                                          </li>
-                                        <li class="nav-item" >
-                                            <a class="nav-link cust_a" href="{{ route('vendor.orders') }}"> <i class="fas fa-store"></i> Orders</a>
-                                        </li>
-
-                                        <li class="mb-3">
-                                            <form method="POST" action="{{ route('logout') }}">
-                                                @csrf
-                                                  <a style="color: #585B60" href="route('logout')" class="cust_a" onclick="event.preventDefault(); this.closest('form').submit();"><i style="font-size: 20px;padding-right:5px" class="fa-solid fa-arrow-right-from-bracket"></i>  Log Out</a>
-                                            </form>
-                                        </li>
-                                    </ul>
-
-
-                                </div>
-                                <div class="vs-widget" >
-                                    <div class="vs-page-link" >
+                                    <div class="vs-widget" >
+                                        <div class="vs-page-link" >
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="vs-widget" >
-                                    @if (auth()->user()->address || auth()->user()->phone_number)
-                                    <div class="widget-title mt-5">
-                                        <h4 class="title">Contacts</h4>
-                                    </div>
-                                    <ul class="contact-info">
-                                        @if (auth()->user()->address)
-                                        <li><i class="fa-solid fa-location-dot"></i>{{ auth()->user()->address }}</li>
+                                    <div class="vs-widget" >
+                                        @if (auth()->user()->address || auth()->user()->phone_number)
+                                        <div class="widget-title mt-5">
+                                            <h4 class="title">Contacts</h4>
+                                        </div>
+                                        <ul class="contact-info">
+                                            @if (auth()->user()->address)
+                                            <li><i class="fa-solid fa-location-dot"></i>{{ auth()->user()->address }}</li>
+                                            @endif
+                                            @if (auth()->user()->phone_number)
+                                            <li><i class="fa-solid fa-phone-volume"></i> <a href="tel:{{ auth()->user()->phone_number }}">{{ auth()->user()->phone_number }}</a></li>
+                                            @endif
+                                        </ul>
                                         @endif
-                                        @if (auth()->user()->phone_number)
-                                        <li><i class="fa-solid fa-phone-volume"></i> <a href="tel:{{ auth()->user()->phone_number }}">{{ auth()->user()->phone_number }}</a></li>
-                                        @endif
-                                    </ul>
-                                    @endif
-                                </div>
-                            </aside>
+                                    </div>
+                                </aside>
+                            </div>
+
+                            {{-- vendormaster content start--}}
+                            @yield('vendor_body_content')
+                            {{-- vendormaster content end--}}
 
                         </div>
-
-@yield('vendor_body_content')
-
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <!-- vendor-setting-area-end -->
 
 

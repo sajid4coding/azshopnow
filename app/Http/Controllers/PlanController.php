@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
 use Illuminate\Http\Request;
-use Stripe\Plan;
+// use Stripe\Plan;
 use Stripe\Stripe;
+
+use function PHPUnit\Framework\returnSelf;
 
 class PlanController extends Controller
 {
@@ -16,9 +19,10 @@ class PlanController extends Controller
 
     public function index()
     {
-        $plans = Plan::all();
+        // $plans = Plan::get();
+        $plan = Plan::where('name', 'Premium')->first();
 
-        return view("frontend.subscription.plans", compact("plans"));
+        return view("vendor.subscription.plans", compact("plan"));
     }
 
     /**
@@ -29,8 +33,7 @@ class PlanController extends Controller
     public function show(Plan $plan, Request $request)
     {
         $intent = auth()->user()->createSetupIntent();
-
-        return view("frontend.subscription.subscription", compact("plan", "intent"));
+        return view("vendor.subscription.subscription", compact("plan", "intent"));
     }
     /**
      * Write code on Method
@@ -41,9 +44,8 @@ class PlanController extends Controller
     {
         $plan = Plan::find($request->plan);
 
-        $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
-                        ->create($request->token);
+        $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)->create($request->token);
 
-        return view("frontend.subscription.subscription_success");
+        return view("vendor.subscription.subscription_success");
     }
 }

@@ -37,8 +37,6 @@ class PackagingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // $request->packaging_name=>'required',
-            // $request->cost=>'required',
             'packaging_name' => 'required',
             'cost' => 'required',
             'packaging_name' => 'unique:packagings,packaging_name'

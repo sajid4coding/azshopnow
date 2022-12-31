@@ -234,8 +234,8 @@
                                             <span class="menu-title">Product Campaign</span>
                                             <span class="menu-arrow"></span>
                                         </span>
-                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'super_deal_products' || $current_page == 'trending_products' || $current_page == 'flash_sale_products') here show @endif">
-                                            <div class="menu-item @if ($current_page == 'super_deal_products ') here show @endif">
+                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'super-deal-products' || $current_page == 'tranding-products' || $current_page == 'flash-sale-products') here show @endif">
+                                            <div class="menu-item @if ($current_page == 'super-deal-products ') here show @endif">
                                                 <a class="menu-link" href="{{ route('super.deal.products') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
@@ -243,7 +243,7 @@
                                                     <span class="menu-title">Super-Deals Products</span>
                                                 </a>
                                             </div>
-                                            <div class="menu-item @if ($current_page == 'trending_products') here show @endif">
+                                            <div class="menu-item @if ($current_page == 'tranding-products') here show @endif">
                                                 <a class="menu-link" href="{{ route('trending.products') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
@@ -251,7 +251,7 @@
                                                     <span class="menu-title">Trending Products</span>
                                                 </a>
                                             </div>
-                                            <div class="menu-item @if ($current_page == 'flash_sale_products') here show @endif">
+                                            <div class="menu-item @if ($current_page == 'flash-sale-products') here show @endif">
                                                 <a class="menu-link" href="{{ route('flash.sale.products') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
