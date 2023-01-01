@@ -153,6 +153,7 @@ class FrontEndController extends Controller
                 'subtotal' => $request->subtotal,
                 'delivery_change' => session('shipping_cost'),
                 'tax' => $request->tax,
+                'tax_amount' => $request->subtotal*($request->tax/100) ,
                 'total_price' => $request->total_price,
                 'payment_method' => $request->payment_method,
                 'created_at' => now()
@@ -226,8 +227,8 @@ class FrontEndController extends Controller
             'products' => Product::where('status','published')->where('vendorProductStatus','published')->latest()->limit(3)->get(),
             'topReviews' =>ProductReview::all(),
             'superDealspProducts' => Product::where('status','published')->where('campaign','super-deals')->where('vendorProductStatus','published')->latest()->limit(10)->get(),
-            'trendingProducts' => Product::where('status','published')->where('campaign','super-deals')->where('vendorProductStatus','published')->latest()->limit(4)->get(),
-            'flashSaleProducts' => Product::where('status','published')->where('vendorProductStatus','published')->latest()->limit(8)->get()->shuffle(),
+            'trendingProducts' => Product::where('status','published')->where('campaign','trending')->where('vendorProductStatus','published')->latest()->limit(4)->get(),
+            'flashSaleProducts' => Product::where('status','published')->where('vendorProductStatus','published')->limit(8)->get()->shuffle(),
         ]);
     }
     public function stateTex(Request $request){
