@@ -111,7 +111,7 @@
                                                         <a href="shop-details.html"><img src="{{ asset('uploads/product_photo') }}/{{$Products->thumbnail}}" alt="img"></a>
                                                     </div>
                                                     <div class="product-content text-center">
-                                                        <h4 class="title"><a href="shop-details.html">{{Str::limit($Products->title,10)}}</a></h4>
+                                                        <h4 class="title"><a href="shop-details.html">{{Str::limit($Products->product_title,10)}}</a></h4>
                                                         <p>0 orders <span>-35%</span></p>
                                                         <h4 class="price">$29.08</h4>
                                                     </div>
