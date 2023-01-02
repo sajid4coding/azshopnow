@@ -43,12 +43,6 @@ Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('s
 Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
 // PAYMENTS METHOD INTEGRATION ROUTE END
 
-//Subcription Plan Route
-// Route::middleware("auth")->group(function () {
-//     Route::get('plans', [PlanController::class, 'index']);
-//     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
-//     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
-// });
 //Newslatter Route
 Route::resource('newsletter', NewsletterController::class);
 

@@ -76,8 +76,19 @@
                             <span class="month">/mo</span>
                         </span>
                     </div>
-                    <div class="pricing-content">
-                        <ul>
+                    <div class="pricing-content" >
+                        <style>
+                            .plans-align li{
+                                padding-left: 50px !important;
+                                position: relative;
+                                left: 0;
+                            }
+                            .plans-align li i{
+                                position: absolute;
+                                left: 50px;
+                            }
+                        </style>
+                        <ul class="plans-align">
                             <li><i class="fa fa-check mr-2 text-primary"></i> 30 Product Allowed</li>
                             <li><i class="fa fa-check mr-2 text-primary"></i> 5 Coupon Allowed</li>
                             <li><i class="fa fa-times mr-2 text-danger"></i> Vendor Setting Change Allowed</li>
@@ -98,7 +109,7 @@
                         </span>
                     </div>
                     <div class="pricing-content">
-                        <ul>
+                        <ul class="plans-align">
                             <li><i class="fa fa-check mr-2 text-primary"></i> Unlimited Product Allowed</li>
                             <li><i class="fa fa-check mr-2 text-primary"></i> Unlimited Coupon Allowed</li>
                             <li><i class="fa fa-check mr-2 text-primary"></i> Vendor Setting Change Allowed</li>
