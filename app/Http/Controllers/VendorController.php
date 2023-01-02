@@ -113,7 +113,7 @@ class vendorController extends Controller
                     // if(auth()->user()->profile_photo !== NULL){
                     //     unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
                     // }
-                    
+
                      User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
                         'profile_photo' =>  $photo,
                      ]);

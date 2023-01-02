@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DailyInvoicesExport;
+use App\Exports\MonthlyInvoicesExport;
+use App\Exports\YearlyInvoicesExport;
 use App\Mail\productApproved;
 use App\Mail\productBan;
 use App\Models\Category;
@@ -17,6 +20,7 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CampaignNotification;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpParser\Node\Stmt\Return_;
 
 class DashboardController extends Controller
@@ -212,16 +216,16 @@ class DashboardController extends Controller
         ]);
     }
     function yearInvoiceDownload (Request $request){
-
-        return $order_details = Order_Detail::where('created_at','LIKE',"{$request->year}%")->get();
+        // $order_details = Order_Detail::where('created_at','LIKE',"{$request->year}%")->get();
+        return Excel::download(new YearlyInvoicesExport($request->year), 'yearlyInvoices.xlsx');
     }
     function monthlyInvoiceDownload  (Request $request){
         $year=Carbon::now()->format('Y');
-        return $order_details = Order_Detail::where('created_at','LIKE',"{$year}-{$request->month}%")->get();
+        return Excel::download(new MonthlyInvoicesExport($year,$request->month), 'monthlyInvoices.xlsx');
     }
     function dayInvoiceDownload  (Request $request){
         $year=Carbon::now()->format('Y');
         $month=Carbon::now()->format('m');
-        return $order_details = Order_Detail::where('created_at','LIKE',"{$year}-{$month}-{$request->day}%")->get();
+        return Excel::download(new DailyInvoicesExport($year,$month,$request->day), 'dailyInvoices.xlsx');
     }
 }
