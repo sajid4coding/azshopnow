@@ -32,6 +32,11 @@
                         <div class="col-lg-8 ">
                             <div class="vr-form-box">
                                 <h3 class="title text-center">customer login Form</h3>
+                                @if(session('success'))
+                                    <div class="alert alert-success text-center">
+                                        <span>{{session('success')}}</span>
+                                    </div>
+                                @endif
                                 <form action="{{ route('customer.login.post') }}" method="POST">
                                     @csrf
                                     <div class="row justify-content-center">

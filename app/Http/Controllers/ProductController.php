@@ -6,6 +6,7 @@ use App\Models\ProductGallery;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Faker\Core\File;
 use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
@@ -136,6 +137,8 @@ class ProductController extends Controller
             'vendorProductStatus'=>$request->vendorProductStatus,
         ]);
         if($request->hasFile('thumbnail')){
+           $thumbnailPhoto=Product::find($id)->thumbnail;
+            unlink(base_path('public/uploads/product_photo/'.$thumbnailPhoto));
             $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('thumbnail')->getClientOriginalExtension();
             $img = Image::make($request->file('thumbnail'))->resize(566, 570);
             $img->save(base_path('public/uploads/product_photo/'.$photo), 70);
@@ -157,7 +160,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect('product-list')->with('success','Product updated successfully');
+        return redirect(route('product.index'))->with('success','Product updated successfully');
     }
 
     /**
@@ -173,12 +176,12 @@ class ProductController extends Controller
     }
     public function galleryImgDelete ($id)
     {
+        $galleryImage=ProductGallery::findOrFail($id)->product_gallery;
+        unlink(base_path('public/uploads/product_gellery_photo/'.$galleryImage));
         ProductGallery::findOrFail($id)->delete();
         return back()->with('success','Gallery image deleted successfully.');
     }
-    // public function thumbnailImgDelete ($id)
-    // {
-    //     Product::findOrFail($id)->delete();
-    //     return back();
-    // }
+
+
+
 }

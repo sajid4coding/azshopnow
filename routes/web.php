@@ -80,6 +80,9 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('admin/total/earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
     Route::get('admin/subscription/earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
     Route::get('admin/commission/earning',[DashboardController::class,'CommissionEarning'])->name('commission.earning');
+    Route::post('admin/year-order-details',[DashboardController::class,'yearInvoiceDownload'])->name('year.invoice.download');
+    Route::post('admin/monthly-order-details',[DashboardController::class,'monthlyInvoiceDownload'])->name('monthly.invoice.download');
+    Route::post('admin/day-order-details',[DashboardController::class,'dayInvoiceDownload'])->name('day.invoice.download');
 
     //PackagingController Resource
     Route::resource('packaging', PackagingController::class);

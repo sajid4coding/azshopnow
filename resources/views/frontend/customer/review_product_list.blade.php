@@ -19,7 +19,7 @@
                         <img width="70px" height="70px" src="{{ asset('uploads/product_photo') }}/{{ $review->relationwithproduct->thumbnail }}" alt="">
 
                         <span>
-                            <a  style="font-size: 16px; color:rgb(255, 38, 0);font-weight:500" href="{{ route('single.product', $review->relationwithproduct->id) }}">{{ $review->relationwithproduct->product_title }}</a> <br>
+                            <a  style="font-size: 16px; color:rgb(255, 38, 0);font-weight:500" href="{{ route('single.product', ['id'=>$review->relationwithproduct->id,'title'=>$review->relationwithproduct->product_title]) }}">{{ $review->relationwithproduct->product_title }}</a> <br>
                             @if ($review->size_id && $review->color_id)
                                 <span style="font-size: 12px; color:#3a3a3a;font-weight:500" >Size: {{ $review->relationwithsize->size }}</span><br>
                                 <span style="font-size: 12px; color:#3a3a3a;font-weight:500" >Color: {{ $review->relationwithcolor->color_name }}</span>

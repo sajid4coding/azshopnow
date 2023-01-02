@@ -60,7 +60,7 @@ class CustomerController extends Controller
         // SENT EMAIL VERIFY
         user::find($id)->sendEmailVerificationNotification();
          // SENT EMAIL VERIFY
-        return redirect('/customer/login');
+        return redirect('/customer/login')->with('success','Your registation is completed successfully. Check your email for Verification-Email.');
         // return redirect()->route('/customer/login');
         // return back()->with('success', 'Your Account Created Successfully');
     }
@@ -189,13 +189,13 @@ class CustomerController extends Controller
                 $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
                 $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
 
-                if(auth()->user()->banner !== NULL){
-                    unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
-                }
+                // if(auth()->user()->banner !== NULL){
+                //     unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                // }
 
-                if(auth()->user()->profile_photo !== NULL){
-                    unlink(base_path('public/uploads/customer_profile/'.auth()->user()->profile_photo));
-                }
+                // if(auth()->user()->profile_photo !== NULL){
+                //     unlink(base_path('public/uploads/customer_profile/'.auth()->user()->profile_photo));
+                // }
 
                  User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
                     'profile_photo' =>  $photo,
@@ -209,9 +209,9 @@ class CustomerController extends Controller
                     $img = Image::make($request->file('profile_photo'))->resize(300, 300);
                     $img->save(base_path('public/uploads/customer_profile/'.$photo), 60);
 
-                    if(auth()->user()->profile_photo !== NULL){
-                        unlink(base_path('public/uploads/customer_profile/'.auth()->user()->profile_photo));
-                    }
+                    // if(auth()->user()->profile_photo !== NULL){
+                    //     unlink(base_path('public/uploads/customer_profile/'.auth()->user()->profile_photo));
+                    // }
 
                      User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
                         'profile_photo' =>  $photo,
@@ -223,9 +223,9 @@ class CustomerController extends Controller
                     $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
                     $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
 
-                    if(auth()->user()->banner !== NULL){
-                        unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
-                    }
+                    // if(auth()->user()->banner !== NULL){
+                    //     unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                    // }
 
                      User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
                         'banner' =>  $banner_photo,

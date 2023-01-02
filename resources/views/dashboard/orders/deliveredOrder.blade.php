@@ -38,6 +38,79 @@
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
+            <div class="row my-4">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <form action="{{route('year.invoice.download')}}" method="POST">
+                                @csrf
+                                <div>
+                                    <h4>Year</h4>
+                                    <hr>
+                                    <select name="year" id="" class="form-select">
+                                        <option value="0000">- Select Year</option>
+                                        @foreach (range(date('Y'), date('Y')-10) as $y)
+                                            <option value="{{$y}}">{{$y}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mt-4">
+                                    <button class="btn btn-sm btn-primary">Download</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{route('monthly.invoice.download')}}" method="POST">
+                                @csrf
+                                <div>
+                                    <h4>Month</h4>
+                                    <hr>
+                                    @php
+                                        $months=array("01"=>"January", "02"=>"February", "03"=>"March" , "04"=>"April" , "05"=>"May" , "06"=>"June" , "07"=>"July" , "08"=>"August" , "09"=>"September" , "10"=>"October" , "11"=>"November" , "12"=>"December");
+
+                                    @endphp
+                                    <select name="month" id="" class="form-select">
+                                        <option value="0">- Select Month</option>
+                                        @foreach ($months as $key=>$month)
+                                            <option value="{{$key}}">{{$month}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mt-4">
+                                    <button class="btn btn-sm btn-primary">Download</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{{route('day.invoice.download')}}" method="POST">
+                                @csrf
+                                <div>
+                                    <h4>Day</h4>
+                                    <hr>
+                                    <select name="day" id="" class="form-select">
+                                        <option value="0">- Select Day</option>
+                                       @foreach (range(1,31) as $day)
+                                        <option value="{{$day}}">{{$day}}</option>
+                                       @endforeach
+                                    </select>
+                                </div>
+                                <div class="mt-4">
+                                    <button class="btn btn-sm btn-primary">Download</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!--begin::Products-->
             <div class="card card-flush">
                 <!--begin::Card header-->

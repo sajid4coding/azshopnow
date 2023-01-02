@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CampaignNotification;
-
+use Carbon\Carbon;
+use PhpParser\Node\Stmt\Return_;
 
 class DashboardController extends Controller
 {
@@ -209,5 +210,18 @@ class DashboardController extends Controller
         return view('dashboard.report.report',[
             'reports' => ProductReport::all(),
         ]);
+    }
+    function yearInvoiceDownload (Request $request){
+
+        return $order_details = Order_Detail::where('created_at','LIKE',"{$request->year}%")->get();
+    }
+    function monthlyInvoiceDownload  (Request $request){
+        $year=Carbon::now()->format('Y');
+        return $order_details = Order_Detail::where('created_at','LIKE',"{$year}-{$request->month}%")->get();
+    }
+    function dayInvoiceDownload  (Request $request){
+        $year=Carbon::now()->format('Y');
+        $month=Carbon::now()->format('m');
+        return $order_details = Order_Detail::where('created_at','LIKE',"{$year}-{$month}-{$request->day}%")->get();
     }
 }
