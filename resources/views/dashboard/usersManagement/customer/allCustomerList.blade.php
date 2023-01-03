@@ -127,10 +127,10 @@
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <form action="{{ route('customermanagement.destroy', $customer->id) }}" method="POST">
+                                                    <form class="form-prevent-multiple-submits" action="{{ route('customermanagement.destroy', $customer->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm menu-link  px-3" >Delete</button>
+                                                        <button type="submit" class="btn btn-sm menu-link  px-3 button-prevent-multiple-submits" >Delete</button>
                                                     </form>
                                                 </div>
                                                 <!--end::Menu item-->

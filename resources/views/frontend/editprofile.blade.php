@@ -66,7 +66,7 @@
                                 {{ session('success') }}
                             </div>
                          @endif
-                    <form action="{{ route('change.profile.post') }}" method="POST">
+                    <form class="form-prevent-multiple-submits" action="{{ route('change.profile.post') }}" method="POST">
                             @csrf
                         <div class="form-grp">
                             <label for="text">name*</label>
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit">Save Changes</button>
+                        <button class="button-prevent-multiple-submits" type="submit">Save Changes</button>
                     </form>
                 </div>
                 </div>
@@ -103,7 +103,7 @@
                                     @endforeach
                                 </div>
                          @endif
-                    <form action="{{ route('password.update') }}" method="POST">
+                    <form class="form-prevent-multiple-submits" action="{{ route('password.update') }}" method="POST">
                             @csrf
                         <div class="form-grp">
                             <label for="text">Current Password *</label>
@@ -123,7 +123,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit">Save Changes</button>
+                        <button class="button-prevent-multiple-submits" type="submit">Save Changes</button>
                     </form>
                 </div>
                 </div>

@@ -5,7 +5,7 @@
 
             <div class="tab-pane" >
                 <div class="product-upload-wrap">
-                    <form action="{{ route('customer.profile.submit') }}" enctype="multipart/form-data" method="POST">
+                    <form  class="form d-flex flex-column flex-lg-row form-prevent-multiple-submits" action="{{ route('customer.profile.submit') }}" enctype="multipart/form-data" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-lg-12">
@@ -29,7 +29,7 @@
                                  </div>
                             </div>
                             <div class="">
-                                <button type="submit">Update</button>
+                                <button class ="button-prevent-multiple-submits" type="submit">Update</button>
                             </div>
 
                     </form>

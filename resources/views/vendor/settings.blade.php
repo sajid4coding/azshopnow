@@ -4,7 +4,7 @@
 
         <div class="tab-pane" >
             <div class="product-upload-wrap">
-                <form action="{{ route('vendor.update.info') }}" enctype="multipart/form-data" method="POST">
+                <form class=" form-prevent-multiple-submits" action="{{ route('vendor.update.info') }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-lg-12">
@@ -67,12 +67,12 @@
                         </div>
                     </div>
 
-                    <button type="submit">Update Info</button>
+                    <button class=" button-prevent-multiple-submits" type="submit">Update Info</button>
                 </form>
 
 
                 {{-- CHANGE PASSWORD START --}}
-                <form  action="{{ route('vendor.change.password') }}"  method="POST" class="mt-5">
+                <form class=" form-prevent-multiple-submits" action="{{ route('vendor.change.password') }}"  method="POST" class="mt-5">
                       @csrf
                     <div class="row mt-5">
                         <div class="col-lg-6">
@@ -118,7 +118,7 @@
                           @endforeach
                      @endif
 
-                    <button type="submit">Change Password</button>
+                    <button class=" button-prevent-multiple-submits" type="submit">Change Password</button>
                 </form>
             </div>
         </div>

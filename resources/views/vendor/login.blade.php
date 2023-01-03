@@ -62,7 +62,7 @@
                                     </div>
                                     @endif
 
-                                    <form method="POST" action="{{ route('vendor.login.post') }}">
+                                    <form class="form-prevent-multiple-submits" method="POST" action="{{ route('vendor.login.post') }}">
                                             @csrf
 
                                             <div class="form-grp">
@@ -78,7 +78,7 @@
                                                 <a href="{{ route('password.request') }}" class="text-muted mt-4">Forgot your password?</a>
                                                 </div>
                                                 <p>If you have no account <a href="{{ route('become.vendor') }}">Registration</a> here!</p>
-                                    <button type="submit">LOGIN</button>
+                                    <button class="button-prevent-multiple-submits" type="submit">LOGIN</button>
                                 </form>
                     </div>
 

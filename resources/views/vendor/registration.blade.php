@@ -44,7 +44,7 @@
                               @endforeach
                         @endif
 
-                        <form method="POST" action="{{ route('vendor.post') }}">
+                        <form class="form-prevent-multiple-submits" method="POST" action="{{ route('vendor.post') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -81,7 +81,7 @@
                             </div>
                             <p>If you have already account <a href="{{ route('vendor.login') }}">login</a> here!</p>
 
-                            <button type="submit">REGISTER</button>
+                            <button class="button-prevent-multiple-submits" type="submit">REGISTER</button>
                         </form>
                     </div>
                 </div>

@@ -18,7 +18,7 @@
                @endforeach
             @endif
             {{-- ==== Error Messages ==== --}}
-            <form action="{{ route('coupon.add') }}" method="POST">
+            <form class=" form-prevent-multiple-submits" action="{{ route('coupon.add') }}" method="POST">
                  @csrf
                 <div class="row">
                     <div class="col-lg-6">
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="text-center mt-3">
-                            <button type="submit">Add Coupon</button>
+                            <button class="btn btn-sm button-prevent-multiple-submits" type="submit">Add Coupon</button>
                         </div>
                     </div>
                 </div>
