@@ -59,7 +59,7 @@
                  <td>
                      <div>
                         <a href="{{route('product.edit',$product->id)}}"><i class="fas fa-edit"></i></a>
-                        <a href="{{route('single.product', $product->id )}}" class="text-info "><i class="fas fa-eye"></i></a>
+                        <a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}" class="text-info "><i class="fas fa-eye"></i></a>
                      </div>
                      <div>
                         <form action="{{route('product.destroy',$product->id)}}" method="POST">

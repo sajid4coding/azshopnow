@@ -42,7 +42,8 @@ Route::get('search',[FrontEndController::class,'search'])->name('search');
 Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('stripe_checkout_post');
 Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
 // PAYMENTS METHOD INTEGRATION ROUTE END
-
+// Newsletter route
+Route::resource('newsletter', NewsletterController::class);
 
 Route::middleware(['admin', 'verified'])->group(function () {
 
@@ -75,7 +76,7 @@ Route::middleware(['admin', 'verified'])->group(function () {
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
 
-    Route::resource('newsletter', NewsletterController::class);
+
     //SubCategoryController Resource
     Route::resource('subcategory', SubCategoryController::class);
 

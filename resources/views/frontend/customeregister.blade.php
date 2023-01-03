@@ -44,7 +44,7 @@
                                                 {{ session('success') }}
                                             </div>
                                             @endif
-                                <form action="{{ route('customer.register.post') }}" method="POST">
+                                <form class=" form-prevent-multiple-submits" action="{{ route('customer.register.post') }}" method="POST">
                                       @csrf
                                     <div class="form-grp">
                                         <label for="name">User Name *</label>
@@ -91,7 +91,7 @@
                                     <div class="">
                                         {!! NoCaptcha::display() !!}
                                     </div>
-                                    <button type="submit">REGISTER</button>
+                                    <button class=" button-prevent-multiple-submits" type="submit">REGISTER</button>
                                 </form>
                             </div>
                             </div>
