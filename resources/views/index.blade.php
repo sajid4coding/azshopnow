@@ -78,90 +78,6 @@
                 </div>
             </section>
             <!-- banner-area-end -->
-            <!-- choose-product-area -->
-            <section class="choose-product-area pt-80 pb-70">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12">
-                            <div class="section-title text-center mb-40">
-                                <h2 class="title">Choose Category</h2>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Categories Section Start --}}
-
-                    <div class="row justify-content-center">
-                        @if ($auth_categories)
-                            @auth
-                                <div class="col-xl-12">
-                                    <div class="row justify-content-center">
-                                        @foreach ($auth_categories as $category)
-                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-                                                <div class="add-banner">
-                                                    <div class="add-banner-img mb-10">
-                                                        <style>
-                                                            .add-banner-img{
-                                                                display: flex !important;
-                                                                justify-content: center !important;
-                                                                align-items: center !important;
-                                                            }
-                                                        </style>
-                                                        <a href="{{route('category.product',$category->slug)}}"><img width="150" src="{{ asset('uploads') }}/category_photo/{{ $category->thumbnail }}" alt="img"></a>
-                                                    </div>
-                                                    <div class="add-banner-content">
-                                                    </div>
-                                                </div>
-                                                <h6 class="text-center">{{ $category->category_name }}</h6>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endauth
-                        @endif
-                        @if ($categories)
-                            @guest
-                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8">
-                                    <div class="row justify-content-center">
-                                        @foreach ($categories as $category)
-                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
-                                                <div class="add-banner">
-                                                    <div class="add-banner-img mb-20">
-                                                        <a href="shop.html"><img src="{{ asset('uploads') }}/category_photo/{{ $category->thumbnail }}" alt="img"></a>
-                                                    </div>
-                                                    <div class="add-banner-content">
-                                                    </div>
-                                                </div>
-                                                <h6 class="text-center">{{ $category->category_name }}</h6>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endguest
-                            @guest
-                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-8">
-                                    <div class="join-olle-wrap">
-                                        <div class="icon">
-                                            <a href="{{ route('vendor.login') }}"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4g-Qf3MOCxDiyXBYM_qK8UVg0zN5-7r_Fvw&usqp=CAU" alt=""></a>
-                                        </div>
-                                        <h3 class="title">Business with AZShop</h3>
-                                        <div class="join-btn">
-                                            <a href="{{ route('become.vendor') }}" class="btn">Join Us</a>
-                                            <a href="{{ route('vendor.login') }}" class="btn">Sign In</a>
-                                        </div>
-                                        <a href="{{ route('home') }}"><img src="https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg" alt=""></a>
-                                    </div>
-                                </div>
-                            @endguest
-                        @endif
-                    </div>
-
-                    {{-- Categories Section End --}}
-
-                </div>
-            </section>
-            <!-- choose-product-area-end -->
-
             <!-- super-deals-area -->
             <section class="super-deals-product-area pt-30 pb-70">
                 <div class="container">
@@ -186,72 +102,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row custom justify-content-center">
-                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product01.jpg" alt=""></a>
+                                <div class="container">
+                                    <div class="row popular-product-active">
+                                        @foreach ($superDealspProducts as $Products)
+                                            <div class="col-xl-2">
+                                                <div class="product-item-three">
+                                                    <div class="product-thumb">
+                                                        <a href="shop-details.html"><img src="{{ asset('uploads/product_photo') }}/{{$Products->thumbnail}}" alt="img"></a>
+                                                    </div>
+                                                    <div class="product-content text-center">
+                                                        <h4 class="title"><a href="shop-details.html">{{Str::limit($Products->product_title,10)}}</a></h4>
+                                                        <p>0 orders <span>-35%</span></p>
+                                                        <h4 class="price">$ @if ($Products->discount_price) {{ $Products->discount_price }} @else {{ $Products->product_price }} @endif </h4>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">Watch $29.08<span>-35%</span></a></h4>
-                                                <p>0 orders</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product02.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">Backup $29.08<span>-25%</span></a></h4>
-                                                <p>05 orders</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product03.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">Fashion $15.08<span>-35%</span></a></h4>
-                                                <p>13 orders</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product04.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">Watch $29.08<span>-35%</span></a></h4>
-                                                <p>50 orders</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product05.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">Accessories<span>-15%</span></a></h4>
-                                                <p>02 orders</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product06.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">Jewellery $29.08<span>-20%</span></a></h4>
-                                                <p>20 orders</p>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -356,7 +222,89 @@
                 </div>
             </section>
             <!-- super-deals-area-end -->
+            <!-- choose-product-area -->
+            <section class="choose-product-area pt-80 pb-70">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                            <div class="section-title text-center mb-40">
+                                <h2 class="title">Choose Category</h2>
+                            </div>
+                        </div>
+                    </div>
 
+                    {{-- Categories Section Start --}}
+
+                    <div class="row justify-content-center">
+                        @if ($auth_categories)
+                            @auth
+                                <div class="col-xl-12">
+                                    <div class="row justify-content-center">
+                                        @foreach ($auth_categories as $category)
+                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                                <div class="add-banner">
+                                                    <div class="add-banner-img mb-10">
+                                                        <style>
+                                                            .add-banner-img{
+                                                                display: flex !important;
+                                                                justify-content: center !important;
+                                                                align-items: center !important;
+                                                            }
+                                                        </style>
+                                                        <a href="{{route('category.product',$category->slug)}}"><img width="150" src="{{ asset('uploads') }}/category_photo/{{ $category->thumbnail }}" alt="img"></a>
+                                                    </div>
+                                                    <div class="add-banner-content">
+                                                    </div>
+                                                </div>
+                                                <h6 class="text-center">{{ $category->category_name }}</h6>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endauth
+                        @endif
+                        @if ($categories)
+                            @guest
+                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8">
+                                    <div class="row justify-content-center">
+                                        @foreach ($categories as $category)
+                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                                <div class="add-banner">
+                                                    <div class="add-banner-img mb-20">
+                                                        <a href="shop.html"><img src="{{ asset('uploads') }}/category_photo/{{ $category->thumbnail }}" alt="img"></a>
+                                                    </div>
+                                                    <div class="add-banner-content">
+                                                    </div>
+                                                </div>
+                                                <h6 class="text-center">{{ $category->category_name }}</h6>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endguest
+                            @guest
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-8">
+                                    <div class="join-olle-wrap">
+                                        <div class="icon">
+                                            <a href="{{ route('vendor.login') }}"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4g-Qf3MOCxDiyXBYM_qK8UVg0zN5-7r_Fvw&usqp=CAU" alt=""></a>
+                                        </div>
+                                        <h3 class="title">Business with AZShop</h3>
+                                        <div class="join-btn">
+                                            <a href="{{ route('become.vendor') }}" class="btn">Join Us</a>
+                                            <a href="{{ route('vendor.login') }}" class="btn">Sign In</a>
+                                        </div>
+                                        <a href="{{ route('home') }}"><img src="https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                            @endguest
+                        @endif
+                    </div>
+
+                    {{-- Categories Section End --}}
+
+                </div>
+            </section>
+            <!-- choose-product-area-end -->
 
             <!-- flash-product-area -->
             <section class="flash-product-area pt-90 pb-60">
@@ -401,66 +349,23 @@
                             <div class="trending-product">
                                 <h3 class="title">Trending Products</h3>
                                 <ul>
-                                    <li class="trending-product-item mb-30">
-                                        <div class="thumb">
-                                            <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/trending_product01.png" alt=""></a>
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="title"><a href="shop-details.html">Morales Ultimate Launch</a></h6>
-                                            <h4 class="price">$09.08 <del>$29.08</del></h4>
-                                            <div class="content-bottom">
-                                                <ul>
-                                                    <li>1k+ Orders ~</li>
-                                                    <li><i class="fa-solid fa-star"></i>4.7</li>
-                                                </ul>
+                                    @foreach ($trendingProducts as $trendingProducts)
+                                        <li class="trending-product-item mb-30">
+                                            <div class="thumb">
+                                                <a href="{{ route('single.product', ['id'=>$trendingProducts->id,'title'=>Str::slug($trendingProducts->product_title)]) }}"><img src="{{ asset('uploads/product_photo') }}/{{$trendingProducts->thumbnail}}" alt=""></a>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="trending-product-item mb-30">
-                                        <div class="thumb">
-                                            <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/trending_product02.png" alt=""></a>
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="title"><a href="shop-details.html">Lixada Fishing Breathable</a></h6>
-                                            <h4 class="price">$14.08 <span>-35%</span></h4>
-                                            <div class="content-bottom">
-                                                <ul>
-                                                    <li>1.5k+ Orders ~</li>
-                                                    <li><i class="fa-solid fa-star"></i>4.8</li>
-                                                </ul>
+                                            <div class="content">
+                                                <h6 class="title"><a href="{{ route('single.product', ['id'=>$trendingProducts->id,'title'=>Str::slug($trendingProducts->product_title)]) }}">{{Str::limit($trendingProducts->product_title,7)}}</a></h6>
+                                                <h4 class="price">$09.08 <del>$29.08</del></h4>
+                                                <div class="content-bottom">
+                                                    <ul>
+                                                        <li>1k+ Orders ~</li>
+                                                        <li><i class="fa-solid fa-star"></i>4.7</li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="trending-product-item mb-30">
-                                        <div class="thumb">
-                                            <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/trending_product03.png" alt=""></a>
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="title"><a href="shop-details.html">Morales Ultimate Launch</a></h6>
-                                            <h4 class="price">$18.08 <span>-25%</span></h4>
-                                            <div class="content-bottom">
-                                                <ul>
-                                                    <li>2k+ Orders ~</li>
-                                                    <li><i class="fa-solid fa-star"></i>4.5</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="trending-product-item mb-30">
-                                        <div class="thumb">
-                                            <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/trending_product04.png" alt=""></a>
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="title"><a href="shop-details.html">Winter Gloves Mens</a></h6>
-                                            <h4 class="price">$19.08 <span>-20%</span></h4>
-                                            <div class="content-bottom">
-                                                <ul>
-                                                    <li>3k+ Orders ~</li>
-                                                    <li><i class="fa-solid fa-star"></i>4.9</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -476,32 +381,35 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="product-menu-nav">
-                                        <button class="active" data-filter="*">Flash</button>
-                                        <button class="" data-filter=".cat-one">Popular</button>
-                                        <button class="" data-filter=".cat-two">Top Rate</button>
+                                        <button class="active" data-filter=".all">All</button>
+                                        <button class="" data-filter=".cat-one">Flash</button>
+                                        <button class="" data-filter=".cat-two">Popular</button>
+                                        <button class="" data-filter=".cat-three">Super Deals</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="flash-product-item-wrap">
                                 <div class="row flash-isotope-active">
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
-                                        <div class="product-item-two mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/flash_product01.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h6 class="title"><a href="shop-details.html">Morales Ultimate Launch</a></h6>
-                                                <h4 class="price">$29.08 <span>-35%</span></h4>
-                                                <div class="content-bottom">
-                                                    <ul>
-                                                        <li>1k+ Orders ~</li>
-                                                        <li><i class="fa-solid fa-star"></i>4.9</li>
-                                                    </ul>
+                                    @foreach ($flashSaleProducts as $flashSaleProducts)
+                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer all @if($flashSaleProducts->campaign=='trending') {{'cat-two'}} @elseif($flashSaleProducts->campaign=='flash-sale'){{'cat-one'}} @elseif($flashSaleProducts->campaign=='super-deals'){{'cat-three'}} @endif  ">
+                                            <div class="product-item-two mb-30">
+                                                <div class="product-thumb">
+                                                    <a href="{{ route('single.product', ['id'=>$flashSaleProducts->id,'title'=>Str::slug($flashSaleProducts->product_title)]) }}"><img src="{{ asset('uploads/product_photo') }}/{{$flashSaleProducts->thumbnail}}" alt=""></a>
+                                                </div>
+                                                <div class="product-content">
+                                                    <h6 class="title"><a href="{{ route('single.product', ['id'=>$flashSaleProducts->id,'title'=>Str::slug($flashSaleProducts->product_title)]) }}">{{Str::limit($flashSaleProducts->product_title,15)}}</a></h6>
+                                                    <h4 class="price">$29.08 <span>-35%</span></h4>
+                                                    <div class="content-bottom">
+                                                        <ul>
+                                                            <li>1k+ Orders ~</li>
+                                                            <li><i class="fa-solid fa-star"></i>4.9</li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two cat-one">
+                                    @endforeach
+                                    {{-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two cat-one">
                                         <div class="product-item-two mb-30">
                                             <div class="product-thumb">
                                                 <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/flash_product02.jpg" alt=""></a>
@@ -619,7 +527,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

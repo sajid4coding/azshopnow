@@ -33,7 +33,7 @@
                     </span>
                     @foreach (App\Models\Order_Detail::where('invoice_id', $order->id)->get() as $review)
                         <span style="display: block;padding-left:30px">
-                            Product Name:  <span style="color:#00d9ff !important;margin-right:20px"><a  style="color:#00d9ff !important;" href="{{ route('single.product', $review->relationwithproduct->id) }}">{{ $review->relationwithproduct->product_title }}</a>  </span>
+                            Product Name:  <span style="color:#00d9ff !important;margin-right:20px"><a  style="color:#00d9ff !important;" href="{{ route('single.product', ['id'=>$review->relationwithproduct->id,'title'=>Str::slug($review->relationwithproduct->product_title)]) }}">{{ $review->relationwithproduct->product_title }}</a>  </span>
                             @if ($review->size_id && $review->color_id)
                                 Color: <span style="color:#00d9ff !important;margin-right:20px">{{ $review->relationwithcolor->color_name }} </span>
                                 Size: <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $review->relationwithsize->size }}  </span>

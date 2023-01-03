@@ -79,13 +79,13 @@
                                             <td>
                                                 <div class="d-flex">
                                                     <!--begin::Thumbnail-->
-                                                    <a href="{{ route('single.product', $report->product_id) }}" class="symbol symbol-50px" target="_blank">
+                                                    <a href="{{ route('single.product', ['id'=>$report->product_id,'title'=>Str::slug($report->relationwithproduct->product_title)]) }}" class="symbol symbol-50px" target="_blank">
                                                         <span class="symbol-label" style="background-image:url({{ asset('uploads') }}/product_photo/{{ $report->relationwithproduct->thumbnail }});"></span>
                                                     </a>
                                                     <!--end::Thumbnail-->
                                                     <div class="ms-5">
                                                         <!--begin::Title-->
-                                                        <a href="{{ route('single.product', $report->product_id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1" target="_blank">{{ $report->relationwithproduct->product_title }}</a>
+                                                        <a href="{{ route('single.product',['id'=>$report->product_id,'title'=>Str::slug($report->relationwithproduct->product_title)]) }}" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1" target="_blank">{{ $report->relationwithproduct->product_title }}</a>
                                                         <!--end::Title-->
                                                     </div>
                                                 </div>

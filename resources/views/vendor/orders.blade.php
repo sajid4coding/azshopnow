@@ -33,7 +33,7 @@
                     </span>
                     @foreach (App\Models\Order_Detail::where('invoice_id', $invoice->id)->get() as $order)
                         <span style="display: block;padding-left:30px">
-                        Product Name:  <span style="color:#00d9ff !important;margin-right:20px"><a style="color:#00d9ff !important;" href="{{ route('single.product',$order->relationwithproduct->id) }}">{{ $order->relationwithproduct->product_title }}</a></span>
+                        Product Name:  <span style="color:#00d9ff !important;margin-right:20px"><a style="color:#00d9ff !important;" href="{{ route('single.product', ['id'=> $order->relationwithproduct->id, 'title'=>Str::slug($order->relationwithproduct->product_title)]) }}">{{ $order->relationwithproduct->product_title }}</a></span>
                         @if ($order->size_id && $order->color_id)
                             Color:  <span style="color:#00d9ff !important;margin-right:20px">{{ $order->relationwithcolor->color_name }} </span>
                             Size:  <span style="color:rgb(0, 217, 255) !important;margin-right:20px">{{ $order->relationwithsize->size }}  </span>

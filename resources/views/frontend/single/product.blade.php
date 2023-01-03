@@ -138,6 +138,16 @@
             <!-- shop-details-area -->
             <div class="shop-details-area pt-80 pb-90">
                 <div class="container">
+                    @if (session('report_success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('report_success') }}
+                        </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            Something Is Missing In Report Section
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-xl-5 col-lg-6">
                             <div class="shop-details-img-wrap">
@@ -934,7 +944,6 @@
                                     <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         Report Item
                                     </a>
-
                                     <!-- Modal Start-->
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -946,27 +955,22 @@
                                             <form action="{{ route('report.product', $single_product->id) }}" method="POST">
                                             @csrf
                                                 <div class="modal-body">
-                                                    @foreach ($errors->all() as $error)
-                                                        <li class="text-danger">
-                                                            {{ $error }}
-                                                        </li>
-                                                    @endforeach
                                                     <div class="contact-form">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <input type="text" name="customer_name" placeholder="Your Name *">
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <input type="text" name="customer_email" placeholder="Your Email *">
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <input type="phone" name="phone_number" placeholder="Your Phone">
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <input type="text" name="subject" placeholder="Subject">
-                                                                </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <input type="text" name="customer_name" placeholder="Your Name *">
                                                             </div>
-                                                            <textarea name="customer_message" placeholder="Your Message"></textarea>
+                                                            <div class="col-md-6">
+                                                                <input type="text" name="customer_email" placeholder="Your Email *">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input type="phone" name="phone_number" placeholder="Your Phone">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input type="text" name="subject" placeholder="Subject">
+                                                            </div>
+                                                        </div>
+                                                        <textarea name="customer_message" placeholder="Your Message"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -976,7 +980,7 @@
                                                         <button type="submit" class="btn btn-primary">Report Item</button>
                                                     @endauth
 
-                                                    @guest()
+                                                    @guest
                                                         <button id="not_logged_in" type="button" class="btn btn-primary">Report Item</button>
                                                     @endguest
 
@@ -1188,43 +1192,20 @@
         $('#single_product_description').innerHTML({{  $single_product->description  }})
     })
 </script>
-
 @endsection
 
 @section('footer_script')
-
-    <script>
-        @if (session('report_success'))
-            const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-            })
-
-            Toast.fire({
-            icon: 'success',
-            title: 'Signed in successfully'
-            })
-        @endif
-    </script>
-
-    <script>
-        $(document).ready(function(){
-        $('#not_logged_in').click(function(){
-            Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'You have to need Login first!',
-            footer: '<a href="{{route('customer.login')}}">Click here to login</a>'
-            });
-            });
+<script>
+    $(document).ready(function(){
+    $('#not_logged_in').click(function(){
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You have to need Login first!',
+        footer: '<a href="{{route('customer.login')}}">Click here to login</a>'
         });
-    </script>
+        });
+    });
+</script>
 @endsection
 

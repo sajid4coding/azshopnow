@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController};
 use App\Models\Product;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
@@ -42,7 +42,8 @@ Route::get('search',[FrontEndController::class,'search'])->name('search');
 Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('stripe_checkout_post');
 Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
 // PAYMENTS METHOD INTEGRATION ROUTE END
-// Newsletter route
+
+//Newslatter Route
 Route::resource('newsletter', NewsletterController::class);
 
 Route::middleware(['admin', 'verified'])->group(function () {
@@ -51,9 +52,13 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
     Route::get('product_lists',[DashboardController::class, 'product_lists'])->middleware(['auth', 'verified'])->name('product_lists');
     Route::get('pending-products',[DashboardController::class, 'pendingProducts'])->middleware(['auth', 'verified'])->name('pending.products');
+    Route::get('super-deal-products',[DashboardController::class, 'super_deal_products'])->middleware(['auth', 'verified'])->name('super.deal.products');
+    Route::get('tranding-products',[DashboardController::class, 'trending_products'])->middleware(['auth', 'verified'])->name('trending.products');
+    Route::get('flash-sale-products',[DashboardController::class, 'flash_sale_products'])->middleware(['auth', 'verified'])->name('flash.sale.products');
     Route::get('banned-products',[DashboardController::class, 'bannedProducts'])->middleware(['auth', 'verified'])->name('banned.products');
     Route::get('edit_product/{id}',[DashboardController::class, 'product_edit'])->middleware(['auth', 'verified'])->name('product_edit');
     Route::post('status_product/{id}',[DashboardController::class, 'product_status'])->middleware(['auth', 'verified'])->name('product_status');
+    Route::post('product_campaign/{id}',[DashboardController::class, 'product_campaign'])->middleware(['auth', 'verified'])->name('product_campaign');
     Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
     Route::get('review',[DashboardController::class, 'reviews'])->middleware(['auth', 'verified'])->name('review');
     Route::get('reports',[DashboardController::class,'report'])->name('report');
@@ -75,7 +80,6 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //CategoryController Resource
     Route::resource('category', CategoryController::class);
-
 
     //SubCategoryController Resource
     Route::resource('subcategory', SubCategoryController::class);
@@ -113,7 +117,6 @@ Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('ven
 Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
 
 Route::middleware(['vendor'])->group(function(){
-
     Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
     Route::get('vendor/setting', [VendorController::class, 'vendor_setting'])->name('vendor.setting');
     Route::get('vendor/coupon/add', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
@@ -139,6 +142,11 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('inventory/{product}', [InventoryController::class, 'inventory'])->name('inventory');
     Route::post('add_inventory/{product}', [InventoryController::class, 'add_inventory'])->name('add_inventory');
     Route::get('delete_inventory/{id}', [InventoryController::class, 'delete_inventory'])->name('delete_inventory');
+
+
+    Route::get('plans', [PlanController::class, 'index'])->name("plans");;
+    Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
+    Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
 });
 
 
