@@ -317,7 +317,7 @@
                             <button id="selectVariationFirst" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
                         @endif
                     @elseif ($inventories->size==NULL && $inventories->color)
-                        @if ($justSize)
+                        @if ($justColor)
                             <button wire:click="addcartwithjustcolor({{$inventories->id}})" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
                         @else
                             <button id="selectVariationFirst" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>

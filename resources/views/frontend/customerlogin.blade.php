@@ -32,7 +32,12 @@
                         <div class="col-lg-8 ">
                             <div class="vr-form-box">
                                 <h3 class="title text-center">customer login Form</h3>
-                                <form class=" form-prevent-multiple-submits" action="{{ route('customer.login.post') }}" method="POST">
+                                @if(session('success'))
+                                    <div class="alert alert-success text-center">
+                                        <span>{{session('success')}}</span>
+                                    </div>
+                                @endif
+                                <form action="{{ route('customer.login.post') }}" method="POST">
                                     @csrf
                                     <div class="row justify-content-center">
                                         <div class="col-md-6">

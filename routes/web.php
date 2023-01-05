@@ -45,7 +45,6 @@ Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->n
 
 //Newslatter Route
 Route::resource('newsletter', NewsletterController::class);
-
 Route::middleware(['admin', 'verified'])->group(function () {
 
     //DashboardController
@@ -74,6 +73,9 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('admin/total/earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
     Route::get('admin/subscription/earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
     Route::get('admin/commission/earning',[DashboardController::class,'CommissionEarning'])->name('commission.earning');
+    Route::post('admin/year-order-details',[DashboardController::class,'yearInvoiceDownload'])->name('year.invoice.download');
+    Route::post('admin/monthly-order-details',[DashboardController::class,'monthlyInvoiceDownload'])->name('monthly.invoice.download');
+    Route::post('admin/day-order-details',[DashboardController::class,'dayInvoiceDownload'])->name('day.invoice.download');
 
     //PackagingController Resource
     Route::resource('packaging', PackagingController::class);
@@ -106,7 +108,12 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('admin/profile/setting', [ProfileController::class, 'admin_profile_setting'])->name('admin.profile.setting');
     Route::post('admin/profile/setting/edit', [ProfileController::class, 'admin_profile_setting_edit'])->name('admin.profile.setting.edit');
     Route::post('admin/password/change', [ProfileController::class, 'admin_password_change'])->name('admin.password.change');
+
+    //Newslatter Route
+    Route::get('admin/newsletter-list', [DashboardController::class, 'newslettter'])->name('newsletters');
+    Route::post('admin/newsletter-list', [DashboardController::class, 'exportNewslettter'])->name('export.newsletters');
 });
+
 require __DIR__.'/auth.php';
 
 
