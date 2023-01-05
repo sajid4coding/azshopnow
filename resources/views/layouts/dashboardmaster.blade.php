@@ -490,7 +490,7 @@
 											</span>
 											<!--end::Svg Icon-->
 										</span>
-										<a href="{{ route('newsletter.index') }}" class="menu-title"> Subscriber</a>
+										<a href="{{ route('newsletters') }}" class="menu-title"> Subscriber</a>
 									</span>
 								</div>
 							</div>

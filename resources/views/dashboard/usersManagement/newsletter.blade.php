@@ -48,10 +48,10 @@
             <div class="card card-flush">
                 <!--begin::Card header-->
                 <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                    <!--begin::Card title-->
-
-                    <!--end::Card title-->
-
+                    <form action="{{route('export.newsletters')}}" method="POST">
+                        @csrf
+                        <button class="btn btn-sm btn-primary">Export the list </button>
+                    </form>
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
@@ -116,13 +116,9 @@
                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="" class="menu-link  btn btn-sm px-3">Edit</a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <form action="" method="POST">
-
+                                                    <form action="{{route('newsletter.destroy',$newsletter->id)}}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
                                                         <button type="submit" class="btn btn-sm menu-link  px-3" >Delete</button>
                                                     </form>
                                                 </div>

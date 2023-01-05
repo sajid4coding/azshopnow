@@ -73,7 +73,6 @@
                                     <hr>
                                     @php
                                         $months=array("01"=>"January", "02"=>"February", "03"=>"March" , "04"=>"April" , "05"=>"May" , "06"=>"June" , "07"=>"July" , "08"=>"August" , "09"=>"September" , "10"=>"October" , "11"=>"November" , "12"=>"December");
-
                                     @endphp
                                     <select name="month" id="" class="form-select">
                                         <option value="0">- Select Month</option>
@@ -93,7 +92,7 @@
                     <div class="card">
                         <div class="card-body">
                             <form action="{{route('day.invoice.download')}}" method="POST">
-                                @csrf
+                                @csrf 
                                 <div>
                                     <h4>Day</h4>
                                     <hr>

@@ -15,8 +15,7 @@ class NewsletterController extends Controller
      */
     public function index()
     {
-        $newsletters = Newsletter::all();
-        return view('dashboard.usersManagement.newsletter',compact('newsletters'));
+
     }
 
     /**
@@ -89,8 +88,9 @@ class NewsletterController extends Controller
      * @param  \App\Models\Newsletter  $newsletter
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Newsletter $newsletter)
+    public function destroy($id)
     {
-        //
+       Newsletter::find($id)->delete();
+       return back()->with('success','Subscriber deleted successfully.');
     }
 }

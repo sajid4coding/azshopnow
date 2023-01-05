@@ -45,7 +45,6 @@ Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->n
 
 //Newslatter Route
 Route::resource('newsletter', NewsletterController::class);
-
 Route::middleware(['admin', 'verified'])->group(function () {
 
     //DashboardController
@@ -109,7 +108,12 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('admin/profile/setting', [ProfileController::class, 'admin_profile_setting'])->name('admin.profile.setting');
     Route::post('admin/profile/setting/edit', [ProfileController::class, 'admin_profile_setting_edit'])->name('admin.profile.setting.edit');
     Route::post('admin/password/change', [ProfileController::class, 'admin_password_change'])->name('admin.password.change');
+
+    //Newslatter Route
+    Route::get('admin/newsletter-list', [DashboardController::class, 'newslettter'])->name('newsletters');
+    Route::post('admin/newsletter-list', [DashboardController::class, 'exportNewslettter'])->name('export.newsletters');
 });
+
 require __DIR__.'/auth.php';
 
 
