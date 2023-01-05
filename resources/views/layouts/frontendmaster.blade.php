@@ -25,6 +25,7 @@
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-lite.css">
         <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/summernote-bs4.css">
+        <link rel="stylesheet" href="{{ asset('dashboard_assets')}}/css/submits.css">
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
         @livewireStyles
         @yield('header_css')
@@ -735,7 +736,6 @@
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
                                 <form action="{{ route('newsletter.store') }}" method="post">
-
                                     @csrf
                                     <input type="text" placeholder="Your email here..." name="email">
                                     <button type="submit">Subscribe</button>
@@ -865,6 +865,7 @@
     <script src="{{ asset('frontend_assets') }}/js/main.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/product.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/custom.js"></script>
+    <script src="{{ asset('frontend_assets') }}/js/submit.js"></script>
     <script src="{{ asset('frontend_assets') }}/js/summernote-lite.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- <script src="{{ asset('frontend_assets') }}/js/summernote-bs4.js"></script>

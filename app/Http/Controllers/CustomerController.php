@@ -21,6 +21,7 @@ class CustomerController extends Controller
     // {
     //     $this->middleware('auth');
     // }
+   
 
     public function customer_register(){
          return view('frontend.customeregister',[

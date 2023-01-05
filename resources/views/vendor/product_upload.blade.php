@@ -126,7 +126,7 @@
                 </div>
 
             @endif
-            <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+            <form class=" form-prevent-multiple-submits" action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="product-upload-box text-center">
                     <div class="row">
@@ -228,7 +228,7 @@
                 <span class="muted">Add tags for a product</span>
                 <br>
 
-                <button class="mt-5" type="submit">Upload Product</button>
+                <button class="mt-5  button-prevent-multiple-submits" type="submit">Upload Product</button>
             </form>
         </div>
     </div>

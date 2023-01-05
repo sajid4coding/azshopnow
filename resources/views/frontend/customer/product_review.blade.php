@@ -118,7 +118,7 @@
                 @endforeach
             </div>
         @endif
-        <form action="{{ route('product.review.post', $id) }}" method="POST" enctype="multipart/form-data">
+        <form class="form d-flex flex-column flex-lg-row form-prevent-multiple-submits" action="{{ route('product.review.post', $id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="upload__box">
                 <div class="upload__img-wrap"></div>
@@ -149,7 +149,7 @@
             <div class="form_item">
                 <textarea class="form-control mb-3" name="comment" placeholder="Your Opinion*"></textarea>
             </div>
-            <button type="submit" class="btn btn_primary py-2 px-4">Submit Review</button>
+            <button type="submit" class="btn btn_primary py-2 px-4 button-prevent-multiple-submits">Submit Review</button>
         </form>
     </div>
 
