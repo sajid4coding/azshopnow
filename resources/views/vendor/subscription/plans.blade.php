@@ -66,7 +66,6 @@
                                 <li><i class="fa fa-times mr-2 text-danger"></i> Vendor Setting Change Allowed</li>
                                 <li><i class="fa fa-times mr-2 text-danger"></i> Tracking Store Analytics</li>
                                 <li><i class="fa fa-times mr-2 text-danger"></i> Shipping System</li>
-                                <li><i class="fa fa-times mr-2 text-danger"></i> Packaging System</li>
                             </ul>
                             <a disabled class="read bg-secondary">Choose</a>
                         </div>
@@ -88,7 +87,6 @@
                                 <li><i class="fa fa-check mr-2 text-primary"></i> Vendor Setting Change Allowed</li>
                                 <li><i class="fa fa-check mr-2 text-primary"></i> Tracking Store Analytics</li>
                                 <li><i class="fa fa-check mr-2 text-primary"></i> Shipping System</li>
-                                <li><i class="fa fa-check mr-2 text-primary"></i> Packaging System</li>
                             </ul>
                             <a href="{{ route('plans.show',$plan->slug) }}" class="read">Choose</a>
                         </div>

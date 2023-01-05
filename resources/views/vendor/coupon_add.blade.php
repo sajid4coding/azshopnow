@@ -18,7 +18,7 @@
                @endforeach
             @endif
             {{-- ==== Error Messages ==== --}}
-            @if ($coupon_count < 1 || membership())
+            @if ($coupon_count < 5 || membership())
                 <form action="{{ route('coupon.add') }}" method="POST">
                      @csrf
                     <div class="row">
