@@ -3,10 +3,14 @@
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Inventory;
+use App\Models\Invoice;
+use App\Models\Order_Detail;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\User;
 use App\Models\Wishlist;
+use Illuminate\Support\Facades\DB;
+use Laravel\Cashier\Subscription;
 
 function getWishListProduct(){
      return  Wishlist::where('user_id',auth()->id())->get();
@@ -36,20 +40,39 @@ function getWishListProduct(){
     return User::find($user_id);
  }
 
- function cart_total($product_id, $quantity)
- {
-    $price = Product::find($product_id)->discount_price;
-    if($price){
-        $price = Product::find($product_id)->discount_price;
+function cart_total($product_id, $quantity, $size_id, $color_id){
+    if($size_id && $color_id) {
+        return Inventory::where([
+            'product_id' => $product_id,
+            'size' => $size_id,
+            'color' => $color_id
+        ])->first()->price*$quantity;
+    }elseif($size_id){
+        return Inventory::where([
+            'product_id' => $product_id,
+            'size' => $size_id,
+            'color' => NULL
+        ])->first()->price*$quantity;
+    }elseif($color_id){
+        return Inventory::where([
+            'product_id' => $product_id,
+            'size' => NULL,
+            'color' => $color_id
+        ])->first()->price*$quantity;
     }else{
-        $price = Product::find($product_id)->product_price;
+        $withoutinventory_price = Product::find($product_id)->discount_price;
+        if($withoutinventory_price){
+            $discount_price = Product::find($product_id)->discount_price;
+            return $discount_price*$quantity;
+        }else{
+            $product_price = Product::find($product_id)->product_price;
+            return $product_price*$quantity;
+        }
     }
-
-    return $price*$quantity;
- }
+}
 
 function get_inventory($product_id, $size_id, $color_id){
-    if($size_id || $color_id) {
+    if($size_id && $color_id) {
         return Inventory::where([
             'product_id' => $product_id,
             'size' => $size_id,
@@ -892,4 +915,12 @@ function count_review($id)
 function vendors()
 {
     return User::where('role', 'vendor')->where('status','active')->get()->shuffle();
+}
+
+function membership(){
+    $subscriptions = DB::table('subscriptions')->where([
+            'user_id' => auth()->id(),
+            'stripe_status' => 'active'
+        ])->exists();
+    return $subscriptions;
 }

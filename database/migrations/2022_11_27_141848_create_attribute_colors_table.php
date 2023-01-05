@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('attribute_colors', function (Blueprint $table) {
             $table->id();
             $table->integer('vendor_id');
-            $table->string('color_name')->unique();
-            $table->string('color')->unique();
+            $table->string('color_name');
+            $table->string('color');
             $table->timestamps();
         });
     }

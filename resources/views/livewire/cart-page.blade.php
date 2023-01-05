@@ -53,8 +53,12 @@
                             src="{{ asset('uploads/product_photo') }}/{{ $cart->relationwithproduct->thumbnail }}" class="img-fluid rounded-3" alt="Cotton T-shirt">
                         </div>
                         <div class="col-md-3 col-lg-3 col-xl-3">
-                            @if ($cart->size_id || $cart->color_id)
+                            @if ($cart->size_id && $cart->color_id)
                                 <h6 class="text-muted"><span>Size</span>: {{ $cart->relationwithsize->size }} | <span>Color</span>: {{ $cart->relationwithcolor->color_name  }}</h6>
+                            @elseif ($cart->size_id)
+                                <h6 class="text-muted"><span>Size</span>: {{ $cart->relationwithsize->size }}</h6>
+                            @elseif ($cart->color_id)
+                                <h6 class="text-muted"><span>Color</span>: {{ $cart->relationwithcolor->color_name }}</h6>
                             @endif
                             <a href="{{ route('single.product', ['id'=>$cart->relationwithproduct->id,'title'=>Str::slug($cart->relationwithproduct->product_title)]) }}" target="_blank" class="text-black fw-bolder">{{ $cart->relationwithproduct->product_title }}</a>
                             <br>
@@ -74,12 +78,13 @@
                             </button>
                         </div>
                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                            <h6 class="mb-0">${{ cart_total($cart->product_id, $cart->quantity) }}
+                            <h6 class="mb-0">${{ cart_total($cart->product_id, $cart->quantity, $cart->size_id, $cart->color_id) }}
                                 @php
-                                    $subtotal += cart_total($cart->product_id, $cart->quantity)
+                                    $subtotal += cart_total($cart->product_id, $cart->quantity, $cart->size_id, $cart->color_id)
                                 @endphp
                             </h6>
                         </div>
+                        {{-- {{ cart_total($cart->product_id, $cart->quantity, $cart->size_id, $cart->color_id) }} --}}
                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                             <button wire:click="cart_row_delete({{ $cart->id }})" class="bg-transparent border-0 text-muted"><i class="fas fa-times"></i></button>
                         </div>
@@ -157,7 +162,7 @@
                         @else
                             @if (session('shipping_cost') != 0 && session('packagingCost'))
                                 {{-- {{ session('after_discount') + session('shipping_charge') }} --}}
-                                {{ session('subtotal') + session('shipping_cost') + session('packagingCost')->cost}}
+                                {{ session('subtotal') + session('shipping_cost') + session('packagingCost')->cost }}
                             @elseif(session('packagingCost'))
                                 {{ round(session('subtotal')+ session('packagingCost')->cost) }}
                                 @else

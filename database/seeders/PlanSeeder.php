@@ -21,7 +21,7 @@ class PlanSeeder extends Seeder
             'name' => 'Basic',
             'slug' => 'basic',
             'stripe_plan' => 'price_1MKObsDy8yREP5Q9IbTWQolo',
-            'price' => 10,
+            'price' => 0,
             'description' => 'Basic',
             'created_at' => now()
 
@@ -31,7 +31,7 @@ class PlanSeeder extends Seeder
             'name' => 'Premium',
             'slug' => 'premium',
             'stripe_plan' => 'price_1MKOdHDy8yREP5Q93o6gsMCd',
-            'price' => 50,
+            'price' => 29,
             'description' => 'Premium',
             'created_at' => now()
         ]);

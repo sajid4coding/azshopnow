@@ -122,7 +122,7 @@
                 </div>
                 <div class="col-12">
                     <div class="mb-3 d-grid gap-2">
-                        <button type="submit" class="btn btn-primary text-center" id="card-button" data-secret="{{ $intent->client_secret }}">Purchase ${{ number_format($plan->price, 2) }}</button>
+                        <button type="submit" class="btn btn-primary text-center" id="card-button" data-secret="{{ $intent->client_secret }}">Pay ${{ number_format($plan->price, 2) }}</button>
                     </div>
                 </div>
             </form>

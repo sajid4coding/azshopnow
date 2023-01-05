@@ -1,4 +1,3 @@
-
 @extends('layouts.vendor_master')
 
 <style>
@@ -116,124 +115,135 @@
     cursor: pointer;
 }
 </style>
+
 <div class="col-lg-9 col-md-9">
 
-    <div class="tab-pane" id="productSection">
-        <div class="product-upload-wrap">
-            @if (session('product_add_success'))
-                <div class="alert alert-success" role="alert">
-                    <strong>{{ session('product_add_success') }}</strong>
-                </div>
 
-            @endif
-            <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="product-upload-box text-center">
-                    <div class="row">
+    @if ($product_count < 30 || membership())
+        <div class="tab-pane" id="productSection">
+            <div class="product-upload-wrap">
+                @if (session('product_add_success'))
+                    <div class="alert alert-success" role="alert">
+                        <strong>{{ session('product_add_success') }}</strong>
+                    </div>
+                @endif
+                @if (!membership())
+                    <div class="alert alert-warning" role="alert">
+                        Remember You Can Able To Add Only 30 Products. <a href="{{ route('plans') }}">Account Upgrade</a>
+                    </div>
+                @endif
+                <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="product-upload-box text-center">
+                        <div class="row">
 
-                        <div class="col-lg-6 col-md-6">
+                            <div class="col-lg-6 col-md-6">
 
-                               <label class="picture" for="picture__input" tabIndex="0">
-                                <span class="picture__image"></span>
-                              </label>
+                                   <label class="picture" for="picture__input" tabIndex="0">
+                                    <span class="picture__image"></span>
+                                  </label>
 
-                              <input type="file" name="thumbnail" id="picture__input">
+                                  <input type="file" name="thumbnail" id="picture__input">
+
+                            </div>
+                            {{-- <div class="col-lg-3 col-md-3"></div> --}}
+                            <div class="col-lg-6 col-md-6">
+                                <div class="upload__box">
+                                    <div class="upload__img-wrap"></div>
+                                    <div class="upload__btn-box">
+                                    <label class="upload__btn">
+                                        <p>Gallery Images</p>
+                                        <input name="gellery[]" type="file" multiple data-max_length="20" class="upload__inputfile">
+                                    </label>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
-                        {{-- <div class="col-lg-3 col-md-3"></div> --}}
-                        <div class="col-lg-6 col-md-6">
-                            <div class="upload__box">
-                                <div class="upload__img-wrap"></div>
-                                <div class="upload__btn-box">
-                                <label class="upload__btn">
-                                    <p>Gallery Images</p>
-                                    <input name="gellery[]" type="file" multiple data-max_length="20" class="upload__inputfile">
-                                </label>
-                                </div>
+                    </div>
+                    <div class="row">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <li >{{$error}}</li>
+                                @endforeach
+                            </div>
+                        @endif
+                        <div class="col-lg-6">
+                            <div class="form-grp">
+                                <label for="title">Product Title</label>
+                                <input type="text" name="product_title" id="title">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-grp">
+                                <label for="sku">Product SKU</label>
+                                <input type="text" name="sku" id="sku">
+                            </div>
+                        </div>
+
+                        @php
+                            $categories=category()
+                        @endphp
+                        <div class="col-lg-6">
+                            <div class="form-grp">
+                                <label for="parent_category">Category</label>
+                                <select name="parent_category" id="categoryDropDown" class="form-control">
+                                    <option value="0">- Select Category -</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{$category->slug}}">{{$category->category_name}}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-grp">
+                                <label for="subcategory">Sub Category </label>
+                                <select name="subcategory" id="SubCategory" class="form-control">
+                                    <option value="0">- Select Category -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-grp">
+                                <label for="price">Product Price</label>
+                                <input type="text"name="product_price" id="price" placeholder="0.00$">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-grp">
+                                <label for="discount_price">Price After Discount</label>
+                                <input type="text" name="discount_price" id="discount_price" placeholder="0.00$">
                             </div>
                         </div>
 
                     </div>
-                </div>
-                <div class="row">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                                <li >{{$error}}</li>
-                            @endforeach
-                        </div>
-                    @endif
-                    <div class="col-lg-6">
-                        <div class="form-grp">
-                            <label for="title">Product Title</label>
-                            <input type="text" name="product_title" id="title">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-grp">
-                            <label for="sku">Product SKU</label>
-                            <input type="text" name="sku" id="sku">
-                        </div>
+                    <div class="form-grp">
+                        <label for="description">Short Description</label>
+                        <textarea style=" min-height: 80px !important"  name="short_description"></textarea>
                     </div>
 
-                    @php
-                        $categories=category()
-                    @endphp
-                    <div class="col-lg-6">
-                        <div class="form-grp">
-                            <label for="parent_category">Category</label>
-                            <select name="parent_category" id="categoryDropDown" class="form-control">
-                                <option value="0">- Select Category -</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{$category->slug}}">{{$category->category_name}}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
+                    <div class="form-grp">
+                        <label for="description">Description</label>
+                        <textarea id="summernote" name="description"></textarea>
                     </div>
+                    <label>Product Tag</label>
+                    <input type="text" class="form-control" name="product_tag" id="tag-input1">
+                    <span class="muted">Add tags for a product</span>
+                    <br>
 
-                    <div class="col-lg-6">
-                        <div class="form-grp">
-                            <label for="subcategory">Sub Category </label>
-                            <select name="subcategory" id="SubCategory" class="form-control">
-                                <option value="0">- Select Category -</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-grp">
-                            <label for="price">Product Price</label>
-                            <input type="text"name="product_price" id="price" placeholder="0.00$">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-grp">
-                            <label for="discount_price">Price After Discount</label>
-                            <input type="text" name="discount_price" id="discount_price" placeholder="0.00$">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="form-grp">
-                    <label for="description">Short Description</label>
-                    <textarea style=" min-height: 80px !important"  name="short_description"></textarea>
-                </div>
-
-                <div class="form-grp">
-                    <label for="description">Description</label>
-                    <textarea id="summernote" name="description"></textarea>
-                </div>
-                <label>Product Tag</label>
-                <input type="text" class="form-control" name="product_tag" id="tag-input1">
-                <span class="muted">Add tags for a product</span>
-                <br>
-
-                <button class="mt-5" type="submit">Upload Product</button>
-            </form>
+                    <button class="mt-5" type="submit">Upload Product</button>
+                </form>
+            </div>
         </div>
-    </div>
+    @else
+        <p class="text-center text-danger">You can create only 30 products. If you upgrade your account you can able to creating unlimited products. <a href="{{ route('plans') }}">Account Upgrade</a></p>
+    @endif
 
 </div>
+
 @endsection
 @section('footer_script')
 <script>

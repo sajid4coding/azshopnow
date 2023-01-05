@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attribute_sizes', function (Blueprint $table) {
+        Schema::create('vendor_shippings', function (Blueprint $table) {
             $table->id();
             $table->integer('vendor_id');
-            $table->string('size');
+            $table->string('shipping_name');
+            $table->integer('shipping_cost');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attribute_sizes');
+        Schema::dropIfExists('vendor_shippings');
     }
 };
