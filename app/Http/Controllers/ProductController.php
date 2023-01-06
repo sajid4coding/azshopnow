@@ -83,7 +83,6 @@ class ProductController extends Controller
                 ]);
             }
         }
-
         return redirect("inventory/$product->id")->with('product_add_success','Successfully added a new product!');
 
     }
