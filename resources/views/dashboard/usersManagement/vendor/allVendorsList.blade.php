@@ -60,7 +60,7 @@
 
                                     <th class="min-w-250px sorting">Vendor Details</th>
                                     <th class="min-w-150px sorting">Status</th>
-                                    
+
                                     <th class="text-end min-w-70px sorting_disabled">Actions</th>
 
 
@@ -114,10 +114,10 @@
                                                 </div>
 
                                                 <div class="menu-item px-3">
-                                                    <form action="{{ route('vendormanagement.destroy', $vendor->id) }}" method="POST">
+                                                    <form class=" form-prevent-multiple-submits" action="{{ route('vendormanagement.destroy', $vendor->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm menu-link  px-3" >Delete</button>
+                                                        <button type="submit" class="btn btn-sm menu-link  px-3 button-prevent-multiple-submits" >Delete</button>
                                                     </form>
                                                 </div>
                                             </div>

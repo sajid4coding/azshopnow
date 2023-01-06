@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rules\Password;
 use Intervention\Image\Facades\Image;
 
+
 class vendorController extends Controller
 {
     function vendor_index(){
@@ -108,7 +109,7 @@ class vendorController extends Controller
             if($request->hasFile('profile_photo')){
 
 
-                $photo= 'vendor_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
+                $photo = 'vendor_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
                 $img = Image::make($request->file('profile_photo'))->resize(300, 300);
                 $img->save(base_path('public/uploads/vendor_profile/'.$photo), 60);
 
@@ -126,15 +127,50 @@ class vendorController extends Controller
                 $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
                 $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
 
-                if(auth()->user()->banner !== NULL){
-                    unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
-                }
+                // if(auth()->user()->banner !== NULL){
+                //     unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                // }
 
-                    User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
+                // if(auth()->user()->profile_photo !== NULL){
+                //     unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
+                // }
+
+                 User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
+                    'profile_photo' => $photo,
                     'banner' =>  $banner_photo,
                     ]);
             }else{
-                User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner'));
+                if($request->hasFile('profile_photo')){
+
+
+                    $photo= 'vendor_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
+                    $img = Image::make($request->file('profile_photo'))->resize(300, 300);
+                    $img->save(base_path('public/uploads/vendor_profile/'.$photo), 60);
+
+                    // if(auth()->user()->profile_photo !== NULL){
+                    //     unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
+                    // }
+
+                     User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
+                        'profile_photo' =>  $photo,
+                     ]);
+                }else if($request->hasFile('banner')){
+
+
+                    $banner_photo= 'banner'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('banner')->getClientOriginalExtension();
+                    $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
+                    $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
+
+                    // if(auth()->user()->banner !== NULL){
+                    //     unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                    // }
+
+                     User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
+                        'banner' =>  $banner_photo,
+                     ]);
+                }else{
+                    User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner'));
+                }
             }
         }
 

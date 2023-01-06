@@ -19,14 +19,13 @@
             @endif
             {{-- ==== Error Messages ==== --}}
             @if ($coupon_count < 5 || membership())
-                <form action="{{ route('coupon.add') }}" method="POST">
-                     @csrf
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-grp">
-                                <label for="title">Coupon Code</label>
-                                <input type="text" placeholder="Example: xYzw12" name="coupon_code" id="title">
-                            </div>
+                <form class=" form-prevent-multiple-submits" action="{{ route('coupon.add') }}" method="POST">
+                 @csrf
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-grp">
+                            <label for="title">Coupon Code</label>
+                            <input type="text" placeholder="Example: xYzw12" name="coupon_code" id="title">
                         </div>
                         <div class="col-lg-6">
                             <div class="form-grp">

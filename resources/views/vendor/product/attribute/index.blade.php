@@ -20,7 +20,7 @@
                                 {{ session('size_danger_message') }}
                         </div>
                         @endif
-                        <form action="{{ route('attributes.store') }}" method="POST">
+                        <form class=" form-prevent-multiple-submits" action="{{ route('attributes.store') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-12">
@@ -30,7 +30,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center m-3">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm py-2 px-3 item-certer">Add Size</button>
+                                        <button type="submit" class="btn btn-outline-primary btn-sm py-2 px-3 item-certer button-prevent-multiple-submits">Add Size</button>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                                 {{ session('color_danger_message') }}
                         </div>
                         @endif
-                        <form action={{ route('store_color') }} method="POST">
+                        <form class=" form-prevent-multiple-submits" action={{ route('store_color') }} method="POST">
                             @csrf
                             <div class="row align-items-center">
                                 <div class="col-sm-12">
@@ -119,7 +119,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-outline-primary btn-sm py-2 px-3 item-certer">Add Color</button>
+                                                <button type="submit" class="btn btn-outline-primary btn-sm py-2 px-3 item-certer button-prevent-multiple-submits">Add Color</button>
                                             </div>
                                         </div>
                                     </div>

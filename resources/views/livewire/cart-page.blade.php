@@ -233,10 +233,14 @@
                     <h5>$@if(session('coupon_info'))
                             {{ session('after_discount') + session('shipping_cost') + session('packagingCost')->cost }}
                         @else
-                            @if (session('shipping_cost') != 0 )
+                            @if (session('shipping_cost') != 0 && session('packagingCost'))
                                 {{ session('subtotal') + session('shipping_cost') + session('packagingCost')->cost }}
+                            @elseif (session('shipping_cost') != 0 && session('vendorpackagingCost'))
+                                {{ session('subtotal') + session('shipping_cost') + session('vendorpackagingCost')->packaging_cost }}
                             @elseif (session('packagingCost'))
                                 {{ round(session('subtotal')+ session('packagingCost')->cost) }}
+                            @elseif (session('vendorpackagingCost'))
+                                {{ round(session('subtotal') + session('vendorpackagingCost')->packaging_cost) }}
                             @else
                                 {{ round(session('subtotal')) }}
                             @endif

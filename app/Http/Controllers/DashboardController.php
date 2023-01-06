@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DailyInvoicesExport;
+use App\Exports\ExportNewslettter;
+use App\Exports\MonthlyInvoicesExport;
+use App\Exports\YearlyInvoicesExport;
 use App\Mail\productApproved;
 use App\Mail\productBan;
 use App\Models\Category;
@@ -16,7 +20,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CampaignNotification;
-
+use App\Models\Newsletter;
+use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpParser\Node\Stmt\Return_;
 
 class DashboardController extends Controller
 {
@@ -209,5 +216,25 @@ class DashboardController extends Controller
         return view('dashboard.report.report',[
             'reports' => ProductReport::all(),
         ]);
+    }
+    function yearInvoiceDownload (Request $request){
+        // $order_details = Order_Detail::where('created_at','LIKE',"{$request->year}%")->get();
+        return Excel::download(new YearlyInvoicesExport($request->year), 'yearlyInvoices.xlsx');
+    }
+    function monthlyInvoiceDownload  (Request $request){
+        $year=Carbon::now()->format('Y');
+        return Excel::download(new MonthlyInvoicesExport($year,$request->month), 'monthlyInvoices.xlsx');
+    }
+    function dayInvoiceDownload  (Request $request){
+        $year=Carbon::now()->format('Y');
+        $month=Carbon::now()->format('m');
+        return Excel::download(new DailyInvoicesExport($year,$month,$request->day), 'dailyInvoices.xlsx');
+    }
+    function newslettter (){
+        $newsletters = Newsletter::all();
+        return view('dashboard.usersManagement.newsletter',compact('newsletters'));
+    }
+    function exportNewslettter(){
+        return Excel::download(new ExportNewslettter(), 'newslettersList.xlsx');
     }
 }
