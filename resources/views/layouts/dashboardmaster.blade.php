@@ -295,6 +295,35 @@
                                         </div>
                                     </div>
 								</div>
+                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <i class="fas fa-store"></i>
+                                            </span>
+                                            <span class="menu-title">Product Catalog</span>
+                                            <span class="menu-arrow"></span>
+                                        </span>
+                                        <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'category' || $current_page == 'subcategory') here show @endif">
+                                            <div class="menu-item @if ($current_page == 'category') here show @endif">
+                                                <a class="menu-link" href="{{ route('category.index') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Add Category</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item @if ($current_page == 'subcategory') here show @endif">
+                                                <a class="menu-link" href="{{ route('subcategory.index') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Sub Category</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+								</div>
                                 <div data-kt-menu-trigger="click" class="menu-item  menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">

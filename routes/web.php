@@ -25,6 +25,7 @@ Route::get('cart',[FrontEndController::class,'cart'])->name('cart');
 Route::get('wishlist',[FrontEndController::class,'wishlist'])->name('wishlist');
 Route::get('delete-wishlist/{id}',[FrontEndController::class,'wishlist_delete_row'])->name('wishlist.delete');
 Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
+Route::get('/list-of-vendors/{slug}',[FrontEndController::class,'listOfVendors'])->name('listOfVendors');
 
 
 Route::post('/getStateCode',[FrontEndController::class,'stateTex']);

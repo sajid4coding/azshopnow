@@ -109,7 +109,7 @@
                                         <td>
                                             <!--begin::Badges-->
                                             @if ($product->campaign == 'flash-sale')
-                                                <div class="badge bg-warning text-dark">{{ Str::title($product->campaign) }}</div>
+                                                <div class="badge bg-info text-light">{{ Str::title($product->campaign) }}</div>
                                             @endif
                                             <!--end::Badges-->
                                         </td>

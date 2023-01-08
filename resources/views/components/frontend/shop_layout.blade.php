@@ -137,43 +137,16 @@
                                 </div>
                             </div>
                             <div class="row justify-content-center">
-                                @foreach ($products as $product)
+                                @foreach ($products->shuffle() as $product)
                                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-8">
                                         @include('components.frontend.productgrid')
                                     </div>
                                 @endforeach
                             </div>
                             <div class="shop-bottom-wrap">
-                                <div class="shop-bottom-top">
-                                    <h5 class="title"></h5>
-                                    <p>Showing 1-09 of 30 Item(S)</p>
-                                </div>
                                 <div class="shop-bottom-box">
-                                    <div class="shop-bottom-left">
-                                        <form action="#">
-                                            <select id="short-By" name="select" class="form-select" aria-label="Default select example">
-                                                <option value="">Show 09</option>
-                                                <option>Show 12</option>
-                                                <option>Show 08</option>
-                                                <option>Show 06</option>
-                                                <option>Show 03</option>
-                                            </select>
-                                        </form>
-                                    </div>
                                     <div class="shop-bottom-right">
-                                        <form action="#">
-                                            <select id="short-by" name="select" class="form-select" aria-label="Default select example">
-                                                <option value="">Default sorting</option>
-                                                <option>Free Shipping</option>
-                                                <option>Best Match</option>
-                                                <option>Newest Item</option>
-                                                <option>Size A - Z</option>
-                                            </select>
-                                        </form>
-                                        {{-- <ul>
-                                            <li class="active"><a href="#"><i class="fa-solid fa-table-cells"></i></a></li>
-                                            <li><a href="#"><i class="fa-solid fa-bars"></i></a></li>
-                                        </ul> --}}
+                                            {{$products->links('pagination::bootstrap-5')}}
                                     </div>
                                 </div>
                             </div>

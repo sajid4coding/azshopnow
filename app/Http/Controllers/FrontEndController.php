@@ -62,31 +62,30 @@ class FrontEndController extends Controller
     }
 
     function newArrivals(){
-        $products=Product::where('status','published')->where('vendorProductStatus','published')->latest()->get();
+        $products=Product::where('status','published')->where('vendorProductStatus','published')->latest()->paginate(9);
         $banners = Banner::all()->first();
         return view('frontend.newArrivals',compact('products','banners'));
     }
 
     function topSelection(){
-        $topReviews=ProductReview::all();
-        $products=Product::where('status','published')->where('vendorProductStatus','published')->latest()->get();
+        $topReviews=ProductReview::where('rating','>',3)->latest()->paginate(9);
         $banners = Banner::all()->first();
-        return view('frontend.topSelection',compact('products','banners','topReviews'));
+        return view('frontend.topSelection',compact('banners','topReviews'));
     }
     function shop_page(){
-        $products=Product::where('status','published')->where('vendorProductStatus','published')->get()->shuffle();
+        $products=Product::where('status','published')->where('vendorProductStatus','published')->paginate(9);
         $banners = Banner::all()->first();
         return view('frontend.shop',compact('products','banners'));
     }
     function categoryProduct($slug){
         $categoryName=Category::where('slug', $slug)->first();
-        $products=Product::where('parent_category_slug',$slug)->where('status','published')->where('vendorProductStatus','published')->get()->shuffle();
+        $products=Product::where('parent_category_slug',$slug)->where('status','published')->where('vendorProductStatus','published')->paginate(9);
         return view('frontend.categoryProduct', compact('products','categoryName'));
     }
 
     function vendorProduct($id, $shopname){
         $shopName=User::findOrFail($id);
-        $products=Product::where('vendor_id',$id)->where('status','published')->where('vendorProductStatus','published')->latest()->get();
+        $products=Product::where('vendor_id',$id)->where('status','published')->where('vendorProductStatus','published')->latest()->paginate(9);
         return view('frontend.vendorProduct', compact('products','shopName'));
     }
     function cart(){
@@ -217,8 +216,7 @@ class FrontEndController extends Controller
         $searchResult=$request->q;
         $products=Product::where('product_title','LIKE','%'.$searchResult.'%')
         ->orWhere('tag','LIKE','%'.$searchResult.'%')
-        ->get()
-        ->shuffle();
+        ->paginate(9);
         return view('frontend.search',compact('searchResult','products','banners'));
     }
     public function index(){
@@ -226,10 +224,13 @@ class FrontEndController extends Controller
             'categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
             'auth_categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
             'products' => Product::where('status','published')->where('vendorProductStatus','published')->latest()->limit(3)->get(),
-            'topReviews' =>ProductReview::all(),
+            'EmptyReviewsproducts' => Product::where('status','published')->where('vendorProductStatus','published')->latest()->limit(6)->get(),
+            'topReviews' =>ProductReview::where('rating',5)->latest()->limit(3)->get()->shuffle(),
+            'firstReviewPrduct' =>ProductReview::where('rating',5)->first(),
             'superDealspProducts' => Product::where('status','published')->where('campaign','super-deals')->where('vendorProductStatus','published')->latest()->limit(10)->get(),
             'trendingProducts' => Product::where('status','published')->where('campaign','trending')->where('vendorProductStatus','published')->latest()->limit(4)->get(),
             'flashSaleProducts' => Product::where('status','published')->where('vendorProductStatus','published')->limit(8)->get()->shuffle(),
+            'bestCategories'=>Category::where('status','published')->latest()->limit(7)->get()->shuffle(),
             'general' => General::find(1),
         ]);
     }
@@ -356,5 +357,9 @@ class FrontEndController extends Controller
 
 
          return json_encode($allData, JSON_PRETTY_PRINT);
+    }
+    public function listOfVendors ($slug){
+        $products=Product::select('vendor_id')->where('status','published')->where('parent_category_slug',$slug)->where('vendorProductStatus','published')->groupBy('vendor_id')->paginate(9);
+        return view('frontend.listOfVendors',compact('products'));
     }
 }
