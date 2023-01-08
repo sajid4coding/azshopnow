@@ -28,7 +28,7 @@
                     @endfor
                     <span style="font-size: 10px;">({{ count_review($product->id) }})</span>
                 @else
-                    <span class="text-danger">No Review Yet</span>
+                    <span class="text-danger">No Review Yet</span> 
                 @endif
             </div>
             <span>Already Sold : 75%</span>
@@ -46,7 +46,7 @@
                     <p>0 orders <span>-{{Floor(((100*$product->product_price)-(100*$product->discount_price))/$product->product_price)}}%</span></p>
                 @else
                     <h4 class="price">${{$product->product_price}}</h4>
-                    <p>0 orders</p>
+                    <p>{{orderCount($product->id)}} orders</p>
                 @endif
             </div>
         </div>

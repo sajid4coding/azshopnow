@@ -98,7 +98,7 @@
                                     </div>
                                     <div class="col-xl-3 col-lg-2 col-md-2">
                                         <div class="view-more text-end">
-                                            <a href="shop.html">View more</a>
+                                            {{-- <a href="shop.html">View more</a> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -108,12 +108,38 @@
                                             <div class="col-xl-2">
                                                 <div class="product-item-three">
                                                     <div class="product-thumb">
-                                                        <a href="shop-details.html"><img src="{{ asset('uploads/product_photo') }}/{{$Products->thumbnail}}" alt="img"></a>
+                                                        <a href="{{route('single.product',['id'=>$Products->id,'title'=>Str::slug($Products->product_title)])}}"><img src="{{ asset('uploads/product_photo') }}/{{$Products->thumbnail}}" alt="img"></a>
                                                     </div>
-                                                    <div class="product-content text-center">
-                                                        <h4 class="title"><a href="shop-details.html">{{Str::limit($Products->product_title,10)}}</a></h4>
-                                                        <p>0 orders <span>-35%</span></p>
+                                                    {{-- <div class="product-content text-center">
+                                                        <h4 class="title"><a href="{{route('single.product',['id'=>$Products->id,'title'=>Str::slug($Products->product_title)])}}">{{Str::limit($Products->product_title,10)}}</a></h4>
+                                                        <p>{{orderCount($Products->id)}} orders @if($Products->discount_price) <span>-{{Floor(((100*$Products->product_price)-(100*$Products->discount_price))/$Products->product_price)}}%</span> @endif</p>
                                                         <h4 class="price">$ @if ($Products->discount_price) {{ $Products->discount_price }} @else {{ $Products->product_price }} @endif </h4>
+                                                    </div> --}}
+                                                    <div class="product-content">
+                                                        <h4 class="title"><a href="{{route('single.product', ['id'=>$Products->id,'title'=>Str::slug($Products->product_title)])}}">{{Str::limit($Products->product_title,7)}} @if ($Products->discount_price)
+                                                            <h6 style="display: inline-block; float:right">
+                                                                ${{$Products->discount_price}}
+                                                                <del class="text-muted"> ${{$Products->product_price}}</del>
+                                                                <span>-{{Floor(((100*$Products->product_price)-(100*$Products->discount_price))/$Products->product_price)}}%</span>
+                                                            </h6>
+                                                        @else
+                                                            <h6 style="display: inline-block; float:right" class="price">${{$Products->product_price}}</h6>
+                                                        @endif</a></h4>
+                                                        <P>{{orderCount($Products->id)}} Orders</P>
+                                                        <div class="rating text-warning">
+                                                            @if (review($Products->id))
+                                                                @for ($x = 1; $x <= 5; $x++)
+                                                                    @if ($x <= review($Products->id))
+                                                                        <i class="fas fa-star"></i>
+                                                                    @else
+                                                                        <i class="far fa-star"></i><!--Empty star-->
+                                                                    @endif
+                                                                @endfor
+                                                                <span style="font-size: 10px;">({{ count_review($Products->id) }})</span>
+                                                            @else
+                                                                <span class="text-danger">No Review Yet</span>
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,102 +149,220 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-xl-6 col-lg-9">
-                            <div class="product-wrap top-product mb-20">
-                                <div class="row mb-20">
-                                    <div class="col-sm-6">
-                                        <div class="product-title">
-                                            <h4 class="title">Top Selection</h4>
+                    @if ($topReviews->count() >=3)
+                        <div class="row justify-content-center">
+                            <div class="col-xl-6 col-lg-9">
+                                <div class="product-wrap top-product mb-20">
+                                    <div class="row mb-20">
+                                        <div class="col-sm-6">
+                                            <div class="product-title">
+                                                <h4 class="title">Top Selection</h4>
+                                            </div>
                                         </div>
+                                        <div class="col-sm-6">
+                                            <div class="view-more text-end">
+                                                <a href="{{route('top.selection')}}">View more</a>
+                                            </div>
+                                        </div>
+                                        {{-- {{$products}} --}}
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="view-more text-end">
-                                            <a href="{{route('top.selection')}}">View more</a>
-                                        </div>
+                                    <div class="row custom justify-content-center">
+                                        @foreach ($topReviews as $product)
+                                                {{-- @if (floor(review($product->relationwithproduct->id)) ==5) --}}
+                                                    <div class="col-md-4 col-sm-6">
+                                                        <div class="product-item mb-30">
+                                                            <div class="product-thumb">
+                                                                <a href="{{route('single.product',['id'=>$product->relationwithproduct->id,'title'=>Str::slug($product->relationwithproduct->product_title)])}}"><img src="{{ asset('uploads/product_photo') }}/{{$product->relationwithproduct->thumbnail}}" alt=""></a>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h4 class="title"><a href="{{route('single.product', ['id'=>$product->relationwithproduct->id,'title'=>Str::slug($product->relationwithproduct->product_title)])}}">{{Str::limit($product->relationwithproduct->product_title,7)}} @if ($product->relationwithproduct->discount_price)
+                                                                    <h6 style="display: inline-block; float:right">
+                                                                        ${{$product->relationwithproduct->discount_price}}
+                                                                        <del class="text-muted"> ${{$product->relationwithproduct->product_price}}</del>
+                                                                        <span>-{{Floor(((100*$product->relationwithproduct->product_price)-(100*$product->relationwithproduct->discount_price))/$product->relationwithproduct->product_price)}}%</span>
+                                                                    </h6>
+                                                                @else
+                                                                    <h6 style="display: inline-block; float:right" class="price">${{$product->relationwithproduct->product_price}}</h6>
+                                                                @endif</a></h4>
+                                                                <P>{{orderCount($product->relationwithproduct->id)}} Orders</P>
+                                                                <div class="rating text-warning">
+                                                                    @if (review($product->relationwithproduct->id))
+                                                                        @for ($x = 1; $x <= 5; $x++)
+                                                                            @if ($x <= review($product->relationwithproduct->id))
+                                                                                <i class="fas fa-star"></i>
+                                                                            @else
+                                                                                <i class="far fa-star"></i><!--Empty star-->
+                                                                            @endif
+                                                                        @endfor
+                                                                        <span style="font-size: 10px;">({{ count_review($product->relationwithproduct->id) }})</span>
+                                                                    @else
+                                                                        <span class="text-danger">No Review Yet</span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {{-- @endif --}}
+                                        @endforeach
                                     </div>
                                 </div>
-                                <div class="row custom justify-content-center">
-                                    @foreach ($products as $product)
-                                            @if (floor(review($product->id)) ==5)
-                                                <div class="col-md-4 col-sm-6">
-                                                    <div class="product-item mb-30">
-                                                        <div class="product-thumb">
-                                                            <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product07.jpg" alt=""></a>
-                                                        </div>
-                                                        {{floor(review($product->id))}}
-                                                        <div class="product-content">
-                                                            <h4 class="title"><a href="shop-details.html">{{Str::limit($product->product_title,7)}} $29.08<span>-30%</span></a></h4>
-                                                            <p>40 orders</p>
+                            </div>
+                            <div class="col-xl-6 col-lg-9">
+                                <div class="product-wrap top-product mb-20">
+                                    <div class="row mb-20">
+                                        <div class="col-sm-6">
+                                            <div class="product-title">
+                                                <h4 class="title">New arrivals</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="view-more text-end">
+                                                <a href="{{route('new.arrivals')}}">View more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom justify-content-center">
+                                        @foreach ($products as $product)
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="product-item mb-30">
+                                                    <div class="product-thumb">
+                                                        <a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}"><img src="{{asset('uploads/product_photo')}}/{{$product->thumbnail}}" alt=""></a>
+                                                    </div>
+                                                    <div class="product-content">
+                                                        <h4 class="title"><a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}">{{Str::limit($product->product_title,7)}} @if ($product->discount_price)
+                                                            <h6 style="display: inline-block; float:right">
+                                                                ${{$product->discount_price}}
+                                                                <del class="text-muted"> ${{$product->product_price}}</del>
+                                                                <span>-{{Floor(((100*$product->product_price)-(100*$product->discount_price))/$product->product_price)}}%</span>
+                                                            </h6>
+                                                        @else
+                                                            <h6 style="display: inline-block; float:right" class="price">${{$product->product_price}}</h6>
+                                                        @endif</a></h4>
+                                                        <P>{{orderCount($product->id)}} Orders</P>
+                                                        <div class="rating text-warning">
+                                                            @if (review($product->id))
+                                                                @for ($x = 1; $x <= 5; $x++)
+                                                                    @if ($x <= review($product->id))
+                                                                        <i class="fas fa-star"></i>
+                                                                    @else
+                                                                        <i class="far fa-star"></i><!--Empty star-->
+                                                                    @endif
+                                                                @endfor
+                                                                <span style="font-size: 10px;">({{ count_review($product->id) }})</span>
+                                                            @else
+                                                                <span class="text-danger">No Review Yet</span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-9">
-                            <div class="product-wrap top-product mb-20">
-                                <div class="row mb-20">
-                                    <div class="col-sm-6">
-                                        <div class="product-title">
-                                            <h4 class="title">New arrivals</h4>
+                                            </div>
+                                        @endforeach
+                                        {{-- <div class="col-md-4 col-sm-6">
+                                            <div class="product-item mb-30">
+                                                <div class="product-thumb">
+                                                    <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product11.jpg" alt=""></a>
+                                                </div>
+                                                <div class="product-content">
+                                                    <h4 class="title"><a href="shop-details.html">Watch $29.08<span>-40%</span></a></h4>
+                                                    <p>20 orders</p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="view-more text-end">
-                                            <a href="{{route('new.arrivals')}}">View more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row custom justify-content-center">
-                                    @foreach ($products as $product)
                                         <div class="col-md-4 col-sm-6">
                                             <div class="product-item mb-30">
                                                 <div class="product-thumb">
-                                                    <a href="shop-details.html"><img src="{{asset('uploads/product_photo')}}/{{$product->thumbnail}}" alt=""></a>
+                                                    <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product12.jpg" alt=""></a>
                                                 </div>
                                                 <div class="product-content">
-                                                    <h4 class="title"><a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}">{{Str::limit($product->product_title,7)}} @if ($product->discount_price)
-                                                        <p style="display: inline-block; float:right">
-                                                            ${{$product->discount_price}}
-                                                            <del> ${{$product->product_price}}</del>
-                                                            <span>-{{Floor(((100*$product->product_price)-(100*$product->discount_price))/$product->product_price)}}%</span>
-                                                        </p>
-                                                    @else
-                                                        <p style="display: inline-block; float:right" class="price">${{$product->product_price}}</p>
-                                                    @endif</a></h4>
+                                                    <h4 class="title"><a href="shop-details.html">phone $29.08<span>-10%</span></a></h4>
+                                                    <p>30 orders</p>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                    {{-- <div class="col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product11.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">Watch $29.08<span>-40%</span></a></h4>
-                                                <p>20 orders</p>
-                                            </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="product-item mb-30">
-                                            <div class="product-thumb">
-                                                <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product12.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <h4 class="title"><a href="shop-details.html">phone $29.08<span>-10%</span></a></h4>
-                                                <p>30 orders</p>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="row justify-content-center">
+                            <div class="col-xl-12 col-lg-9">
+                                <div class="product-wrap top-product mb-20">
+                                    <div class="row mb-20">
+                                        <div class="col-sm-6">
+                                            <div class="product-title">
+                                                <h4 class="title">New arrivals</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="view-more text-end">
+                                                <a href="{{route('new.arrivals')}}">View more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom justify-content-center">
+                                        @foreach ($EmptyReviewsproducts as $product)
+                                            <div class="col-md-2 col-sm-2">
+                                                <div class="product-item mb-30">
+                                                    <div class="product-thumb">
+                                                        <a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}"><img src="{{asset('uploads/product_photo')}}/{{$product->thumbnail}}" alt=""></a>
+                                                    </div>
+                                                    <div class="product-content">
+                                                        <h4 class="title"><a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}">{{Str::limit($product->product_title,7)}} @if ($product->discount_price)
+                                                            <h6 style="display: inline-block; float:right">
+                                                                ${{$product->discount_price}}
+                                                                <del class="text-muted"> ${{$product->product_price}}</del>
+                                                                <span>-{{Floor(((100*$product->product_price)-(100*$product->discount_price))/$product->product_price)}}%</span>
+                                                            </h6>
+                                                        @else
+                                                            <h6 style="display: inline-block; float:right" class="price">${{$product->product_price}}</h6>
+                                                        @endif</a></h4>
+                                                        <P>{{orderCount($product->id)}} Orders</P>
+                                                        <div class="rating text-warning">
+                                                            @if (review($product->id))
+                                                                @for ($x = 1; $x <= 5; $x++)
+                                                                    @if ($x <= review($product->id))
+                                                                        <i class="fas fa-star"></i>
+                                                                    @else
+                                                                        <i class="far fa-star"></i><!--Empty star-->
+                                                                    @endif
+                                                                @endfor
+                                                                <span style="font-size: 10px;">({{ count_review($product->id) }})</span>
+                                                            @else
+                                                                <span class="text-danger">No Review Yet</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                        {{-- <div class="col-md-4 col-sm-6">
+                                            <div class="product-item mb-30">
+                                                <div class="product-thumb">
+                                                    <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product11.jpg" alt=""></a>
+                                                </div>
+                                                <div class="product-content">
+                                                    <h4 class="title"><a href="shop-details.html">Watch $29.08<span>-40%</span></a></h4>
+                                                    <p>20 orders</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="product-item mb-30">
+                                                <div class="product-thumb">
+                                                    <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/super_product12.jpg" alt=""></a>
+                                                </div>
+                                                <div class="product-content">
+                                                    <h4 class="title"><a href="shop-details.html">phone $29.08<span>-10%</span></a></h4>
+                                                    <p>30 orders</p>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </section>
             <!-- super-deals-area-end -->
@@ -356,11 +500,28 @@
                                             </div>
                                             <div class="content">
                                                 <h6 class="title"><a href="{{ route('single.product', ['id'=>$trendingProducts->id,'title'=>Str::slug($trendingProducts->product_title)]) }}">{{Str::limit($trendingProducts->product_title,7)}}</a></h6>
-                                                <h4 class="price">$09.08 <del>$29.08</del></h4>
+                                                @if ($trendingProducts->discount_price)
+                                                    <h4 class="price">${{$trendingProducts->discount_price}} <del>${{$trendingProducts->product_price}}</del></h4>
+                                                @else
+                                                    <h4>${{$trendingProducts->product_price}}</h4>
+                                                @endif
                                                 <div class="content-bottom">
                                                     <ul>
-                                                        <li>1k+ Orders ~</li>
-                                                        <li><i class="fa-solid fa-star"></i>4.7</li>
+                                                        <li>{{orderCount($trendingProducts->id)}} Orders ~</li>
+                                                        <div class="rating text-warning">
+                                                            @if (review($trendingProducts->id))
+                                                                @for ($x = 1; $x <= 5; $x++)
+                                                                    @if ($x <= review($trendingProducts->id))
+                                                                        <i class="fas fa-star"></i>
+                                                                    @else
+                                                                        <i class="far fa-star"></i><!--Empty star-->
+                                                                    @endif
+                                                                @endfor
+                                                                <span style="font-size: 10px;">({{ count_review($trendingProducts->id) }})</span>
+                                                            @else
+                                                                <span class="text-danger">No Review Yet</span>
+                                                            @endif
+                                                        </div>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -398,11 +559,24 @@
                                                 </div>
                                                 <div class="product-content">
                                                     <h6 class="title"><a href="{{ route('single.product', ['id'=>$flashSaleProducts->id,'title'=>Str::slug($flashSaleProducts->product_title)]) }}">{{Str::limit($flashSaleProducts->product_title,15)}}</a></h6>
-                                                    <h4 class="price">$29.08 <span>-35%</span></h4>
+                                                    <h4 class="price">@if($flashSaleProducts->discount_price) ${{$flashSaleProducts->discount_price}} <del class="text-muted"> ${{$flashSaleProducts->product_price}}</del> @else ${{$flashSaleProducts->product_price}} @endif @if($flashSaleProducts->discount_price) <span>-{{Floor(((100*$flashSaleProducts->product_price)-(100*$flashSaleProducts->discount_price))/$flashSaleProducts->product_price)}}%</span> @endif</h4>
                                                     <div class="content-bottom">
                                                         <ul>
-                                                            <li>1k+ Orders ~</li>
-                                                            <li><i class="fa-solid fa-star"></i>4.9</li>
+                                                            <li>{{orderCount($flashSaleProducts->id)}} Orders ~</li>
+                                                            <div class="rating text-warning">
+                                                                @if (review($flashSaleProducts->id))
+                                                                    @for ($x = 1; $x <= 5; $x++)
+                                                                        @if ($x <= review($flashSaleProducts->id))
+                                                                            <i class="fas fa-star"></i>
+                                                                        @else
+                                                                            <i class="far fa-star"></i><!--Empty star-->
+                                                                        @endif
+                                                                    @endfor
+                                                                    <span style="font-size: 10px;">({{ count_review($flashSaleProducts->id) }})</span>
+                                                                @else
+                                                                    <span class="text-danger">No Review Yet</span>
+                                                                @endif
+                                                            </div>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -542,7 +716,7 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-12">
                             <div class="section-title text-center mb-60">
-                                <h2 class="title">Find Best Seller Vendor</h2>
+                                <h2 class="title">Find Best Vendor</h2>
                             </div>
                         </div>
                     </div>
@@ -550,1206 +724,15 @@
                         <div class="col-lg-12">
                             <div class="best-sell-nav">
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all"
-                                            type="button" role="tab" aria-controls="all" aria-selected="true">
-                                                <i class="flaticon-shipping"></i>
-                                                <span>All Categories</span>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="watch-tab" data-bs-toggle="tab" data-bs-target="#watch"
-                                            type="button" role="tab" aria-controls="watch" aria-selected="false">
-                                                <i class="flaticon-smartwatch"></i>
-                                                <span>smart watch</span>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="electronics-tab" data-bs-toggle="tab"
-                                            data-bs-target="#electronics" type="button" role="tab" aria-controls="electronics"
-                                            aria-selected="false">
-                                                <i class="flaticon-lamp"></i>
-                                                <span>Consumer Electronics</span>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="appliance-tab" data-bs-toggle="tab" data-bs-target="#appliance"
-                                            type="button" role="tab" aria-controls="appliance" aria-selected="false">
-                                                <i class="flaticon-kitchen-utensils"></i>
-                                                <span>home appliance</span>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="shoes-tab" data-bs-toggle="tab" data-bs-target="#shoes"
-                                            type="button" role="tab" aria-controls="shoes" aria-selected="false">
-                                                <i class="flaticon-high-heels-1"></i>
-                                                <span>Shoes & Accessories</span>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="sports-tab" data-bs-toggle="tab" data-bs-target="#sports"
-                                            type="button" role="tab" aria-controls="sports" aria-selected="false">
-                                                <i class="flaticon-sport-equipment"></i>
-                                                <span>Sports & Entertainment</span>
-                                        </button>
-                                    </li>
+                                    @foreach ($bestCategories as $bestCategory)
+                                        <li class="nav-item" role="presentation">
+                                            <a href="{{route('listOfVendors',['slug'=>$bestCategory->slug])}}" class="nav-link" id="all-tab">
+                                                    <i class="flaticon-shipping"></i>
+                                                    <span>{{$bestCategory->category_name}}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
-                            </div>
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-                                    <div class="row mb-20">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-sliders"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Theme Beyond Technology.Ltd</a>
-                                                                    </h2>
-                                                                    <ul>
-                                                                        <li>2 year</li>
-                                                                        <li><a href="#">Verified <img
-                                                                                    src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png"
-                                                                                    alt=""></a></li>
-                                                                        <li>40k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $45,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">5,000,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product01.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Gloves $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product02.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">watch $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product03.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Shoes $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product04.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Cap $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-shield"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Olle Technology.Ltd</a></h2>
-                                                                    <ul>
-                                                                        <li>1 year</li>
-                                                                        <li><a href="#">Verified <img
-                                                                                    src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png"
-                                                                                    alt=""></a>
-                                                                        </li>
-                                                                        <li>13k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $5,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">200,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product05.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Gloves $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product06.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">watch $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product07.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Shoes $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img
-                                                                                src="{{ asset('frontend_assets') }}/img/product/vendor_product08.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Cap $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="watch" role="tabpanel" aria-labelledby="watch-tab">
-                                    <div class="row mb-20">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-shield"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Fashion Max</a></h2>
-                                                                    <ul>
-                                                                        <li>1 year</li>
-                                                                        <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png" alt=""></a>
-                                                                        </li>
-                                                                        <li>13k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $5,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">200,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product09.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">Shoes $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product10.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">cap $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product11.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">watch $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product12.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">watch $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-shield"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Olle Technology.Ltd</a></h2>
-                                                                    <ul>
-                                                                        <li>1 year</li>
-                                                                        <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png" alt=""></a>
-                                                                        </li>
-                                                                        <li>13k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $5,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">200,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product05.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Gloves $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product06.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">watch $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product07.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Shoes $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product08.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Cap $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="electronics" role="tabpanel" aria-labelledby="electronics-tab">
-                                    <div class="row mb-20">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-shield"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Olle Technology.Ltd</a></h2>
-                                                                    <ul>
-                                                                        <li>1 year</li>
-                                                                        <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png" alt=""></a>
-                                                                        </li>
-                                                                        <li>13k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $5,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">200,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product05.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Gloves $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product06.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">watch $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product07.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Shoes $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product08.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Cap $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-shield"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Fashion Max</a></h2>
-                                                                    <ul>
-                                                                        <li>1 year</li>
-                                                                        <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png" alt=""></a>
-                                                                        </li>
-                                                                        <li>13k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $5,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">200,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product09.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">Shoes $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product10.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">cap $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product11.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">watch $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product12.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">watch $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="appliance" role="tabpanel" aria-labelledby="appliance-tab">
-                                    <div class="row mb-20">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-sliders"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Theme Beyond Technology.Ltd</a>
-                                                                    </h2>
-                                                                    <ul>
-                                                                        <li>2 year</li>
-                                                                        <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png" alt=""></a>
-                                                                        </li>
-                                                                        <li>40k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $45,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">5,000,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product01.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Gloves $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product02.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">watch $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product03.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Shoes $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product04.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Cap $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-shield"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Olle Technology.Ltd</a></h2>
-                                                                    <ul>
-                                                                        <li>1 year</li>
-                                                                        <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png" alt=""></a>
-                                                                        </li>
-                                                                        <li>13k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $5,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">200,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product05.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Gloves $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product06.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">watch $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product07.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Shoes $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product08.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Cap $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="shoes" role="tabpanel" aria-labelledby="shoes-tab">
-                                    <div class="row mb-20">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-shield"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Olle Technology.Ltd</a></h2>
-                                                                    <ul>
-                                                                        <li>1 year</li>
-                                                                        <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png" alt=""></a>
-                                                                        </li>
-                                                                        <li>13k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $5,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">200,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product05.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Gloves $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product06.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">watch $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product07.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Shoes $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product08.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Cap $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-sliders"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Theme Beyond Technology.Ltd</a>
-                                                                    </h2>
-                                                                    <ul>
-                                                                        <li>2 year</li>
-                                                                        <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png" alt=""></a>
-                                                                        </li>
-                                                                        <li>40k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $45,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">5,000,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product01.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Gloves $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product02.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">watch $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product03.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Shoes $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product04.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Cap $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="sports" role="tabpanel" aria-labelledby="sports-tab">
-                                    <div class="row mb-20">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-shield"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Fashion Max</a></h2>
-                                                                    <ul>
-                                                                        <li>1 year</li>
-                                                                        <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png" alt=""></a>
-                                                                        </li>
-                                                                        <li>13k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $5,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">200,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product09.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">Shoes $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product10.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">cap $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product11.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">watch $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="blog-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product12.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="blog-details.html">watch $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-12">
-                                            <div class="vendor-wrap">
-                                                <div class="row">
-                                                    <div class="col-xl-5 col-lg-8">
-                                                        <div class="vendor-content">
-                                                            <div class="content-top mb-20">
-                                                                <div class="icon">
-                                                                    <i class="fa-solid fa-shield"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <h2 class="title"><a href="#">Olle Technology.Ltd</a></h2>
-                                                                    <ul>
-                                                                        <li>1 year</li>
-                                                                        <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png" alt=""></a>
-                                                                        </li>
-                                                                        <li>13k Customer</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ranking mb-30">
-                                                                <ul>
-                                                                    <li>No.1 Vendor Rankings</li>
-                                                                    <li>Annual Sales $5,000,00</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="vendor-services">
-                                                                <ul>
-                                                                    <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">200,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-7 col-lg-12">
-                                                        <div class="vendor-product-wrap">
-                                                            <ul>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product05.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Gloves $9.08</a></h2>
-                                                                        <span>15 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product06.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">watch $8.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product07.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Shoes $9.08</a></h2>
-                                                                        <span>03 (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="vendor-product">
-                                                                    <div class="thumb">
-                                                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/vendor_product08.png"
-                                                                                alt=""></a>
-                                                                    </div>
-                                                                    <div class="content">
-                                                                        <h2 class="title"><a href="shop-details.html">Cap $5.08</a></h2>
-                                                                        <span>15k+ (Sale)</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

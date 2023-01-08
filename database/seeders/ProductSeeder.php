@@ -147,7 +147,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'product_title' => "Shampoo",
             'product_price' => 50,
-            'parent_category_slug' => 'wohealth-and-beautymen',
+            'parent_category_slug' => 'health-and-beauty',
             'vendor_id' => 3,
             'shop_name' => 'AZ Shop Now',
             'sku' => 226699,
