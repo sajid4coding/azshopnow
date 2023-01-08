@@ -239,7 +239,7 @@
                                         </li>
                                         <li class="sd-sku">
                                             <span class="title">SKU :</span>
-                                            <a href="shop.html">{{$single_product->sku}}</a>
+                                            <a href="{{route('shop.page')}}">{{$single_product->sku}}</a>
                                         </li>
                                         <li class="sd-sku">
                                             <span class="title">Tags :</span>
@@ -372,7 +372,6 @@
                                                                         <li>{{$createdTime}}</li>
                                                                         <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png"
                                                                                     alt=""></a></li>
-                                                                        <li>40k Customer</li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -385,16 +384,12 @@
                                                             <div class="vendor-services">
                                                                 <ul>
                                                                     <li>
-                                                                        <h2 class="title">+/- 5 hr</h2>
-                                                                        <p>Response Time</p>
+                                                                        <h2 class="title">{{vendorOrderCount($single_product->vendor_id)}}</h2>
+                                                                        <p>Total Sold</p>
                                                                     </li>
                                                                     <li>
-                                                                        <h2 class="title">5,000,00+</h2>
-                                                                        <p>Transtctions</p>
-                                                                    </li>
-                                                                    <li>
-                                                                        <h2 class="title">100%</h2>
-                                                                        <p>On-time delivery</p>
+                                                                        <h2 class="title">${{vendorTotalEarnigs($single_product->vendor_id)}}</h2>
+                                                                        <p>Total Earnings</p>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -413,7 +408,7 @@
                                                                                     src="{{ asset('uploads/product_photo') }}/{{$vendorProduct->thumbnail}}" alt=""></a>
                                                                         </div>
                                                                         <div class="content">
-                                                                            <h2 class="title"><a href="{{route('single.product', ['id'=>$vendorProduct->id,'title'=>Str::slug($vendorProduct->product_title)] )}}">{{$vendorProduct->product_title}}</a></h2>
+                                                                            <h2 class="title"><a href="{{route('single.product', ['id'=>$vendorProduct->id,'title'=>Str::slug($vendorProduct->product_title)] )}}">{{Str::limit($vendorProduct->product_title,10)}}</a></h2>
                                                                             <span>15 (Sale)</span>
                                                                         </div>
                                                                     </li>

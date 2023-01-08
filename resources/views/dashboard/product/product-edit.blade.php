@@ -165,7 +165,7 @@
                                         <option value="super-deals" @if ($product->campaign == 'super deals') selected="selected" @endif data-select2-id="select2-data-11-rkcp">Super Deals</option>
                                         {{-- <option value="draft" @if ($product->status == 'draft') selected="selected" @endif>Draft</option> --}}
                                         <option value="trending" @if ($product->campaign == 'trending') selected="selected" @endif>Trending</option>
-                                        <option value="flash-sale" @if ($product->campaign == 'flash sell') selected="selected" @endif>flash Sale</option>
+                                        <option value="flash-sale" @if ($product->campaign == 'flash Sale') selected="selected" @endif>flash Sale</option>
                                     </select>
                                     <!--end::Select2-->
                                     <!--begin::Description-->
