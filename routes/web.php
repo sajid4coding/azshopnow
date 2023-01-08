@@ -1,6 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController};
-use App\Models\Product;
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController};
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -70,13 +69,14 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('admin/processing-order',[DashboardController::class,'ProcessingOrder'])->name('processing.order');
     Route::get('admin/canceled-order',[DashboardController::class,'CanceledOrder'])->name('canceled.order');
     Route::get('admin/order/delete/{id}',[DashboardController::class,'OrderDelete'])->name('order.delete');
-    Route::get('admin/tax/earning',[DashboardController::class,'TaxEarning'])->name('tax.earning');
-    Route::get('admin/total/earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
-    Route::get('admin/subscription/earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
-    Route::get('admin/commission/earning',[DashboardController::class,'CommissionEarning'])->name('commission.earning');
+    Route::get('admin/total-earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
+    Route::get('admin/tax-earning',[DashboardController::class,'TaxEarning'])->name('tax.earning');
+    Route::get('admin/subscription-earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
+    Route::get('admin/commission-earning',[DashboardController::class,'CommissionEarning'])->name('commission.earning');
     Route::post('admin/year-order-details',[DashboardController::class,'yearInvoiceDownload'])->name('year.invoice.download');
     Route::post('admin/monthly-order-details',[DashboardController::class,'monthlyInvoiceDownload'])->name('monthly.invoice.download');
     Route::post('admin/day-order-details',[DashboardController::class,'dayInvoiceDownload'])->name('day.invoice.download');
+    Route::get('admin/invoice-download/{id}', [DashboardController::class, 'invoice_download'])->name('admin.invoice.download');
 
     //PackagingController Resource
     Route::resource('packaging', PackagingController::class);
@@ -113,6 +113,17 @@ Route::middleware(['admin', 'verified'])->group(function () {
     //Newslatter Route
     Route::get('admin/newsletter-list', [DashboardController::class, 'newslettter'])->name('newsletters');
     Route::post('admin/newsletter-list', [DashboardController::class, 'exportNewslettter'])->name('export.newsletters');
+    //General Settings Route
+    Route::get('general-settings/logo-edit',[GeneralController::class,'logosEdit'])->name('general.logo.edit');
+    Route::post('general-settings/header-logo-post',[GeneralController::class,'headerLogoPost'])->name('header.logo.post');
+    Route::post('general-settings/footer-logo-post',[GeneralController::class,'footerLogoPost'])->name('footer.logo.post');
+    Route::post('general-settings/invoice-logo-post',[GeneralController::class,'invoiceLogoPost'])->name('invoice.logo.post');
+    Route::post('general-settings/dashboard-logo-post',[GeneralController::class,'dashboardLogoPost'])->name('dashboard.logo.post');
+    Route::post('general-settings/favicon-post',[GeneralController::class,'faviconPost'])->name('favicon.post');
+    Route::post('general-settings/dashboard-favicon-post',[GeneralController::class,'DashboardFaviconLogoPost'])->name('dashboard.favicon.post');
+    Route::get('general-settings/dashboard-website-content',[GeneralController::class,'websiteContents'])->name('general.website.centent');
+    Route::post('general-settings/dashboard-website-content-post',[GeneralController::class,'websiteContentsPost'])->name('general.website.centent.post');
+
 });
 
 require __DIR__.'/auth.php';
@@ -139,7 +150,7 @@ Route::middleware(['vendor'])->group(function(){
     Route::resource('product', ProductController::class);
     Route::delete('galleryImgDelete/{id}',[ProductController::class, 'galleryImgDelete'])->name('galleryImg.Delete');
 
-     //AttributeController Resource
+    //AttributeController Resource
     Route::resource('attributes', AttributeController::class);
     Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
     Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
@@ -155,6 +166,12 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('plans', [PlanController::class, 'index'])->name("plans");;
     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
+
+    //Vendor Shipping Route
+    Route::resource('vendor-shipping', VendorShippingController::class);
+
+    //Vendor Packaging Route
+    Route::resource('vendor-packaging', VendorPackagingController::class);
 });
 
 

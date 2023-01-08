@@ -10,6 +10,7 @@ use Khsing\World\World;
 use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Mail;
+use App\Models\General;
 
 
 class FrontEndController extends Controller
@@ -230,6 +231,7 @@ class FrontEndController extends Controller
             'trendingProducts' => Product::where('status','published')->where('campaign','trending')->where('vendorProductStatus','published')->latest()->limit(4)->get(),
             'flashSaleProducts' => Product::where('status','published')->where('vendorProductStatus','published')->limit(8)->get()->shuffle(),
             'bestCategories'=>Category::where('status','published')->latest()->limit(7)->get()->shuffle(),
+            'general' => General::find(1),
         ]);
     }
     public function stateTex(Request $request){

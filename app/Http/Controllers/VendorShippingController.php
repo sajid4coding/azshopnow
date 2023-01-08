@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\VendorShipping;
 use Illuminate\Http\Request;
 
-class CustomermanagementController extends Controller
+class VendorShippingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class CustomermanagementController extends Controller
      */
     public function index()
     {
-        $customers=User::where('role','customer')->get();
-        $general = General::find(1);
-        return view('dashboard.usersManagement.customer.allCustomerList',compact('customers','general'));
+        return view('vendor.shipping.shipping',[
+            'shippings' => VendorShipping::where('vendor_id', auth()->id())->get()
+        ]);
     }
 
     /**
@@ -37,7 +37,16 @@ class CustomermanagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            '*' => 'required'
+        ]);
+        VendorShipping::insert([
+            'vendor_id' => auth()->id(),
+            'shipping_name' => $request->shipping_name,
+            'shipping_cost' => $request->shipping_cost,
+            'created_at' => now()
+        ]);
+        return back()->with('create_success', 'Shipping Created');;
     }
 
     /**
@@ -59,9 +68,9 @@ class CustomermanagementController extends Controller
      */
     public function edit($id)
     {
-        $customer=User::findOrFail($id);
-         $general = General::find(1);
-        return view('dashboard.usersManagement.customer.customerAction',compact('customer','general'));
+        return view('vendor.shipping.edit-shipping',[
+            'shipping_data' => VendorShipping::find($id)
+        ]);
     }
 
     /**
@@ -73,16 +82,14 @@ class CustomermanagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user=User::find($id);
-        if ($user->status=='active') {
-          $user->status='deactive';
-        //   Mail::to($user->email)->send(new VendorBan($user->name,$user->email,$user->shop_name));
-        }else{
-          $user->status='active';
-        //   Mail::to($user->email)->send(new VendorActivation($user->name,$user->email,$user->shop_name));
-        }
-        $user->save();
-        return redirect('/customermanagement')->with('success','Customer profile status changed successfully.');
+        $request->validate([
+            '*' => 'required'
+        ]);
+        VendorShipping::find($id)->update([
+            'shipping_name' => $request->shipping_name,
+            'shipping_cost' => $request->shipping_cost,
+        ]);
+        return redirect('vendor-shipping')->with('update_success', 'Shipping Updated');;
     }
 
     /**
@@ -93,7 +100,7 @@ class CustomermanagementController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-        return redirect('/customermanagement')->with('success','Customer profile deleted successfully.');
+        VendorShipping::find($id)->delete();
+        return back()->with('delete_success', 'Shipping Deleted');;;
     }
 }

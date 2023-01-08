@@ -95,7 +95,6 @@
                                             <li class="nav-item @if ($current_page == 'dashboard') show here @endif">
                                                 <a class="nav-link cust_a"  href="{{ route('vendor.dashboard') }}"><i class="flaticon-user"></i> Vendor Profile</a>
                                             </li>
-                                            {{-- <div id="target" class="">dashboard</div> --}}
 
                                             <li class="nav-item @if ($current_page == 'setting') show here @endif" >
                                                 <a class="nav-link cust_a" href="{{ route('vendor.setting') }}"><i class="far fa-edit"></i>Setting</a>
@@ -107,7 +106,7 @@
 
                                             <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fas fa-cloud-upload"></i>  Product Settings
+                                                    <i class="fas fa-cloud-upload"></i> Product Settings
                                                 </a>
                                                 <ul class="dropdown-menu @if ($current_page == 'upload' || $current_page == 'product' || $current_page == 'attributes') active @endif" aria-labelledby="navbarDropdown">
                                                 <li><a class="dropdown-item @if ($current_page == 'upload') show here @endif"  href="{{ route('vendor.product.upload') }}">Product Add</a></li>
@@ -119,9 +118,19 @@
                                                 <a class="nav-link cust_a" href="{{ route('vendor.orders') }}"> <i class="fas fa-store"></i> Orders</a>
                                             </li>
 
-                                            <li class="nav-item @if ($current_page == 'plans') here show @endif" >
-                                                <a class="nav-link cust_a" href="{{ route('plans') }}"> <i class="fas fa-store"></i>Account Upgrade</a>
-                                            </li>
+                                            @if (!membership())
+                                                <li class="nav-item @if ($current_page == 'vendor-shipping') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('vendor-shipping.index') }}"> <i class="fa-solid fa-truck-fast"></i>Shipping</a>
+                                                </li>
+                                                <li class="nav-item @if ($current_page == 'vendor-packaging') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('vendor-packaging.index') }}"> <i class="fa-solid fa-cube"></i>Packaging</a>
+                                                </li>
+                                            @endif
+                                            @if (!membership())
+                                                <li class="nav-item @if ($current_page == 'plans') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('plans') }}"> <i class="fas fa-store"></i>Account Upgrade</a>
+                                                </li>
+                                            @endif
 
                                             <li class="mb-3">
                                                 <form method="POST" action="{{ route('logout') }}">

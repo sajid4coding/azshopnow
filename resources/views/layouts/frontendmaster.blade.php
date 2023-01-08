@@ -3,12 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Olle - Price Comparison with Multi-vendor Store HTML Template</title>
+        <title>{{ getGeneralValue("website_title") }}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-		<link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend_assets') }}/img/favicon.png">
+		<link rel="shortcut icon" type="image/x-icon" href="{{asset('uploads/general_photo')}}/{{getGeneralValue("favicon_logo")}}">
         <!-- Place favicon.ico in the root directory -->
 
         <!-- CSS here -->
@@ -87,7 +87,7 @@
                     <div class="row align-items-center">
                         <div class="col-xl-2 col-lg-3">
                             <div class="logo">
-                                <a href="{{ route('home') }}"><img src="{{ asset('frontend_assets') }}/img/logo/logo.png" alt=""></a>
+                                <a href="{{ route('home') }}"><img src="{{asset('uploads/general_photo')}}/{{getGeneralValue("header_logo")}}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-9">
@@ -107,19 +107,21 @@
                                 </div>
                                 <div class="header-action">
                                     <ul>
-                                        <li class="header-shop">
-                                            <a href="{{ route('wishlist') }}">
-                                                <i class="fa-regular fa-heart"></i>Wishlist
-                                                <span class="cart-count" style="right: 2px !important;">{{ wishlish() }}</span>
-                                            </a>
-                                        </li>
-                                        <li><a href="#"><i class="fas fa-redo"></i>Compare</a></li>
-                                        <li class="header-shop">
-                                            <a href="{{ route('cart') }}">
-                                                <i class="flaticon-shopping-bag"></i>Cart
-                                                <span class="cart-count">{{ cart() }}</span>
-                                            </a>
-                                        </li>
+                                        @auth
+                                            <li class="header-shop">
+                                                <a href="{{ route('wishlist') }}">
+                                                    <i class="fa-regular fa-heart"></i>Wishlist
+                                                    <span class="cart-count" style="right: 2px !important;">{{ wishlish() }}</span>
+                                                </a>
+                                            </li>
+                                            {{-- <li><a href="#"><i class="fas fa-redo"></i>Compare</a></li> --}}
+                                            <li class="header-shop">
+                                                <a href="{{ route('cart') }}">
+                                                    <i class="flaticon-shopping-bag"></i>Cart
+                                                    <span class="cart-count">{{ cart() }}</span>
+                                                </a>
+                                            </li>
+                                        @endauth
                                         @auth
                                         <li class="header-sine-in">
                                                  @if (auth()->user()->role == 'vendor')
@@ -835,7 +837,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-7">
                             <div class="copyright-text">
-                                <p>Copyright ©2022 {{ env('APP_NAME') }} Rights Reserved</p>
+                                <p>{{ getGeneralValue("copyright_text") }}</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-5">

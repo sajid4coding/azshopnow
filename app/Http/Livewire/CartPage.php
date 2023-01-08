@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\{Cart, Coupon, Inventory, Shipping, Packaging};
+use App\Models\{Cart, Coupon, Inventory, Shipping, Packaging, VendorPackaging, VendorShipping};
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class CartPage extends Component
 {
@@ -16,8 +17,11 @@ class CartPage extends Component
     {
         return view('livewire.cart-page',[
             'carts' => Cart::where('user_id', auth()->id())->get(),
+            'vendor_id' => Cart::where('user_id', auth()->id())->first()->vendor_id,
             'shippings' => Shipping::all(),
-            'packagings'=>Packaging::all(),
+            'packagings'=> Packaging::all(),
+            'vendor_shippings' => VendorShipping::where('vendor_id', Cart::where('user_id', auth()->id())->first()->vendor_id)->get(),
+            'vendor_packagings'=> VendorPackaging::where('vendor_id', Cart::where('user_id', auth()->id())->first()->vendor_id)->get(),
         ]);
     }
 
@@ -73,12 +77,19 @@ class CartPage extends Component
         if($id == 0){
             session(['shipping_cost' => 0]);
         }else{
-            session(['shipping_cost' => Shipping::find($this->shipping_id)->cost]);
+            if(membership()){
+                session(['shipping_cost' => Shipping::find($this->shipping_id)->cost]);
+            }else{
+                session(['shipping_cost' => VendorShipping::find($this->shipping_id)->shipping_cost]);
+            }
         }
     }
     public function packagingSelect($packagingId)
     {
-        
-        session(['packagingCost' => Packaging::find($packagingId)]);
+        if(DB::table('subscriptions')->where(['user_id' => Cart::where('user_id', auth()->id())->first()->vendor_id, 'stripe_status' => 'active'])->exists()){
+            session(['packagingCost' => Packaging::find($packagingId)]);
+        }else{
+            session(['vendorpackagingCost' => VendorPackaging::find($packagingId)]);
+        }
     }
 }

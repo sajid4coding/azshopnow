@@ -11,7 +11,7 @@
     <tr>
       <td width="61%" height="28"><table style="box-sizing:border-box; border:1px solid #c8c8c8; margin:10px;" width="90%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td  width="25%" height="25" style="padding-left:10px; font-family:Verdana, Geneva, sans-serif; border-bottom:1px solid #c8c8c8; border-right:1px solid #c8c8c8; font-size:14px;"><strong>Name </strong></td>
+            <td  width="25%" height="25" style="padding-left:10px; font-family:Verdana, Geneva, sans-serif; border-bottom:1px solid #c8c8c8; border-right:1px solid #c8c8c8; font-size:14px;"><strong>Name</strong></td>
             <td width="75%" style="padding-left:10px; font-family:Verdana, Geneva, sans-serif; border-bottom:1px solid #c8c8c8;  font-size:14px;">{{ $invoice->billing_first_name }}</td>
           </tr>
         <tr>
@@ -38,7 +38,7 @@
           <td height="25" align="right" style="padding-right:10px; font-family:Verdana, Geneva, sans-serif; border-bottom:1px solid #c8c8c8; border-right:1px solid #c8c8c8; font-size:14px;"><strong>Order ID</strong> : #{{ $invoice->id }}</td>
           </tr>
         <tr>
-          <td height="25" align="right" style="padding-right:10px; font-family:Verdana, Geneva, sans-serif; border-right:1px solid #c8c8c8;  font-size:14px;"><strong>Date:</strong> : {{ $invoice->created_at }}</td>
+          <td height="25" align="right" style="padding-right:10px; font-family:Verdana, Geneva, sans-serif; border-right:1px solid #c8c8c8;  font-size:14px;"><strong>Date:</strong> : {{ $invoice->created_at->format('d-m-y') }}</td>
           </tr>
       </table></td>
     </tr>
@@ -116,6 +116,10 @@
           <td style="border-bottom:1px solid #c8c8c8; border-right:1px solid #c8c8c8; border-left:1px solid #c8c8c8; font-family:Verdana, Geneva, sans-serif; font-size:13px; padding-left:10px;" height="29"><strong>GST </strong></td>
           <td align="center" style="border-bottom:1px solid #c8c8c8; border-right:1px solid #c8c8c8;">200</td>
         </tr> --}}
+        <tr>
+          <td style="border-bottom:1px solid #c8c8c8; border-right:1px solid #c8c8c8; border-left:1px solid #c8c8c8; font-family:Verdana, Geneva, sans-serif; font-size:13px; padding-left:10px;" height="29"><strong>Tax</strong></td>
+          <td align="center" style="border-bottom:1px solid #c8c8c8; border-right:1px solid #c8c8c8;">{{ $invoice->tax }}</td>
+        </tr>
         <tr>
           <td style="border-bottom:1px solid #c8c8c8; border-right:1px solid #c8c8c8; border-left:1px solid #c8c8c8; font-family:Verdana, Geneva, sans-serif; font-size:13px; padding-left:10px;" height="29"><strong>Total Amount</strong></td>
           <td align="center" style="border-bottom:1px solid #c8c8c8; border-right:1px solid #c8c8c8;">{{ $invoice->total_price }}</td>
