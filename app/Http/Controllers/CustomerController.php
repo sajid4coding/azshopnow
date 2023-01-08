@@ -21,7 +21,7 @@ class CustomerController extends Controller
     // {
     //     $this->middleware('auth');
     // }
-   
+
 
     public function customer_register(){
          return view('frontend.customeregister',[
@@ -116,17 +116,18 @@ class CustomerController extends Controller
             return back()->with('');
      }
 
-       function customer_account_details(){
-            return view('frontend.customer.customer_account_details');
-       }
-       function customer_invoice_details(){
-            return view('frontend.customer.customer_invoice',[
-                'orders' => Invoice::where('user_id', auth()->id())->latest()->get(),
-                // 'order_details' => Order_Detail::where('user_id', auth()->id())->get(),
-            ]);
-       }
+    function customer_account_details(){
+        return view('frontend.customer.customer_account_details');
+    }
 
-    public function invoice_download($id){
+    function customer_invoice_details(){
+        return view('frontend.customer.customer_invoice',[
+            'orders' => Invoice::where('user_id', auth()->id())->latest()->get(),
+            // 'order_details' => Order_Detail::where('user_id', auth()->id())->get(),
+        ]);
+    }
+
+    function invoice_download($id){
         $invoice = Invoice::find($id);
         $order_details = Order_Detail::where('invoice_id', $id)->get();
         $pdf = Pdf::loadView('pdf.invoice', compact('invoice', 'order_details'));
