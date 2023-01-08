@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             PackagingSeeder::class,
             NewsletterSeeder::class,
             PlanSeeder::class,
+            LogoSeeder::class,
 
         ]);
     }

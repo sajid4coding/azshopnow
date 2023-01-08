@@ -2,7 +2,7 @@
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href="../">
-		<title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel by Keenthemes</title>
+		<title>{{ getGeneralValue("website_title") }}</title>
 		<meta charset="utf-8" />
 		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
@@ -13,7 +13,7 @@
 		<meta property="og:url" content="https://keenthemes.com/metronic" />
 		<meta property="og:site_name" content="Keenthemes | Metronic" />
 		<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-		<link rel="shortcut icon" href="{{ asset('dashboard_assets') }}/media/logos/favicon.ico" />
+		<link rel="shortcut icon" href="{{asset('uploads/general_photo')}}/{{getGeneralValue("favicon_logo")}}" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
@@ -47,7 +47,7 @@
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
 						<a href="{{route('dashboard')}}">
-							<img alt="Logo" src="{{ asset('dashboard_assets') }}/media/logos/logo-1-dark.svg" class="h-25px logo" /> <br>
+							<img alt="Logo" src="{{asset('uploads/general_photo')}}/{{ getGeneralValue("dashboard_logo") }}" class="h-25px logo" /> <br>
                             <span class="text-light">{{config('app.name')}}</span>
 						</a>
 						<!--end::Logo-->
@@ -102,6 +102,39 @@
 								<div class="menu-item">
 									<div class="menu-content pt-8 pb-2">
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Crafted</span>
+									</div>
+								</div>
+                                <div data-kt-menu-trigger="click" class="menu-item  menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm001.svg-->
+											<span class="svg-icon svg-icon-2">
+                                                <i class="fas fa-cogs"></i>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">General Settings</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion"  style="display: none; overflow: hidden;">
+										<div  class="menu-item menu-accordion">
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('general.logo.edit') }}"><span class="menu-title">Logo Edit </span></a>
+											</span>
+
+										</div>
+										<div  class="menu-item menu-accordion">
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('general.website.centent') }}"><span class="menu-title">Website Contents </span></a>
+											</span>
+
+										</div>
 									</div>
 								</div>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
@@ -367,6 +400,7 @@
 										</div>
 									</div>
 								</div>
+
 								<div class="menu-item @if ($current_page == 'shipping.index') here show @endif menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
@@ -480,13 +514,9 @@
 									<span class="menu-link">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+
 											<span class="svg-icon svg-icon-2">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-													<rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-													<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-													<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-													<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-												</svg>
+                                                <i style="font-size: 16px" class="fas fa-comment-dollar"></i>
 											</span>
 											<!--end::Svg Icon-->
 										</span>
@@ -4493,7 +4523,7 @@
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1 ">
 								<span class="text-muted fw-bold me-1">{{date('Y')}}©</span>
-								<a href="#" target="_blank" class="text-gray-800 text-hover-primary">{{config('app.name')}}</a>
+								<a href="#" target="_blank" class="text-gray-800 text-hover-primary">{{ getGeneralValue("copyright_text") }}</a>
 							</div>
 							<!--end::Copyright-->
 						</div>

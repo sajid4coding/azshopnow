@@ -15,7 +15,8 @@ class CustomermanagementController extends Controller
     public function index()
     {
         $customers=User::where('role','customer')->get();
-        return view('dashboard.usersManagement.customer.allCustomerList',compact('customers'));
+        $general = General::find(1);
+        return view('dashboard.usersManagement.customer.allCustomerList',compact('customers','general'));
     }
 
     /**
@@ -59,7 +60,8 @@ class CustomermanagementController extends Controller
     public function edit($id)
     {
         $customer=User::findOrFail($id);
-        return view('dashboard.usersManagement.customer.customerAction',compact('customer'));
+         $general = General::find(1);
+        return view('dashboard.usersManagement.customer.customerAction',compact('customer','general'));
     }
 
     /**

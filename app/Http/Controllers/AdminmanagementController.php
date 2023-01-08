@@ -20,7 +20,8 @@ class AdminmanagementController extends Controller
     {
         $superAdmin= User::where('role','admin')->first();
         $editors= User::where('role','editor')->latest()->get();
-        return view('dashboard.usersManagement.admin.allAdminList', compact('superAdmin','editors'));
+        $general = General::find(1);
+        return view('dashboard.usersManagement.admin.allAdminList', compact('superAdmin','editors','general'));
     }
 
     /**
@@ -79,7 +80,9 @@ class AdminmanagementController extends Controller
     public function edit($id)
     {
         $editor=User::findOrFail($id);
-        return view('dashboard.usersManagement.admin.adminAction', compact('editor'));
+        $general = General::find(1);
+
+        return view('dashboard.usersManagement.admin.adminAction', compact('editor','general'));
     }
 
     /**

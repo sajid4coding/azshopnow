@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{AttributeColor, AttributeSize, Inventory, Product};
+use App\Models\{AttributeColor, AttributeSize, Inventory, Product,General};
 use Illuminate\Http\Request;
 
 class InventoryController extends Controller
@@ -14,6 +14,7 @@ class InventoryController extends Controller
             'attributecolors' => AttributeColor::where('vendor_id', auth()->id())->get(),
             'product' => Product::findOrFail($id),
             'inventories' => Inventory::where('product_id', $id)->get(),
+            'general' => General::find(1),
         ]);
     }
     public function add_inventory(Request $request, $id)
