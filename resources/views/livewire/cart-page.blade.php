@@ -86,7 +86,6 @@
                                 @endphp
                             </h6>
                         </div>
-                        {{-- {{ cart_total($cart->product_id, $cart->quantity, $cart->size_id, $cart->color_id) }} --}}
                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                             <button wire:click="cart_row_delete({{ $cart->id }})" class="bg-transparent border-0 text-muted"><i class="fas fa-times"></i></button>
                         </div>
@@ -190,7 +189,7 @@
 
                             @elseif(session('vendorpackagingCost'))
                                 {{ round(session('subtotal') + session('vendorpackagingCost')->packaging_cost) }}
-                            
+
                             @else
                                 {{ round(session('subtotal')) }}
 
