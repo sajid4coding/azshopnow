@@ -107,19 +107,21 @@
                                 </div>
                                 <div class="header-action">
                                     <ul>
-                                        <li class="header-shop">
-                                            <a href="{{ route('wishlist') }}">
-                                                <i class="fa-regular fa-heart"></i>Wishlist
-                                                <span class="cart-count" style="right: 2px !important;">{{ wishlish() }}</span>
-                                            </a>
-                                        </li>
-                                        <li><a href="#"><i class="fas fa-redo"></i>Compare</a></li>
-                                        <li class="header-shop">
-                                            <a href="{{ route('cart') }}">
-                                                <i class="flaticon-shopping-bag"></i>Cart
-                                                <span class="cart-count">{{ cart() }}</span>
-                                            </a>
-                                        </li>
+                                        @auth
+                                            <li class="header-shop">
+                                                <a href="{{ route('wishlist') }}">
+                                                    <i class="fa-regular fa-heart"></i>Wishlist
+                                                    <span class="cart-count" style="right: 2px !important;">{{ wishlish() }}</span>
+                                                </a>
+                                            </li>
+                                            {{-- <li><a href="#"><i class="fas fa-redo"></i>Compare</a></li> --}}
+                                            <li class="header-shop">
+                                                <a href="{{ route('cart') }}">
+                                                    <i class="flaticon-shopping-bag"></i>Cart
+                                                    <span class="cart-count">{{ cart() }}</span>
+                                                </a>
+                                            </li>
+                                        @endauth
                                         @auth
                                         <li class="header-sine-in">
                                                  @if (auth()->user()->role == 'vendor')

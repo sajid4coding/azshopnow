@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CampaignNotification;
 use App\Models\Newsletter;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpParser\Node\Stmt\Return_;
@@ -163,6 +164,14 @@ class DashboardController extends Controller
 
         ]);
     }
+
+    function invoice_download($id){
+        $invoice = Invoice::find($id);
+        $order_details = Order_Detail::where('invoice_id', $id)->get();
+        $pdf = Pdf::loadView('pdf.invoice', compact('invoice', 'order_details'));
+        return $pdf->setPaper('a4', 'portrait')->download('invoice.pdf');
+    }
+
     function PendingOrder(){
         return view('dashboard.orders.pendingOrder',[
          'invoices' => Invoice::all(),

@@ -334,37 +334,39 @@
 										<span class="menu-title">Earnings</span>
 										<span class="menu-arrow"></span>
 									</span>
-									<div class="menu-sub menu-sub-accordion "  style="display: none; overflow: hidden;">
-										<div  class="menu-item menu-accordion">
-                                            <span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<a href="{{ route('total.earning') }}"><span class="menu-title">Total Earnings </span></a>
-											</span>
-                                            <span class="menu-link">
+									<div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'total-earning' || $current_page == 'tax-earning' || $current_page == 'subscription-earning' || $current_page == 'commission-earning') here show @endif">
+                                        <div class="menu-item @if ($current_page == 'total-earning') here show @endif">
+                                            <a class="menu-link" href="{{ route('total.earning') }}">
                                                 <span class="menu-bullet">
                                                     <span class="bullet bullet-dot"></span>
-												</span>
-                                            <a href="{{ route('tax.earning') }}">
-											   <span class="menu-title">Tax Calcutate</span>
+                                                </span>
+                                                <span class="menu-title">Total Earnings</span>
                                             </a>
-											</span>
-                                            <span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<a href="{{ route('subscription.earning') }}"><span class="menu-title">Subscription Earning</span></a>
-											</span>
-
-
-                                            <span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<a href="{{ route('commission.earning') }}"><span class="menu-title"> Commission Earning</span></a>
-											</span>
-										</div>
+                                        </div>
+                                        <div class="menu-item @if ($current_page == 'tax-earning') here show @endif">
+                                            <a class="menu-link" href="{{ route('tax.earning') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Tax Calcutate</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item @if ($current_page == 'subscription-earning') here show @endif">
+                                            <a class="menu-link" href="{{ route('subscription.earning') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Subscription Earning</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item @if ($current_page == 'commission.earning') here show @endif">
+                                            <a class="menu-link" href="{{ route('commission.earning') }}">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Commission Earning</span>
+                                            </a>
+                                        </div>
 									</div>
 								</div>
 								<div class="menu-item @if ($current_page == 'shipping.index') here show @endif menu-accordion">
@@ -427,7 +429,7 @@
 											</span>
 											<!--end::Svg Icon-->
 										</span>
-										<a href="{{ route('packaging.index') }}" class="menu-title"> Product Packaging</a>
+										<a href="{{ route('packaging.index') }}" class="menu-title">Packaging</a>
 									</span>
 								</div>
 								<div class="menu-item">
@@ -476,7 +478,7 @@
 									</div>
 								</div>
 
-                                <div class="menu-item @if ($current_page == 'packaging') here show @endif menu-accordion">
+                                <div class="menu-item @if ($current_page == 'newsletter-list') here show @endif menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -4492,8 +4494,8 @@
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-center">
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1 ">
-								<span class="text-muted fw-bold me-1">{{date('Y')}}©</span>
-								<a href="#" target="_blank" class="text-gray-800 text-hover-primary">{{config('app.name')}}</a>
+								<span class="text-muted fw-bold me-1">©{{date('Y')}}</span>
+								<a href={{ route('home') }}class="text-gray-800 text-hover-primary">{{config('app.name')}}</a>
 							</div>
 							<!--end::Copyright-->
 						</div>
