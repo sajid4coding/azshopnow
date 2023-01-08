@@ -15,6 +15,7 @@ use App\Models\Product;
 use App\Models\ProductGallery;
 use App\Models\ProductReport;
 use App\Models\ProductReview;
+use App\Models\General;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -31,22 +32,27 @@ class DashboardController extends Controller
     function dashboard(){
         $users = User::all();
         $products = Product::all();
-        return view('dashboard',compact('users','products'));
+        $general = General::find(1);
+        return view('dashboard',compact('users','products','general'));
     }
 
     function product_lists(){
         return view('dashboard.product.product-lists',[
-            'products' => Product::where('vendorProductStatus','published')->where('status','published')->latest()->get()
+            'products' => Product::where('vendorProductStatus','published')->where('status','published')->latest()->get(),
+            'general' => General::find(1),
+
         ]);
     }
     function pendingProducts (){
         return view('dashboard.product.pending-products',[
-            'products' => Product::where('vendorProductStatus','published')->where('status','unpublished')->latest()->get()
+            'products' => Product::where('vendorProductStatus','published')->where('status','unpublished')->latest()->get(),
+            'general' => General::find(1),
         ]);
     }
     function bannedProducts(){
         return view('dashboard.product.banned-products',[
-            'products' => Product::where('vendorProductStatus','published')->where('status','banned')->latest()->get()
+            'products' => Product::where('vendorProductStatus','published')->where('status','banned')->latest()->get(),
+            'general' => General::find(1),
         ]);
     }
     function super_deal_products (){

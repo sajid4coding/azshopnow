@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\General;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -12,7 +13,9 @@ class BannerController extends Controller
 {
    function index(){
     $banners = Banner::first();
-       return view('dashboard.banners.edit',compact('banners'));
+    $general = General::find(1);
+
+       return view('dashboard.banners.edit',compact('banners','general'));
    }
    function shop_page(Request $request){
 
@@ -21,9 +24,7 @@ class BannerController extends Controller
            'shop_page_banner' =>'required|max:2048|mimes:jpg,bmp,png',
         ]);
 
-        // $validator = Validator::make($request->all(), [
-        //     'file' => 'max:500000',
-        // ]);
+
 
         $old_image = Banner::select('shop_page_banner')->first()->shop_page_banner;
 
