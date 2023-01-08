@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{AttributeSize, AttributeColor};
+use App\Models\{AttributeSize, AttributeColor, General};
 use Illuminate\Http\Request;
 
 class AttributeController extends Controller
@@ -16,7 +16,9 @@ class AttributeController extends Controller
     {
         return view('vendor.product.attribute.index', [
             'attributesizes' => AttributeSize::where('vendor_id', auth()->id())->get(),
-            'attributecolors' => AttributeColor::where('vendor_id', auth()->id())->get()
+            'attributecolors' => AttributeColor::where('vendor_id', auth()->id())->get(),
+            'general' => General::find(1),
+
         ]);
     }
 

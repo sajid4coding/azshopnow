@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Packaging;
+use App\Models\General;
 use Illuminate\Http\Request;
 
 class PackagingController extends Controller
@@ -15,7 +16,8 @@ class PackagingController extends Controller
     public function index()
     {
         $packagings=Packaging::latest()->get();
-        return view('dashboard.packing.index',compact('packagings'));
+        $general = General::find(1);
+        return view('dashboard.packing.index',compact('packagings','general'));
     }
 
     /**
@@ -25,7 +27,9 @@ class PackagingController extends Controller
      */
     public function create()
     {
-        return view('dashboard.packing.create');
+        return view('dashboard.packing.create',[
+            'general' => General::find(1),
+        ]);
     }
 
     /**
@@ -69,7 +73,8 @@ class PackagingController extends Controller
     public function edit($id)
     {
         $packaging=Packaging::findOrFail($id);
-        return view('dashboard.packing.edit',compact('packaging'));
+      $general = General::find(1);
+        return view('dashboard.packing.edit',compact('packaging','general'));
     }
 
     /**

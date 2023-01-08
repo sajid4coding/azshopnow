@@ -20,7 +20,8 @@ class CategoryController extends Controller
     public function index()
     {
         return view('dashboard.category.category',[
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'general' => General::find(1),
         ]);
     }
 
@@ -31,7 +32,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('dashboard.category.addcategory');
+        return view('dashboard.category.addcategory',[
+            'general' => General::find(1),
+        ]);
     }
 
     /**
@@ -98,7 +101,9 @@ class CategoryController extends Controller
     {
         return view('dashboard.category.editcategory',[
             'category' => Category::find($id),
-            'icon' => Category::find($id)->icon
+            'icon' => Category::find($id)->icon,
+            'general' => General::find(1),
+
         ]);
     }
 

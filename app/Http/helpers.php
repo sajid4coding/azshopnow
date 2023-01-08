@@ -9,8 +9,13 @@ use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\User;
 use App\Models\Wishlist;
+use App\Models\General;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Subscription;
+
+function getGeneralValue($value){
+  return  General::find(1)->$value;
+}
 
 function getWishListProduct(){
      return  Wishlist::where('user_id',auth()->id())->get();
