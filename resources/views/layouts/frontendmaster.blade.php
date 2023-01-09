@@ -95,13 +95,6 @@
                                 <div class="header-search-wrap">
                                     <form action="{{route('search')}}">
                                         <input type="search" name="q" placeholder="Search for product...">
-                                        <select class="custom-select">
-                                            {{-- @foreach ($fix_categories as $category)
-                                                <option>{{ $category->category_name }}</option>
-                                            @endforeach --}}
-                                            <option>Men's Clothing</option>
-                                            <option>Luggage & Bags</option>
-                                        </select>
                                         <button><i class="fas fa-search"></i></button>
                                     </form>
                                 </div>
@@ -193,68 +186,71 @@
                                             Browse Categories
                                             <i class="fas fa-angle-down"></i>
                                         </a>
+                                        @php
+                                            $categories=category();
+                                        @endphp
                                         <ul class="category-menu" @if ($current_page != $home_page) style="display: none;" @endif>
-                                            <li class="add-megamenu">
-                                                <a href="#"><i class="fa-solid fa-gear"></i>How to add MegaMenu</a>
-                                            </li>
-                                            <li><a href="shop.html"><i class="flaticon-make-up"></i>Health and Beauty </a>
-                                            </li>
-                                            <li class="menu-item-has-children"><a href="shop.html"><i class="flaticon-smartphone"></i>Smartphone & Table</a>
-                                                <ul class="megamenu">
-                                                    <li class="sub-column-item"><a href="shop.html">Accessories & Parts</a>
-                                                        <ul>
-                                                            <li><a href="shop.html">Cables & Adapters</a></li>
-                                                            <li><a href="shop.html">Batteries</a></li>
-                                                            <li><a href="shop.html">Chargers</a></li>
-                                                            <li><a href="shop.html">Bags & Cases</a></li>
-                                                            <li><a href="shop.html">Electronic Cigarettes</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="sub-column-item"><a href="shop.html">Smart Electronics</a>
-                                                        <ul>
-                                                            <li><a href="shop.html">Cables & Adapters</a></li>
-                                                            <li><a href="shop.html">Chargers</a></li>
-                                                            <li><a href="shop.html">Bags & Cases</a></li>
-                                                            <li><a href="shop.html">Light Bulbs</a></li>
-                                                            <li><a href="shop.html">Watch Fashion</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="sub-column-item"><a href="shop.html">Accessories & Parts</a>
-                                                        <ul>
-                                                            <li><a href="shop.html">Projectors</a></li>
-                                                            <li><a href="shop.html">Audio Amplifier Boards</a></li>
-                                                            <li><a href="shop.html">Smart Electronics</a></li>
-                                                            <li><a href="shop.html">Bags & Cases</a></li>
-                                                            <li><a href="shop.html">Tees, Knits & Pools</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="sub-column-item"><a href="shop.html">Electronic Cigarettes</a>
-                                                        <ul>
-                                                            <li><a href="shop.html">Audio & Video</a></li>
-                                                            <li><a href="shop.html">Televisions</a></li>
-                                                            <li><a href="shop.html">TV Receivers</a></li>
-                                                            <li><a href="shop.html">Projectors</a></li>
-                                                            <li><a href="shop.html">TV Sticks</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="sub-column-item"><a href="shop.html">Portable Audio & Video</a>
-                                                        <ul>
-                                                            <li><a href="shop.html">Portable Audio & Video</a></li>
-                                                            <li><a href="shop.html">Audio & Video</a></li>
-                                                            <li><a href="shop.html">Televisions</a></li>
-                                                            <li><a href="shop.html">TV Receivers</a></li>
-                                                            <li><a href="shop.html">TV Sticks</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="sub-column-item"><a href="shop.html">Audio & Video</a>
-                                                        <ul>
-                                                            <li class="mega-menu-banner"><a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/megamenu_banner.jpg" alt=""></a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item-has-children"><a href="shop.html"><i class="flaticon-rim"></i>Automotive & Motorcycle </a>
+                                            {{-- <li><a href="shop.html"><i class="flaticon-make-up"></i>Health and Beauty </a>
+                                            </li> --}}
+                                            @foreach ($categories as $category)
+                                                <li class="menu-item-has-children"><a href="{{route('category.product',$category->slug)}}"><i class="{{$category->icon}}"></i>{{$category->category_name}}</a>
+                                                    <ul class="megamenu">
+                                                        <li class="sub-column-item"><a href="#">Sub Categories</a>
+                                                            @php
+                                                                $subCategories=subCategory($category->slug)
+                                                            @endphp
+                                                            <ul>
+                                                                @foreach ($subCategories as $subCategory)
+                                                                    <li><a href="{{route('subcategory.products',['slug'=>$category->slug,'id'=>$subCategory->id,'scName'=>$subCategory->category_name])}}">{{$subCategory->category_name}}</a></li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </li>
+                                                        {{-- <li class="sub-column-item"><a href="shop.html">Smart Electronics</a>
+                                                            <ul>
+                                                                <li><a href="shop.html">Cables & Adapters</a></li>
+                                                                <li><a href="shop.html">Chargers</a></li>
+                                                                <li><a href="shop.html">Bags & Cases</a></li>
+                                                                <li><a href="shop.html">Light Bulbs</a></li>
+                                                                <li><a href="shop.html">Watch Fashion</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="sub-column-item"><a href="shop.html">Accessories & Parts</a>
+                                                            <ul>
+                                                                <li><a href="shop.html">Projectors</a></li>
+                                                                <li><a href="shop.html">Audio Amplifier Boards</a></li>
+                                                                <li><a href="shop.html">Smart Electronics</a></li>
+                                                                <li><a href="shop.html">Bags & Cases</a></li>
+                                                                <li><a href="shop.html">Tees, Knits & Pools</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="sub-column-item"><a href="shop.html">Electronic Cigarettes</a>
+                                                            <ul>
+                                                                <li><a href="shop.html">Audio & Video</a></li>
+                                                                <li><a href="shop.html">Televisions</a></li>
+                                                                <li><a href="shop.html">TV Receivers</a></li>
+                                                                <li><a href="shop.html">Projectors</a></li>
+                                                                <li><a href="shop.html">TV Sticks</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="sub-column-item"><a href="shop.html">Portable Audio & Video</a>
+                                                            <ul>
+                                                                <li><a href="shop.html">Portable Audio & Video</a></li>
+                                                                <li><a href="shop.html">Audio & Video</a></li>
+                                                                <li><a href="shop.html">Televisions</a></li>
+                                                                <li><a href="shop.html">TV Receivers</a></li>
+                                                                <li><a href="shop.html">TV Sticks</a></li>
+                                                            </ul>
+                                                        </li> --}}
+                                                        <li class="sub-column-item"><a href="shop.html">Category Thumbnail</a>
+                                                            <ul>
+                                                                <li class="mega-menu-banner"><a href="shop.html"><img src="{{asset('uploads/category_photo')}}/{{$category->thumbnail}}" alt=""></a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            @endforeach
+                                            {{-- <li class="menu-item-has-children"><a href="shop.html"><i class="flaticon-rim"></i>Automotive & Motorcycle </a>
                                                 <ul class="megamenu">
                                                     <li class="sub-column-item"><a href="shop.html">Accessories & Parts</a>
                                                         <ul>
@@ -652,7 +648,7 @@
                                             <li class="more-categories">
                                                 All Categories
                                                 <i class="fas fa-chevron-right"></i>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </div>
                                     <div class="navbar-wrap main-menu d-none d-lg-flex">
