@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('discount_type');
             $table->integer('coupon_amount');
             $table->string('discount_message');
+            $table->string('expire_date');
             $table->timestamps();
         });
     }
