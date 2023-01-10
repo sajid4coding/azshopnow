@@ -474,8 +474,8 @@
                                                 <!--end::Subtotal-->
                                                 <!--begin::VAT-->
                                                 <tr>
-                                                    <td colspan="4" class="text-end">Tax (0%)</td>
-                                                    <td class="text-end">$0.00</td>
+                                                    <td colspan="4" class="text-end">Tax (%)</td>
+                                                    <td class="text-end">${{ $invoice->tax }}</td>
                                                 </tr>
                                                 <!--end::VAT-->
                                                 <!--begin::Shipping-->

@@ -45,6 +45,8 @@
                     @php
                         if(get_inventory($cart->product_id, $cart->size_id, $cart->color_id) < $cart->quantity){
                             $flag = true;
+                        }else{
+                            $flag = false;
                         }
                     @endphp
                     <div class="row mb-4 d-flex justify-content-between align-items-center @if ($flag == true) light_red @endif">
@@ -186,9 +188,9 @@
                             @elseif(session('packagingCost'))
                                 {{ round(session('subtotal') + session('packagingCost')->cost) }}
 
-                            @elseif(session('vendorpackagingCost')){
+                            @elseif(session('vendorpackagingCost'))
                                 {{ round(session('subtotal') + session('vendorpackagingCost')->packaging_cost) }}
-                            }
+                            
                             @else
                                 {{ round(session('subtotal')) }}
 
@@ -261,7 +263,5 @@
         </div>
         </div>
     </div>
-
-
     @endif
 </div>

@@ -1,50 +1,7 @@
-@extends('layouts/frontendmaster')
-
+@extends('layouts.frontendmaster')
 @section('content')
-<!-- main-area -->
-<main>
-
-    <!-- breadcrumb-area -->
-    <section class="breadcrumb-area" style="padding:50px 0;background: url(@if($banners->shop_page_banner) {{ asset('uploads/banners') }}/{{ $banners->shop_page_banner }} @else https://flevix.com/wp-content/uploads/2020/07/Red-Blue-Abstract-Background.jpg @endif) no-repeat center; background-size:cover;background-position:center" >
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-xl-3 col-lg-4 col-md-5 col-sm-8 order-2 order-md-0">
-                    <div class="breadcrumb-product text-center">
-                        <div class="thumb">
-                            <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/br_product_img.png" alt="img"></a>
-                            <span>35% OFF</span>
-                        </div>
-                        <div class="content">
-                            <div class="rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <h4 class="title"><a href="shop-details.html">Blender Mixer Food</a></h4>
-                            <h5 class="price">$37.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-9 col-lg-8 col-md-7">
-                    <div class="breadcrumb-content">
-                        <h2 class="title text-light">Top-Selection</h2>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Top-Selection</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- breadcrumb-area-end -->
-{{-- @include('components.frontend.shop_layout') --}}
- <!-- shop-area -->
- <div class="shop-area pt-90 pb-90">
+<!-- shop-area -->
+<div class="shop-area pt-90 pb-90">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-3 col-lg-4 col-md-8 col-sm-10 order-2 order-lg-0">
@@ -180,68 +137,90 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    @foreach ($topReviews->shuffle() as $product)
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-8">
-                            <div class="shop-product-item mb-30">
-                                <div class="shop-thumb">
-                                    <a href="{{route('single.product', ['id'=>$product->relationwithproduct->id,'title'=>Str::slug($product->relationwithproduct->product_title)] )}}"><img src="{{asset('uploads/product_photo')}}/{{$product->relationwithproduct->thumbnail}}" alt="img"></a>
-                                    @if ($product->relationwithproduct->created_at->diffInDays(\Carbon\Carbon::now()) < 2)
-                                        <span>New</span>
-                                    @endif
-                                </div>
-                                <div class="shop-content">
-                                    <ul class="tag">
-                                        <li>Sold by <a href="{{route('vendor.product',['id'=>$vendor->id ,'shopname'=>Str::slug($vendor->shop_name)])}}">{{shopName($product->vendor_id)->shop_name}}</a></li>
-                                    </ul>
-                                    <h2 class="title"><a href="{{route('single.product', ['id'=>$product->relationwithproduct->id,'title'=>Str::slug($product->relationwithproduct->product_title)])}}">{{$product->relationwithproduct->product_title}}</a></h2>
-                                    {{-- <div class="rating">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div> --}}
-                                    <div class="rating">
-                                        @if (review($product->relationwithproduct->id))
-                                            @for ($x = 1; $x <= 5; $x++)
-                                                @if ($x <= review($product->relationwithproduct->id))
-                                                    <i class="fas fa-star"></i>
-                                                @else
-                                                    <i class="far fa-star"></i><!--Empty star-->
-                                                @endif
-                                            @endfor
-                                            <span style="font-size: 10px;">({{ count_review($product->relationwithproduct->id) }})</span>
-                                        @else
-                                            <span class="text-danger">No Review Yet</span>
-                                        @endif
-                                    </div>
-                                    <span>Already Sold : 75%</span>
-                                    <div class="progress">
-                                        <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="content-bottom">
-                                        @if ($product->relationwithproduct->discount_price)
-                                            <h4>
-                                                ${{$product->relationwithproduct->discount_price}}
-                                                <span class="price text-muted">
-                                                    <del> ${{$product->relationwithproduct->product_price}}</del>
-                                                 </span>
-                                            </h4>
-                                            <p>0 orders <span>-{{Floor(((100*$product->relationwithproduct->product_price)-(100*$product->relationwithproduct->discount_price))/$product->relationwithproduct->product_price)}}%</span></p>
-                                        @else
-                                            <h4 class="price">${{$product->relationwithproduct->product_price}}</h4>
-                                            <p>{{orderCount($product->relationwithproduct->id)}} orders</p>
-                                        @endif
+                    @foreach ($products->shuffle() as $product)
+                        <div class="row mb-20" >
+                            <div class="col-xl-12">
+                                <div class="vendor-wrap" style="background: #EFEFED !important" >
+                                    <div class="row">
+                                        <div class="col-xl-5 col-lg-8">
+                                            <div class="vendor-content">
+                                                <div class="content-top mb-20">
+                                                    <div class="icon">
+                                                        <i class="fa-solid fa-sliders"></i>
+                                                    </div>
+                                                    <div class="content">
+                                                       <h2>
+                                                        <a href="{{route('vendor.product',['id'=>$product->vendor_id,'shopname'=>Str::slug($product->relationwithuser->shop_name)])}}">{{$product->relationwithuser->shop_name}}</a>
+                                                        </h2>
+                                                        <ul>
+                                                            @php
+                                                                $createdTime=$product->relationwithuser->created_at->diffForHumans()
+                                                            @endphp
+                                                            <li>{{$createdTime}}</li>
+                                                            <li><a href="#">Verified <img src="{{ asset('frontend_assets') }}/img/icon/verified_icon.png"
+                                                                        alt=""></a></li>
+                                                            {{-- <li> Order</li> --}}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                {{-- <div class="ranking mb-30">
+                                                    <ul>
+                                                        <li>No.1 Vendor Rankings</li>
+                                                        <li>Annual Sales $45,000,00</li>
+                                                    </ul>
+                                                </div> --}}
+                                                <div class="vendor-services">
+                                                    <ul>
+                                                        <li>
+                                                            <h2 class="title">{{vendorOrderCount($product->vendor_id)}}</h2>
+                                                            <p>Total Sold</p>
+                                                        </li>
+                                                        <li>
+                                                            <h2 class="title">${{vendorTotalEarnigs($product->vendor_id)}}</h2>
+                                                            <p>Total Earnings</p>
+                                                        </li>
+                                                        {{-- <li>
+                                                            <h2 class="title">100%</h2>
+                                                            <p>On-time delivery</p>
+                                                        </li> --}}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-7 col-lg-12">
+                                            <div class="vendor-product-wrap">
+                                                @php
+                                                   $vendorProducts= vendorProducts($product->vendor_id)
+                                                @endphp
+                                                <ul>
+                                                    @foreach ($vendorProducts as $vendorProduct)
+                                                        <li class="vendor-product">
+                                                            <div class="thumb">
+                                                                <a href="{{route('single.product', ['id'=>$vendorProduct->id,'title'=>Str::slug($vendorProduct->product_title)])}}"><img
+                                                                        src="{{ asset('uploads/product_photo') }}/{{$vendorProduct->thumbnail}}" alt=""></a>
+                                                            </div>
+                                                            <div class="content">
+                                                                <h2 class="title"><a href="{{route('single.product', ['id'=>$vendorProduct->id,'title'=>Str::slug($vendorProduct->product_title)] )}}">{{Str::limit($vendorProduct->product_title,8)}}</a></h2>
+                                                                <span>15 (Sale)</span>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {{-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-8">
+
+                        </div> --}}
                     @endforeach
                 </div>
                 <div class="shop-bottom-wrap">
                     <div class="shop-bottom-box">
                         <div class="shop-bottom-right">
-                                {{$topReviews->links('pagination::bootstrap-5')}}
+                                {{$products->links('pagination::bootstrap-5')}}
                         </div>
                     </div>
                 </div>
@@ -249,4 +228,8 @@
         </div>
     </div>
 </div>
+<!-- shop-area-end -->
+
 @endsection
+
+

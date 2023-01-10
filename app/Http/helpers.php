@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Wishlist;
 use App\Models\General;
 use App\Models\Slider;
+use App\Models\SubCategory;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Subscription;
 
@@ -923,7 +924,28 @@ function count_review($id)
 }
 function vendors()
 {
-    return User::where('role', 'vendor')->where('status','active')->get()->shuffle();
+    return User::where('role', 'vendor')->where('status','active')->limit(20)->get()->shuffle();
+}
+// function bestVendors()
+// {
+//     return User::where('role', 'vendor')->where('status','active')->limit(2)->get()->shuffle();
+// }
+function categorySlug($id,$slug)
+{
+    return Category::findOrFail($id)->$slug;
+}
+function orderCount($productID)
+{
+    return Order_Detail::where('product_id',$productID)->count();
+}
+function vendorOrderCount($vendorID)
+{
+    return Order_Detail::where('vendor_id',$vendorID)->count();
+}
+function vendorTotalEarnigs($vendor_id)
+{
+    $Order_Details=Order_Detail::where('vendor_id',$vendor_id)->get();
+    return $Order_Details->sum('total_price');
 }
 
 function membership(){
@@ -932,4 +954,8 @@ function membership(){
             'stripe_status' => 'active'
         ])->exists();
     return $subscriptions;
+}
+function subCategory($parentCategorySlug)
+{
+    return SubCategory::where('parent_category_slug',$parentCategorySlug)->where('status','published')->get();
 }
