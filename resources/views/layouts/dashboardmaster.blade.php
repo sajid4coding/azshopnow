@@ -133,7 +133,14 @@
 												</span>
 												<a href="{{ route('general.website.centent') }}"><span class="menu-title">Website Contents </span></a>
 											</span>
-
+										</div>
+										<div  class="menu-item menu-accordion">
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('general.slider') }}"><span class="menu-title">Slider </span></a>
+											</span>
 										</div>
 									</div>
 								</div>
