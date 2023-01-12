@@ -44,8 +44,9 @@
                               @endforeach
                         @endif
 
-                        <form class="form-prevent-multiple-submits" method="POST" action="{{ route('vendor.post') }}">
+                        <form class="form-prevent-multiple-submits" method="POST" action="{{ route('vendor.post',$plan->slug) }}">
                             @csrf
+                            <input type="hidden" name="plan" id="plan" value="{{ $plan->id }}">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-grp">
@@ -69,13 +70,13 @@
                                 <div class="col-md-6">
                                     <div class="form-grp">
                                         <label for="password">Password *</label>
-                                        <input   name="password" value='{{ old('password') }}' type="password" id="password">
+                                        <input name="password" value='{{ old('password') }}' type="password" id="password">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-grp">
                                         <label for="re-password">Re-Password *</label>
-                                        <input  name="password_confirmation" type="password" id="re-password">
+                                        <input name="password_confirmation" type="password" id="re-password">
                                     </div>
                                 </div>
                             </div>

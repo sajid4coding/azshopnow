@@ -17,11 +17,9 @@ class CartPage extends Component
     {
         return view('livewire.cart-page',[
             'carts' => Cart::where('user_id', auth()->id())->get(),
-            'vendor_id' => Cart::where('user_id', auth()->id())->first()->vendor_id,
+            'vendor_id' => Cart::select('vendor_id')->where('user_id', auth()->id())->groupBy('vendor_id')->get(),
             'shippings' => Shipping::all(),
             'packagings'=> Packaging::all(),
-            'vendor_shippings' => VendorShipping::where('vendor_id', Cart::where('user_id', auth()->id())->first()->vendor_id)->get(),
-            'vendor_packagings'=> VendorPackaging::where('vendor_id', Cart::where('user_id', auth()->id())->first()->vendor_id)->get(),
         ]);
     }
 

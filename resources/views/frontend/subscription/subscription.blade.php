@@ -11,7 +11,7 @@
 
                  <div class="card-body">
 
-                     <form id="payment-form" action="{{ route('subscription.done') }}" method="POST">
+                     <form id="payment-form" action="{{ route('subscription.create') }}" method="POST">
                          @csrf
                          <input type="hidden" name="plan" id="plan" value="{{ $plan->id }}">
 

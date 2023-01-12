@@ -2,49 +2,90 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Banner;
-use App\Models\Coupon;
-use App\Models\Invoice;
-use App\Models\Product;
-use App\Models\Shipping;
-use App\Models\SubCategory;
-use App\Models\User;
-use App\Models\VendorShipping;
+use App\Models\{Banner,Coupon,Invoice,Plan,Product,Shipping,SubCategory,User,VendorShipping};
 use Carbon\Carbon;
+use GuzzleHttp\Middleware;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rules\Password;
 use Intervention\Image\Facades\Image;
+use Stripe\Stripe;
+use function PHPUnit\Framework\returnSelf;
 
 
 class vendorController extends Controller
 {
-    function vendor_index(){
-         return view('vendor.registration',[
-            'banners' => Banner::all()->first(),
-         ]);
-     }
+
+    // BEFORE LOGIN FOR SUBCRIPTION START
+    public function plan_index()
+    {
+        // $plans = Plan::get();
+        return view("frontend.subscription.plans",[
+            'basic' => Plan::where('name','Basic')->first(),
+            'premium' => Plan::where('name','Premium')->first(),
+            'azshop' => Plan::where('name','Az Shop')->first(),
+        ]);
+    }
+
+    public function plan_show(Plan $plan, Request $request)
+    {
+        $user = Auth()->loginUsingId(session('vendor_id'));
+        $intent = $user->createSetupIntent();
+        // $intent = auth()->user()->createSetupIntent();
+        return view("frontend.subscription.subscription", compact("plan","intent"));
+    }
+
+    public function subscription(Request $request)
+    {
+        $plan = Plan::find($request->plan);
+        $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)->create($request->token);
+        User::where('id', auth()->id())->update([
+            'dashboard_access' => 'active',
+        ]);
+        return redirect('/vendor/dashboard')->with('registrion_success','Your registation successfully & Subscription purchase successful!');
+    }
+    // BEFORE LOGIN FOR SUBCRIPTION END
+
+
+    function vendor_index(Plan $plan, Request $request){
+        $banners = Banner::all()->first();
+        return view('vendor.registration',compact('banners','plan'));
+    }
+
     function vendor_post(Request $request){
-        // return  $request;
         $request->validate([
-            '*' => 'required',
+            'name' => 'required',
+            'shop_name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'password_confirmation' => 'required',
             'email' => "unique:users",
             'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
         ]);
 
-        User::insert([
+        // GET THE VENDOR ID BECAUSE OF SUBCRIPTION PLAN
+        $vendor_id = User::insertGetId([
               'name' =>   $request->name,
               'shop_name' =>   $request->shop_name,
               'email' =>   $request->email,
               'password' =>  bcrypt($request->password),
               'role' =>  'vendor',
               'status' =>  'deactive',
+              'dashboard_access' =>  'deactive',
               'created_at' => Carbon::now(),
         ]);
-        return redirect('/vendor/login')->with('registrion_success','Your registation successfully & wait for admin approval');
+
+        session(['vendor_id' => $vendor_id]);
+
+        $plan = Plan::find($request->plan);
+
+        return redirect('plans'.'/'.$plan->slug);
+
+        // return redirect('/vendor/login')->with('registrion_success','Your registation successfully & wait for admin approval');
 
     }
 

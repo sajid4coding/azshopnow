@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('phone_number')->nullable();
             $table->string('role');
             $table->string('shop_name')->nullable();
-            $table->string('status')->default('deactive');
             $table->string('profile_photo')->default('default.png');
+            $table->string('status')->default('deactive');
+            $table->string('dashboard_access')->default('active');
             $table->rememberToken();
             $table->timestamps();
         });

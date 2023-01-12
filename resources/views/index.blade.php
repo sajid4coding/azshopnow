@@ -434,7 +434,7 @@
                                         </div>
                                         <h3 class="title">Business with AZShop</h3>
                                         <div class="join-btn">
-                                            <a href="{{ route('become.vendor') }}" class="btn">Join Us</a>
+                                            <a href="{{ route('plans') }}" class="btn">Join Us</a>
                                             <a href="{{ route('vendor.login') }}" class="btn">Sign In</a>
                                         </div>
                                         <a href="{{ route('home') }}"><img src="https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg" alt=""></a>
