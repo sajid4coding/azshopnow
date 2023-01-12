@@ -10,6 +10,7 @@ use App\Models\ProductReview;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Models\General;
+use App\Models\SubCategory;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Subscription;
 
@@ -949,4 +950,8 @@ function membership(){
             'stripe_status' => 'active'
         ])->exists();
     return $subscriptions;
+}
+function subCategory($parentCategorySlug)
+{
+    return SubCategory::where('parent_category_slug',$parentCategorySlug)->where('status','published')->get();
 }

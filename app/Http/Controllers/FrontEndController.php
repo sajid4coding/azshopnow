@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
-use App\Models\{Banner, Cart, Category, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReport, ProductReview, ReviewGallery, User, Wishlist};
+use App\Models\{Banner, Cart, Category, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReport, ProductReview, ReviewGallery, SubCategory, User, Wishlist};
 use Khsing\World\World;
 use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
@@ -361,5 +361,11 @@ class FrontEndController extends Controller
     public function listOfVendors ($slug){
         $products=Product::select('vendor_id')->where('status','published')->where('parent_category_slug',$slug)->where('vendorProductStatus','published')->groupBy('vendor_id')->paginate(9);
         return view('frontend.listOfVendors',compact('products'));
+    }
+    public function subcategoryProducts($slug, $id, $scName){
+        $categoryName=Category::where('slug', $slug)->first();
+        $subCategoryName=SubCategory::where('parent_category_slug', $slug)->first();
+        $products=Product::where('sub_category_id',$id)->where('status','published')->where('vendorProductStatus','published')->paginate(9);
+        return view('frontend.subcategoryProducts', compact('products','categoryName','subCategoryName'));
     }
 }

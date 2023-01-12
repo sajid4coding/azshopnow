@@ -310,7 +310,7 @@
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Add Category</span>
+                                                    <span class="menu-title">Main Category</span>
                                                 </a>
                                             </div>
                                             <div class="menu-item @if ($current_page == 'subcategory') here show @endif">
