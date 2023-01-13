@@ -18,8 +18,7 @@
                @endforeach
             @endif
             {{-- ==== Error Messages ==== --}}
-            @if ($coupon_count < 5 || membership())
-                <form class=" form-prevent-multiple-submits" action="{{ route('coupon.add') }}" method="POST">
+            <form class=" form-prevent-multiple-submits" action="{{ route('coupon.add') }}" method="POST">
                  @csrf
                 <div class="row">
                     <div class="col-md-12">
@@ -68,10 +67,36 @@
                             </div>
                         </div>
                     </div>
-                </form>
-            @else
-                <p class="text-center text-danger">If you upgrade your account you can able to creating unlimited coupons. <a href="{{ route('plans') }}">Account Upgrade</a></p>
-            @endif
+                    <div class="col-lg-6">
+                        <div class="form-group pl-3">
+                            <label class="d-block" for="">Discount Type</label>
+
+                            <select class="form-select" name="discount_type" id="">
+                                <option disabled selected value="">-Select Coupon type-</option>
+                                <option value="percentage">Percentage ( % )</option>
+                                <option value="flat">Flat</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-grp">
+                            <label for="weight">Coupon Amount</label>
+                            <input type="number" name="coupon_amount" id="weight">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-grp">
+                            <label for="weight">Discount Message</label>
+                            <input type="text" name="discount_message" id="weight">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-center mt-3">
+                            <button type="submit">Add Coupon</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
 
             {{-- ==========================================
                            Coupon List Start

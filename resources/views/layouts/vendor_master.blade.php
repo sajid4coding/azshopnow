@@ -118,19 +118,16 @@
                                                 <a class="nav-link cust_a" href="{{ route('vendor.orders') }}"> <i class="fas fa-store"></i> Orders</a>
                                             </li>
 
-                                            @if (!membership())
-                                                <li class="nav-item @if ($current_page == 'vendor-shipping') here show @endif" >
-                                                    <a class="nav-link cust_a" href="{{ route('vendor-shipping.index') }}"> <i class="fa-solid fa-truck-fast"></i>Shipping</a>
-                                                </li>
-                                                <li class="nav-item @if ($current_page == 'vendor-packaging') here show @endif" >
-                                                    <a class="nav-link cust_a" href="{{ route('vendor-packaging.index') }}"> <i class="fa-solid fa-cube"></i>Packaging</a>
-                                                </li>
-                                            @endif
-                                            @if (!membership())
-                                                <li class="nav-item @if ($current_page == 'plans') here show @endif" >
-                                                    <a class="nav-link cust_a" href="{{ route('plans') }}"> <i class="fas fa-store"></i>Account Upgrade</a>
-                                                </li>
-                                            @endif
+                                            {{-- <li class="nav-item @if ($current_page == 'vendor-shipping') here show @endif" >
+                                                <a class="nav-link cust_a" href="{{ route('vendor-shipping.index') }}"> <i class="fa-solid fa-truck-fast"></i>Shipping</a>
+                                            </li>
+                                            <li class="nav-item @if ($current_page == 'vendor-packaging') here show @endif" >
+                                                <a class="nav-link cust_a" href="{{ route('vendor-packaging.index') }}"> <i class="fa-solid fa-cube"></i>Packaging</a>
+                                            </li> --}}
+                                            
+                                            <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >
+                                                <a class="nav-link cust_a" href="{{ route('upgrade') }}"> <i class="fa-solid fa-truck-fast"></i>Plans</a>
+                                            </li>
 
                                             <li class="mb-3">
                                                 <form method="POST" action="{{ route('logout') }}">

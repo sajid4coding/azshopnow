@@ -53,7 +53,7 @@
                             <li><i class="fa fa-check mr-2 text-primary"></i> 2 Staff Account</li>
                         </ul>
                         {{-- <a href="{{ route('plans.show',$plan->slug) }}" class="read">Choose</a> --}}
-                        <a href="{{ route('plans.index.show',$basic->slug) }}" class="read">Choose</a>
+                        <a href="{{ route('become.vendor',$basic->slug) }}" class="read">Choose</a>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                             <li><i class="fa fa-check mr-2 text-primary"></i> 5 Staff Account</li>
                         </ul>
                         {{-- <a href="{{ route('plans.show',$plan->slug) }}" class="read">Choose</a> --}}
-                        <a href="{{ route('plans.index.show',$premium->slug) }}" class="read">Choose</a>
+                        <a href="{{ route('become.vendor',$premium->slug) }}" class="read">Choose</a>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                             <li><i class="fa fa-check mr-2 text-primary"></i> Unlimited Staff Account</li>
                         </ul>
                         {{-- <a href="{{ route('plans.show',$plan->slug) }}" class="read">Choose</a> --}}
-                        <a href="{{ route('plans.index.show',$azshop->slug) }}" class="read">Choose</a>
+                        <a href="{{ route('become.vendor',$azshop->slug) }}" class="read">Choose</a>
                     </div>
                 </div>
             </div>

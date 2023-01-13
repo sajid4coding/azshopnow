@@ -1,8 +1,5 @@
-@if (membership())
-
-
-    @extends('layouts.vendor_master')
-    @section('header_css')
+@extends('layouts.vendor_master')
+@section('header_css')
     <style>
 
         .avtivity-card {
@@ -117,191 +114,150 @@
           margin-right: 10px; }
 
         </style>
-    @endsection
-    @section('vendor_body_content')
+@endsection
+@section('vendor_body_content')
     <div class="col-lg-9 col-md-9">
-        {{-- <div class="tab-content" id="myTabContent">
-
-            <div class="tab-pane fade show active" id="vendor" role="tabpanel" aria-labelledby="vendor-tab">
-                <div class="vendor-profile-wrap">
-                    <div class="text-center">
-                        <div>
-                            <div class="avatar-post-img mb-3" style="margin:0 auto;">
-                                <img src=" @if (auth()->user()->profile_photo)
-                                {{ asset('uploads/vendor_profile') }}/{{ auth()->user()->profile_photo }}
-                                @else
-                                https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png
-                                @endif " alt="img">
-                            </div>
-                       </div>
-                        <div class="avatar-post-content">
-                            <h4 class="title ">{{ auth()->user()->name }}</h4>
-                            <p>{{ auth()->user()->bio }}</p>
-                            <ul class="social">
-                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-pinterest-p"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
+        @if (session('registrion_success'))
+            <div class="alert alert-success">
+                {{ session('registrion_success') }}
             </div>
+        @endif
+        <div class="row">
+            <div class="col-xl-12 col-xxl-12">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card h-auto avtivity-card">
+                            <div class="card-body ">
+                                <div class="media  d-flex align-items-center gap-4">
+                                    <span class="activity-icon bgl-success mr-md-4 mr-3">
+                                    <img width="50px" src="{{ asset('frontend_assets/img/report_image/order.png') }}" alt="frontend_assets/img/report_image/order.png'">
 
-        </div> --}}
-    <div class="row">
-        <div class="col-xl-12 col-xxl-12">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card h-auto avtivity-card">
-                        <div class="card-body ">
-                            <div class="media  d-flex align-items-center gap-4">
-                                <span class="activity-icon bgl-success mr-md-4 mr-3">
-                                  <img width="50px" src="{{ asset('frontend_assets/img/report_image/order.png') }}" alt="frontend_assets/img/report_image/order.png'">
+                                    </span>
+                                    <div class="media-body text-center">
+                                        <p class="fs-14 mb-2">Total Order</p>
+                                        <span class="title text-black font-w600">{{ $invoices_info->count() }}</span>
+                                    </div>
+                                </div>
+                                <div class="progress" style="height:5px;">
+                                    <div class="progress-bar bg-success" style="width: {{ $invoices_info->count() }}%; height:5px;" role="progressbar">
+                                        <span class="sr-only">{{ $invoices_info->count() }}% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="effect bg-success" style="top: 162px; left: 124px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card h-auto avtivity-card">
+                            <div class="card-body">
+                                <div class="media d-flex align-items-center gap-4">
+                                    <span class="activity-icon bgl-secondary  mr-md-4 mr-3">
+                                    <img width="50px" src="{{ asset('frontend_assets/img/report_image/paper-money.png') }}" alt="frontend_assets/img/report_image/order.png'">
 
-                                </span>
-                                <div class="media-body text-center">
-                                    <p class="fs-14 mb-2">Total Order</p>
-                                    <span class="title text-black font-w600">{{ $invoices_info->count() }}</span>
+                                    </span>
+                                    <div class="media-body text-center">
+                                        <p class="fs-14 mb-2">Unpaid Amount</p>
+                                        <span class="title text-black font-w600">${{ $invoices_info->where('payment','unpaid')->sum('total_price') }}</span>
+                                    </div>
+                                </div>
+                                <div class="progress" style="height:5px;">
+                                    <div class="progress-bar bg-secondary" style="width: {{ $invoices_info->where('payment','unpaid')->sum('total_price') }}%; height:5px;" role="progressbar">
+                                        <span class="sr-only">{{ $invoices_info->where('payment','unpaid')->sum('total_price') }}% Complete</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-success" style="width: {{ $invoices_info->count() }}%; height:5px;" role="progressbar">
-                                    <span class="sr-only">{{ $invoices_info->count() }}% Complete</span>
-                                </div>
-                            </div>
+                            <div class="effect bg-secondary" style="top: 62px; left: -46.5px;"></div>
                         </div>
-                        <div class="effect bg-success" style="top: 162px; left: 124px;"></div>
                     </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card h-auto avtivity-card">
-                        <div class="card-body">
-                            <div class="media d-flex align-items-center gap-4">
-                                <span class="activity-icon bgl-secondary  mr-md-4 mr-3">
-                                  <img width="50px" src="{{ asset('frontend_assets/img/report_image/paper-money.png') }}" alt="frontend_assets/img/report_image/order.png'">
+                    <div class="col-sm-6">
+                        <div class="card h-auto avtivity-card">
+                            <div class="card-body">
+                                <div class="media d-flex align-items-center gap-4">
+                                    <span class="activity-icon bgl-danger mr-md-4 mr-3">
+                                    <img width="50px" src="{{ asset('frontend_assets/img/report_image/pay.png') }}" alt="frontend_assets/img/report_image/order.png'">
 
-                                </span>
-                                <div class="media-body text-center">
-                                    <p class="fs-14 mb-2">Unpaid Amount</p>
-                                    <span class="title text-black font-w600">${{ $invoices_info->where('payment','unpaid')->sum('total_price') }}</span>
+                                    </span>
+                                    <div class="media-body text-center">
+                                        <p class="fs-14 mb-2">Paid Amount</p>
+                                        <span class="title text-black font-w600">${{ $invoices_info->where('payment','paid')->sum('total_price') }}</span>
+                                    </div>
+                                </div>
+                                <div class="progress" style="height:5px;">
+                                    <div class="progress-bar bg-danger" style="width: {{ $invoices_info->where('payment','paid')->sum('total_price') }}%; height:5px;" role="progressbar">
+                                        <span class="sr-only">{{ $invoices_info->where('payment','paid')->sum('total_price') }}% Complete</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-secondary" style="width: {{ $invoices_info->where('payment','unpaid')->sum('total_price') }}%; height:5px;" role="progressbar">
-                                    <span class="sr-only">{{ $invoices_info->where('payment','unpaid')->sum('total_price') }}% Complete</span>
-                                </div>
-                            </div>
+                            <div class="effect bg-danger" style="top: 32px; left: -54px;"></div>
                         </div>
-                        <div class="effect bg-secondary" style="top: 62px; left: -46.5px;"></div>
                     </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card h-auto avtivity-card">
-                        <div class="card-body">
-                            <div class="media d-flex align-items-center gap-4">
-                                <span class="activity-icon bgl-danger mr-md-4 mr-3">
-                                  <img width="50px" src="{{ asset('frontend_assets/img/report_image/pay.png') }}" alt="frontend_assets/img/report_image/order.png'">
+                    <div class="col-sm-6">
+                        <div class="card h-auto avtivity-card">
+                            <div class="card-body">
+                                <div class="media d-flex align-items-center gap-4">
+                                    <span class="activity-icon bgl-warning  mr-md-4 mr-3">
+                                        <img width="50px" src="{{ asset('frontend_assets/img/report_image/box.png') }}" alt="frontend_assets/img/report_image/box.png'">
+                                    </span>
+                                    <div class="media-body text-center">
+                                        <p class="fs-14 mb-2">Deliverd</p>
+                                        <span class="title text-black font-w600">10</span>
+                                    </div>
+                                </div>
+                                <div class="progress" style="height:5px;">
+                                    <div class="progress-bar bg-warning" style="width: 42%; height:5px;" role="progressbar">
+                                        <span class="sr-only">42% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="effect bg-warning" style="top: 36px; left: -12.5px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card h-auto avtivity-card">
+                            <div class="card-body">
+                                <div class="media d-flex align-items-center gap-4">
+                                    <span class="activity-icon bgl-success  mr-md-4 mr-3">
+                                        <img width="50px" src="{{ asset('frontend_assets/img/report_image/box(1).png') }}" alt="frontend_assets/img/report_image/box(1).png'">
+                                    </span>
+                                    <div class="media-body text-center">
+                                        <p class="fs-14 mb-2">Pending Order</p>
+                                        <span class="title text-black font-w600">52</span>
+                                    </div>
+                                </div>
+                                <div class="progress" style="height:5px;">
+                                    <div class="progress-bar bg-success" style="width: 42%; height:5px;backgroun:#BA6555;" role="progressbar">
+                                        <span class="sr-only">42% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="effect bg-success" style="top: 36px; left: -12.5px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card h-auto avtivity-card">
+                            <div class="card-body" >
+                                <div class="media d-flex align-items-center gap-4">
+                                    <span class="activity-icon bgl-primary  mr-md-4 mr-3">
+                                        <img width="50px" src="{{ asset('frontend_assets/img/report_image/p.png') }}" alt="frontend_assets/img/report_image/p.png'">
+                                    </span>
+                                    <div class="media-body text-center">
+                                        <p class="fs-14 mb-2">Processign  Order</p>
+                                        <span class="title text-black font-w600">10</span>
+                                    </div>
+                                </div>
+                                <div class="progress" style="height:5px;">
+                                    <div class="progress-bar bg-primary" style="width: 42%; height:5px;" role="progressbar">
+                                        <span class="sr-only">42% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="effect bg-primary" style="top: 36px; left: -12.5px;"></div>
+                        </div>
+                    </div>
 
-                                </span>
-                                <div class="media-body text-center">
-                                    <p class="fs-14 mb-2">Paid Amount</p>
-                                    <span class="title text-black font-w600">${{ $invoices_info->where('payment','paid')->sum('total_price') }}</span>
-                                </div>
-                            </div>
-                            <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-danger" style="width: {{ $invoices_info->where('payment','paid')->sum('total_price') }}%; height:5px;" role="progressbar">
-                                    <span class="sr-only">{{ $invoices_info->where('payment','paid')->sum('total_price') }}% Complete</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="effect bg-danger" style="top: 32px; left: -54px;"></div>
-                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="card h-auto avtivity-card">
-                        <div class="card-body">
-                            <div class="media d-flex align-items-center gap-4">
-                                <span class="activity-icon bgl-warning  mr-md-4 mr-3">
-                                    <img width="50px" src="{{ asset('frontend_assets/img/report_image/box.png') }}" alt="frontend_assets/img/report_image/box.png'">
-                                </span>
-                                <div class="media-body text-center">
-                                    <p class="fs-14 mb-2">Deliverd</p>
-                                    <span class="title text-black font-w600">10</span>
-                                </div>
-                            </div>
-                            <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-warning" style="width: 42%; height:5px;" role="progressbar">
-                                    <span class="sr-only">42% Complete</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="effect bg-warning" style="top: 36px; left: -12.5px;"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card h-auto avtivity-card">
-                        <div class="card-body">
-                            <div class="media d-flex align-items-center gap-4">
-                                <span class="activity-icon bgl-success  mr-md-4 mr-3">
-                                    <img width="50px" src="{{ asset('frontend_assets/img/report_image/box(1).png') }}" alt="frontend_assets/img/report_image/box(1).png'">
-                                </span>
-                                <div class="media-body text-center">
-                                    <p class="fs-14 mb-2">Pending Order</p>
-                                    <span class="title text-black font-w600">52</span>
-                                </div>
-                            </div>
-                            <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-success" style="width: 42%; height:5px;backgroun:#BA6555;" role="progressbar">
-                                    <span class="sr-only">42% Complete</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="effect bg-success" style="top: 36px; left: -12.5px;"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card h-auto avtivity-card">
-                        <div class="card-body" >
-                            <div class="media d-flex align-items-center gap-4">
-                                <span class="activity-icon bgl-primary  mr-md-4 mr-3">
-                                    <img width="50px" src="{{ asset('frontend_assets/img/report_image/p.png') }}" alt="frontend_assets/img/report_image/p.png'">
-                                </span>
-                                <div class="media-body text-center">
-                                    <p class="fs-14 mb-2">Processign  Order</p>
-                                    <span class="title text-black font-w600">10</span>
-                                </div>
-                            </div>
-                            <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-primary" style="width: 42%; height:5px;" role="progressbar">
-                                    <span class="sr-only">42% Complete</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="effect bg-primary" style="top: 36px; left: -12.5px;"></div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
-    </div>
     @endsection
-
-
-@else
-
-
-    @extends('layouts.vendor_master')
-    @section('vendor_body_content')
-        <div class="col-lg-9 col-md-9">
-            <div class="text-center">
-                <p>If you upgrade your account you can able to tracing profile analysis. <a href="{{ route('plans') }}">Account Upgrade</a></p>
-            </div>
-        </div>
-    @endsection
-
-    
-@endif
 

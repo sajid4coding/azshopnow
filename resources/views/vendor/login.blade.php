@@ -77,7 +77,7 @@
                                             <div class="text-end">
                                                 <a href="{{ route('password.request') }}" class="text-muted mt-4">Forgot your password?</a>
                                                 </div>
-                                                <p>If you have no account <a href="{{ route('become.vendor') }}">Registration</a> here!</p>
+                                                <p>If you have no account <a href="{{ route('plans') }}">Registration</a> here!</p>
                                     <button class="button-prevent-multiple-submits" type="submit">LOGIN</button>
                                 </form>
                     </div>

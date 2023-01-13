@@ -72,8 +72,10 @@
                         <div class="col-md-6">
                             <div class="header-top-right">
                                 <ul>
+                                    <li><a href="{{ route('vendor.login') }}">Vendor Login</a></li>
                                     @guest
-                                    <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li>
+                                    {{-- <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li> --}}
+                                    <li><a href="{{ route('plans') }}">Become a Vendor</a></li>
                                     @endguest
                                     <li><a href="{{ route('contact.us') }}">Contact Us</a></li>
                                 </ul>

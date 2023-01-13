@@ -14,7 +14,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-// FrontEndController
+// FrontEnd ROUTE START
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::get('/categories/{slug}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
 Route::get('/vendor/all/product/{id}/{shopname}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
@@ -37,16 +37,18 @@ Route::post('report-product/{id}',[FrontEndController::class,'report_product'])-
 Route::get('top-selection',[FrontEndController::class,'topSelection'])->name('top.selection');
 Route::get('new-arrivals',[FrontEndController::class,'newArrivals'])->name('new.arrivals');
 Route::get('search',[FrontEndController::class,'search'])->name('search');
+// FrontEnd ROUTE END
 
 // PAYMENTS METHOD INTEGRATION ROUTE START
-
 //STRIPE
 Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('stripe_checkout_post');
 Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
 // PAYMENTS METHOD INTEGRATION ROUTE END
 
-//Newslatter Route
+//NEWSLATTER ROUTE START
 Route::resource('newsletter', NewsletterController::class);
+//NEWSLATTER ROUTE END
+
 Route::middleware(['admin', 'verified'])->group(function () {
 
     //DashboardController
@@ -94,17 +96,20 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //VendormanagementController Resource
     Route::resource('vendormanagement', VendorsmanagementController::class);
+
     //AdminmanagementController Resource
     Route::resource('adminmanagement', AdminmanagementController::class);
+
     //CustomermanagementController Resource
     Route::resource('customermanagement', CustomermanagementController::class);
 
-    // All Banner Management Controller
+    // ALL BANNER MANAGEMENT ROUTE START
     Route::get('banner-edit',[BannerController::class,'index'])->name('banner.edit');
     Route::post('shop-page-banner-post',[BannerController::class,'shop_page'])->name('shop.banner.edit');
     Route::post('vendor-page-banner-post',[BannerController::class,'vendor_page'])->name('vendor.banner.edit');
     Route::post('customer-page-banner-post',[BannerController::class,'customer_page'])->name('customer.banner.edit');
     Route::post('cart-page-banner-post',[BannerController::class,'cart_page'])->name('cart.banner.edit');
+    // ALL BANNER MANAGEMENT ROUTE END
 
     // ProfileController
     Route::get('admin/profile', [ProfileController::class, 'admin_profile'])->name('admin.profile');
@@ -112,10 +117,12 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::post('admin/profile/setting/edit', [ProfileController::class, 'admin_profile_setting_edit'])->name('admin.profile.setting.edit');
     Route::post('admin/password/change', [ProfileController::class, 'admin_password_change'])->name('admin.password.change');
 
-    //Newslatter Route
+    //ADMIN MANAGEMENT NEWSLATTER ROUTE START
     Route::get('admin/newsletter-list', [DashboardController::class, 'newslettter'])->name('newsletters');
     Route::post('admin/newsletter-list', [DashboardController::class, 'exportNewslettter'])->name('export.newsletters');
-    //General Settings Route
+    //ADMIN MANAGEMENT NEWSLATTER ROUTE END
+
+    //GENERAL SETTINGS ROUTE START
     Route::get('general-settings/logo-edit',[GeneralController::class,'logosEdit'])->name('general.logo.edit');
     Route::post('general-settings/header-logo-post',[GeneralController::class,'headerLogoPost'])->name('header.logo.post');
     Route::post('general-settings/footer-logo-post',[GeneralController::class,'footerLogoPost'])->name('footer.logo.post');
@@ -125,15 +132,32 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::post('general-settings/dashboard-favicon-post',[GeneralController::class,'DashboardFaviconLogoPost'])->name('dashboard.favicon.post');
     Route::get('general-settings/dashboard-website-content',[GeneralController::class,'websiteContents'])->name('general.website.centent');
     Route::post('general-settings/dashboard-website-content-post',[GeneralController::class,'websiteContentsPost'])->name('general.website.centent.post');
+    //GENERAL SETTINGS ROUTE ENDD
 
 });
 
 require __DIR__.'/auth.php';
 
 
-// Vendor All Routes Start
-Route::get('become/vendor', [VendorController::class, 'vendor_index'])->name('become.vendor');
-Route::post('vendor/post', [VendorController::class, 'vendor_post'])->name('vendor.post');
+// VENDOR ROUTE START
+
+
+//BEFORE LOGIN TRY TO SUBCRIPTION ROUTE START
+Route::get('plans', [VendorController::class, 'plan_index'])->name("plans"); //--1st Step
+Route::get('become/vendor/plans/{plan}', [VendorController::class, 'vendor_index'])->name('become.vendor'); //--2nd Step
+Route::post('vendor/post', [VendorController::class, 'vendor_post'])->name('vendor.post'); //--3rd Step
+Route::get('plans/{plan}', [VendorController::class, 'plan_show'])->name("plans.show"); //--4th Step
+// Route::post('subscription', [VendorController::class, 'subscription'])->name("subscription.create"); //--5th Step
+//BEFORE LOGIN TRY TO SUBCRIPTION ROUTE END
+
+Route::middleware(['planlinkhide'])->group(function(){
+
+    //AFTER LOGIN TRY TO SUBCRIPTION ROUTE START
+    Route::get('plans_index', [PlanController::class, 'index'])->name('plan.index');
+    Route::get('plans_index/{plan}', [PlanController::class, 'show'])->name('plans.index.show');
+    Route::post('subscription_done', [PlanController::class, 'subscription_done'])->name("subscription.done");
+    //AFTER LOGIN TRY TO SUBCRIPTION ROUTE END
+});
 Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('vendor.login');
 Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
 
@@ -164,18 +188,20 @@ Route::middleware(['vendor'])->group(function(){
     Route::post('add_inventory/{product}', [InventoryController::class, 'add_inventory'])->name('add_inventory');
     Route::get('delete_inventory/{id}', [InventoryController::class, 'delete_inventory'])->name('delete_inventory');
 
-
-    Route::get('plans', [PlanController::class, 'index'])->name("plans");;
-    Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
-    Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
-
     //Vendor Shipping Route
     Route::resource('vendor-shipping', VendorShippingController::class);
 
     //Vendor Packaging Route
     Route::resource('vendor-packaging', VendorPackagingController::class);
+
+    //UPGRADE SUBCRIPTION ROUTE START
+    Route::get('upgrade', [PlanController::class, 'upgrade'])->name('upgrade');
+    Route::get('upgrade/{plan}', [PlanController::class, 'upgrade_show'])->name("upgrade.show");
+    Route::post('subscription', [PlanController::class, 'upgrade_done'])->name("upgrade.done");
+    //UPGRADE SUBCRIPTION ROUTE END
 });
 
+// VENDOR ROUTE END
 
 
 // =========================== ALL COMMON ROUTES START HERE =================
@@ -194,21 +220,18 @@ Route::middleware(['customer'])->group(function(){
     Route::post('customer/product-review-post/{id}', [CustomerController::class, 'product_review_post'])->name('product.review.post');
 });
 
-Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome')->middleware(['auth', 'verified']);
 // HOME CONTROLLER START
-
+    Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome')->middleware(['auth', 'verified']);
 // HOME CONTROLLER END
 
-// // CUSTOMER CONTROLLER START
-
-// Route::post('customer/register', [CustomerController::class, 'customer_register'])->name('customer.register');
+// CUSTOMER CONTROLLER START
 Route::get('customer/register', [CustomerController::class, 'customer_register'])->name('customer.register');
 Route::post('customer/register/post', [CustomerController::class, 'customer_register_post'])->name('customer.register.post');
 Route::get('customer/login', [CustomerController::class, 'customer_login'])->name('customer.login');
 Route::post('customer/login/post', [CustomerController::class, 'customer_login_post'])->name('customer.login.post');
 Route::post('customer/profile/submit', [CustomerController::class, 'customer_profile_submit'])->name('customer.profile.submit');
-
 // CUSTOMER CONTROLLER END
+
 
 // EMAIL VERIFY ROUTE START
 Route::get('/email/verify', function () {

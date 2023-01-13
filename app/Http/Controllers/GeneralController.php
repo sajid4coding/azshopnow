@@ -24,12 +24,12 @@ class GeneralController extends Controller
             unlink(base_path('public/uploads/general_photo/'.$old_image));
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('header_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('header_logo'))->resize(300, 300);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img = Image::make($request->file('header_logo'))->resize(85, 28);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'header_logo' =>$photo,
         ]);
-        return  back()->with('success_msg','Successfully changes current header logo');
+        return  back()->with('success_msg','Changed Header Logo');
     }
     function footerLogoPost(Request $request){
         $request->validate([
@@ -40,12 +40,12 @@ class GeneralController extends Controller
             unlink(base_path('public/uploads/general_photo/'.$old_image));
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('footer_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('footer_logo'))->resize(300, 300);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img = Image::make($request->file('footer_logo'))->resize(85, 28);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'footer_logo' =>$photo,
         ]);
-        return  back()->with('success_msg','Successfully changes current header logo');
+        return  back()->with('success_msg','Changed Footer Logo');
     }
     function invoiceLogoPost(Request $request){
         $request->validate([
@@ -56,12 +56,12 @@ class GeneralController extends Controller
             unlink(base_path('public/uploads/general_photo/'.$old_image));
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('invoice_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('invoice_logo'))->resize(300, 300);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img = Image::make($request->file('invoice_logo'))->resize(85, 28);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'invoice_logo' =>$photo,
         ]);
-        return  back()->with('success_msg','Successfully changes current Invoice logo');
+        return  back()->with('success_msg','Changed Invoice Logo');
     }
     function faviconPost(Request $request){
         $request->validate([
@@ -73,11 +73,11 @@ class GeneralController extends Controller
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('favicon_logo')->getClientOriginalExtension();
         $img = Image::make($request->file('favicon_logo'))->resize(32, 32);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'favicon_logo' =>$photo,
         ]);
-        return  back()->with('favicon_success_msg','Successfully changes current Invoice logo');
+        return  back()->with('favicon_success_msg','Changed Favicon Logo');
     }
     function dashboardLogoPost(Request $request){
         $request->validate([
@@ -88,12 +88,12 @@ class GeneralController extends Controller
             unlink(base_path('public/uploads/general_photo/'.$old_image));
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('dashboard_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('dashboard_logo'))->resize(300, 300);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img = Image::make($request->file('dashboard_logo'))->resize(270, 56);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'dashboard_logo' =>$photo,
         ]);
-        return  back()->with('dashboard_logo_success_msg','Successfully changes current Invoice logo');
+        return  back()->with('dashboard_logo_success_msg','Changed Dashboard Logo');
     }
     function DashboardFaviconLogoPost(Request $request){
         $request->validate([
@@ -104,12 +104,12 @@ class GeneralController extends Controller
             unlink(base_path('public/uploads/general_photo/'.$old_image));
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('dashboard_favicon_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('dashboard_favicon_logo'))->resize(300, 300);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img = Image::make($request->file('dashboard_favicon_logo'))->resize(270, 56);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'dashboard_favicon_logo' =>$photo,
         ]);
-        return  back()->with('dashboard_favicon_logo_success_msg','Successfully changes current Invoice logo');
+        return  back()->with('dashboard_favicon_logo_success_msg','Changed Dashboard Favicon Logo');
     }
     function websiteContents(){
         return view('dashboard.geleral_setting.website_content',[

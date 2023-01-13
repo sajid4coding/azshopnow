@@ -48,7 +48,7 @@
 						<!--begin::Logo-->
 						<a href="{{route('dashboard')}}">
 							<img alt="Logo" src="{{asset('uploads/general_photo')}}/{{ getGeneralValue("dashboard_logo") }}" class="h-25px logo" /> <br>
-                            <span class="text-light">{{config('app.name')}}</span>
+                            {{-- <span class="text-light">{{config('app.name')}}</span> --}}
 						</a>
 						<!--end::Logo-->
 						<!--begin::Aside toggler-->
