@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Mail\adminNotification;
+use App\Models\General;
 
 class AdminmanagementController extends Controller
 {
