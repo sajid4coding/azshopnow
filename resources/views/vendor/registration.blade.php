@@ -44,7 +44,7 @@
                               @endforeach
                         @endif
 
-                        <form class="form-prevent-multiple-submits" method="POST" action="{{ route('vendor.post',$plan->slug) }}">
+                        <form class="form-prevent-multiple-submits" method="POST" action="{{ route('vendor.post', $plan->slug) }}">
                             @csrf
                             <input type="hidden" name="plan" id="plan" value="{{ $plan->id }}">
                             <div class="row">

@@ -90,9 +90,9 @@ class vendorController extends Controller
     }
 
     function vendor_login(){
-            return view('vendor.login',[
-            'banners' => Banner::all()->first(),
-            ]);
+        return view('vendor.login',[
+        'banners' => Banner::all()->first(),
+        ]);
     }
 
     function vendor_login_post_form(Request $request){
@@ -109,7 +109,6 @@ class vendorController extends Controller
             }else{
                 return back()->with('vendor_login_error','Sorry, you have no approval yet. ');
             }
-
         }else{
             return back()->with('vendor_login_error','Sorry, you have not a vendor account.');
         }

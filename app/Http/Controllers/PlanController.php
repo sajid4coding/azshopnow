@@ -44,7 +44,7 @@ class PlanController extends Controller
      *
      * @return response()
      */
-    public function subscription(Request $request)
+    public function subscription_done(Request $request)
     {
         $plan = Plan::find($request->plan);
         $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)->create($request->token);

@@ -140,20 +140,23 @@ require __DIR__.'/auth.php';
 
 // VENDOR ROUTE START
 
+
 //BEFORE LOGIN TRY TO SUBCRIPTION ROUTE START
 Route::get('plans', [VendorController::class, 'plan_index'])->name("plans"); //--1st Step
 Route::get('become/vendor/plans/{plan}', [VendorController::class, 'vendor_index'])->name('become.vendor'); //--2nd Step
 Route::post('vendor/post', [VendorController::class, 'vendor_post'])->name('vendor.post'); //--3rd Step
 Route::get('plans/{plan}', [VendorController::class, 'plan_show'])->name("plans.show"); //--4th Step
-Route::post('subscription', [VendorController::class, 'subscription'])->name("subscription.create"); //--5th Step
+// Route::post('subscription', [VendorController::class, 'subscription'])->name("subscription.create"); //--5th Step
 //BEFORE LOGIN TRY TO SUBCRIPTION ROUTE END
 
-//AFTER LOGIN TRY TO SUBCRIPTION ROUTE START
-Route::get('plans_index', [PlanController::class, 'index'])->name('plan.index');
-Route::get('plans_index/{plan}', [PlanController::class, 'show'])->name('plans.index.show');
-Route::post('subscription_done', [PlanController::class, 'subscription'])->name("subscription.done");
-//AFTER LOGIN TRY TO SUBCRIPTION ROUTE END
+Route::middleware(['planlinkhide'])->group(function(){
 
+    //AFTER LOGIN TRY TO SUBCRIPTION ROUTE START
+    Route::get('plans_index', [PlanController::class, 'index'])->name('plan.index');
+    Route::get('plans_index/{plan}', [PlanController::class, 'show'])->name('plans.index.show');
+    Route::post('subscription_done', [PlanController::class, 'subscription_done'])->name("subscription.done");
+    //AFTER LOGIN TRY TO SUBCRIPTION ROUTE END
+});
 Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('vendor.login');
 Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
 
