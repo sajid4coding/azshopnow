@@ -79,7 +79,10 @@ class AddToCart extends Component
                 'type' => 'success',
                 'title' => 'Successfully',
                 'message' => 'Product added on Cart',];
-        }else{
+        }elseif(Cart::where([
+            'user_id'=>auth()->id(),
+            'vendor_id'=>$this->vendor,
+        ])->exists()){
             Cart::insert([
                 'user_id'=>auth()->id(),
                 'vendor_id'=>$this->vendor,
@@ -94,6 +97,26 @@ class AddToCart extends Component
                 'type' => 'success',
                 'title' => 'Successfully',
                 'message' => 'Product added on Cart',];
+        }elseif(cart()==0){
+            Cart::insert([
+                'user_id'=>auth()->id(),
+                'vendor_id'=>$this->vendor,
+                'product_id'=>$this->productID,
+                'size_id'=>$this->inventory->size,
+                'color_id'=>$this->inventory->color,
+                'inventory_id'=>$this->inventory->id,
+                'quantity'=>$this->quantity,
+                'created_at'=>now(),
+            ]);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
+        }else{
+            $swalData = [
+                'type' => 'error',
+                'title' => 'Sorry',
+                'message' => "You can't purchase multiple vendors product in a same time",];
         }
         $this->reset('quantity');
         $this->dispatchBrowserEvent('msg', $swalData);
@@ -117,8 +140,10 @@ class AddToCart extends Component
                 'type' => 'success',
                 'title' => 'Successfully',
                 'message' => 'Product added on Cart',];
-        }else{
-
+        }elseif(Cart::where([
+            'user_id'=>auth()->id(),
+            'vendor_id'=>$this->vendor,
+        ])->exists()){
             Cart::insert([
                 'user_id'=>auth()->id(),
                 'vendor_id'=>$this->vendor,
@@ -132,7 +157,27 @@ class AddToCart extends Component
                 'type' => 'success',
                 'title' => 'Successfully',
                 'message' => 'Product added on Cart',];
+        }elseif(cart()==0){
+            Cart::insert([
+                'user_id'=>auth()->id(),
+                'vendor_id'=>$this->vendor,
+                'product_id'=>$this->productID,
+                'size_id'=>$this->justSize,
+                'quantity'=>$this->quantity,
+                'inventory_id'=>$__inventoryId,
+                'created_at'=>now(),
+            ]);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
+        }else{
+            $swalData = [
+                'type' => 'error',
+                'title' => 'Sorry',
+                'message' => "You can't purchase multiple vendors product in a same time",];
         }
+
         $this->reset('quantity');
         $this->dispatchBrowserEvent('msg', $swalData);
 
@@ -156,8 +201,10 @@ class AddToCart extends Component
                 'type' => 'success',
                 'title' => 'Successfully',
                 'message' => 'Product added on Cart',];
-        }else{
-
+        }elseif(Cart::where([
+            'user_id'=>auth()->id(),
+            'vendor_id'=>$this->vendor,
+        ])->exists()){
             Cart::insert([
                 'user_id'=>auth()->id(),
                 'vendor_id'=>$this->vendor,
@@ -171,6 +218,25 @@ class AddToCart extends Component
                 'type' => 'success',
                 'title' => 'Successfully',
                 'message' => 'Product added on Cart',];
+        }elseif(cart()==0){
+            Cart::insert([
+                'user_id'=>auth()->id(),
+                'vendor_id'=>$this->vendor,
+                'product_id'=>$this->productID,
+                'color_id'=>$this->justColor,
+                'quantity'=>$this->quantity,
+                'inventory_id'=>$__inventoryId,
+                'created_at'=>now(),
+            ]);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
+        }else{
+            $swalData = [
+                'type' => 'error',
+                'title' => 'Sorry',
+                'message' => "You can't purchase multiple vendors product in a same time",];
         }
         $this->reset('quantity');
         $this->dispatchBrowserEvent('msg', $swalData);
@@ -181,6 +247,7 @@ class AddToCart extends Component
         if(
             Cart::where([
                 'user_id'=>auth()->id(),
+                'vendor_id'=>$this->vendor,
                 'product_id'=>$this->productID,
             ])->exists()
         ){
@@ -193,8 +260,10 @@ class AddToCart extends Component
                 'type' => 'success',
                 'title' => 'Successfully',
                 'message' => 'Product added on Cart',];
-        }else{
-
+        }elseif(Cart::where([
+            'user_id'=>auth()->id(),
+            'vendor_id'=>$this->vendor,
+        ])->exists()){
             Cart::insert([
                 'user_id'=>auth()->id(),
                 'vendor_id'=>$this->vendor,
@@ -207,6 +276,24 @@ class AddToCart extends Component
                 'type' => 'success',
                 'title' => 'Successfully',
                 'message' => 'Product added on Cart',];
+        }elseif(cart()==0){
+            Cart::insert([
+                'user_id'=>auth()->id(),
+                'vendor_id'=>$this->vendor,
+                'product_id'=>$this->productID,
+                'quantity'=>$this->quantity,
+                'inventory_id'=>$__inventoryId,
+                'created_at'=>now(),
+            ]);
+            $swalData = [
+                'type' => 'success',
+                'title' => 'Successfully',
+                'message' => 'Product added on Cart',];
+        }else{
+                $swalData = [
+                    'type' => 'error',
+                    'title' => 'Sorry',
+                    'message' => "You can't purchase multiple vendors product in a same time",];
         }
         $this->reset('quantity');
         $this->dispatchBrowserEvent('msg', $swalData);

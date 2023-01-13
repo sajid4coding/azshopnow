@@ -27,6 +27,7 @@ Route::get('delete-wishlist/{id}',[FrontEndController::class,'wishlist_delete_ro
 Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
 Route::get('/list-of-vendors/{slug}',[FrontEndController::class,'listOfVendors'])->name('listOfVendors');
 Route::get('/category-{slug}-{id}{scName}',[FrontEndController::class,'subcategoryProducts'])->name('subcategory.products');
+Route::get('/offers',[FrontEndController::class,'offers'])->name('offers');
 
 
 Route::post('/getStateCode',[FrontEndController::class,'stateTex']);

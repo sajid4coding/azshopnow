@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
-use App\Models\{Banner, Cart, Category, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReport, ProductReview, ReviewGallery, SubCategory, User, Wishlist};
+use App\Models\{Banner, Cart, Category, Coupon, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReport, ProductReview, ReviewGallery, SubCategory, User, Wishlist};
 use Khsing\World\World;
 use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
@@ -367,5 +367,9 @@ class FrontEndController extends Controller
         $subCategoryName=SubCategory::where('parent_category_slug', $slug)->first();
         $products=Product::where('sub_category_id',$id)->where('status','published')->where('vendorProductStatus','published')->paginate(9);
         return view('frontend.subcategoryProducts', compact('products','categoryName','subCategoryName'));
+    }
+    public function offers(){
+        $coupons=Coupon::all();
+        return view('frontend.offers',compact('coupons'));
     }
 }
