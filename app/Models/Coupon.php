@@ -9,4 +9,7 @@ class Coupon extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function relationwithuser(){
+        return $this->hasOne(User::class,'id','vendor_id');
+    }
 }

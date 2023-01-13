@@ -914,6 +914,11 @@ function review($id)
     return ProductReview::where('product_id', $id)->avg('rating');
 
 }
+function reviewForvendor($id)
+{
+    return ProductReview::where('vendor_id', $id)->avg('rating');
+
+}
 function count_review($id)
 {
     return ProductReview::where('product_id', $id)->count();

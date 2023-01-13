@@ -675,6 +675,8 @@
                                                     <li><a href="shop-details.html">Blog Details</a></li>
                                                 </ul>
                                             </li>
+                                            <li class="@if ($current_page == 'offers') active @endif"><a href="{{ route('offers') }}">Offers</a>
+                                            </li>
                                         </ul>
                                     </div>
                                     {{-- <div class="header-action d-none d-md-block">
