@@ -1,5 +1,78 @@
 @extends('layouts/frontendmaster')
+@section('header_css')
+ <style>
+    .home_banner_slider{
+        height: 576px;
 
+
+    }
+    .home_banner_slider a {
+        display: block;
+        width: 100%;
+        height: 576px;
+    }
+    .home_banner_slider a img{
+        display: block;
+        width: 100%;
+        height: 576px;
+    }
+
+.banner-area .slick-dots{
+    position: absolute;
+    bottom: 30px;
+    right: 50%;
+    transform: translateX(50%);
+    -webkit-transform: translateX(50%);
+    -moz-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    -o-transform: translateX(50%);
+}
+.banner-area .slick-dots li{
+   display: inline-block;
+   margin-right: 15px;
+}
+.banner-area .slick-dots li button{
+    font-size: 0px;
+    width: 12px;
+    height: 12px;
+    border: none;
+    background-color: #ffffff;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    position: relative;
+}
+.banner-area .slick-dots li button::after{
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: transparent;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    content: "";
+    -webkit-transform: translate(-50%,50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transition: .4s all ease-in-out;
+    -webkit-transition: .4s all ease-in-out;
+    -moz-transition: .4s all ease-in-out;
+    -ms-transition: .4s all ease-in-out;
+    -o-transition: .4s all ease-in-out;
+}
+.banner-area .slick-dots .slick-active button::after{
+    background: #ec4d37;
+}
+ </style>
+@endsection
 @section('content')
 
         <!-- main-area -->
@@ -10,68 +83,14 @@
                 <div class="container">
                     <div class="row justify-content-end">
                         <div class="col-xl-9">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6 order-0 order-lg-2">
-                                    <div class="banner-img">
-                                        <img src="{{ asset('frontend_assets') }}/img/banner/banner_img.png" alt="">
-                                        <div class="product-tooltip">
-                                            <div class="tooltip-btn"></div>
-                                            <div class="tooltip-product-item product-tooltip-item left">
-                                                <div class="close-btn"><i class="fa-solid fa-xmark"></i></div>
-                                                <div class="tooltip-product-thumb">
-                                                    <a href="shop-details.html">
-                                                        <img src="{{ asset('frontend_assets') }}/img/product/tooltip_img.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="tooltip-product-content">
-                                                    <h5 class="title"><a href="shop-details.html">Watch $29.08 <span>-35%</span></a>
-                                                    </h5>
-                                                    <p class="order">05 orders</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-tooltip">
-                                            <div class="tooltip-btn"></div>
-                                            <div class="tooltip-product-item product-tooltip-item bottom left">
-                                                <div class="close-btn"><i class="fa-solid fa-xmark"></i></div>
-                                                <div class="tooltip-product-thumb">
-                                                    <a href="shop-details.html">
-                                                        <img src="{{ asset('frontend_assets') }}/img/product/tooltip_img02.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="tooltip-product-content">
-                                                    <h5 class="title"><a href="shop-details.html">Watch $25.08 <span>-40%</span></a>
-                                                    </h5>
-                                                    <p class="order">03 orders</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-tooltip">
-                                            <div class="tooltip-btn"></div>
-                                            <div class="tooltip-product-item product-tooltip-item">
-                                                <div class="close-btn"><i class="fa-solid fa-xmark"></i></div>
-                                                <div class="tooltip-product-thumb">
-                                                    <a href="shop-details.html">
-                                                        <img src="{{ asset('frontend_assets') }}/img/product/tooltip_img.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="tooltip-product-content">
-                                                    <h5 class="title"><a href="shop-details.html">Watch $29.08 <span>-35%</span></a>
-                                                    </h5>
-                                                    <p class="order">05 orders</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="banner-content">
-                                        <h2 class="title">Always <br> Be Your <span>MULTIVENDOR</span></h2>
-                                        <h4 class="small-title">Women <span>Fashion</span></h4>
-                                        <h5 class="price">Total order : <span>$30.00</span></h5>
-                                        <a href="{{route('shop.page')}}" class="btn">Shop Now</a>
-                                    </div>
-                                </div>
+                            <div class="home_banner_slider">
+                                @isset(Sliders() == true)
+                                @foreach (Sliders() as $slide)
+                                <a href="{{ $slide->slider_page_link }}">
+                                    <img src="{{ asset('uploads/slider') }}/{{$slide->slider_image}}" alt="">
+                                </a>
+                                @endforeach
+                                @endisset
                             </div>
                         </div>
                     </div>
@@ -434,7 +453,7 @@
                                         </div>
                                         <h3 class="title">Business with AZShop</h3>
                                         <div class="join-btn">
-                                            <a href="{{ route('become.vendor') }}" class="btn">Join Us</a>
+                                            <a href="{{ route('plans') }}" class="btn">Join Us</a>
                                             <a href="{{ route('vendor.login') }}" class="btn">Sign In</a>
                                         </div>
                                         <a href="{{ route('home') }}"><img src="https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg" alt=""></a>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,10 @@ class VendorRoleCheck
     {
         if(auth()->user()->role != 'vendor'){
             abort('404');
+        }else{
+            if(User::where('id',auth()->id())->first()->dashboard_access == 'deactive'){
+                return redirect('plans_index');
+            }
         }
         return $next($request);
     }

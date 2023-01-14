@@ -48,7 +48,7 @@
 						<!--begin::Logo-->
 						<a href="{{route('dashboard')}}">
 							<img alt="Logo" src="{{asset('uploads/general_photo')}}/{{ getGeneralValue("dashboard_logo") }}" class="h-25px logo" /> <br>
-                            <span class="text-light">{{config('app.name')}}</span>
+                            {{-- <span class="text-light">{{config('app.name')}}</span> --}}
 						</a>
 						<!--end::Logo-->
 						<!--begin::Aside toggler-->
@@ -125,18 +125,25 @@
  												<a href="{{ route('general.logo.edit') }}"><span class="menu-title">Logo Edit </span></a>
  											</span>
 
- 										</div>
- 										<div  class="menu-item menu-accordion">
-                                             <span class="menu-link">
- 												<span class="menu-bullet">
- 													<span class="bullet bullet-dot"></span>
- 												</span>
- 												<a href="{{ route('general.website.centent') }}"><span class="menu-title">Website Contents </span></a>
- 											</span>
-
- 										</div>
- 									</div>
- 								</div>
+										</div>
+										<div  class="menu-item menu-accordion">
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('general.website.centent') }}"><span class="menu-title">Website Contents </span></a>
+											</span>
+										</div>
+										<div  class="menu-item menu-accordion">
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('general.slider') }}"><span class="menu-title">Slider </span></a>
+											</span>
+										</div>
+									</div>
+								</div>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">

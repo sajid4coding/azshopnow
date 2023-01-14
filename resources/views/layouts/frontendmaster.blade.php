@@ -31,16 +31,16 @@
         @yield('header_css')
     </head>
     <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/637faf05b0d6371309d0efef/1gilc7c2t';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/637faf05b0d6371309d0efef/1gilc7c2t';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
     </script>
     <!--End of Tawk.to Script-->
     <body>
@@ -73,7 +73,9 @@
                             <div class="header-top-right">
                                 <ul>
                                     @guest
-                                    <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li>
+                                    <li><a href="{{ route('vendor.login') }}">Vendor Login</a></li>
+                                    {{-- <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li> --}}
+                                    <li><a href="{{ route('plans') }}">Become a Vendor</a></li>
                                     @endguest
                                     <li><a href="{{ route('contact.us') }}">Contact Us</a></li>
                                 </ul>
@@ -116,19 +118,19 @@
                                             </li>
                                         @endauth
                                         @auth
-                                        <li class="header-sine-in">
-                                                 @if (auth()->user()->role == 'vendor')
-                                                 <a href="{{ route('vendor.dashboard') }}">
+                                            <li class="header-sine-in">
+                                                @if (auth()->user()->role == 'vendor')
+                                                    <a href="{{ route('vendor.dashboard') }}">
+                                                        <i class="flaticon-user"></i>
+                                                        <p>{{ Str::title(auth()->user()->name) }}</span></p>
+                                                    </a>
+                                                @elseif (auth()->user()->role == 'customer')
+                                                <a href="{{ route('customerhome') }}">
                                                     <i class="flaticon-user"></i>
                                                     <p>{{ Str::title(auth()->user()->name) }}</span></p>
                                                 </a>
-                                                 @elseif (auth()->user()->role == 'customer')
-                                                 <a href="{{ route('customerhome') }}">
-                                                    <i class="flaticon-user"></i>
-                                                    <p>{{ Str::title(auth()->user()->name) }}</span></p>
-                                                </a>
-                                                 @endif
-                                        </li>
+                                                @endif
+                                            </li>
                                         @endauth
                                         @guest
                                         {{-- CUSTOMER LOGIN START --}}

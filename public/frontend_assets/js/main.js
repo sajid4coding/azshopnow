@@ -219,6 +219,52 @@ $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#sli
 
 
 /*=============================================
+	=    		Banner Slider		      =
+=============================================*/
+$('.home_banner_slider').slick({
+	dots: true,
+	infinite: true,
+	speed: 1000,
+	autoplay: true,
+	arrows: false,
+	slidesToShow: 1,
+	slidesToScroll: 1,
+	responsive: [
+		{
+			breakpoint: 1200,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				infinite: true,
+			}
+		},
+		{
+			breakpoint: 992,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1
+			}
+		},
+		{
+			breakpoint: 767,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				arrows: false,
+			}
+		},
+		{
+			breakpoint: 575,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				arrows: false,
+			}
+		},
+	]
+});
+
+/*=============================================
 	=    		Brand Active		      =
 =============================================*/
 $('.brand-active').slick({

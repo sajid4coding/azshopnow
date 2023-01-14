@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use App\Models\General;
+use App\Models\Slider;
 use Carbon\Carbon;
 
 class GeneralController extends Controller
@@ -24,12 +25,12 @@ class GeneralController extends Controller
             unlink(base_path('public/uploads/general_photo/'.$old_image));
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('header_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('header_logo'))->resize(300, 300);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img = Image::make($request->file('header_logo'))->resize(85, 28);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'header_logo' =>$photo,
         ]);
-        return  back()->with('success_msg','Successfully changes current header logo');
+        return  back()->with('success_msg','Changed Header Logo');
     }
     function footerLogoPost(Request $request){
         $request->validate([
@@ -40,12 +41,12 @@ class GeneralController extends Controller
             unlink(base_path('public/uploads/general_photo/'.$old_image));
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('footer_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('footer_logo'))->resize(300, 300);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img = Image::make($request->file('footer_logo'))->resize(85, 28);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'footer_logo' =>$photo,
         ]);
-        return  back()->with('success_msg','Successfully changes current header logo');
+        return  back()->with('success_msg','Changed Footer Logo');
     }
     function invoiceLogoPost(Request $request){
         $request->validate([
@@ -56,12 +57,12 @@ class GeneralController extends Controller
             unlink(base_path('public/uploads/general_photo/'.$old_image));
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('invoice_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('invoice_logo'))->resize(300, 300);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img = Image::make($request->file('invoice_logo'))->resize(85, 28);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'invoice_logo' =>$photo,
         ]);
-        return  back()->with('success_msg','Successfully changes current Invoice logo');
+        return  back()->with('success_msg','Changed Invoice Logo');
     }
     function faviconPost(Request $request){
         $request->validate([
@@ -73,11 +74,11 @@ class GeneralController extends Controller
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('favicon_logo')->getClientOriginalExtension();
         $img = Image::make($request->file('favicon_logo'))->resize(32, 32);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'favicon_logo' =>$photo,
         ]);
-        return  back()->with('favicon_success_msg','Successfully changes current Invoice logo');
+        return  back()->with('favicon_success_msg','Changed Favicon Logo');
     }
     function dashboardLogoPost(Request $request){
         $request->validate([
@@ -88,12 +89,12 @@ class GeneralController extends Controller
             unlink(base_path('public/uploads/general_photo/'.$old_image));
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('dashboard_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('dashboard_logo'))->resize(300, 300);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img = Image::make($request->file('dashboard_logo'))->resize(270, 56);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'dashboard_logo' =>$photo,
         ]);
-        return  back()->with('dashboard_logo_success_msg','Successfully changes current Invoice logo');
+        return  back()->with('dashboard_logo_success_msg','Changed Dashboard Logo');
     }
     function DashboardFaviconLogoPost(Request $request){
         $request->validate([
@@ -104,12 +105,12 @@ class GeneralController extends Controller
             unlink(base_path('public/uploads/general_photo/'.$old_image));
         }
         $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('dashboard_favicon_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('dashboard_favicon_logo'))->resize(300, 300);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 60);
+        $img = Image::make($request->file('dashboard_favicon_logo'))->resize(270, 56);
+        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
         General::find(1)->update([
             'dashboard_favicon_logo' =>$photo,
         ]);
-        return  back()->with('dashboard_favicon_logo_success_msg','Successfully changes current Invoice logo');
+        return  back()->with('dashboard_favicon_logo_success_msg','Changed Dashboard Favicon Logo');
     }
     function websiteContents(){
         return view('dashboard.geleral_setting.website_content',[
@@ -149,5 +150,64 @@ class GeneralController extends Controller
         };
 
         return back();
+    }
+    public function generalSlider(){
+        return view('dashboard.geleral_setting.slider',[
+            'sliders' =>slider::all()
+        ]);
+    }
+    public function generalSliderPost(Request $request){
+        $request->validate([
+            'slider_image' =>'required|max:2048|mimes:jpg,bmp,png',
+            'slider_page_link' =>'url',
+        ]);
+        $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('slider_image')->getClientOriginalExtension();
+        $img = Image::make($request->file('slider_image'))->resize(1073,575);
+        $img->save(base_path('public/uploads/slider/'.$photo), 60);
+
+        slider::insert([
+            'slider_image' => $photo,
+            'slider_page_link' => $request->slider_page_link,
+            'created_at' => Carbon::now(),
+        ]);
+        return back()->with('slider_success', 'Successfully added a new slider');
+    }
+    public function generalSliderEdit($id){
+
+        return view('dashboard.geleral_setting.sliderEdit',[
+       'slider' => Slider::find($id),
+        ]);
+    }
+    public function generalSliderEditPost(Request $request, $id){
+        $request->validate([
+            'slider_image' =>'max:2048|mimes:jpg,bmp,png',
+            'slider_page_link' =>'url',
+        ]);
+
+        if($request->file('slider_image')){
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('slider_image')->getClientOriginalExtension();
+            $img = Image::make($request->file('slider_image'))->resize(1073,575);
+            $img->save(base_path('public/uploads/slider/'.$photo), 60);
+
+            slider::find($id)->update([
+                'slider_image' => $photo,
+                'slider_page_link' => $request->slider_page_link,
+                'updated_at' => Carbon::now(),
+            ]);
+        }else{
+            slider::find($id)->update([
+                'slider_page_link' => $request->slider_page_link,
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+
+
+        return redirect('general-settings/dashboard-slider')->with('slider_updated', 'Successfully updateed this slider');
+    }
+    public function generalSliderDelete($id){
+
+        slider::find($id)->delete();
+        return back()->with('slider_delete', 'Successfully Delete a slider');
     }
 }

@@ -86,7 +86,6 @@
                                 @endphp
                             </h6>
                         </div>
-                        {{-- {{ cart_total($cart->product_id, $cart->quantity, $cart->size_id, $cart->color_id) }} --}}
                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                             <button wire:click="cart_row_delete({{ $cart->id }})" class="bg-transparent border-0 text-muted"><i class="fas fa-times"></i></button>
                         </div>
@@ -103,27 +102,14 @@
                 <div class="p-5">
                 <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                 <hr class="my-4 bg-success">
-                {{-- @if (DB::table('subscriptions')->where(['user_id' => $vendor_id,'stripe_status' => 'active'])->exists())
-                    <div class="bg-dark text-white p-3 mb-2 py-3 mb-4">
-                        @foreach ($packagings as $packaging)
-                            <div class="form-check mb-2">
-                                <input id="packaging{{$packaging->id}}" type="radio" wire:click="packagingSelect({{$packaging->id}})" class="form-check-input" name="packaging" value="packagingCost"  />
-                                <label for="packaging{{$packaging->id}}" class="form-check-label text-white">{{$packaging->packaging_name}} - ${{$packaging->cost}}</label>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    @if (DB::table('vendor_packagings')->where('vendor_id', $vendor_id)->exists())
-                        <div class="bg-dark text-white p-3 mb-2 py-3 mb-4">
-                            @foreach ($vendor_packagings as $vendor_packaging)
-                                <div class="form-check mb-2">
-                                    <input id="packaging{{$vendor_packaging->id}}" type="radio" wire:click="packagingSelect({{$vendor_packaging->id}})" class="form-check-input" name="packaging" value="vendorpackagingCost"  />
-                                    <label for="packaging{{$vendor_packaging->id}}" class="form-check-label text-white">{{$vendor_packaging->packaging_name}} - ${{$vendor_packaging->packaging_cost}}</label>
-                                </div>
-                            @endforeach
+                <div class="bg-dark text-white p-3 mb-2 py-3 mb-4">
+                    @foreach ($packagings as $packaging)
+                        <div class="form-check mb-2">
+                            <input id="packaging{{$packaging->id}}" type="radio" wire:click="packagingSelect({{$packaging->id}})" class="form-check-input" name="packaging" value="packagingCost"  />
+                            <label for="packaging{{$packaging->id}}" class="form-check-label text-white">{{$packaging->packaging_name}} - ${{$packaging->cost}}</label>
                         </div>
-                    @endif
-                @endif --}}
+                    @endforeach
+                </div>
 
                 <div class="d-flex justify-content-between mb-2">
                     <h5 class="text-uppercase">Subtotal</h5>
@@ -168,11 +154,7 @@
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                     <h5 class="text-uppercase text-success">Packaging Charge (+)</h5>
-                    {{-- @if (DB::table('subscriptions')->where(['user_id' => $vendor_id,'stripe_status' => 'active'])->exists())
-                        <h5>${{ session('packagingCost')->cost ?? 0 }}</h5>
-                    @else
-                        <h5>${{ session('vendorpackagingCost')->packaging_cost ?? 0 }}</h5>
-                    @endif --}}
+                    <h5>${{ session('packagingCost')->cost ?? 0 }}</h5>
                 </div>
                 <div class="d-flex justify-content-between mb-4">
                     <h5 class="text-uppercase">Order Total</h5>
@@ -182,14 +164,8 @@
                             @if (session('shipping_cost') != 0 && session('packagingCost') )
                                 {{ session('subtotal') + session('shipping_cost') + session('packagingCost')->cost }}
 
-                            @elseif (session('shipping_cost') != 0 && session('vendorpackagingCost'))
-                                {{ session('subtotal') + session('shipping_cost') + session('vendorpackagingCost')->packaging_cost }}
-
                             @elseif(session('packagingCost'))
                                 {{ round(session('subtotal') + session('packagingCost')->cost) }}
-
-                            @elseif(session('vendorpackagingCost'))
-                                {{ round(session('subtotal') + session('vendorpackagingCost')->packaging_cost) }}
 
                             @else
                                 {{ round(session('subtotal')) }}
@@ -204,15 +180,9 @@
                 <div class="mb-4 pb-2">
                     <select class="form-select" wire:model="shipping">
                         <option value="0">Select Your Option</option>
-                        {{-- @if (DB::table('subscriptions')->where(['user_id' => $vendor_id,'stripe_status' => 'active'])->exists())
-                            @foreach ($shippings as $shipping)
-                                <option value="{{ $shipping->id }}">{{ $shipping->shipping_name }}</option>
-                            @endforeach
-                        @else
-                            @foreach ($vendor_shippings as $vendor_shipping)
-                                <option value="{{ $vendor_shipping->id }}">{{ $vendor_shipping->shipping_name }}</option>
-                            @endforeach
-                        @endif --}}
+                        @foreach ($shippings as $shipping)
+                            <option value="{{ $shipping->id }}">{{ $shipping->shipping_name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <h5 class="text-uppercase mb-3">Coupon code</h5>
@@ -237,12 +207,8 @@
                         @else
                             @if (session('shipping_cost') != 0 && session('packagingCost'))
                                 {{ session('subtotal') + session('shipping_cost') + session('packagingCost')->cost }}
-                            @elseif (session('shipping_cost') != 0 && session('vendorpackagingCost'))
-                                {{ session('subtotal') + session('shipping_cost') + session('vendorpackagingCost')->packaging_cost }}
                             @elseif (session('packagingCost'))
                                 {{ round(session('subtotal')+ session('packagingCost')->cost) }}
-                            @elseif (session('vendorpackagingCost'))
-                                {{ round(session('subtotal') + session('vendorpackagingCost')->packaging_cost) }}
                             @else
                                 {{ round(session('subtotal')) }}
                             @endif

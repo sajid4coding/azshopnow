@@ -369,7 +369,7 @@ class FrontEndController extends Controller
         return view('frontend.subcategoryProducts', compact('products','categoryName','subCategoryName'));
     }
     public function offers(){
-        $coupons=Coupon::all();
+        $coupons=Coupon::all()->shuffle();
         return view('frontend.offers',compact('coupons'));
     }
 }

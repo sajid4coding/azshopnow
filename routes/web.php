@@ -14,7 +14,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-// FrontEndController
+// FrontEnd ROUTE START
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::get('/categories/{slug}', [FrontEndController::class, 'categoryProduct'])->name('category.product');
 Route::get('/vendor/all/product/{id}/{shopname}', [FrontEndController::class, 'vendorProduct'])->name('vendor.product');
@@ -37,16 +37,18 @@ Route::post('report-product/{id}',[FrontEndController::class,'report_product'])-
 Route::get('top-selection',[FrontEndController::class,'topSelection'])->name('top.selection');
 Route::get('new-arrivals',[FrontEndController::class,'newArrivals'])->name('new.arrivals');
 Route::get('search',[FrontEndController::class,'search'])->name('search');
+// FrontEnd ROUTE END
 
 // PAYMENTS METHOD INTEGRATION ROUTE START
-
 //STRIPE
 Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('stripe_checkout_post');
 Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
 // PAYMENTS METHOD INTEGRATION ROUTE END
 
-//Newslatter Route
+//NEWSLATTER ROUTE START
 Route::resource('newsletter', NewsletterController::class);
+//NEWSLATTER ROUTE END
+
 Route::middleware(['admin', 'verified'])->group(function () {
 
     //DashboardController
@@ -166,16 +168,31 @@ Route::middleware(['admin', 'verified'])->group(function () {
 require __DIR__.'/auth.php';
 
 
-// Vendor All Routes Start
-Route::get('become/vendor', [VendorController::class, 'vendor_index'])->name('become.vendor');
-Route::post('vendor/post', [VendorController::class, 'vendor_post'])->name('vendor.post');
+// VENDOR ROUTE START
+
+
+//BEFORE LOGIN TRY TO SUBCRIPTION ROUTE START
+Route::get('plans', [VendorController::class, 'plan_index'])->name("plans"); //--1st Step
+Route::get('become/vendor/plans/{plan}', [VendorController::class, 'vendor_index'])->name('become.vendor'); //--2nd Step
+Route::post('vendor/post', [VendorController::class, 'vendor_post'])->name('vendor.post'); //--3rd Step
+Route::get('plans/{plan}', [VendorController::class, 'plan_show'])->name("plans.show"); //--4th Step
+// Route::post('subscription', [VendorController::class, 'subscription'])->name("subscription.create"); //--5th Step
+//BEFORE LOGIN TRY TO SUBCRIPTION ROUTE END
+
+Route::middleware(['planlinkhide'])->group(function(){
+    //AFTER LOGIN TRY TO SUBCRIPTION ROUTE START
+    Route::get('plans_index', [PlanController::class, 'index'])->name('plan.index');
+    Route::get('plans_index/{plan}', [PlanController::class, 'show'])->name('plans.index.show');
+    Route::post('subscription_done', [PlanController::class, 'subscription_done'])->name("subscription.done");
+    //AFTER LOGIN TRY TO SUBCRIPTION ROUTE END
+});
 Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('vendor.login');
 Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
 
 Route::middleware(['vendor'])->group(function(){
     Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
     Route::get('vendor/setting', [VendorController::class, 'vendor_setting'])->name('vendor.setting');
-    Route::get('vendor/coupon/add', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
+    Route::get('vendor/add-coupon', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
     Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
     Route::get('vendor/order',[VendorController::class,'vendor_orders'])->name('vendor.orders');
     Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
@@ -218,8 +235,14 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('vendor-staff-role', [StaffmanagementController::class, 'vendorStaffRole'])->name("vendor.staff.role");
     Route::post('vendor-staff-role', [StaffmanagementController::class, 'vendorStaffRole_Post'])->name("vendor.staff.role.post");
     Route::delete('vendor-staff-role-delete/{id}', [StaffmanagementController::class, 'vendorStaffRoleDelete'])->name("vendor.staff.role.delete");
+    //UPGRADE SUBCRIPTION ROUTE START
+    Route::get('upgrade', [PlanController::class, 'upgrade'])->name('upgrade');
+    Route::get('upgrade/{plan}', [PlanController::class, 'upgrade_show'])->name("upgrade.show");
+    Route::post('subscription', [PlanController::class, 'upgrade_done'])->name("upgrade.done");
+    //UPGRADE SUBCRIPTION ROUTE END
 });
 
+// VENDOR ROUTE END
 
 
 // =========================== ALL COMMON ROUTES START HERE =================
@@ -238,21 +261,18 @@ Route::middleware(['customer'])->group(function(){
     Route::post('customer/product-review-post/{id}', [CustomerController::class, 'product_review_post'])->name('product.review.post');
 });
 
-Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome')->middleware(['auth', 'verified']);
 // HOME CONTROLLER START
-
+    Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome')->middleware(['auth', 'verified']);
 // HOME CONTROLLER END
 
-// // CUSTOMER CONTROLLER START
-
-// Route::post('customer/register', [CustomerController::class, 'customer_register'])->name('customer.register');
+// CUSTOMER CONTROLLER START
 Route::get('customer/register', [CustomerController::class, 'customer_register'])->name('customer.register');
 Route::post('customer/register/post', [CustomerController::class, 'customer_register_post'])->name('customer.register.post');
 Route::get('customer/login', [CustomerController::class, 'customer_login'])->name('customer.login');
 Route::post('customer/login/post', [CustomerController::class, 'customer_login_post'])->name('customer.login.post');
 Route::post('customer/profile/submit', [CustomerController::class, 'customer_profile_submit'])->name('customer.profile.submit');
-
 // CUSTOMER CONTROLLER END
+
 
 // EMAIL VERIFY ROUTE START
 Route::get('/email/verify', function () {

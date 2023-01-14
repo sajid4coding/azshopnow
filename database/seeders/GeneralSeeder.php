@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class LogoSeeder extends Seeder
+class GeneralSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -21,12 +21,12 @@ class LogoSeeder extends Seeder
             'capcha_status' => null,
             'twak_io_status' => null,
             'twak_io_id' => null,
-            'header_logo' => null,
-            'footer_logo' => null,
-            'invoice_logo' => null,
-            'favicon_logo' => null,
-            'dashboard_logo' => null,
-            'dashboard_favicon_logo' => null,
+            'header_logo' => 'header_logo.png',
+            'footer_logo' => 'footer_logo.png',
+            'invoice_logo' => 'invoice_logo.png',
+            'favicon_logo' => 'favicon_logo.png',
+            'dashboard_logo' => 'dashboard_logo.png',
+            'dashboard_favicon_logo' => 'dashboard_favicon_logo.png',
             'created_at' => now()
         ]);
     }
