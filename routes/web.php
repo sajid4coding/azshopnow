@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController, PermissionController, RolemanagementController, StaffmanagementController};
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -51,60 +51,90 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //DashboardController
     Route::get('dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
-    Route::get('product_lists',[DashboardController::class, 'product_lists'])->middleware(['auth', 'verified'])->name('product_lists');
-    Route::get('pending-products',[DashboardController::class, 'pendingProducts'])->middleware(['auth', 'verified'])->name('pending.products');
-    Route::get('super-deal-products',[DashboardController::class, 'super_deal_products'])->middleware(['auth', 'verified'])->name('super.deal.products');
-    Route::get('tranding-products',[DashboardController::class, 'trending_products'])->middleware(['auth', 'verified'])->name('trending.products');
-    Route::get('flash-sale-products',[DashboardController::class, 'flash_sale_products'])->middleware(['auth', 'verified'])->name('flash.sale.products');
-    Route::get('banned-products',[DashboardController::class, 'bannedProducts'])->middleware(['auth', 'verified'])->name('banned.products');
-    Route::get('edit_product/{id}',[DashboardController::class, 'product_edit'])->middleware(['auth', 'verified'])->name('product_edit');
-    Route::post('status_product/{id}',[DashboardController::class, 'product_status'])->middleware(['auth', 'verified'])->name('product_status');
-    Route::post('product_campaign/{id}',[DashboardController::class, 'product_campaign'])->middleware(['auth', 'verified'])->name('product_campaign');
-    Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
-    Route::get('review',[DashboardController::class, 'reviews'])->middleware(['auth', 'verified'])->name('review');
-    Route::get('reports',[DashboardController::class,'report'])->name('report');
-    Route::get('view-review/{id}',[DashboardController::class, 'view_reviews'])->middleware(['auth', 'verified'])->name('view.review');
-    Route::get('admin/order/details/{id}',[DashboardController::class,'OrderDetails'])->name('order.details');
-    Route::get('admin/all/order',[DashboardController::class,'AllOrder'])->name('all.order');
-    Route::get('admin/delivered-order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
-    Route::get('admin/pending-order',[DashboardController::class,'PendingOrder'])->name('pending.order');
-    Route::get('admin/processing-order',[DashboardController::class,'ProcessingOrder'])->name('processing.order');
-    Route::get('admin/canceled-order',[DashboardController::class,'CanceledOrder'])->name('canceled.order');
-    Route::get('admin/order/delete/{id}',[DashboardController::class,'OrderDelete'])->name('order.delete');
-    Route::get('admin/total-earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
-    Route::get('admin/tax-earning',[DashboardController::class,'TaxEarning'])->name('tax.earning');
-    Route::get('admin/subscription-earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
-    Route::get('admin/commission-earning',[DashboardController::class,'CommissionEarning'])->name('commission.earning');
-    Route::post('admin/year-order-details',[DashboardController::class,'yearInvoiceDownload'])->name('year.invoice.download');
-    Route::post('admin/monthly-order-details',[DashboardController::class,'monthlyInvoiceDownload'])->name('monthly.invoice.download');
-    Route::post('admin/day-order-details',[DashboardController::class,'dayInvoiceDownload'])->name('day.invoice.download');
-    Route::get('admin/invoice-download/{id}', [DashboardController::class, 'invoice_download'])->name('admin.invoice.download');
+
+    Route::group(['middleware' => ['can:Product Management','can:Product Campaign']], function () {
+        Route::get('product_lists',[DashboardController::class, 'product_lists'])->middleware(['auth', 'verified'])->name('product_lists');
+        Route::get('pending-products',[DashboardController::class, 'pendingProducts'])->middleware(['auth', 'verified'])->name('pending.products');
+        Route::get('banned-products',[DashboardController::class, 'bannedProducts'])->middleware(['auth', 'verified'])->name('banned.products');
+        Route::post('status_product/{id}',[DashboardController::class, 'product_status'])->middleware(['auth', 'verified'])->name('product_status');
+        Route::get('delete_product/{id}',[DashboardController::class, 'product_delete'])->middleware(['auth', 'verified'])->name('product_delete');
+        Route::post('product_campaign/{id}',[DashboardController::class, 'product_campaign'])->middleware(['auth', 'verified'])->name('product_campaign');
+        Route::get('edit_product/{id}',[DashboardController::class, 'product_edit'])->middleware(['auth', 'verified'])->name('product_edit');
+
+        Route::get('super-deal-products',[DashboardController::class, 'super_deal_products'])->middleware(['auth', 'verified'])->name('super.deal.products');
+        Route::get('tranding-products',[DashboardController::class, 'trending_products'])->middleware(['auth', 'verified'])->name('trending.products');
+        Route::get('flash-sale-products',[DashboardController::class, 'flash_sale_products'])->middleware(['auth', 'verified'])->name('flash.sale.products');
+    });
+
+    Route::group(['middleware' => ['can:Product Discussion']], function () {
+        Route::get('review',[DashboardController::class, 'reviews'])->name('review');
+        Route::get('reports',[DashboardController::class,'report'])->name('report');
+        Route::get('view-review/{id}',[DashboardController::class, 'view_reviews'])->name('view.review');
+    });
+
+    Route::group(['middleware' => ['can:Order Management']], function () {
+        Route::get('admin/order/details/{id}',[DashboardController::class,'OrderDetails'])->name('order.details');
+        Route::get('admin/all/order',[DashboardController::class,'AllOrder'])->name('all.order');
+        Route::get('admin/delivered-order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
+        Route::get('admin/pending-order',[DashboardController::class,'PendingOrder'])->name('pending.order');
+        Route::get('admin/processing-order',[DashboardController::class,'ProcessingOrder'])->name('processing.order');
+        Route::get('admin/canceled-order',[DashboardController::class,'CanceledOrder'])->name('canceled.order');
+        Route::get('admin/order/delete/{id}',[DashboardController::class,'OrderDelete'])->name('order.delete');
+    });
+
+    Route::group(['middleware' => ['can:Earnings']], function () {
+        Route::get('admin/total-earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
+        Route::get('admin/tax-earning',[DashboardController::class,'TaxEarning'])->name('tax.earning');
+        Route::get('admin/subscription-earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
+        Route::get('admin/commission-earning',[DashboardController::class,'CommissionEarning'])->name('commission.earning');
+        Route::post('admin/year-order-details',[DashboardController::class,'yearInvoiceDownload'])->name('year.invoice.download');
+        Route::post('admin/monthly-order-details',[DashboardController::class,'monthlyInvoiceDownload'])->name('monthly.invoice.download');
+        Route::post('admin/day-order-details',[DashboardController::class,'dayInvoiceDownload'])->name('day.invoice.download');
+        Route::get('admin/invoice-download/{id}', [DashboardController::class, 'invoice_download'])->name('admin.invoice.download');
+    });
 
     //PackagingController Resource
-    Route::resource('packaging', PackagingController::class);
+    Route::group(['middleware' => ['can:Packaging']], function () {
+        Route::resource('packaging', PackagingController::class);
+    });
 
     //CategoryController Resource
-    Route::resource('category', CategoryController::class);
+    //SubCategoryController Resource
+    Route::group(['middleware' => ['can:Product Catalog']], function () {
+        Route::resource('category', CategoryController::class);
+        Route::resource('subcategory', SubCategoryController::class);
+    });
 
     //SubCategoryController Resource
-    Route::resource('subcategory', SubCategoryController::class);
-
-    //SubCategoryController Resource
-    Route::resource('shipping',ShippingController::class);
-
+    Route::group(['middleware' => ['can:Shipping']], function () {
+        Route::resource('shipping',ShippingController::class);
+    });
     //VendormanagementController Resource
-    Route::resource('vendormanagement', VendorsmanagementController::class);
+    Route::group(['middleware' => ['can:Vendor Management']], function () {
+        Route::resource('vendormanagement', VendorsmanagementController::class);
+    });
+    //RolemanagementController Resource
+    //PermissionController Resource
     //AdminmanagementController Resource
-    Route::resource('adminmanagement', AdminmanagementController::class);
+    Route::group(['middleware' => ['can:Admin Management']], function () {
+
+        Route::resource('adminmanagement', AdminmanagementController::class);
+        Route::resource('role', RolemanagementController::class);
+        Route::resource('permission', PermissionController::class);
+    });
     //CustomermanagementController Resource
-    Route::resource('customermanagement', CustomermanagementController::class);
+    Route::group(['middleware' => ['can:Customer Management']], function () {
+        Route::resource('customermanagement', CustomermanagementController::class);
+    });
 
     // All Banner Management Controller
-    Route::get('banner-edit',[BannerController::class,'index'])->name('banner.edit');
-    Route::post('shop-page-banner-post',[BannerController::class,'shop_page'])->name('shop.banner.edit');
-    Route::post('vendor-page-banner-post',[BannerController::class,'vendor_page'])->name('vendor.banner.edit');
-    Route::post('customer-page-banner-post',[BannerController::class,'customer_page'])->name('customer.banner.edit');
-    Route::post('cart-page-banner-post',[BannerController::class,'cart_page'])->name('cart.banner.edit');
+    Route::group(['middleware' => ['can:Pages']], function () {
+        Route::get('banner-edit',[BannerController::class,'index'])->name('banner.edit');
+        Route::post('shop-page-banner-post',[BannerController::class,'shop_page'])->name('shop.banner.edit');
+        Route::post('vendor-page-banner-post',[BannerController::class,'vendor_page'])->name('vendor.banner.edit');
+        Route::post('customer-page-banner-post',[BannerController::class,'customer_page'])->name('customer.banner.edit');
+        Route::post('cart-page-banner-post',[BannerController::class,'cart_page'])->name('cart.banner.edit');
+    });
 
     // ProfileController
     Route::get('admin/profile', [ProfileController::class, 'admin_profile'])->name('admin.profile');
@@ -113,18 +143,23 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::post('admin/password/change', [ProfileController::class, 'admin_password_change'])->name('admin.password.change');
 
     //Newslatter Route
-    Route::get('admin/newsletter-list', [DashboardController::class, 'newslettter'])->name('newsletters');
-    Route::post('admin/newsletter-list', [DashboardController::class, 'exportNewslettter'])->name('export.newsletters');
+    Route::group(['middleware' => ['can:Newsletter Management']], function () {
+        Route::get('admin/newsletter-list', [DashboardController::class, 'newslettter'])->name('newsletters');
+        Route::post('admin/newsletter-list', [DashboardController::class, 'exportNewslettter'])->name('export.newsletters');
+    });
     //General Settings Route
-    Route::get('general-settings/logo-edit',[GeneralController::class,'logosEdit'])->name('general.logo.edit');
-    Route::post('general-settings/header-logo-post',[GeneralController::class,'headerLogoPost'])->name('header.logo.post');
-    Route::post('general-settings/footer-logo-post',[GeneralController::class,'footerLogoPost'])->name('footer.logo.post');
-    Route::post('general-settings/invoice-logo-post',[GeneralController::class,'invoiceLogoPost'])->name('invoice.logo.post');
-    Route::post('general-settings/dashboard-logo-post',[GeneralController::class,'dashboardLogoPost'])->name('dashboard.logo.post');
-    Route::post('general-settings/favicon-post',[GeneralController::class,'faviconPost'])->name('favicon.post');
-    Route::post('general-settings/dashboard-favicon-post',[GeneralController::class,'DashboardFaviconLogoPost'])->name('dashboard.favicon.post');
-    Route::get('general-settings/dashboard-website-content',[GeneralController::class,'websiteContents'])->name('general.website.centent');
-    Route::post('general-settings/dashboard-website-content-post',[GeneralController::class,'websiteContentsPost'])->name('general.website.centent.post');
+    Route::group(['middleware' => ['can:General Settings']], function () {
+        Route::get('general-settings/logo-edit',[GeneralController::class,'logosEdit'])->name('general.logo.edit');
+        Route::post('general-settings/header-logo-post',[GeneralController::class,'headerLogoPost'])->name('header.logo.post');
+        Route::post('general-settings/footer-logo-post',[GeneralController::class,'footerLogoPost'])->name('footer.logo.post');
+        Route::post('general-settings/invoice-logo-post',[GeneralController::class,'invoiceLogoPost'])->name('invoice.logo.post');
+        Route::post('general-settings/dashboard-logo-post',[GeneralController::class,'dashboardLogoPost'])->name('dashboard.logo.post');
+        Route::post('general-settings/favicon-post',[GeneralController::class,'faviconPost'])->name('favicon.post');
+        Route::post('general-settings/dashboard-favicon-post',[GeneralController::class,'DashboardFaviconLogoPost'])->name('dashboard.favicon.post');
+        Route::get('general-settings/dashboard-website-content',[GeneralController::class,'websiteContents'])->name('general.website.centent');
+        Route::post('general-settings/dashboard-website-content-post',[GeneralController::class,'websiteContentsPost'])->name('general.website.centent.post');
+    });
+
 
 });
 
@@ -165,7 +200,7 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('delete_inventory/{id}', [InventoryController::class, 'delete_inventory'])->name('delete_inventory');
 
 
-    Route::get('plans', [PlanController::class, 'index'])->name("plans");;
+    Route::get('plans', [PlanController::class, 'index'])->name("plans");
     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
 
@@ -174,6 +209,15 @@ Route::middleware(['vendor'])->group(function(){
 
     //Vendor Packaging Route
     Route::resource('vendor-packaging', VendorPackagingController::class);
+
+    //StaffmanagementController
+    Route::get('vendor-add-staff', [StaffmanagementController::class, 'vendorAddStaff'])->name("vendor.add.staff");
+    Route::get('vendor-staff-permission', [StaffmanagementController::class, 'vendorStaffPermission'])->name("vendor.staff.permission");
+    Route::post('vendor-staff-permission', [StaffmanagementController::class, 'vendorStaffPermission_Post'])->name("vendor.staff.permission.post");
+    Route::delete('vendor-staff-permission-delete/{id}', [StaffmanagementController::class, 'vendorStaffPermissionDelete'])->name("vendor.staff.permission.delete");
+    Route::get('vendor-staff-role', [StaffmanagementController::class, 'vendorStaffRole'])->name("vendor.staff.role");
+    Route::post('vendor-staff-role', [StaffmanagementController::class, 'vendorStaffRole_Post'])->name("vendor.staff.role.post");
+    Route::delete('vendor-staff-role-delete/{id}', [StaffmanagementController::class, 'vendorStaffRoleDelete'])->name("vendor.staff.role.delete");
 });
 
 

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\General;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
-class CustomermanagementController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,8 @@ class CustomermanagementController extends Controller
      */
     public function index()
     {
-        $customers=User::where('role','customer')->get();
-        $general = General::find(1);
-        return view('dashboard.usersManagement.customer.allCustomerList',compact('customers','general'));
+        $Permissions= Permission::all();
+        return view('dashboard.usersManagement.PermissionManagement.index',compact('Permissions'));
     }
 
     /**
@@ -38,7 +36,13 @@ class CustomermanagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            '*'=>'required',
+        ]);
+        Permission::create(
+            ['name' => $request->name,
+        ]);
+        return back()->with('success','New Permission added successfully');
     }
 
     /**
@@ -60,9 +64,8 @@ class CustomermanagementController extends Controller
      */
     public function edit($id)
     {
-        $customer=User::findOrFail($id);
-         $general = General::find(1);
-        return view('dashboard.usersManagement.customer.customerAction',compact('customer','general'));
+        $permission=Permission::findOrFail($id);
+        return view('dashboard.usersManagement.PermissionManagement.edit',compact('permission'));
     }
 
     /**
@@ -74,16 +77,10 @@ class CustomermanagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user=User::find($id);
-        if ($user->status=='active') {
-          $user->status='deactive';
-        //   Mail::to($user->email)->send(new VendorBan($user->name,$user->email,$user->shop_name));
-        }else{
-          $user->status='active';
-        //   Mail::to($user->email)->send(new VendorActivation($user->name,$user->email,$user->shop_name));
-        }
-        $user->save();
-        return redirect('/customermanagement')->with('success','Customer profile status changed successfully.');
+        Permission::findOrFail($id)->update([
+            'name' => $request->name,
+        ]);
+        return redirect('permission')->with('success','Permission updated successfully');
     }
 
     /**
@@ -94,7 +91,7 @@ class CustomermanagementController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-        return redirect('/customermanagement')->with('success','Customer profile deleted successfully.');
+        Permission::find($id)->delete();
+        return  back()->with('success','Permission deleted successfully');
     }
 }

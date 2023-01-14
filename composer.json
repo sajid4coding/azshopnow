@@ -19,6 +19,7 @@
         "livewire/livewire": "^2.10",
         "maatwebsite/excel": "^3.1",
         "psr/simple-cache": "^2.0",
+        "spatie/laravel-permission": "^5.7",
         "stripe/stripe-php": "^10.2"
     },
     "require-dev": {

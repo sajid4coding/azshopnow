@@ -117,6 +117,16 @@
                                             <li class="nav-item @if ($current_page == 'order') here show @endif" >
                                                 <a class="nav-link cust_a" href="{{ route('vendor.orders') }}"> <i class="fas fa-store"></i> Orders</a>
                                             </li>
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-user-plus"></i> Staff Management
+                                                </a>
+                                                <ul class="dropdown-menu @if ($current_page == 'vendor-add-staff' || $current_page == 'vendor-staff-permission' || $current_page == 'vendor-staff-role') active @endif" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item @if ($current_page == 'vendor-add-staff') show here @endif"  href="{{ route('vendor.add.staff') }}">Add Staff</a></li>
+                                                <li><a class="dropdown-item @if ($current_page == 'vendor-staff-permission') show here @endif" href="{{ route('vendor.staff.permission') }}">Staff Permission</a></li>
+                                                <li><a class="dropdown-item @if ($current_page == 'vendor-staff-role') show here @endif" href="{{ route('vendor.staff.role') }}">Staff Role</a></li>
+                                                </ul>
+                                            </li>
 
                                             @if (!membership())
                                                 <li class="nav-item @if ($current_page == 'vendor-shipping') here show @endif" >

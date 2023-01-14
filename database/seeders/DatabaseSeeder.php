@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             NewsletterSeeder::class,
             PlanSeeder::class,
             LogoSeeder::class,
+            RolesAndPermissionsSeeder::class
 
         ]);
     }

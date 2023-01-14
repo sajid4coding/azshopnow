@@ -104,39 +104,39 @@
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Crafted</span>
 									</div>
 								</div>
-                                <div data-kt-menu-trigger="click" class="menu-item  menu-accordion">
-									<span class="menu-link">
-										<span class="menu-icon">
-											<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm001.svg-->
-											<span class="svg-icon svg-icon-2">
-                                                <i class="fas fa-cogs"></i>
-											</span>
-											<!--end::Svg Icon-->
-										</span>
-										<span class="menu-title">General Settings</span>
-										<span class="menu-arrow"></span>
-									</span>
-									<div class="menu-sub menu-sub-accordion"  style="display: none; overflow: hidden;">
-										<div  class="menu-item menu-accordion">
-                                            <span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<a href="{{ route('general.logo.edit') }}"><span class="menu-title">Logo Edit </span></a>
-											</span>
+                                 <div data-kt-menu-trigger="click" class="menu-item  menu-accordion">
+ 									<span class="menu-link">
+ 										<span class="menu-icon">
+ 											<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm001.svg-->
+ 											<span class="svg-icon svg-icon-2">
+                                                 <i class="fas fa-cogs"></i>
+ 											</span>
+ 											<!--end::Svg Icon-->
+ 										</span>
+ 										<span class="menu-title">General Settings</span>
+ 										<span class="menu-arrow"></span>
+ 									</span>
+ 									<div class="menu-sub menu-sub-accordion"  style="display: none; overflow: hidden;">
+ 										<div  class="menu-item menu-accordion">
+                                             <span class="menu-link">
+ 												<span class="menu-bullet">
+ 													<span class="bullet bullet-dot"></span>
+ 												</span>
+ 												<a href="{{ route('general.logo.edit') }}"><span class="menu-title">Logo Edit </span></a>
+ 											</span>
 
-										</div>
-										<div  class="menu-item menu-accordion">
-                                            <span class="menu-link">
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-												<a href="{{ route('general.website.centent') }}"><span class="menu-title">Website Contents </span></a>
-											</span>
+ 										</div>
+ 										<div  class="menu-item menu-accordion">
+                                             <span class="menu-link">
+ 												<span class="menu-bullet">
+ 													<span class="bullet bullet-dot"></span>
+ 												</span>
+ 												<a href="{{ route('general.website.centent') }}"><span class="menu-title">Website Contents </span></a>
+ 											</span>
 
-										</div>
-									</div>
-								</div>
+ 										</div>
+ 									</div>
+ 								</div>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 									<span class="menu-link">
 										<span class="menu-icon">
@@ -432,23 +432,25 @@
 									</div>
 								</div>
 
-								<div class="menu-item @if ($current_page == 'shipping.index') here show @endif menu-accordion">
-									<span class="menu-link">
-										<span class="menu-icon">
-											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-											<span class="svg-icon svg-icon-2">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-													<rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-													<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-													<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-													<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-												</svg>
-											</span>
-											<!--end::Svg Icon-->
-										</span>
-										<a href="{{ route('shipping.index') }}" class="menu-title">Shipping</a>
-									</span>
-								</div>
+								@can ('Shipping')
+                                    <div class="menu-item @if ($current_page == 'shipping.index') here show @endif menu-accordion">
+                                    									<span class="menu-link">
+                                    										<span class="menu-icon">
+                                    											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                    											<span class="svg-icon svg-icon-2">
+                                    												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    													<rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                    													<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                    													<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                    													<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                    												</svg>
+                                    											</span>
+                                    											<!--end::Svg Icon-->
+                                    										</span>
+                                    										<a href="{{ route('shipping.index') }}" class="menu-title">Shipping</a>
+                                    									</span>
+                                    								</div>
+                                @endcan
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                         <span class="menu-link">
@@ -535,6 +537,22 @@
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
                                                     <span class="menu-title">Customer</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link" href="{{route('role.index')}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Admin Role Management</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link" href="{{route('permission.index')}}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Admin Permission Management</span>
                                                 </a>
                                             </div>
                                         </div>
