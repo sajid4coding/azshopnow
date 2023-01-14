@@ -132,6 +132,12 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::post('general-settings/dashboard-favicon-post',[GeneralController::class,'DashboardFaviconLogoPost'])->name('dashboard.favicon.post');
     Route::get('general-settings/dashboard-website-content',[GeneralController::class,'websiteContents'])->name('general.website.centent');
     Route::post('general-settings/dashboard-website-content-post',[GeneralController::class,'websiteContentsPost'])->name('general.website.centent.post');
+
+    Route::get('general-settings/dashboard-slider',[GeneralController::class,'generalSlider'])->name('general.slider');
+    Route::post('general-settings/dashboard-slider-post',[GeneralController::class,'generalSliderPost'])->name('general.slider.post');
+    Route::get('general-settings/dashboard-slider-delete/{id}',[GeneralController::class,'generalSliderDelete'])->name('general.slider.delete');
+    Route::get('general-settings/dashboard-slider-edit/{id}',[GeneralController::class,'generalSliderEdit'])->name('general.slider.edit');
+    Route::post('general-settings/dashboard-slider-edit-post/{id}',[GeneralController::class,'generalSliderEditPost'])->name('general.slider.edit.post');
     //GENERAL SETTINGS ROUTE ENDD
 
 });
@@ -151,7 +157,6 @@ Route::get('plans/{plan}', [VendorController::class, 'plan_show'])->name("plans.
 //BEFORE LOGIN TRY TO SUBCRIPTION ROUTE END
 
 Route::middleware(['planlinkhide'])->group(function(){
-
     //AFTER LOGIN TRY TO SUBCRIPTION ROUTE START
     Route::get('plans_index', [PlanController::class, 'index'])->name('plan.index');
     Route::get('plans_index/{plan}', [PlanController::class, 'show'])->name('plans.index.show');
@@ -164,7 +169,7 @@ Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])
 Route::middleware(['vendor'])->group(function(){
     Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
     Route::get('vendor/setting', [VendorController::class, 'vendor_setting'])->name('vendor.setting');
-    Route::get('vendor/coupon/add', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
+    Route::get('vendor/add-coupon', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
     Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
     Route::get('vendor/order',[VendorController::class,'vendor_orders'])->name('vendor.orders');
     Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');

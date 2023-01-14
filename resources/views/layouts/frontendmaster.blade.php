@@ -72,8 +72,8 @@
                         <div class="col-md-6">
                             <div class="header-top-right">
                                 <ul>
-                                    <li><a href="{{ route('vendor.login') }}">Vendor Login</a></li>
                                     @guest
+                                    <li><a href="{{ route('vendor.login') }}">Vendor Login</a></li>
                                     {{-- <li><a href="{{ route('become.vendor') }}">Become a Vendor</a></li> --}}
                                     <li><a href="{{ route('plans') }}">Become a Vendor</a></li>
                                     @endguest
@@ -118,19 +118,19 @@
                                             </li>
                                         @endauth
                                         @auth
-                                        <li class="header-sine-in">
-                                                 @if (auth()->user()->role == 'vendor')
-                                                 <a href="{{ route('vendor.dashboard') }}">
+                                            <li class="header-sine-in">
+                                                @if (auth()->user()->role == 'vendor')
+                                                    <a href="{{ route('vendor.dashboard') }}">
+                                                        <i class="flaticon-user"></i>
+                                                        <p>{{ Str::title(auth()->user()->name) }}</span></p>
+                                                    </a>
+                                                @elseif (auth()->user()->role == 'customer')
+                                                <a href="{{ route('customerhome') }}">
                                                     <i class="flaticon-user"></i>
                                                     <p>{{ Str::title(auth()->user()->name) }}</span></p>
                                                 </a>
-                                                 @elseif (auth()->user()->role == 'customer')
-                                                 <a href="{{ route('customerhome') }}">
-                                                    <i class="flaticon-user"></i>
-                                                    <p>{{ Str::title(auth()->user()->name) }}</span></p>
-                                                </a>
-                                                 @endif
-                                        </li>
+                                                @endif
+                                            </li>
                                         @endauth
                                         @guest
                                         {{-- CUSTOMER LOGIN START --}}

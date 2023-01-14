@@ -25,7 +25,7 @@
                 </div>
             </section>
             <!-- breadcrumb-area-end -->
- <section class="register_section section_space">
+            <section class="register_section section_space">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-8">

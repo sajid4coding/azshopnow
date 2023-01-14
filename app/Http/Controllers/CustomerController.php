@@ -29,16 +29,16 @@ class CustomerController extends Controller
          ]);
      }
 
-       public function customer_login_post(Request $request){
-              $request->validate([
-                  'email' => 'required',
-                  'password' => 'required',
-            ]);
-              if(Auth::attempt(['email' => $request->email, 'password' => $request->password,])){
-                  return redirect('customerhome');
-             }else{
-                  return back()->with('login', 'Your Email and password is wrong');
-             }
+    public function customer_login_post(Request $request){
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password,])){
+            return redirect('customerhome');
+        }else{
+            return back()->with('login', 'Your Email and password is wrong');
+        }
     }
 
     public function customer_register_post(Request $request){
@@ -46,7 +46,7 @@ class CustomerController extends Controller
         // return $request;
         $request->validate([
             '*' => 'required',
-             'email' => "unique:users",
+            'email' => "unique:users",
             'password' => 'required|min:8|confirmed',
         ]);
          $id = user::insertGetId([
