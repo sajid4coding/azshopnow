@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    {{-- <div class="col-lg-6">
                         <div class="form-group pl-3">
                             <label class="d-block" for="">Discount Type</label>
 
@@ -94,7 +94,7 @@
                         <div class="text-center mt-3">
                             <button type="submit">Add Coupon</button>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </form>
 

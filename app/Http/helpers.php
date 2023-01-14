@@ -2,6 +2,7 @@
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Inventory;
 use App\Models\Invoice;
 use App\Models\Order_Detail;
@@ -25,14 +26,17 @@ function getWishListProduct(){
  {
     return Cart::where('user_id',auth()->id())->count();
  }
+
+ function coupons()
+ {
+    return Coupon::all()->count();
+ }
+
  function wishlist()
  {
     return Wishlist::where('user_id',auth()->id())->count();
  }
- function wishlish()
- {
-    return Wishlist::where('user_id',auth()->id())->count();
- }
+
  function category()
  {
     return Category::where('status','published')->get();
@@ -106,9 +110,9 @@ function get_inventory($product_id, $size_id, $color_id){
 
 }
 function subCategoryUpdate($ParentCategorySlug)
- {
+{
     return $ParentCategorySlug;
- }
+}
 
 function fonts(){
     $fonts = [
@@ -901,6 +905,7 @@ function fonts(){
     ];
     return $fonts;
 }
+
 function vendorProducts($vendorId)
 {
     return Product::where([
