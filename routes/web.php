@@ -132,6 +132,11 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::post('general-settings/dashboard-favicon-post',[GeneralController::class,'DashboardFaviconLogoPost'])->name('dashboard.favicon.post');
     Route::get('general-settings/dashboard-website-content',[GeneralController::class,'websiteContents'])->name('general.website.centent');
     Route::post('general-settings/dashboard-website-content-post',[GeneralController::class,'websiteContentsPost'])->name('general.website.centent.post');
+    Route::get('general-settings/dashboard-slider',[GeneralController::class,'generalSlider'])->name('general.slider');
+    Route::post('general-settings/dashboard-slider-post',[GeneralController::class,'generalSliderPost'])->name('general.slider.post');
+    Route::get('general-settings/dashboard-slider-delete/{id}',[GeneralController::class,'generalSliderDelete'])->name('general.slider.delete');
+    Route::get('general-settings/dashboard-slider-edit/{id}',[GeneralController::class,'generalSliderEdit'])->name('general.slider.edit');
+    Route::post('general-settings/dashboard-slider-edit-post/{id}',[GeneralController::class,'generalSliderEditPost'])->name('general.slider.edit.post');
 
     Route::get('general-settings/dashboard-slider',[GeneralController::class,'generalSlider'])->name('general.slider');
     Route::post('general-settings/dashboard-slider-post',[GeneralController::class,'generalSliderPost'])->name('general.slider.post');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use App\Models\General;
+use App\Models\Slider;
 use Carbon\Carbon;
 
 class GeneralController extends Controller
@@ -149,5 +150,64 @@ class GeneralController extends Controller
         };
 
         return back();
+    }
+    public function generalSlider(){
+        return view('dashboard.geleral_setting.slider',[
+            'sliders' =>slider::all()
+        ]);
+    }
+    public function generalSliderPost(Request $request){
+        $request->validate([
+            'slider_image' =>'required|max:2048|mimes:jpg,bmp,png',
+            'slider_page_link' =>'url',
+        ]);
+        $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('slider_image')->getClientOriginalExtension();
+        $img = Image::make($request->file('slider_image'))->resize(1073,575);
+        $img->save(base_path('public/uploads/slider/'.$photo), 60);
+
+        slider::insert([
+            'slider_image' => $photo,
+            'slider_page_link' => $request->slider_page_link,
+            'created_at' => Carbon::now(),
+        ]);
+        return back()->with('slider_success', 'Successfully added a new slider');
+    }
+    public function generalSliderEdit($id){
+
+        return view('dashboard.geleral_setting.sliderEdit',[
+       'slider' => Slider::find($id),
+        ]);
+    }
+    public function generalSliderEditPost(Request $request, $id){
+        $request->validate([
+            'slider_image' =>'max:2048|mimes:jpg,bmp,png',
+            'slider_page_link' =>'url',
+        ]);
+
+        if($request->file('slider_image')){
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('slider_image')->getClientOriginalExtension();
+            $img = Image::make($request->file('slider_image'))->resize(1073,575);
+            $img->save(base_path('public/uploads/slider/'.$photo), 60);
+
+            slider::find($id)->update([
+                'slider_image' => $photo,
+                'slider_page_link' => $request->slider_page_link,
+                'updated_at' => Carbon::now(),
+            ]);
+        }else{
+            slider::find($id)->update([
+                'slider_page_link' => $request->slider_page_link,
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+
+
+        return redirect('general-settings/dashboard-slider')->with('slider_updated', 'Successfully updateed this slider');
+    }
+    public function generalSliderDelete($id){
+
+        slider::find($id)->delete();
+        return back()->with('slider_delete', 'Successfully Delete a slider');
     }
 }

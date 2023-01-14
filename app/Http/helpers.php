@@ -11,12 +11,16 @@ use App\Models\ProductReview;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Models\General;
+use App\Models\Slider;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Subscription;
 
 function getGeneralValue($value){
   return  General::find(1)->$value;
+}
+function Sliders(){
+    return Slider::all();
 }
 
 function getWishListProduct(){
