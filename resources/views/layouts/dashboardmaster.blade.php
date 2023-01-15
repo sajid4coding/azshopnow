@@ -142,6 +142,14 @@
 												<a href="{{ route('general.slider') }}"><span class="menu-title">Slider </span></a>
 											</span>
 										</div>
+										<div  class="menu-item menu-accordion">
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('general.social.link') }}"><span class="menu-title">Social Link </span></a>
+											</span>
+										</div>
 									</div>
 								</div>
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">

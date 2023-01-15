@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use App\Models\General;
 use App\Models\Slider;
+use App\Models\Social;
 use Carbon\Carbon;
 
 class GeneralController extends Controller
@@ -209,5 +210,111 @@ class GeneralController extends Controller
 
         slider::find($id)->delete();
         return back()->with('slider_delete', 'Successfully Delete a slider');
+    }
+    function socialLink(){
+        return view('dashboard.geleral_setting.social_link',[
+            'socials' => Social::all(),
+        ]);
+    }
+    function socialLinkEdit($id){
+        return view('dashboard.geleral_setting.social_link_edit',[
+            'social' => Social::find($id),
+        ]);
+    }
+    function socialLinkPost(Request $request){
+        if(!$request->social_icon){
+            $request->validate([
+                'social_name' => 'required',
+                'social_link' => 'required|url',
+           ]);
+            $request->validate([
+                 'social_image' => 'required|mimes:png,jpg|dimensions:max_width=50,max_height=50'
+            ]);
+        }
+        if($request->hasFile('social_image')){
+
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('social_image')->getClientOriginalExtension();
+            $img = Image::make($request->file('social_image'));
+            $img->save(base_path('public/uploads/social_image/'.$photo), 60);
+            Social::insert([
+                'social_name' => $request->social_name,
+                'social_link' => $request->social_link,
+                'social_icon' => $request->social_icon,
+                'social_image' => $photo,
+                'icon_bg_color' => $request->icon_bg_color,
+                'created_at' => Carbon::now(),
+            ]);
+        }else{
+            Social::insert([
+                'social_name' => $request->social_name,
+                'social_link' => $request->social_link,
+                'social_icon' => $request->social_icon,
+                'icon_bg_color' => $request->icon_bg_color,
+                'created_at' => Carbon::now(),
+            ]);
+        }
+
+
+        return back()->with('social_add_message','Successfully added a new social link');
+    }
+    public function socialLinkEditPost(Request $request, $id){
+
+        $request->validate([
+            'social_name' => 'required',
+            'social_link' => 'required|url',
+       ]);
+        if( !$request->social_icon && !Social::find($id)->social_image){
+            $request->validate([
+                 'social_image' => 'required|mimes:png,jpg|dimensions:max_width=50,max_height=50'
+            ]);
+        }
+        if($request->hasFile('social_image')){
+
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('social_image')->getClientOriginalExtension();
+            $img = Image::make($request->file('social_image'));
+            $img->save(base_path('public/uploads/social_image/'.$photo), 60);
+            if($request->icon_bg_color == '#000000'){
+                Social::find($id)->update([
+                    'social_name' => $request->social_name,
+                    'social_link' => $request->social_link,
+                    'social_icon' => $request->social_icon,
+                    'social_image' => $photo,
+                    'updated_at' => Carbon::now(),
+                ]);
+            }else{
+                Social::find($id)->update([
+                    'social_name' => $request->social_name,
+                    'social_link' => $request->social_link,
+                    'social_icon' => $request->social_icon,
+                    'social_image' => $photo,
+                    'icon_bg_color' => $request->icon_bg_color,
+                    'updated_at' => Carbon::now(),
+                ]);
+            }
+        }else{
+            if($request->icon_bg_color == '#000000'){
+                Social::find($id)->update([
+                    'social_name' => $request->social_name,
+                    'social_link' => $request->social_link,
+                    'social_icon' => $request->social_icon,
+                    'updated_at' => Carbon::now(),
+                ]);
+            }else{
+                Social::find($id)->update([
+                    'social_name' => $request->social_name,
+                    'social_link' => $request->social_link,
+                    'social_icon' => $request->social_icon,
+                    'icon_bg_color' => $request->icon_bg_color,
+                    'updated_at' => Carbon::now(),
+                ]);
+            }
+        }
+
+
+        return redirect('general-settings/dashboard-social-link')->with('social_add_message','Successfully Updated a social link');
+    }
+    function socialLinkDelete($id){
+        Social::find($id)->delete();
+        return back()->with('social_delete', 'Successfully Delete a slider');
     }
 }
