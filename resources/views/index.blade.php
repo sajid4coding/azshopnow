@@ -56,12 +56,12 @@
     -o-border-radius: 50%;
     bottom: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,50%);
     content: "";
     -webkit-transform: translate(-50%,50%);
-    -moz-transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    -o-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,50%);
+    -ms-transform: translate(-50%,50%);
+    -o-transform: translate(-50%,50%);
     transition: .4s all ease-in-out;
     -webkit-transition: .4s all ease-in-out;
     -moz-transition: .4s all ease-in-out;
@@ -84,13 +84,23 @@
                     <div class="row justify-content-end">
                         <div class="col-xl-9">
                             <div class="home_banner_slider">
-                                @isset(Sliders() == true)
-                                @foreach (Sliders() as $slide)
+                                @if(Sliders() == true)
+                                @forelse (Sliders() as $slide)
                                 <a href="{{ $slide->slider_page_link }}">
                                     <img src="{{ asset('uploads/slider') }}/{{$slide->slider_image}}" alt="">
                                 </a>
-                                @endforeach
-                                @endisset
+                                @empty
+                                <a href="{{ route('home') }}">
+                                    <img  src="{{ asset('uploads/seed/banner/banner3.jpg') }}" alt="banner3.jpg">
+                                </a>
+                                <a href="{{ route('home') }}">
+                                    <img  src="{{ asset('uploads/seed/banner/banner.jpg') }}" alt="banner3.jpg">
+                                </a>
+                                <a href="{{ route('home') }}">
+                                    <img  src="{{ asset('uploads/seed/banner/banner2.jpg') }}" alt="banner3.jpg">
+                                </a>
+                                @endforelse
+                                @endif
                             </div>
                         </div>
                     </div>

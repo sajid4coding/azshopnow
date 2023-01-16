@@ -66,22 +66,18 @@
     </div>
     <!--end::Toolbar-->
     <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post">
+    {{-- <div class="post d-flex flex-column" id="kt_post"> --}}
         <!--begin::Container-->
-        <div id="kt_content_container" class="container-xxl">
+
             <!--begin::Products-->
-            {{-- <div class="card card-flush"> --}}
+
 
                 <!--begin::Card body-->
-                <div class="row">
+                <div class="container">
+                <div class="row gap-0 ">
                     <!--begin::Table-->
-                    <div class="col-xl-4">
 
-                    </div>
-                    <div class="col-xl-4">
-                      
-                    </div>
-                    <div class="col-xl-4">
+                    <div class="col-xxl-4 col-xl-4 col-md-4">
                         <!--begin::Mixed Widget 2-->
                         <div class="card card_hover card-xl-stretch mb-xl-8" style="background: linear-gradient(90deg, rgb(28, 18, 205) 0%, rgba(23,23,199,1) 100%, rgba(0,212,255,1) 100%);">
                             <!--begin::Header-->
@@ -108,7 +104,7 @@
                         </div>
                         <!--end::Mixed Widget 2-->
                     </div>
-                    <div class="col-xl-4">
+                    <div class="col-xxl-4 col-xl-4 col-md-4">
                         <!--begin::Mixed Widget 2-->
                         <div class="card card_hover card-xl-stretch mb-xl-8" style="background: linear-gradient(90deg, rgb(205, 18, 49) 0%, rgb(199, 23, 23) 100%, rgb(255, 0, 0) 100%);">
                             <!--begin::Header-->
@@ -135,7 +131,61 @@
                         </div>
                         <!--end::Mixed Widget 2-->
                     </div>
-                    <div class="col-xl-4">
+                    <div class="col-xxl-4 col-xl-4 col-md-4">
+                        <!--begin::Mixed Widget 2-->
+                        <div class="card card_hover card-xl-stretch mb-xl-8" style="background: linear-gradient(90deg, rgb(28, 18, 205) 0%, rgba(23,23,199,1) 100%, rgba(0,212,255,1) 100%);">
+                            <!--begin::Header-->
+                            <div class="card-header border-0 text-center py-5" style="background: linear-gradient(90deg, rgb(28, 18, 205) 0%, rgba(23,23,199,1) 100%, rgba(0,212,255,1) 100%);">
+                                {{-- <i  style="margin: 0 auto;font-size:50px;color:rgb(255, 255, 255)" class="fas fa-users"></i> --}}
+                                <img width="50px" style="margin: 0 auto;" src="{{ asset('dashboard_assets/media/order/004-processing.png') }}" alt="tax">
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body p-0" style="margin-top: 20px">
+
+                                <div class="card-p mt-n20 position-relative">
+
+                                     <div class="text-white text-center">
+                                        <h3 class="text-light"><a style="font-size: 14px; color:#ffffff;display:block; margin-top:20px" >Processing Orders</a></h3>
+                                       {{-- <p class="text-light"> <span style='font-size:44px;color:rgb(255, 255, 255)'>${{ $invoices->sum('tax_amount') }}</span></p> --}}
+                                       <p class="text-light"> <span style='font-size:44px;color:rgb(255, 255, 255)'>{{ $invoices->where('order_status','processing')->count() }}</span></p>
+                                     </div>
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Body-->
+                            <a href="{{route('processing.order')}}" class="view_more"> view More <i class="fas fa-plus"></i></a>
+                        </div>
+                        <!--end::Mixed Widget 2-->
+                    </div>
+                    <div class="col-xxl-4 col-xl-4 col-md-4">
+                        <!--begin::Mixed Widget 2-->
+                        <div class="card card_hover card-xl-stretch mb-xl-8" style="background: linear-gradient(90deg, rgb(205, 18, 49) 0%, rgb(199, 23, 23) 100%, rgb(255, 0, 0) 100%);">
+                            <!--begin::Header-->
+                            <div class="card-header border-0 text-center py-5" >
+                                {{-- <i  style="margin: 0 auto;font-size:50px;color:rgb(255, 255, 255)" class="fas fa-users"></i> --}}
+                                <img width="50px" style="margin: 0 auto;" src="{{ asset('dashboard_assets/media/order/002-pending.png') }}" alt="tax">
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body p-0" style="margin-top: 20px">
+
+                                <div class="card-p mt-n20 position-relative">
+
+                                     <div class="text-white text-center">
+                                        <h3 class="text-light"><a style="font-size: 14px; color:#ffffff;display:block; margin-top:20px" >Pending Orders</a></h3>
+                                       {{-- <p class="text-light"> <span style='font-size:44px;color:rgb(255, 255, 255)'>${{ $invoices->sum('tax_amount') }}</span></p> --}}
+                                       <p class="text-light"> <span style='font-size:44px;color:rgb(255, 255, 255)'>{{ $invoices->where('order_status','pending')->count() }}</span></p>
+                                     </div>
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Body-->
+                            <a href="{{route('pending.order')}}" class="view_more"> view More <i class="fas fa-plus"></i></a>
+                        </div>
+                        <!--end::Mixed Widget 2-->
+                    </div>
+                    <div class="col-xxl-4 col-xl-4 col-md-4">
                         <!--begin::Mixed Widget 2-->
                         <div class="card card_hover card-xl-stretch mb-xl-8" style="background: linear-gradient(90deg, rgb(8, 56, 0) 0%, rgb(14, 78, 2) 100%, rgb(4, 100, 18) 100%);">
                             <!--begin::Header-->
@@ -163,7 +213,7 @@
                         <!--end::Mixed Widget 2-->
                     </div>
 
-                    <div class="col-xl-4">
+                    <div class="col-xxl-4 col-xl-4 col-md-4">
                         <!--begin::Mixed Widget 2-->
                         <div class="card card_hover card-xl-stretch mb-xl-8" style="background: linear-gradient(90deg, rgb(205, 18, 18) 0%, rgb(199, 96, 23) 100%, rgb(255, 64, 0) 100%);">
                             <!--begin::Header-->
@@ -190,7 +240,7 @@
                         </div>
                         <!--end::Mixed Widget 2-->
                     </div>
-                    <div class="col-xl-6">
+                    <div class="col-md-6">
                         <!--begin::Mixed Widget 2-->
                         <h2  class="bg-primary p-3 my-5 text-light">Latest 10 Processing Order</h2>
                         <div class="card card-xl-stretch mb-xl-8" style="background: #f2f2f2">
@@ -264,7 +314,7 @@
                         </div>
                         <!--end::Mixed Widget 2-->
                     </div>
-                    <div class="col-xl-6">
+                    <div class="col-md-6">
                         <!--begin::Mixed Widget 2-->
                         <h2 class="bg-primary p-3 my-5 text-light">Latest 10 Delivered Order</h2>
                         <div class="card card-xl-stretch mb-xl-8" style="background: #f2f2f2">
@@ -341,12 +391,14 @@
                     </div>
                     <!--end::Table-->
                 </div>
+            </div>
                 <!--end::Card body-->
-            {{-- </div> --}}
+
+
             <!--end::Products-->
-        </div>
+
         <!--end::Container-->
-    </div>
+    {{-- </div> --}}
     <!--end::Post-->
 </div>
 @endsection

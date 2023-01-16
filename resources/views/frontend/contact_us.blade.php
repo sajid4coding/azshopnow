@@ -81,7 +81,7 @@
                                                         </div>
                                                         <div class="content">
                                                             <h6 class="title">Phone</h6>
-                                                            <a href="tel:12345678">+9 444 652 0000</a>
+                                                            <a href="tel:12345678">{{ getGeneralValue('phone_number') }}</a>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -90,7 +90,7 @@
                                                         </div>
                                                         <div class="content">
                                                             <h6 class="title">Email</h6>
-                                                            <a href="#">olle@infoexemple.com</a>
+                                                            <a href="#">{{ getGeneralValue('email') }}</a>
                                                         </div>
                                                     </li>
                                                     <li>
@@ -99,8 +99,7 @@
                                                         </div>
                                                         <div class="content">
                                                             <h6 class="title">addresss</h6>
-                                                            <p>71W Park lan Broklyn Street,
-                                                            New York. United States</p>
+                                                            <p>{{ getGeneralValue('address') }}</p>
                                                         </div>
                                                     </li>
                                                 </ul>

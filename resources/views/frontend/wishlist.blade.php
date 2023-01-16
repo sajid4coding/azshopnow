@@ -70,8 +70,6 @@
                         @forelse ($wishlists as $wishlist)
                             <tr>
                                 <td>
-
-
                                     <div class="cart_product">
                                         <img width="50" src="{{ asset('uploads/product_photo') }}/{{ $wishlist->relationwithproduct->thumbnail }}" alt="image_not_found" />
                                         <a class="" style="color:#FF4800;" href="{{ route('single.product', $wishlist->relationwithproduct->id) }}">{{ $wishlist->relationwithproduct->product_title }}</span>
