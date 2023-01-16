@@ -1,4 +1,5 @@
 @extends('layouts.vendor_master')
+
 @section('vendor_body_content')
 <div class="col-lg-9 col-md-9">
 

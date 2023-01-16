@@ -116,8 +116,8 @@
 										<span class="menu-title">General Settings</span>
 										<span class="menu-arrow"></span>
 									</span>
-									<div class="menu-sub menu-sub-accordion"  style="display: none; overflow: hidden;">
-										<div  class="menu-item menu-accordion">
+									<div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'logo-edit' || $current_page == 'dashboard-website-content' || $current_page == 'dashboard-slider' || $current_page == 'dashboard-social-link' || $current_page == 'dashboard-contact-info') here show @endif">
+										<div  class="menu-item menu-accordion  @if ($current_page == 'logo-edit') here show @endif">
                                             <span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -126,7 +126,7 @@
 											</span>
 
 										</div>
-										<div  class="menu-item menu-accordion">
+										<div  class="menu-item menu-accordion @if ($current_page == 'dashboard-website-content') here show @endif">
                                             <span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -134,7 +134,7 @@
 												<a href="{{ route('general.website.centent') }}"><span class="menu-title">Website Contents </span></a>
 											</span>
 										</div>
-										<div  class="menu-item menu-accordion">
+										<div  class="menu-item menu-accordion @if ($current_page == 'dashboard-slider') here show @endif">
                                             <span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
@@ -142,12 +142,20 @@
 												<a href="{{ route('general.slider') }}"><span class="menu-title">Slider </span></a>
 											</span>
 										</div>
-										<div  class="menu-item menu-accordion">
+										<div  class="menu-item menu-accordion @if ($current_page == 'dashboard-social-link') here show @endif">
                                             <span class="menu-link">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
 												<a href="{{ route('general.social.link') }}"><span class="menu-title">Social Link </span></a>
+											</span>
+										</div>
+										<div  class="menu-item menu-accordion @if ($current_page == 'dashboard-contact-info') here show @endif">
+                                            <span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<a href="{{ route('general.contact.info') }}"><span class="menu-title">Contact Us Info </span></a>
 											</span>
 										</div>
 									</div>
@@ -4568,7 +4576,7 @@
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-center">
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1 ">
-								<span class="text-muted fw-bold me-1">©{{date('Y')}}</span>
+								<span class="text-muted fw-bold me-1">{{ getGeneralValue('copyright_text') }}</span>
 								<a href={{ route('home') }}class="text-gray-800 text-hover-primary">{{config('app.name')}}</a>
 							</div>
 							<!--end::Copyright-->

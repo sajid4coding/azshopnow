@@ -20,6 +20,10 @@ return new class extends Migration
             $table->mediumText('capcha_status')->nullable();
             $table->mediumText('twak_io_status')->nullable();
             $table->mediumText('twak_io_id')->nullable();
+            $table->mediumText('email')->nullable();
+            $table->mediumText('phone_number')->nullable();
+            $table->mediumText('teliphone')->nullable();
+            $table->mediumText('address')->nullable();
             $table->mediumText('header_logo')->nullable();
             $table->mediumText('footer_logo')->nullable();
             $table->mediumText('invoice_logo')->nullable();

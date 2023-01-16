@@ -148,6 +148,8 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::post('general-settings/dashboard-social-link-edit-post/{id}',[GeneralController::class,'socialLinkEditPost'])->name('general.social.link.edit.post');
     Route::get('general-settings/dashboard-social-editt/{id}',[GeneralController::class,'socialLinkEdit'])->name('general.social.edit');
     Route::get('general-settings/dashboard-social-delete/{id}',[GeneralController::class,'socialLinkDelete'])->name('general.social.delete');
+    Route::get('general-settings/dashboard-contact-info',[GeneralController::class,'contactInfo'])->name('general.contact.info');
+    Route::post('general-settings/dashboard-contact-info-post',[GeneralController::class,'contactInfoPost'])->name('general.contact.info.post');
 
 
     //GENERAL SETTINGS ROUTE ENDD

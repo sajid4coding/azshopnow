@@ -222,14 +222,19 @@ class GeneralController extends Controller
         ]);
     }
     function socialLinkPost(Request $request){
+        $request->validate([
+            'social_name' => 'required',
+            'social_link' => 'required|url',
+       ]);
         if(!$request->social_icon){
-            $request->validate([
-                'social_name' => 'required',
-                'social_link' => 'required|url',
-           ]);
+
             $request->validate([
                  'social_image' => 'required|mimes:png,jpg|dimensions:max_width=50,max_height=50'
             ]);
+        }else{
+            $request->validate([
+                'social_image' => 'mimes:png,jpg|dimensions:max_width=50,max_height=50'
+           ]);
         }
         if($request->hasFile('social_image')){
 
@@ -317,4 +322,34 @@ class GeneralController extends Controller
         Social::find($id)->delete();
         return back()->with('social_delete', 'Successfully Delete a slider');
     }
+    function contactInfo(){
+        return view('dashboard.geleral_setting.contactInfo',[
+            'general' => General::find(1),
+        ]);
+    }
+    function contactInfoPost(Request $request){
+        if($request->email){
+            General::find(1)->update([
+                'email' => $request->email
+            ]);
+        };
+        if($request->phone_number){
+            General::find(1)->update([
+                'phone_number' => $request->phone_number
+            ]);
+        };
+        if($request->teliphone){
+            General::find(1)->update([
+                'teliphone' => $request->teliphone
+            ]);
+        };
+        if($request->address){
+            General::find(1)->update([
+                'address' => $request->address
+            ]);
+        };
+
+        return back();
+    }
+
 }

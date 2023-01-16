@@ -1,4 +1,11 @@
 @extends('layouts.frontendmaster')
+@section('header_css')
+<style>
+    .coupon-btn:hover:after{
+        left: -45px !important;
+    }
+</style>
+@endsection
 @section('content')
 
 @if (coupons() == 0)
