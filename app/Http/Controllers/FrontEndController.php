@@ -369,7 +369,7 @@ class FrontEndController extends Controller
         return view('frontend.subcategoryProducts', compact('products','categoryName','subCategoryName'));
     }
     public function offers(){
-        $coupons=Coupon::where('vendor_id',auth()->user()->id)->where('expire_date','>',Carbon::now())->get()->shuffle();
+        $coupons=Coupon::where('expire_date','>',Carbon::now())->get()->shuffle();
         return view('frontend.offers',compact('coupons'));
     }
 }

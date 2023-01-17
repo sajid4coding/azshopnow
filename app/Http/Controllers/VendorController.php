@@ -144,11 +144,11 @@ class vendorController extends Controller
             $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
             $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
 
-            if(auth()->user()->banner !== NULL){
+            if(auth()->user()->banner != NULL){
                 unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
             }
 
-            if(auth()->user()->profile_photo !== NULL){
+            if(auth()->user()->profile_photo != NULL){
                 unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
             }
 

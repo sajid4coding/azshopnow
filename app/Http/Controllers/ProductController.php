@@ -48,7 +48,7 @@ class ProductController extends Controller
             'product_title'=>'required',
             'product_price'=>'required',
             'parent_category'=>'required',
-            'thumbnail'=>'required | mimes:jpg,png,jpeg ',
+            'thumbnail'=>'required | mimes: jpg, png, jpeg',
         ]);
 
         if(auth()->user()->role =='vendor'){
