@@ -210,7 +210,6 @@ class DashboardController extends Controller
 
         return view('dashboard.earnigns.tax_calculate',[
          'invoices' => Invoice::all(),
-
         ]);
     }
     function TotalEarning(){

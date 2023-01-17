@@ -106,7 +106,7 @@
                                             <li class="header-shop">
                                                 <a href="{{ route('wishlist') }}">
                                                     <i class="fa-regular fa-heart"></i>Wishlist
-                                                    <span class="cart-count" style="right: 2px !important;">{{ wishlish() }}</span>
+                                                    <span class="cart-count" style="right: 2px !important;">{{ wishlist() }}</span>
                                                 </a>
                                             </li>
                                             {{-- <li><a href="#"><i class="fas fa-redo"></i>Compare</a></li> --}}
