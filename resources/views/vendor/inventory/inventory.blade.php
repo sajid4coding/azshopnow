@@ -81,7 +81,7 @@
             </div>
             <div class="col-6">
                 <div class="card text-start" >
-                  <div class="card-body" style="max-height:300px; overflow-y:scroll">
+                  <div class="card-body" style="max-height:500px; overflow-y:scroll">
                     <h6 class="card-title">Inventory Lists</h6>
                     <table class="table table-bordered">
                         <thead>
@@ -144,7 +144,7 @@
                     </table>
                   </div>
                 </div>
-                <div class="mt-3">
+                {{-- <div class="mt-3">
                     <form action="{{ route('add_inventory', $product->id) }}" method="POST">
                         @csrf
                         <div class="card">
@@ -165,7 +165,7 @@
                         </div>
                         </div>
                     </form>
-                </div>
+                </div> --}}
             </div>
         </div>
     {{-- ATTRIBUTE END --}}

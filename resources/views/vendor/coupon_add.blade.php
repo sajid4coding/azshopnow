@@ -106,6 +106,7 @@
                 <div class="row mt-5">
                     <div class="col-md-12">
                         <h6>Available Coupons</h6>
+                        
                       </div>
                       <div class="col-md-12">
                         <table class="table table-stripe">

@@ -3,12 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\{Cart, Coupon, Inventory, Shipping, Packaging, VendorPackaging, VendorShipping};
+use Carbon\Carbon;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 
 class CartPage extends Component
 {
-    public $coupon;
+    public $coupon='';
     public $coupon_error;
     public $shipping;
     public $shipping_id = 0;
@@ -47,26 +48,36 @@ class CartPage extends Component
         if($this->coupon){
             $get_coupon_info = Coupon::where('coupon_code', $this->coupon)->first();
             if(Coupon::where('coupon_code', $this->coupon)->exists()){
-                $coupon_vendor_id = Coupon::where('coupon_code', $this->coupon)->first()->vendor_id;
-                if($coupon_vendor_id == $vendor_id){
-                    if(Coupon::where('coupon_code', $this->coupon)->first()->minimum_price <= $subtotal){
-                        session(['coupon_info' => $get_coupon_info]);
+                if(Coupon::where('coupon_code', $this->coupon)->whereDate('expire_date', '>', Carbon::now()->format('Y-m-d'))->exists()){
+                    $coupon_vendor_id = Coupon::where('coupon_code', $this->coupon)->first()->vendor_id;
+                    if($coupon_vendor_id == $vendor_id){
+                        if(Coupon::where('coupon_code', $this->coupon)->first()->minimum_price <= $subtotal){
+                            session(['coupon_info' => $get_coupon_info]);
+                        }else{
+                            $minimum_price = Coupon::where('coupon_code', $this->coupon)->first()->minimum_price;
+                            $this->coupon_error = "Coupon Minimum Purchase shortage: ".($minimum_price - $subtotal);
+                            session(['coupon_info' => '']);
+                            $this->coupon='';
+                        }
                     }else{
-                        $minimum_price = Coupon::where('coupon_code', $this->coupon)->first()->minimum_price;
-                        $this->coupon_error = "Coupon Minimum Purchase shortage: ".($minimum_price - $subtotal);
+                        $this->coupon_error = 'This Product Vendor Coupon ID Invalid';
                         session(['coupon_info' => '']);
+                        $this->coupon='';
                     }
                 }else{
-                    $this->coupon_error = 'This Product Vendor Coupon ID Invalid';
+                    $this->coupon_error = 'Coupon is expired.';
                     session(['coupon_info' => '']);
+                    $this->coupon='';
                 }
             }else{
                 $this->coupon_error = 'Coupon does not exists.';
                 session(['coupon_info' => '']);
+                $this->coupon='';
             }
         }else{
             $this->coupon_error = 'Put your Coupon.';
             session(['coupon_info' => '']);
+            $this->coupon='';
         }
     }
 
@@ -75,19 +86,13 @@ class CartPage extends Component
         if($id == 0){
             session(['shipping_cost' => 0]);
         }else{
-            if(membership()){
-                session(['shipping_cost' => Shipping::find($this->shipping_id)->cost]);
-            }else{
-                session(['shipping_cost' => VendorShipping::find($this->shipping_id)->shipping_cost]);
-            }
+            session(['shipping_cost' => Shipping::find($this->shipping_id)->cost]);
         }
     }
     public function packagingSelect($packagingId)
     {
         if(DB::table('subscriptions')->where(['user_id' => Cart::where('user_id', auth()->id())->first()->vendor_id, 'stripe_status' => 'active'])->exists()){
             session(['packagingCost' => Packaging::find($packagingId)]);
-        }else{
-            session(['vendorpackagingCost' => VendorPackaging::find($packagingId)]);
         }
     }
 }

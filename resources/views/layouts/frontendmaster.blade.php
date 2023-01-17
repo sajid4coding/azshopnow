@@ -129,6 +129,11 @@
                                                     <i class="flaticon-user"></i>
                                                     <p>{{ Str::title(auth()->user()->name) }}</span></p>
                                                 </a>
+                                                @elseif (auth()->user()->role == 'staff')
+                                                <a href="{{ route('vendor.dashboard') }}">
+                                                    <i class="flaticon-user"></i>
+                                                    <p>{{ Str::title(auth()->user()->name) }}</span></p>
+                                                </a>
                                                 @endif
                                             </li>
                                         @endauth

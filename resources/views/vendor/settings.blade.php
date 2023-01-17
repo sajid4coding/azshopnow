@@ -15,7 +15,11 @@
                                         <label for="imageUpload"></label>
                                     </div>
                                     <div class="avatar-preview">
-                                        <div id="imagePreview" style="background-image: url({{ asset('uploads/vendor_profile/'.auth()->user()->profile_photo) }});">
+                                        @if (auth()->user()->role =='vendor')
+                                            <div id="imagePreview" style="background-image: url({{ asset('uploads/vendor_profile/'.auth()->user()->profile_photo) }});">
+                                        @else
+                                            <div id="imagePreview" style="background-image: url({{ asset('uploads/vendor_profile/'.staff(auth()->user()->vendor_id)->profile_photo) }});">
+                                        @endif
                                     </div>
                                     </div>
                                 </div>
@@ -120,7 +124,9 @@
                           @endforeach
                      @endif
 
-                    <button class=" button-prevent-multiple-submits" type="submit">Change Password</button>
+                   @if (auth()->user()->role =='vendor')
+                     <button class=" button-prevent-multiple-submits" type="submit">Change Password</button>
+                   @endif
                 </form>
             </div>
         </div>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->string('role');
+            $table->integer('vendor_id')->nullable();
             $table->string('shop_name')->nullable();
             $table->string('profile_photo')->default('default.png');
             $table->string('status')->default('deactive');

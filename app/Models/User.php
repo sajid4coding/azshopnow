@@ -8,10 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Cashier\Billable;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, Billable;
+    use HasApiTokens, HasFactory, Notifiable, Billable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +32,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'bio',
         'banner',
         'status',
+        'role',
+        'email_verified_at',
         'dashboard_access',
     ];
 
@@ -51,4 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    // function relationwithUser(){
+    //     return $this->hasOne(Role::class, 'id', '');
+    // }
 }

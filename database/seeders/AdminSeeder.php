@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdminSeeder extends Seeder
 {
@@ -45,6 +47,10 @@ class AdminSeeder extends Seeder
             'created_at' => now(),
             'password' => Hash::make('123456789'),
         ]);
+        // $role = Role::where('name','vendor')->first();
+        // $role->givePermissionTo(Permission::where('name','LIKE','vendor-%')->get());
+        // $user= User::find(3);
+        // $user->assignRole($role);
 
     }
 }
