@@ -160,17 +160,20 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::post('general-settings/dashboard-favicon-post',[GeneralController::class,'DashboardFaviconLogoPost'])->name('dashboard.favicon.post');
         Route::get('general-settings/dashboard-website-content',[GeneralController::class,'websiteContents'])->name('general.website.centent');
         Route::post('general-settings/dashboard-website-content-post',[GeneralController::class,'websiteContentsPost'])->name('general.website.centent.post');
-        Route::get('general-settings/dashboard-slider',[GeneralController::class,'generalSlider'])->name('general.slider');
-        Route::post('general-settings/dashboard-slider-post',[GeneralController::class,'generalSliderPost'])->name('general.slider.post');
-        Route::get('general-settings/dashboard-slider-delete/{id}',[GeneralController::class,'generalSliderDelete'])->name('general.slider.delete');
-        Route::get('general-settings/dashboard-slider-edit/{id}',[GeneralController::class,'generalSliderEdit'])->name('general.slider.edit');
-        Route::post('general-settings/dashboard-slider-edit-post/{id}',[GeneralController::class,'generalSliderEditPost'])->name('general.slider.edit.post');
 
         Route::get('general-settings/dashboard-slider',[GeneralController::class,'generalSlider'])->name('general.slider');
         Route::post('general-settings/dashboard-slider-post',[GeneralController::class,'generalSliderPost'])->name('general.slider.post');
         Route::get('general-settings/dashboard-slider-delete/{id}',[GeneralController::class,'generalSliderDelete'])->name('general.slider.delete');
         Route::get('general-settings/dashboard-slider-edit/{id}',[GeneralController::class,'generalSliderEdit'])->name('general.slider.edit');
         Route::post('general-settings/dashboard-slider-edit-post/{id}',[GeneralController::class,'generalSliderEditPost'])->name('general.slider.edit.post');
+        Route::get('general-settings/dashboard-social-link',[GeneralController::class,'socialLink'])->name('general.social.link');
+        Route::post('general-settings/dashboard-social-link-post',[GeneralController::class,'socialLinkPost'])->name('general.social.link.post');
+        Route::post('general-settings/dashboard-social-link-edit-post/{id}',[GeneralController::class,'socialLinkEditPost'])->name('general.social.link.edit.post');
+        Route::get('general-settings/dashboard-social-editt/{id}',[GeneralController::class,'socialLinkEdit'])->name('general.social.edit');
+        Route::get('general-settings/dashboard-social-delete/{id}',[GeneralController::class,'socialLinkDelete'])->name('general.social.delete');
+        Route::get('general-settings/dashboard-contact-info',[GeneralController::class,'contactInfo'])->name('general.contact.info');
+        Route::post('general-settings/dashboard-contact-info-post',[GeneralController::class,'contactInfoPost'])->name('general.contact.info.post');
+         //GENERAL SETTINGS ROUTE ENDD
     });
 
 

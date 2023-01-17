@@ -4600,7 +4600,7 @@
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-center">
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1 ">
-								<span class="text-muted fw-bold me-1">©{{date('Y')}}</span>
+								<span class="text-muted fw-bold me-1">{{ getGeneralValue('copyright_text') }}</span>
 								<a href={{ route('home') }}class="text-gray-800 text-hover-primary">{{config('app.name')}}</a>
 							</div>
 							<!--end::Copyright-->

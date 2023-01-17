@@ -178,16 +178,16 @@ class vendorController extends Controller
                 $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
                 $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
 
-                // if(auth()->user()->banner !== NULL){
-                //     unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
-                // }
+                if(auth()->user()->banner !== NULL){
+                    unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                }
 
-                // if(auth()->user()->profile_photo !== NULL){
-                //     unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
-                // }
+                if(auth()->user()->profile_photo !== NULL){
+                    unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
+                }
 
                  User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
-                    'profile_photo' => $photo,
+                    // 'profile_photo' => $photo,
                     'banner' =>  $banner_photo,
                     ]);
             }else{
@@ -198,9 +198,9 @@ class vendorController extends Controller
                     $img = Image::make($request->file('profile_photo'))->resize(300, 300);
                     $img->save(base_path('public/uploads/vendor_profile/'.$photo), 60);
 
-                    // if(auth()->user()->profile_photo !== NULL){
-                    //     unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
-                    // }
+                    if(auth()->user()->profile_photo !== NULL){
+                        unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
+                    }
 
                      User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
                         'profile_photo' =>  $photo,
@@ -212,9 +212,9 @@ class vendorController extends Controller
                     $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
                     $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
 
-                    // if(auth()->user()->banner !== NULL){
-                    //     unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
-                    // }
+                    if(auth()->user()->banner !== NULL){
+                        unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                    }
 
                      User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
                         'banner' =>  $banner_photo,
@@ -254,8 +254,8 @@ class vendorController extends Controller
 
     function coupon_store(Request $request){
         $request->validate([
-            'coupon_code' => 'required',
             'discount_message' => 'required',
+            'coupon_code' => 'required|max:6',
             'coupon_amount' => 'required',
             'minimum_price' => 'integer',
             'coupon_amount' => 'integer',
