@@ -150,6 +150,11 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::get('general-settings/dashboard-social-delete/{id}',[GeneralController::class,'socialLinkDelete'])->name('general.social.delete');
     Route::get('general-settings/dashboard-contact-info',[GeneralController::class,'contactInfo'])->name('general.contact.info');
     Route::post('general-settings/dashboard-contact-info-post',[GeneralController::class,'contactInfoPost'])->name('general.contact.info.post');
+    Route::get('general-settings/401',[GeneralController::class,'Error401'])->name('401.error');
+    Route::get('general-settings/403',[GeneralController::class,'Error403'])->name('403.error');
+    Route::get('general-settings/404',[GeneralController::class,'Error404'])->name('404.error');
+    Route::get('general-settings/502',[GeneralController::class,'Error502'])->name('502.error');
+    Route::get('general-settings/503',[GeneralController::class,'Error503'])->name('503.error');
 
 
     //GENERAL SETTINGS ROUTE ENDD
