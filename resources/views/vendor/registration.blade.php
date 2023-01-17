@@ -68,10 +68,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-grp">
+                                    <div class="form-grp mb-1">
                                         <label for="password">Password *</label>
-                                        <input name="password" value='{{ old('password') }}' type="password" id="password">
+                                        <input name="password" value='{{ old('password') }}' type="password" id="myInput">
                                     </div>
+                                    <input type="checkbox" onclick="myFunction()" id="show_pass" style="margin-right: 5px"><label for="show_pass">Show Password</label>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-grp">
@@ -80,8 +81,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <p>If you have already account <a href="{{ route('vendor.login') }}">login</a> here!</p>
-
+                            <p class="mt-3">If you have already account <a href="{{ route('vendor.login') }}">login</a> here!</p>
                             <button class="button-prevent-multiple-submits" type="submit">REGISTER</button>
                         </form>
                     </div>
@@ -94,4 +94,16 @@
 
 </main>
 <!-- main-area-end -->
+@endsection
+@section('footer_script')
+<script>
+    function myFunction() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 @endsection
