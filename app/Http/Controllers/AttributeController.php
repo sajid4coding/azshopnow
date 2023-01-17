@@ -14,12 +14,21 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        return view('vendor.product.attribute.index', [
-            'attributesizes' => AttributeSize::where('vendor_id', auth()->id())->get(),
-            'attributecolors' => AttributeColor::where('vendor_id', auth()->id())->get(),
-            'general' => General::find(1),
+        if(auth()->user()->role == 'vendor'){
+            return view('vendor.product.attribute.index', [
+                'attributesizes' => AttributeSize::where('vendor_id', auth()->id())->get(),
+                'attributecolors' => AttributeColor::where('vendor_id', auth()->id())->get(),
+                'general' => General::find(1),
 
-        ]);
+            ]);
+        }else{
+            return view('vendor.product.attribute.index', [
+                'attributesizes' => AttributeSize::where('vendor_id', auth()->user()->vendor_id)->get(),
+                'attributecolors' => AttributeColor::where('vendor_id', auth()->user()->vendor_id)->get(),
+                'general' => General::find(1),
+
+            ]);
+        }
     }
 
     /**
@@ -43,11 +52,19 @@ class AttributeController extends Controller
         $request->validate([
             'size' => 'required'
         ]);
-        AttributeSize::insert([
-            'vendor_id' => auth()->id(),
-            'size' => $request->size,
-            'created_at' => now()
-        ]);
+        if(auth()->user()->role == 'vendor'){
+            AttributeSize::insert([
+                'vendor_id' => auth()->id(),
+                'size' => $request->size,
+                'created_at' => now()
+            ]);
+        }else{
+            AttributeSize::insert([
+                'vendor_id' => auth()->user()->vendor_id,
+                'size' => $request->size,
+                'created_at' => now()
+            ]);
+        }
         return back()->with('size_success_message', 'Size Added Successfully');
     }
 
@@ -57,12 +74,21 @@ class AttributeController extends Controller
             'color_name' => 'required',
             'color' => 'required',
         ]);
-        AttributeColor::insert([
-            'vendor_id' => auth()->id(),
-            'color_name' => $request->color_name,
-            'color' => $request->color,
-            'created_at' => now()
-        ]);
+        if(auth()->user()->role =='vendor'){
+            AttributeColor::insert([
+                'vendor_id' => auth()->id(),
+                'color_name' => $request->color_name,
+                'color' => $request->color,
+                'created_at' => now()
+            ]);
+        }else{
+            AttributeColor::insert([
+                'vendor_id' => auth()->user()->vendor_id,
+                'color_name' => $request->color_name,
+                'color' => $request->color,
+                'created_at' => now()
+            ]);
+        }
         return back()->with('color_success_message', '+Color Added Successfully');
     }
 

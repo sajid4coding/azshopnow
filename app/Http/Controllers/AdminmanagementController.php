@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Mail\adminNotification;
 use App\Models\General;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class AdminmanagementController extends Controller
 {
@@ -20,9 +22,11 @@ class AdminmanagementController extends Controller
     public function index()
     {
         $superAdmin= User::where('role','admin')->first();
-        $editors= User::where('role','editor')->latest()->get();
+        $editors= User::where('role','admin')->latest()->get();
         $general = General::find(1);
-        return view('dashboard.usersManagement.admin.allAdminList', compact('superAdmin','editors','general'));
+        $roles=Role::where('name','NOT LIKE','vendor-%')->where('name','NOT LIKE','vendor')->get();
+        $permissions=Permission::where('name','LIKE','admin-%')->get();
+        return view('dashboard.usersManagement.admin.allAdminList', compact('superAdmin','editors','general','roles','permissions'));
     }
 
     /**
@@ -45,19 +49,21 @@ class AdminmanagementController extends Controller
     {
         $request->validate([
             '*'=> 'required',
-            'email'
         ]);
        $password = Str::upper(Str::random(8));
-        User::insert([
+        $userId=User::insertGetId([
             'name'=>$request->name,
             'email'=>$request->email,
             'password'=>bcrypt($password),
-            'role'=>'editor',
+            'email_verified_at'=>now(),
+            'role'=>'admin',
             'status'=>'active',
-            'email_verified_at'=>Carbon::now(),
-            'created_at'=>Carbon::now(),
         ]);
-        Mail::to('patoarimdriaz@gmail.com')->send(new adminNotification($request->name,$request->email,$password));
+            $role=Role::findById($request->role);
+            $role->givePermissionTo([$request->permission]);
+            $user= User::find($userId);
+            $user->assignRole($request->role);
+            Mail::to($request->email)->send(new adminNotification($request->name,$request->email,$password));
         return back()->with('success','Member added successfully!');
     }
 

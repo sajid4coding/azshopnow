@@ -80,9 +80,11 @@ class VendorsmanagementController extends Controller
         $user=User::find($id);
         if ($user->status=='active') {
           $user->status='deactive';
+          $user->email_verified_at=now();
           Mail::to($user->email)->send(new VendorBan($user->name,$user->email,$user->shop_name));
         }else{
           $user->status='active';
+          $user->email_verified_at=now();
           Mail::to($user->email)->send(new VendorActivation($user->name,$user->email,$user->shop_name));
         }
         $user->save();

@@ -99,9 +99,22 @@
             position: relative;
             padding-bottom: 100%;
         }
+      .w_100{
+        width: 100% !important;
+        border: #ff480049 !important;
+      }
 
+.camera_icon_css{
+    width: 20px !important;
+    height: 20px !important;
+    text-align: center  !important;
+    line-height: 20px  !important;
+    padding: 0  !important;
 
-
+}
+.camera_icon_css i{
+    margin: 0 !important;
+}
 
 </style>
 
@@ -114,17 +127,22 @@
         @if ($errors->any())
             <div class="alert alert-danger">
                 @foreach ($errors->all() as $error)
-                    <li >{{$error}}</li>
+
+                      @if ($error == 'The review images must not be greater than 4 characters.')
+                         <li >The review images must not be greater than 4 Images.</li>
+                      @else
+                         <li >{{$error}}</li>
+                      @endif
                 @endforeach
             </div>
         @endif
-        <form class="form d-flex flex-column flex-lg-row form-prevent-multiple-submits" action="{{ route('product.review.post', $id) }}" method="POST" enctype="multipart/form-data">
+        <form class="form  form-prevent-multiple-submits" action="{{ route('product.review.post', $id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="upload__box">
                 <div class="upload__img-wrap"></div>
                 <div class="upload__btn-box">
                   <label class="upload__btn">
-                    <p><i class="fas fa-camera"></i></p>
+                    <p class="camera_icon_css"><i class="fas fa-camera"></i></p>
                     <input name="review_images[]" type="file" multiple data-max_length="4" class="upload__inputfile">
                   </label>
                   <span>Max 4 Image Upload</span>
@@ -147,7 +165,7 @@
 
 
             <div class="form_item">
-                <textarea class="form-control mb-3" name="comment" placeholder="Your Opinion*"></textarea>
+                <textarea class="form-control mb-3" rows="4" name="comment" style="resize: none" placeholder="Your Opinion*"></textarea>
             </div>
             <button type="submit" class="btn btn_primary py-2 px-4 button-prevent-multiple-submits">Submit Review</button>
         </form>

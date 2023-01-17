@@ -67,6 +67,9 @@ class Kernel extends HttpKernel
         'vendor' => \App\Http\Middleware\VendorRoleCheck::class,
         'editor' => \App\Http\Middleware\EditorRoleCheck::class,
         'customer' => \App\Http\Middleware\Customecheck::class,
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         'planlinkhide' => \App\Http\Middleware\PlanLinkHide::class,
     ];
 }

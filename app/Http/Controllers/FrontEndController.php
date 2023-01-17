@@ -11,7 +11,7 @@ use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Mail;
 use App\Models\General;
-
+use Carbon\Carbon;
 
 class FrontEndController extends Controller
 {
@@ -369,7 +369,7 @@ class FrontEndController extends Controller
         return view('frontend.subcategoryProducts', compact('products','categoryName','subCategoryName'));
     }
     public function offers(){
-        $coupons=Coupon::all()->shuffle();
+        $coupons=Coupon::where('vendor_id',auth()->user()->id)->where('expire_date','>',Carbon::now())->get()->shuffle();
         return view('frontend.offers',compact('coupons'));
     }
 }
