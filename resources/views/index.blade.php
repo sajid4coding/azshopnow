@@ -84,13 +84,13 @@
                     <div class="row justify-content-end">
                         <div class="col-xl-9">
                             <div class="home_banner_slider">
-                                @isset(Sliders() == true)
+                                @if(Sliders() == true)
                                 @foreach (Sliders() as $slide)
                                 <a href="{{ $slide->slider_page_link }}">
                                     <img src="{{ asset('uploads/slider') }}/{{$slide->slider_image}}" alt="">
                                 </a>
                                 @endforeach
-                                @endisset
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -8,9 +8,17 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{$error}}</li>
+                                @endforeach
+                            </div>
+                        @endif
                         <h6>Add Staff</h6>
                         <div>
-                            <form action="">
+                            <form action="{{route('vendor.add.staff.post')}}" method="POST">
+                                @csrf
                                 <div class="my-3">
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" id="name"  name="name" class="form-control">
@@ -50,60 +58,35 @@
                 <table id="staffTable" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Status</th>
-                            <th>Inventory</th>
-                            <th>Review</th>
+                            <th>SL</th>
+                            <th>Name</th>
+                            <th>Permission</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    {{-- <tbody>
-                       @foreach ($products as $product)
+                    <tbody>
+                       @foreach ($vendorLists as $vendorList)
+                       @php
+                            $roleID=DB::table('model_has_roles')->where('model_id',$vendorList->id)->first()->role_id;
+                            $permissionsId=DB::table('role_has_permissions')->where('role_id',$roleID)->get();
+                        @endphp
                          <tr>
-                             <td>
-                                <img width="50px" height="50" src="{{ asset('uploads/product_photo') }}/{{ $product->thumbnail }}" alt="{{ $product->product_title }}">
-                                {{ $product->product_title }}
+                            <td>
+                                {{$loop->index+1}}
                             </td>
                              <td>
-                                {{ Str::title($product->parent_category_slug) }} <br>
-                                @if ($product->sub_category_id)
-                                    <span>Sub-Category: {{ $product->relationwith_subcategory->category_name }}</span>
-                                @endif
+                                <h6>{{ $vendorList->name }}</h6>
+                                <span>{{ $vendorList->email }}</span> <br>
+                                <span class="badge bg-primary text-warning"><span class="text-light">Role:</span> {{DB::table('roles')->where('id',$roleID)->first()->name}}</span>
                             </td>
                              <td>
-                                @if ($product->status == 'unpublished')
-                                    <div class="badge bg-warning text-dark">
-                                        Pending
-                                    </div>
-                                @elseif ($product->status == 'banned')
-                                    <div class="badge bg-danger text-light">
-                                        Banned
-                                    </div>
-                                @else
-                                    @if ($product->vendorProductStatus == 'draft')
-                                        <div class="badge bg-danger">
-                                            Draft
-                                        </div>
-                                        <div class="badge bg-success">
-                                            Approved
-                                        </div>
-                                    @else
-                                        <div class="badge bg-success">
-                                            Approved
-                                        </div>
-                                    @endif
-                                @endif
+                               @foreach ($permissionsId as $permission)
+                                <span class="badge bg-success"> {{DB::table('permissions')->where('id',$permission->permission_id)->first()->name}}</span>
+                               @endforeach
                             </td>
-                             <td><a href="{{ route('inventory', $product->id) }}" class="btn btn-primary btn-sm py-2 px-3">Add Inventory</a></td>
-                             <td><h6 class="bg-secondary text-center text-white"><i class="fas fa-star text-warning"></i> {{ round(review($product->id)) }}</h6></td>
                              <td>
                                  <div>
-                                    <a href="{{route('product.edit',$product->id)}}"><i class="fas fa-edit"></i></a>
-                                    <a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}" class="text-info "><i class="fas fa-eye"></i></a>
-                                 </div>
-                                 <div>
-                                    <form action="{{route('product.destroy',$product->id)}}" method="POST">
+                                    <form action="{{route('vendor.add.staff.delete',$vendorList->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button class="mx-2" style="border: none;"><i class="fas fa-trash-alt text-danger"></i></button>
@@ -112,7 +95,7 @@
                              </td>
                          </tr>
                        @endforeach
-                    </tbody> --}}
+                    </tbody>
                 </table>
             </div>
         </div>

@@ -15,21 +15,43 @@
                     <div class="store-product">
                         <div class="store-thumb" style="overflow: hidden">
                             {{-- https://pondokindahmall.co.id/assets/img/default.png --}}
-                            @if (auth()->user()->profile_photo)
-                               <img  src="{{ asset('uploads/vendor_profile') }}/{{ auth()->user()->profile_photo }}" alt="img">
+                            @if (auth()->user()->role == 'vendor')
+                                @if (auth()->user()->profile_photo)
+                                   <img  src="{{ asset('uploads/vendor_profile') }}/{{ auth()->user()->profile_photo }}" alt="img">
+                                @else
+                                   <img src="https://pondokindahmall.co.id/assets/img/default.png" alt="img">
+                                @endif
                             @else
-                               <img src="https://pondokindahmall.co.id/assets/img/default.png" alt="img">
+                                @if (staff(auth()->user()->vendor_id)->profile_photo)
+                                    <img  src="{{ asset('uploads/vendor_profile') }}/{{ staff(auth()->user()->vendor_id)->profile_photo }}" alt="img">
+                                @else
+                                    <img src="https://pondokindahmall.co.id/assets/img/default.png" alt="img">
+                                @endif
                             @endif
                         </div>
                         <div class="store-content">
                             <span class="verified">Verified <i class="fa-solid fa-crown"></i></span>
-                            @if (auth()->user()->shop_name)
-                            <h2 class="title">  {{ auth()->user()->shop_name }} </h2>
-                            <ul>
-                                <li class="customer">Owner Name : <span style="color: #FF4800 !important;padding-left:10px;font-size:1.2rem">{{ auth()->user()->name }}</span> </li>
-                            </ul>
+                            @if (auth()->user()->role =='vendor')
+                                @if (auth()->user()->shop_name)
+                                <h2 class="title">  {{ auth()->user()->shop_name }} </h2>
+                                <ul>
+                                    <li class="customer">Owner Name : <span style="color: #FF4800 !important;padding-left:10px;font-size:1.2rem">{{ auth()->user()->name }}</span> </li>
+                                </ul>
+                                @else
+                                <h2 class="title">  {{ auth()->user()->name }} </h2>
+                                @endif
                             @else
-                            <h2 class="title">  {{ auth()->user()->name }} </h2>
+                                @if (staff(auth()->user()->vendor_id)->shop_name)
+                                <h2 class="title">  {{ staff(auth()->user()->vendor_id)->shop_name }} </h2>
+                                <ul>
+                                    <li class="customer">Staff Name : <span style="color: #FF4800 !important;padding-left:10px;font-size:1.2rem">{{ auth()->user()->name }}</span> </li>
+                                </ul>
+                                @else
+                                <h2 class="title">  {{ staff(auth()->user()->vendor_id)->name }} </h2>
+                                <ul>
+                                    <li class="customer">Staff Name : <span style="color: #FF4800 !important;padding-left:10px;font-size:1.2rem">{{ auth()->user()->name }}</span> </li>
+                                </ul>
+                                @endif
                             @endif
                         </div>
                     </div>
@@ -92,41 +114,53 @@
                                         </div>
                                         <ul class="nav cust_ul nav-tabs gap-3" style="padding-left: 20px !important"   role="tablist">
 
-                                            <li class="nav-item @if ($current_page == 'dashboard') show here @endif">
-                                                <a class="nav-link cust_a"  href="{{ route('vendor.dashboard') }}"><i class="flaticon-user"></i> Vendor Profile</a>
-                                            </li>
+                                            @can ('vendor-profile')
+                                                <li class="nav-item @if ($current_page == 'dashboard') show here @endif">
+                                                    <a class="nav-link cust_a"  href="{{ route('vendor.dashboard') }}"><i class="flaticon-user"></i> Vendor Profile</a>
+                                                </li>
+                                            @endcan
 
-                                            <li class="nav-item @if ($current_page == 'setting') show here @endif" >
-                                                <a class="nav-link cust_a" href="{{ route('vendor.setting') }}"><i class="far fa-edit"></i>Setting</a>
-                                            </li>
-                                            <li class="nav-item @if ($current_page == 'add') here show @endif" >
-                                                <a class="nav-link cust_a" href="{{ route('vendor.coupon.add') }}"><i class="fas fa-tag"></i>Coupon</a>
-                                            </li>
+                                            @can ('vendor-setting')
+                                                <li class="nav-item @if ($current_page == 'setting') show here @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('vendor.setting') }}"><i class="far fa-edit"></i>Setting</a>
+                                                </li>
+                                            @endcan
+                                            @can ('vendor-coupon')
+                                                <li class="nav-item @if ($current_page == 'add') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('vendor.coupon.add') }}"><i class="fas fa-tag"></i>Coupon</a>
+                                                </li>
+                                            @endcan
 
 
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fas fa-cloud-upload"></i> Product Settings
-                                                </a>
-                                                <ul class="dropdown-menu @if ($current_page == 'upload' || $current_page == 'product' || $current_page == 'attributes') active @endif" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item @if ($current_page == 'upload') show here @endif"  href="{{ route('vendor.product.upload') }}">Product Add</a></li>
-                                                <li><a class="dropdown-item @if ($current_page == 'product') show here @endif" href="{{ route('product.index') }}">Product List</a></li>
-                                                <li><a class="dropdown-item @if ($current_page == 'attributes') show here @endif" href="{{ route('attributes.index') }}">Attributes</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="nav-item @if ($current_page == 'order') here show @endif" >
-                                                <a class="nav-link cust_a" href="{{ route('vendor.orders') }}"> <i class="fas fa-store"></i> Orders</a>
-                                            </li>
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa-solid fa-user-plus"></i> Staff Management
-                                                </a>
-                                                <ul class="dropdown-menu @if ($current_page == 'vendor-add-staff' || $current_page == 'vendor-staff-permission' || $current_page == 'vendor-staff-role') active @endif" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item @if ($current_page == 'vendor-add-staff') show here @endif"  href="{{ route('vendor.add.staff') }}">Add Staff</a></li>
-                                                <li><a class="dropdown-item @if ($current_page == 'vendor-staff-permission') show here @endif" href="{{ route('vendor.staff.permission') }}">Staff Permission</a></li>
-                                                <li><a class="dropdown-item @if ($current_page == 'vendor-staff-role') show here @endif" href="{{ route('vendor.staff.role') }}">Staff Role</a></li>
-                                                </ul>
-                                            </li>
+                                            @can ('vendor-product management')
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-cloud-upload"></i> Product Settings
+                                                    </a>
+                                                    <ul class="dropdown-menu @if ($current_page == 'upload' || $current_page == 'product' || $current_page == 'attributes') active @endif" aria-labelledby="navbarDropdown">
+                                                    <li><a class="dropdown-item @if ($current_page == 'upload') show here @endif"  href="{{ route('vendor.product.upload') }}">Product Add</a></li>
+                                                    <li><a class="dropdown-item @if ($current_page == 'product') show here @endif" href="{{ route('product.index') }}">Product List</a></li>
+                                                    <li><a class="dropdown-item @if ($current_page == 'attributes') show here @endif" href="{{ route('attributes.index') }}">Attributes</a></li>
+                                                    </ul>
+                                                </li>
+                                            @endcan
+                                            @can ('vendor-order')
+                                                <li class="nav-item @if ($current_page == 'order') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('vendor.orders') }}"> <i class="fas fa-store"></i> Orders</a>
+                                                </li>
+                                            @endcan
+                                            @can ('vendor-staff management')
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa-solid fa-user-plus"></i> Staff Management
+                                                    </a>
+                                                    <ul class="dropdown-menu @if ($current_page == 'vendor-add-staff' || $current_page == 'vendor-staff-permission' || $current_page == 'vendor-staff-role') active @endif" aria-labelledby="navbarDropdown">
+                                                    <li><a class="dropdown-item @if ($current_page == 'vendor-add-staff') show here @endif"  href="{{ route('vendor.add.staff') }}">Add Staff</a></li>
+                                                    {{-- <li><a class="dropdown-item @if ($current_page == 'vendor-staff-permission') show here @endif" href="{{ route('vendor.staff.permission') }}">Staff Permission</a></li> --}}
+                                                    <li><a class="dropdown-item @if ($current_page == 'vendor-staff-role') show here @endif" href="{{ route('vendor.staff.role') }}">Staff Role</a></li>
+                                                    </ul>
+                                                </li>
+                                            @endcan
 
                                             {{-- <li class="nav-item @if ($current_page == 'vendor-shipping') here show @endif" >
                                                 <a class="nav-link cust_a" href="{{ route('vendor-shipping.index') }}"> <i class="fa-solid fa-truck-fast"></i>Shipping</a>
@@ -134,10 +168,12 @@
                                             <li class="nav-item @if ($current_page == 'vendor-packaging') here show @endif" >
                                                 <a class="nav-link cust_a" href="{{ route('vendor-packaging.index') }}"> <i class="fa-solid fa-cube"></i>Packaging</a>
                                             </li> --}}
-                                            
-                                            <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >
-                                                <a class="nav-link cust_a" href="{{ route('upgrade') }}"> <i class="fa-solid fa-truck-fast"></i>Plans</a>
-                                            </li>
+
+                                            @if (auth()->user()->role=='vendor')
+                                                    <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >
+                                                        <a class="nav-link cust_a" href="{{ route('upgrade') }}"> <i class="fa-solid fa-truck-fast"></i>Plans</a>
+                                                    </li>
+                                            @endif
 
                                             <li class="mb-3">
                                                 <form method="POST" action="{{ route('logout') }}">

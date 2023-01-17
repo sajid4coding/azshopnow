@@ -106,7 +106,7 @@
                                             <li class="header-shop">
                                                 <a href="{{ route('wishlist') }}">
                                                     <i class="fa-regular fa-heart"></i>Wishlist
-                                                    <span class="cart-count" style="right: 2px !important;">{{ wishlish() }}</span>
+                                                    <span class="cart-count" style="right: 2px !important;">{{ wishlist() }}</span>
                                                 </a>
                                             </li>
                                             {{-- <li><a href="#"><i class="fas fa-redo"></i>Compare</a></li> --}}
@@ -126,6 +126,11 @@
                                                     </a>
                                                 @elseif (auth()->user()->role == 'customer')
                                                 <a href="{{ route('customerhome') }}">
+                                                    <i class="flaticon-user"></i>
+                                                    <p>{{ Str::title(auth()->user()->name) }}</span></p>
+                                                </a>
+                                                @elseif (auth()->user()->role == 'staff')
+                                                <a href="{{ route('vendor.dashboard') }}">
                                                     <i class="flaticon-user"></i>
                                                     <p>{{ Str::title(auth()->user()->name) }}</span></p>
                                                 </a>

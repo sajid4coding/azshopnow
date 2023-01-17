@@ -171,6 +171,10 @@
 
                                 <!--end::Table row-->
                                 @foreach ($editors as $editor)
+                                @php
+                                    $roleID=DB::table('model_has_roles')->where('model_id',$editor->id)->first()->role_id;
+                                    $permissionsId=DB::table('role_has_permissions')->where('role_id',$roleID)->get();
+                                @endphp
                                     <tr class="odd">
                                         <!--begin::Category=-->
                                         <td>
@@ -189,6 +193,7 @@
                                                     <!--begin::Description-->
                                                     <div class="text-muted fs-7 fw-bold">{{ $editor->email }}</div>
                                                     <div></div>
+                                                    <span class="badge bg-primary text-warning"><span class="text-light">Role: &nbsp;</span> {{Str::title(DB::table('roles')->where('id',$roleID)->first()->name)}}</span>
                                                     <!--end::Description-->
                                                 </div>
                                             </div>
@@ -205,7 +210,9 @@
                                             <!--end::Badges-->
                                         </td>
                                         <td>
-                                            <span  class="badge bg-success"> </span>
+                                            @foreach ($permissionsId as $permission)
+                                                <span class="badge badge-light-success"> {{DB::table('permissions')->where('id',$permission->permission_id)->first()->name}}</span>
+                                            @endforeach
 
                                         </td>
                                         <!--end::Type=-->

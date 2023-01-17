@@ -54,7 +54,7 @@ Route::middleware(['admin', 'verified'])->group(function () {
     //DashboardController
     Route::get('dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
-    Route::group(['middleware' => ['can:Product Management','can:Product Campaign']], function () {
+    Route::group(['middleware' => ['can:admin-Product Management','can:admin-Product Campaign']], function () {
         Route::get('product_lists',[DashboardController::class, 'product_lists'])->middleware(['auth', 'verified'])->name('product_lists');
         Route::get('pending-products',[DashboardController::class, 'pendingProducts'])->middleware(['auth', 'verified'])->name('pending.products');
         Route::get('banned-products',[DashboardController::class, 'bannedProducts'])->middleware(['auth', 'verified'])->name('banned.products');
@@ -68,13 +68,13 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::get('flash-sale-products',[DashboardController::class, 'flash_sale_products'])->middleware(['auth', 'verified'])->name('flash.sale.products');
     });
 
-    Route::group(['middleware' => ['can:Product Discussion']], function () {
+    Route::group(['middleware' => ['can:admin-Product Discussion']], function () {
         Route::get('review',[DashboardController::class, 'reviews'])->name('review');
         Route::get('reports',[DashboardController::class,'report'])->name('report');
         Route::get('view-review/{id}',[DashboardController::class, 'view_reviews'])->name('view.review');
     });
 
-    Route::group(['middleware' => ['can:Order Management']], function () {
+    Route::group(['middleware' => ['can:admin-Order Management']], function () {
         Route::get('admin/order/details/{id}',[DashboardController::class,'OrderDetails'])->name('order.details');
         Route::get('admin/all/order',[DashboardController::class,'AllOrder'])->name('all.order');
         Route::get('admin/delivered-order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
@@ -84,7 +84,7 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::get('admin/order/delete/{id}',[DashboardController::class,'OrderDelete'])->name('order.delete');
     });
 
-    Route::group(['middleware' => ['can:Earnings']], function () {
+    Route::group(['middleware' => ['can:admin-Earnings']], function () {
         Route::get('admin/total-earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
         Route::get('admin/tax-earning',[DashboardController::class,'TaxEarning'])->name('tax.earning');
         Route::get('admin/subscription-earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
@@ -96,41 +96,41 @@ Route::middleware(['admin', 'verified'])->group(function () {
     });
 
     //PackagingController Resource
-    Route::group(['middleware' => ['can:Packaging']], function () {
+    Route::group(['middleware' => ['can:admin-Packaging']], function () {
         Route::resource('packaging', PackagingController::class);
     });
 
     //CategoryController Resource
     //SubCategoryController Resource
-    Route::group(['middleware' => ['can:Product Catalog']], function () {
+    Route::group(['middleware' => ['can:admin-Product Catalog']], function () {
         Route::resource('category', CategoryController::class);
         Route::resource('subcategory', SubCategoryController::class);
     });
 
     //SubCategoryController Resource
-    Route::group(['middleware' => ['can:Shipping']], function () {
+    Route::group(['middleware' => ['can:admin-Shipping']], function () {
         Route::resource('shipping',ShippingController::class);
     });
     //VendormanagementController Resource
-    Route::group(['middleware' => ['can:Vendor Management']], function () {
+    Route::group(['middleware' => ['can:admin-Vendor Management']], function () {
         Route::resource('vendormanagement', VendorsmanagementController::class);
     });
     //RolemanagementController Resource
     //PermissionController Resource
     //AdminmanagementController Resource
-    Route::group(['middleware' => ['can:Admin Management']], function () {
+    Route::group(['middleware' => ['can:admin-Admin Management']], function () {
 
         Route::resource('adminmanagement', AdminmanagementController::class);
         Route::resource('role', RolemanagementController::class);
-        Route::resource('permission', PermissionController::class);
+        // Route::resource('permission', PermissionController::class);
     });
     //CustomermanagementController Resource
-    Route::group(['middleware' => ['can:Customer Management']], function () {
+    Route::group(['middleware' => ['can:admin-Customer Management']], function () {
         Route::resource('customermanagement', CustomermanagementController::class);
     });
 
     // All Banner Management Controller
-    Route::group(['middleware' => ['can:Pages']], function () {
+    Route::group(['middleware' => ['can:admin-Pages']], function () {
         Route::get('banner-edit',[BannerController::class,'index'])->name('banner.edit');
         Route::post('shop-page-banner-post',[BannerController::class,'shop_page'])->name('shop.banner.edit');
         Route::post('vendor-page-banner-post',[BannerController::class,'vendor_page'])->name('vendor.banner.edit');
@@ -145,12 +145,12 @@ Route::middleware(['admin', 'verified'])->group(function () {
     Route::post('admin/password/change', [ProfileController::class, 'admin_password_change'])->name('admin.password.change');
 
     //Newslatter Route
-    Route::group(['middleware' => ['can:Newsletter Management']], function () {
+    Route::group(['middleware' => ['can:admin-Newsletter Management']], function () {
         Route::get('admin/newsletter-list', [DashboardController::class, 'newslettter'])->name('newsletters');
         Route::post('admin/newsletter-list', [DashboardController::class, 'exportNewslettter'])->name('export.newsletters');
     });
     //General Settings Route
-    Route::group(['middleware' => ['can:General Settings']], function () {
+    Route::group(['middleware' => ['can:admin-General Settings']], function () {
         Route::get('general-settings/logo-edit',[GeneralController::class,'logosEdit'])->name('general.logo.edit');
         Route::post('general-settings/header-logo-post',[GeneralController::class,'headerLogoPost'])->name('header.logo.post');
         Route::post('general-settings/footer-logo-post',[GeneralController::class,'footerLogoPost'])->name('footer.logo.post');
@@ -160,6 +160,17 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::post('general-settings/dashboard-favicon-post',[GeneralController::class,'DashboardFaviconLogoPost'])->name('dashboard.favicon.post');
         Route::get('general-settings/dashboard-website-content',[GeneralController::class,'websiteContents'])->name('general.website.centent');
         Route::post('general-settings/dashboard-website-content-post',[GeneralController::class,'websiteContentsPost'])->name('general.website.centent.post');
+        Route::get('general-settings/dashboard-slider',[GeneralController::class,'generalSlider'])->name('general.slider');
+        Route::post('general-settings/dashboard-slider-post',[GeneralController::class,'generalSliderPost'])->name('general.slider.post');
+        Route::get('general-settings/dashboard-slider-delete/{id}',[GeneralController::class,'generalSliderDelete'])->name('general.slider.delete');
+        Route::get('general-settings/dashboard-slider-edit/{id}',[GeneralController::class,'generalSliderEdit'])->name('general.slider.edit');
+        Route::post('general-settings/dashboard-slider-edit-post/{id}',[GeneralController::class,'generalSliderEditPost'])->name('general.slider.edit.post');
+
+        Route::get('general-settings/dashboard-slider',[GeneralController::class,'generalSlider'])->name('general.slider');
+        Route::post('general-settings/dashboard-slider-post',[GeneralController::class,'generalSliderPost'])->name('general.slider.post');
+        Route::get('general-settings/dashboard-slider-delete/{id}',[GeneralController::class,'generalSliderDelete'])->name('general.slider.delete');
+        Route::get('general-settings/dashboard-slider-edit/{id}',[GeneralController::class,'generalSliderEdit'])->name('general.slider.edit');
+        Route::post('general-settings/dashboard-slider-edit-post/{id}',[GeneralController::class,'generalSliderEditPost'])->name('general.slider.edit.post');
     });
 
 
@@ -191,35 +202,47 @@ Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])
 
 Route::middleware(['vendor'])->group(function(){
     Route::get('vendor/dashboard', [VendorController::class, 'vendor_dashboard'])->name('vendor.dashboard');
-    Route::get('vendor/setting', [VendorController::class, 'vendor_setting'])->name('vendor.setting');
-    Route::get('vendor/add-coupon', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
-    Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
-    Route::get('vendor/order',[VendorController::class,'vendor_orders'])->name('vendor.orders');
-    Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
-    Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
-    Route::post('coupon/add', [VendorController::class, 'coupon_store'])->name('coupon.add');
-    Route::get('coupon/delete/{id}', [VendorController::class, 'coupon_delete'])->name('coupon.delete');
+    Route::group(['middleware' => ['can:vendor-setting','can:vendor-profile']], function () {
+        Route::get('vendor/setting', [VendorController::class, 'vendor_setting'])->name('vendor.setting');
 
-    //ProductController Resource
-    Route::resource('product', ProductController::class);
-    Route::delete('galleryImgDelete/{id}',[ProductController::class, 'galleryImgDelete'])->name('galleryImg.Delete');
-
-    //AttributeController Resource
-    Route::resource('attributes', AttributeController::class);
-    Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
-    Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
-    Route::post('/getIDFromCategory',[VendorController::class,'getIDFromCategory']);
-    Route::post('/getIDFromCategoryForEdit',[VendorController::class,'getIDFromCategoryEdit']);
-
-    //InventoryController
-    Route::get('inventory/{product}', [InventoryController::class, 'inventory'])->name('inventory');
-    Route::post('add_inventory/{product}', [InventoryController::class, 'add_inventory'])->name('add_inventory');
-    Route::get('delete_inventory/{id}', [InventoryController::class, 'delete_inventory'])->name('delete_inventory');
+        Route::post('vendor/update/info',[VendorController::class,'vendor_update_info'])->name('vendor.update.info');
 
 
-    Route::get('plans', [PlanController::class, 'index'])->name("plans");
-    Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
-    Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
+        Route::post('vendor/change/password',[VendorController::class,'vendor_change_password'])->name('vendor.change.password');
+    });
+
+    Route::group(['middleware' => ['can:vendor-coupon']], function () {
+        Route::get('vendor/add-coupon', [VendorController::class, 'vendor_coupon_add_index'])->name('vendor.coupon.add');
+        Route::post('coupon/add', [VendorController::class, 'coupon_store'])->name('coupon.add');
+        Route::get('coupon/delete/{id}', [VendorController::class, 'coupon_delete'])->name('coupon.delete');
+    });
+
+    Route::group(['middleware' => ['can:vendor-order']], function () {
+        Route::get('vendor/order',[VendorController::class,'vendor_orders'])->name('vendor.orders');
+    });
+
+    Route::group(['middleware' => ['can:vendor-product management']], function () {
+
+        Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
+
+        //ProductController Resource
+        Route::resource('product', ProductController::class);
+        Route::delete('galleryImgDelete/{id}',[ProductController::class, 'galleryImgDelete'])->name('galleryImg.Delete');
+
+        //AttributeController Resource
+        Route::resource('attributes', AttributeController::class);
+        Route::post('attributes-store-color', [AttributeController::class, 'store_color'])->name('store_color');
+        Route::get('attributes-destroy-color/{id}', [AttributeController::class, 'destroy_color'])->name('destroy_color');
+        Route::post('/getIDFromCategory',[VendorController::class,'getIDFromCategory']);
+        Route::post('/getIDFromCategoryForEdit',[VendorController::class,'getIDFromCategoryEdit']);
+
+        //InventoryController
+        Route::get('inventory/{product}', [InventoryController::class, 'inventory'])->name('inventory');
+        Route::post('add_inventory/{product}', [InventoryController::class, 'add_inventory'])->name('add_inventory');
+        Route::get('delete_inventory/{id}', [InventoryController::class, 'delete_inventory'])->name('delete_inventory');
+    });
+
+
 
     //Vendor Shipping Route
     Route::resource('vendor-shipping', VendorShippingController::class);
@@ -227,19 +250,24 @@ Route::middleware(['vendor'])->group(function(){
     //Vendor Packaging Route
     Route::resource('vendor-packaging', VendorPackagingController::class);
 
-    //StaffmanagementController
-    Route::get('vendor-add-staff', [StaffmanagementController::class, 'vendorAddStaff'])->name("vendor.add.staff");
-    Route::get('vendor-staff-permission', [StaffmanagementController::class, 'vendorStaffPermission'])->name("vendor.staff.permission");
-    Route::post('vendor-staff-permission', [StaffmanagementController::class, 'vendorStaffPermission_Post'])->name("vendor.staff.permission.post");
-    Route::delete('vendor-staff-permission-delete/{id}', [StaffmanagementController::class, 'vendorStaffPermissionDelete'])->name("vendor.staff.permission.delete");
-    Route::get('vendor-staff-role', [StaffmanagementController::class, 'vendorStaffRole'])->name("vendor.staff.role");
-    Route::post('vendor-staff-role', [StaffmanagementController::class, 'vendorStaffRole_Post'])->name("vendor.staff.role.post");
-    Route::delete('vendor-staff-role-delete/{id}', [StaffmanagementController::class, 'vendorStaffRoleDelete'])->name("vendor.staff.role.delete");
+    Route::group(['middleware' => ['can:vendor-staff management']], function () {
+
+        //StaffmanagementController
+        Route::get('vendor-add-staff', [StaffmanagementController::class, 'vendorAddStaff'])->name("vendor.add.staff");
+        // Route::get('vendor-staff-permission', [StaffmanagementController::class, 'vendorStaffPermission'])->name("vendor.staff.permission");
+        // Route::post('vendor-staff-permission', [StaffmanagementController::class, 'vendorStaffPermission_Post'])->name("vendor.staff.permission.post");
+        // Route::delete('vendor-staff-permission-delete/{id}', [StaffmanagementController::class, 'vendorStaffPermissionDelete'])->name("vendor.staff.permission.delete");
+        Route::get('vendor-staff-role', [StaffmanagementController::class, 'vendorStaffRole'])->name("vendor.staff.role");
+        Route::post('vendor-staff-role', [StaffmanagementController::class, 'vendorStaffRole_Post'])->name("vendor.staff.role.post");
+        Route::delete('vendor-staff-role-delete/{id}', [StaffmanagementController::class, 'vendorStaffRoleDelete'])->name("vendor.staff.role.delete");
+        Route::post('vendor-addstaff', [StaffmanagementController::class, 'vendorAddStaff_post'])->name("vendor.add.staff.post");
+        Route::delete('vendor-addstaff/{id}', [StaffmanagementController::class, 'vendorAddStaff_delete'])->name("vendor.add.staff.delete");
+    });
     //UPGRADE SUBCRIPTION ROUTE START
     Route::get('upgrade', [PlanController::class, 'upgrade'])->name('upgrade');
     Route::get('upgrade/{plan}', [PlanController::class, 'upgrade_show'])->name("upgrade.show");
     Route::post('subscription', [PlanController::class, 'upgrade_done'])->name("upgrade.done");
-    //UPGRADE SUBCRIPTION ROUTE END
+    //UPGRADE SUBCRIPTION ROUTE END
 });
 
 // VENDOR ROUTE END

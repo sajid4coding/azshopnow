@@ -969,3 +969,7 @@ function subCategory($parentCategorySlug)
 {
     return SubCategory::where('parent_category_slug',$parentCategorySlug)->where('status','published')->get();
 }
+function staff($vendorid)
+{
+    return User::find($vendorid);
+}
