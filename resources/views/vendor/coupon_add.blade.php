@@ -1,4 +1,5 @@
 @extends('layouts.vendor_master')
+
 @section('vendor_body_content')
 <div class="col-lg-9 col-md-9">
 
@@ -105,6 +106,7 @@
                 <div class="row mt-5">
                     <div class="col-md-12">
                         <h6>Available Coupons</h6>
+                        
                       </div>
                       <div class="col-md-12">
                         <table class="table table-stripe">

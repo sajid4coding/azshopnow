@@ -1,4 +1,11 @@
 @extends('layouts.frontendmaster')
+@section('header_css')
+<style>
+    .coupon-btn:hover:after{
+        left: -45px !important;
+    }
+</style>
+@endsection
 @section('content')
 
 @if (coupons() == 0)
@@ -8,9 +15,9 @@
         <div class="container m-5">
             <div class="empty_cart_content text-center">
                 <span class="cart_icon display-4 text-primary">
-                    <i class="fa-sharp fa-solid fa-cart-shopping"></i>
+                    <i class="fas fa-exclamation-triangle"></i>
                 </span>
-                <h3 class="text-primary">There are no more items in your cart</h3>
+                <h3 class="text-primary">No coupon available</h3>
                 <a class="btn btn_secondary" href="{{ route('shop.page') }}"><i class="fa fa-chevron-left"></i> Continue shopping </a>
             </div>
         </div>

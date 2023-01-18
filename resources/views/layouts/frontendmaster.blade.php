@@ -129,6 +129,11 @@
                                                     <i class="flaticon-user"></i>
                                                     <p>{{ Str::title(auth()->user()->name) }}</span></p>
                                                 </a>
+                                                @elseif (auth()->user()->role == 'staff')
+                                                <a href="{{ route('vendor.dashboard') }}">
+                                                    <i class="flaticon-user"></i>
+                                                    <p>{{ Str::title(auth()->user()->name) }}</span></p>
+                                                </a>
                                                 @endif
                                             </li>
                                         @endauth
@@ -758,7 +763,7 @@
             <div class="footer-top pt-60 pb-40">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-8">
                             <div class="footer-widget mb-30">
                                 <div class="f-logo mb-25">
                                     <a href="index.html"><img src="{{ asset('frontend_assets') }}/img/logo/logo.png" alt=""></a>
@@ -770,10 +775,21 @@
                                 </div>
                                 <div class="footer-social">
                                     <ul>
-                                        <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                                        <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                                        @if (socialLinks())
+                                            @foreach (socialLinks() as $social)
+                                            <li><a href="{{ $social->social_link }}">
+                                                @if ($social->social_icon)
+                                                   <i class="{{ $social->social_icon }}"></i>
+                                                @else
+                                                   <picture>
+                                                    <img src="{{ asset('uploads/social_image/') }}/{{ $social->social_image }}" alt="$social->social_image">
+                                                   </picture>
+
+                                                @endif
+                                                </a>
+                                            </li>
+                                            @endforeach
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
@@ -795,7 +811,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-2 col-md-6 col-sm-6">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                             <div class="footer-widget mb-30">
                                 <div class="fw-title mb-20">
                                     <h2 class="title">MY ACCOUNT</h2>

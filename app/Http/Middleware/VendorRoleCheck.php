@@ -17,12 +17,12 @@ class VendorRoleCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role != 'vendor'){
-            abort('404');
-        }else{
+        if(auth()->user()->role == 'vendor' || auth()->user()->role == 'staff'){
             if(User::where('id',auth()->id())->first()->dashboard_access == 'deactive'){
                 return redirect('plans_index');
             }
+        }else{
+            abort('404');
         }
         return $next($request);
     }

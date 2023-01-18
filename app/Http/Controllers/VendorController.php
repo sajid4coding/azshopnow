@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rules\Password;
 use Intervention\Image\Facades\Image;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Stripe\Stripe;
 use function PHPUnit\Framework\returnSelf;
 
@@ -78,6 +80,10 @@ class vendorController extends Controller
               'dashboard_access' =>  'deactive',
               'created_at' => Carbon::now(),
         ]);
+        $role = Role::where('name','vendor')->first();
+        $role->givePermissionTo(Permission::where('name','LIKE','vendor-%')->get());
+        $user= User::find($vendor_id);
+        $user->assignRole($role);
 
         session(['vendor_id' => $vendor_id]);
 
@@ -101,7 +107,7 @@ class vendorController extends Controller
         if (Auth::attempt($credentials)){
             // Authentication passed...
             if(Auth()->user()->status == 'active'){
-                if(Auth()->user()->role == 'vendor'){
+                if(Auth()->user()->role == 'vendor' || Auth()->user()->role == 'staff'){
                     return redirect()->intended('vendor/dashboard');
                 }else{
                     return back()->with('vendor_login_error','Sorry, you are not a vendor.');
@@ -115,8 +121,13 @@ class vendorController extends Controller
     }
 
     function vendor_dashboard(){
-        $invoices_info = Invoice::where('vendor_id',auth()->user()->id)->get();
-        $coupons =  Coupon::where('vendor_id',auth()->user()->id)->get();
+        if(auth()->user()->role =='vendor'){
+            $invoices_info = Invoice::where('vendor_id',auth()->user()->id)->get();
+            $coupons =  Coupon::where('vendor_id',auth()->user()->id)->get();
+        }else{
+            $invoices_info = Invoice::where('vendor_id',auth()->user()->vendor_id)->get();
+            $coupons =  Coupon::where('vendor_id',auth()->user()->vendor_id)->get();
+        }
         return view('vendor.dashboard',compact('coupons','invoices_info'));
     }
 
@@ -167,16 +178,16 @@ class vendorController extends Controller
                 $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
                 $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
 
-                // if(auth()->user()->banner !== NULL){
-                //     unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
-                // }
+                if(auth()->user()->banner !== NULL){
+                    unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                }
 
-                // if(auth()->user()->profile_photo !== NULL){
-                //     unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
-                // }
+                if(auth()->user()->profile_photo !== NULL){
+                    unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
+                }
 
                  User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
-                    'profile_photo' => $photo,
+                    // 'profile_photo' => $photo,
                     'banner' =>  $banner_photo,
                     ]);
             }else{
@@ -187,9 +198,9 @@ class vendorController extends Controller
                     $img = Image::make($request->file('profile_photo'))->resize(300, 300);
                     $img->save(base_path('public/uploads/vendor_profile/'.$photo), 60);
 
-                    // if(auth()->user()->profile_photo !== NULL){
-                    //     unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
-                    // }
+                    if(auth()->user()->profile_photo !== NULL){
+                        unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
+                    }
 
                      User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
                         'profile_photo' =>  $photo,
@@ -201,9 +212,9 @@ class vendorController extends Controller
                     $banner_img = Image::make($request->file('banner'))->resize(1200, 267);
                     $banner_img->save(base_path('public/uploads/banner_img/'.$banner_photo));
 
-                    // if(auth()->user()->banner !== NULL){
-                    //     unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
-                    // }
+                    if(auth()->user()->banner !== NULL){
+                        unlink(base_path('public/uploads/banner_img/'.auth()->user()->banner));
+                    }
 
                      User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
                         'banner' =>  $banner_photo,
@@ -243,18 +254,23 @@ class vendorController extends Controller
 
     function coupon_store(Request $request){
         $request->validate([
-            'coupon_code' => 'required',
+            'discount_message' => 'required',
+            'coupon_code' => 'required|max:6',
             'coupon_amount' => 'required',
             'minimum_price' => 'integer',
             'coupon_amount' => 'integer',
             ]);
 
-
-        Coupon::create($request->except('_token')+['vendor_id' => auth()->user()->id]);
+        if(auth()->user()->role =='vendor'){
+            Coupon::create($request->except('_token')+['vendor_id' => auth()->user()->id]);
+        }else{
+            Coupon::create($request->except('_token')+['vendor_id' => auth()->user()->vendor_id]);
+        }
 
         return back()->with('coupon_add_success','Successfully added a new coupon');
     }
     function coupon_delete($id){
+        // $expireDate=Coupon::find($id)->expire_date;
             Coupon::find($id)->delete();
             return back()->with('coupon_delete_message', 'Successfully deleted a coupon');
 
@@ -263,8 +279,13 @@ class vendorController extends Controller
         return view('vendor.settings');
     }
     function vendor_coupon_add_index(){
-        $coupons =  Coupon::where('vendor_id',auth()->user()->id)->get();
-        $coupon_count =  Coupon::where('vendor_id',auth()->user()->id)->count();
+        if(auth()->user()->role == 'vendor'){
+            $coupons =  Coupon::where('vendor_id',auth()->user()->id)->where('expire_date','>',Carbon::now())->get();
+            $coupon_count =  Coupon::where('vendor_id',auth()->user()->id)->count();
+        }else{
+            $coupons =  Coupon::where('vendor_id',auth()->user()->vendor_id)->get();
+            $coupon_count =  Coupon::where('vendor_id',auth()->user()->vendor_id)->count();
+        }
         return view('vendor.coupon_add',compact('coupons', 'coupon_count'));
     }
 
@@ -304,12 +325,16 @@ class vendorController extends Controller
 
     function vendor_product_upload(){
         return view('vendor.product_upload', [
-            'product_count' => Product::where('vendor_id',auth()->id())->count()
+            // 'product_count' => Product::where('vendor_id',auth()->id())->count(),
         ]);
     }
 
     function vendor_orders(){
+       if(auth()->user()->role == 'vendor'){
         $invoices = Invoice::where('vendor_id',auth()->id())->get();
+       }else{
+        $invoices = Invoice::where('vendor_id',auth()->user()->vendor_id)->get();
+       }
         return view('vendor.orders',compact('invoices'));
     }
 }

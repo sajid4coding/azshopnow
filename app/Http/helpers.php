@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Wishlist;
 use App\Models\General;
 use App\Models\Slider;
+use App\Models\Social;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Subscription;
@@ -968,4 +969,12 @@ function membership(){
 function subCategory($parentCategorySlug)
 {
     return SubCategory::where('parent_category_slug',$parentCategorySlug)->where('status','published')->get();
+}
+function staff($vendorid)
+{
+    return User::find($vendorid);
+}
+function socialLinks()
+{
+    return Social::all();
 }

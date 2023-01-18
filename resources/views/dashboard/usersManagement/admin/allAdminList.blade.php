@@ -7,88 +7,12 @@
 
 @section('content')
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::Toolbar-->
-    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
-        <!--begin::Toolbar container-->
-        <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
-            <!--begin::Page title-->
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl">
             <div class="row">
-                @if (auth()->user()->role=='admin')
-                    <div class="col-md-6">
-                        <div class="card my-5">
-                            <div class="card-body">
-                                <h3>Super Admin</h3>
-                                <hr>
-                                <div class="d-flex">
-                                    <!--begin::Thumbnail-->
-                                    <div class="symbol symbol-100px symbol-circle mb-7">
-                                        @if ($superAdmin->profile_photo)
-                                        <img src="{{asset('uploads/profile_photo')}}/{{$superAdmin->profile_photo}}" alt="image">
-                                        @else
-                                        <img src="{{asset('uploads/profile_photo/default.png')}}" alt="image">
-                                        @endif
-                                    </div>
-                                    <!--end::Thumbnail-->
-                                    <div class="ms-5">
-                                        <!--begin::Title-->
-                                        <span class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">Name: {{ $superAdmin->name }}</span>
-                                        <!--end::Title-->
-                                        <!--begin::Description-->
-                                        <div class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">Email Address: {{ $superAdmin->email }}</div>
-                                        <div class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">Role: {{ Str::title($superAdmin->role) }}</div>
-                                        <!--end::Description-->
-                                    </div>
-                                </div>
-                                <hr>
-                                {{-- <div class="text-end">
-                                    <a href="{{route('adminmanagement.create')}}" class="btn btn-sm btn-primary">Add Editor</a>
-                                </div> --}}
-                            </div>
-                        </div>
-                        <!--begin::Title-->
-                        <!--end::Breadcrumb-->
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card my-5">
-                            <div class="card-body">
-                                <h3>Add Editor</h3>
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        @foreach ($errors->all() as $error )
-                                            <li>{{Str::title($error)}}</li>
-                                        @endforeach
-                                    </div>
-                                @endif
-                                <form action="{{route('adminmanagement.store')}}" method="POST" id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" enctype="multipart/form-data">
-                                    @csrf
-                                    <!--begin::Card body-->
-                                    <div class="card-body border-top p-9">
-                                        <div class="row mb-6">
-                                            <!--begin::Label-->
-                                            <label class=" col-form-label  fw-bold fs-6">Name</label>
-                                            <input type="text" name="name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" >
-                                            <!--end::Label-->
-                                        </div>
-                                        <div class="row mb-6">
-                                            <!--begin::Label-->
-                                            <label class=" col-form-label  fw-bold fs-6">Email Address</label>
-                                            <input type="email" name="email" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" >
-                                            <!--end::Label-->
-                                        </div>
-                                    </div>
-                                    <!--end::Card body-->
-                                    <!--begin::Actions-->
-                                        <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                            <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Add</button>
-                                        </div>
-                                    <!--end::Actions-->
-                                    <input type="hidden"><div></div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @else
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="card my-5">
                         <div class="card-body">
                             <h3>Super Admin</h3>
@@ -122,18 +46,67 @@
                     <!--begin::Title-->
                     <!--end::Breadcrumb-->
                 </div>
-                @endif
             </div>
-            <!--end::Page title-->
-        </div>
-        <!--end::Toolbar container-->
-    </div>
-    <!--end::Toolbar-->
-    <!--begin::Content-->
-    <div id="kt_app_content" class="app-content flex-column-fluid">
-        <!--begin::Content container-->
-        <div id="kt_app_content_container" class="app-container container-xxl">
-            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Admin Users List</h1>
+            <div class="row my-5">
+                <div class="col-md-12">
+                    <div class="card my-5">
+                        <div class="card-body">
+                            <h3>Add Editor</h3>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error )
+                                        <li>{{Str::title($error)}}</li>
+                                    @endforeach
+                                </div>
+                            @endif
+                            <form action="{{route('adminmanagement.store')}}" method="POST" id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" enctype="multipart/form-data">
+                                @csrf
+                                <!--begin::Card body-->
+                                <div class="card-body border-top p-9">
+                                    <div class="row mb-6">
+                                        <!--begin::Label-->
+                                        <label class=" col-form-label  fw-bold fs-6">Name</label>
+                                        <input type="text" name="name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" >
+                                        <!--end::Label-->
+                                    </div>
+                                    <div class="row mb-6">
+                                        <!--begin::Label-->
+                                        <label class=" col-form-label  fw-bold fs-6">Email Address</label>
+                                        <input type="email" name="email" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" >
+                                        <!--end::Label-->
+                                    </div>
+                                    <div class="row mb-6">
+                                        <label class=" col-form-label  fw-bold fs-6">Role</label>
+                                        <Select class="form-select" name="role">
+                                            @foreach ($roles as $role)
+                                                <option value="{{$role->id}}">{{$role->name}}</option>
+                                            @endforeach
+                                        </Select>
+                                    </div>
+                                    <div class="row mb-6">
+                                        <div class="col-md-12">
+                                            @foreach ($permissions as $permission)
+                                                <div class="d-inline-block" style="font-size:16px!important">
+                                                    <input class="from-control" id="{{$permission->name}}" type="checkbox" name="permission[]" value="{{$permission->id}}"> <label for="{{$permission->name}}">{{$permission->name}}</label>
+                                                </div> &nbsp;
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end::Card body-->
+                                <!--begin::Actions-->
+                                    <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Add Staff</button>
+                                    </div>
+                                <!--end::Actions-->
+                                <input type="hidden"><div></div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--end::Breadcrumb-->
+                </div>
+            </div>
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Admin Staffs List</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -148,7 +121,7 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">Editors</li>
+                    <li class="breadcrumb-item text-muted">Staffs</li>
                     <!--end::Item-->
                 </ul>
             <!--begin::Category-->
@@ -187,6 +160,7 @@
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th class="min-w-250px sorting">Details</th>
                                     <th class="min-w-150px sorting">Status</th>
+                                    <th class="min-w-150px sorting">Permission</th>
                                     <th class="text-end min-w-70px sorting_disabled">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -197,6 +171,10 @@
 
                                 <!--end::Table row-->
                                 @foreach ($editors as $editor)
+                                @php
+                                    $roleID=DB::table('model_has_roles')->where('model_id',$editor->id)->first()->role_id;
+                                    $permissionsId=DB::table('role_has_permissions')->where('role_id',$roleID)->get();
+                                @endphp
                                     <tr class="odd">
                                         <!--begin::Category=-->
                                         <td>
@@ -214,6 +192,8 @@
                                                     <!--end::Title-->
                                                     <!--begin::Description-->
                                                     <div class="text-muted fs-7 fw-bold">{{ $editor->email }}</div>
+                                                    <div></div>
+                                                    <span class="badge bg-primary text-warning"><span class="text-light">Role: &nbsp;</span> {{Str::title(DB::table('roles')->where('id',$roleID)->first()->name)}}</span>
                                                     <!--end::Description-->
                                                 </div>
                                             </div>
@@ -228,6 +208,12 @@
                                                 <div class="badge badge-light-success">{{ Str::title($editor->status) }}</div>
                                             @endif
                                             <!--end::Badges-->
+                                        </td>
+                                        <td>
+                                            @foreach ($permissionsId as $permission)
+                                                <span class="badge badge-light-success"> {{DB::table('permissions')->where('id',$permission->permission_id)->first()->name}}</span>
+                                            @endforeach
+
                                         </td>
                                         <!--end::Type=-->
                                         <!--begin::Action=-->
