@@ -71,6 +71,60 @@
 .banner-area .slick-dots .slick-active button::after{
     background: #ec4d37;
 }
+.best-sell-nav .slick-dots{
+    position: absolute;
+    bottom: -50px;
+    right: 50%;
+    transform: translateX(50%);
+    -webkit-transform: translateX(50%);
+    -moz-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    -o-transform: translateX(50%);
+}
+.best-sell-nav .slick-dots li{
+   display: inline-block;
+   margin-right: 15px;
+}
+.best-sell-nav .slick-dots li button{
+    font-size: 0px;
+    width: 12px;
+    height: 12px;
+    border: none;
+    background-color: #ec4c3770;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    position: relative;
+}
+.best-sell-nav .slick-dots li button::after{
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: transparent;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%,50%);
+    content: "";
+    -webkit-transform: translate(-50%,50%);
+    -moz-transform: translate(-50%,50%);
+    -ms-transform: translate(-50%,50%);
+    -o-transform: translate(-50%,50%);
+    transition: .4s all ease-in-out;
+    -webkit-transition: .4s all ease-in-out;
+    -moz-transition: .4s all ease-in-out;
+    -ms-transition: .4s all ease-in-out;
+    -o-transition: .4s all ease-in-out;
+}
+.best-sell-nav .slick-dots .slick-active button::after{
+    background: #ec4d37;
+}
  </style>
 @endsection
 @section('content')
@@ -752,7 +806,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="best-sell-nav">
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <ul class="nav nav-tabs best_vendor_slider" id="myTab" role="tablist">
                                     @foreach ($bestCategories as $bestCategory)
                                         <li class="nav-item" role="presentation">
                                             <a href="{{route('listOfVendors',['slug'=>$bestCategory->slug])}}" class="nav-link" id="all-tab">

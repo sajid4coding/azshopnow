@@ -143,95 +143,98 @@
     												<a href="{{ route('general.slider') }}"><span class="menu-title">Slider </span></a>
     											</span>
     										</div>
-    									</div>
-    								</div>
-                                @endcan
-								@can ('admin-Pages')
-                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                        <span class="menu-link">
-                                            <span class="menu-icon">
-
-                                                <i class="fas fa-pager"></i>
-
-                                            </span>
-                                            <span class="menu-title">Pages</span>
-                                            <span class="menu-arrow"></span>
-                                        </span>
-                                        <div class="menu-sub menu-sub-accordion menu-active-bg">
-                                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            <div  class="menu-item menu-accordion @if ($current_page == 'dashboard-slider') here show @endif">
                                                 <span class="menu-link">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">User Profile</span>
-                                                    <span class="menu-arrow"></span>
+                                                    <a href="{{ route('general.slider') }}"><span class="menu-title">Slider </span></a>
                                                 </span>
-                                                <div class="menu-sub menu-sub-accordion menu-active-bg">
-                                                    <div class="menu-item">
-                                                        <a class="menu-link" href="../../demo1/dist/pages/user-profile/overview.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Overview</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link" href="../../demo1/dist/pages/user-profile/projects.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Projects</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link" href="../../demo1/dist/pages/user-profile/campaigns.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Campaigns</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link" href="../../demo1/dist/pages/user-profile/documents.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Documents</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link" href="../../demo1/dist/pages/user-profile/followers.html">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Followers</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item">
-                                                        <a class="menu-link" href="{{ route('category.index') }}">
-                                                            <span class="menu-bullet">
-                                                                <span class="bullet bullet-dot"></span>
-                                                            </span>
-                                                            <span class="menu-title">Activity</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="menu-sub menu-sub-accordion menu-active-bg">
-                                            <div  class="menu-item menu-accordion">
-
-                                                    <a class="menu-link" href="{{ route('banner.edit') }}">
+                                            <div  class="menu-item menu-accordion @if ($current_page == 'dashboard-social-link') here show @endif">
+                                                <span class="menu-link">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
-                                                    <span class="menu-title">Banners</span>
-                                                    </a>
-
+                                                    <a href="{{ route('general.social.link') }}"><span class="menu-title">Social Link </span></a>
+                                                </span>
                                             </div>
-                                        </div>
-                                    </div>
+                                            <div  class="menu-item menu-accordion @if ($current_page == 'dashboard-contact-info') here show @endif">
+                                                <span class="menu-link">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <a href="{{ route('general.contact.info') }}"><span class="menu-title">Contact Us Info </span></a>
+                                                </span>
+                                            </div>
+
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                                <div  class="menu-item menu-accordion">
+                                                        <a class="menu-link" href="{{ route('banner.edit') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Banners</span>
+                                                        </a>
+                                                </div>
+                                            </div>
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                                    <span class="menu-link">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Error Pages</span>
+                                                        <span class="menu-arrow"></span>
+                                                    </span>
+                                                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                                        <div  class="menu-item menu-accordion @if ($current_page == 'dashboard-contact-info') here show @endif">
+                                                            <span class="menu-link">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                                                <a href="{{ route('401.error') }}"><span class="menu-title">401 page </span></a>
+                                                            </span>
+                                                        </div>
+                                                        <div  class="menu-item menu-accordion @if ($current_page == 'dashboard-contact-info') here show @endif">
+                                                            <span class="menu-link">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                                                <a href="{{ route('403.error') }}"><span class="menu-title">403 page </span></a>
+                                                            </span>
+                                                        </div>
+                                                        <div  class="menu-item menu-accordion @if ($current_page == 'dashboard-contact-info') here show @endif">
+                                                            <span class="menu-link">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                                                <a href="{{ route('404.error') }}"><span class="menu-title">404 page </span></a>
+                                                            </span>
+                                                        </div>
+                                                        <div  class="menu-item menu-accordion @if ($current_page == 'dashboard-contact-info') here show @endif">
+                                                            <span class="menu-link">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                                                <a href="{{ route('502.error') }}"><span class="menu-title">502 page </span></a>
+                                                            </span>
+                                                        </div>
+                                                        <div  class="menu-item menu-accordion @if ($current_page == 'dashboard-contact-info') here show @endif">
+                                                            <span class="menu-link">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                                                <a href="{{ route('503.error') }}"><span class="menu-title">503 page </span></a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    									</div>
+    								</div>
                                 @endcan
+								
                                 @can ('admin-Product Management')
                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">

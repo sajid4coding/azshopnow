@@ -4,6 +4,9 @@
     .coupon-btn:hover:after{
         left: -45px !important;
     }
+    .coupon-btn .get-code {
+        top: -10px;
+    }
 </style>
 @endsection
 @section('content')
