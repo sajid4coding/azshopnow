@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Intervention\Image\Facades\Image;
 use App\Exports\DailyInvoicesExport;
 use App\Exports\ExportNewslettter;
 use App\Exports\MonthlyInvoicesExport;
@@ -21,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CampaignNotification;
+use App\Models\DeliveryBoy;
 use App\Models\Newsletter;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -250,4 +252,127 @@ class DashboardController extends Controller
     function exportNewslettter(){
         return Excel::download(new ExportNewslettter(), 'newslettersList.xlsx');
     }
+    function deliveryBoyAdd(){
+        return view('dashboard.deliveryBoy.delivery_boy');
+    }
+    function deliveryBoyPost(Request $request){
+
+
+         $request->validate([
+            "name" => 'required',
+            "email" => 'required|email',
+            "phone_number" => 'required',
+            'photo' => 'mimes:png,jpg|dimensions:max_width=350,max_height=350',
+            "address" => 'required',
+        ]);
+
+        if($request->hasFile('photo')){
+            $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('photo')->getClientOriginalExtension();
+            $img = Image::make($request->file('photo'));
+            $img->save(base_path('public/uploads/delivery_boy_photo/'.$photo), 60);
+
+            DeliveryBoy::insert([
+                "name" => $request->name,
+                "email" => $request->email,
+                "phone_number" => $request->phone_number,
+                "photo" => $photo,
+                "date_of_birth" => $request->date_of_birth,
+                "Birth_reg_number" => $request->Birth_reg_number,
+                "nid_id" => $request->nid_id,
+                "address" => $request->address,
+                'created_at' => Carbon::now(),
+            ]);
+        }else{
+            DeliveryBoy::insert([
+                "name" => $request->name,
+                "email" => $request->email,
+                "phone_number" => $request->phone_number,
+                "date_of_birth" => $request->date_of_birth,
+                "Birth_reg_number" => $request->Birth_reg_number,
+                "nid_id" => $request->nid_id,
+                "address" => $request->address,
+                'created_at' => Carbon::now(),
+            ]);
+        }
+        return back()->with('add_success_message','Successfully added a new delivery boy');
+    }
+    function deliveryBoyList(){
+        return view('dashboard.deliveryBoy.delivery_boy_list',[
+            'delivery_boys' => DeliveryBoy::all(),
+        ]);
+    }
+    function deliveryBoyOutOfWorkList(){
+        return view('dashboard.deliveryBoy.delivery_boy_out_work_list',[
+            'delivery_boys' => DeliveryBoy::all(),
+        ]);
+    }
+    function deliveryBoyOutOfWorkPost(Request $request,$id){
+          $request->validate([
+            'reason_out_of_work' => 'required'
+          ]);
+        DeliveryBoy::find($id)->update([
+            'status' => 'out_of_work',
+            'reason_out_of_work' =>  $request->reason_out_of_work,
+            'updated_at' =>  Carbon::now(),
+        ]);
+        return redirect('delivery/boy/list')->with('out_of_work','Successfully out of work this boy!');
+    }
+    function deliveryBoyDelete($id){
+
+        DeliveryBoy::find($id)->Delete();
+        return redirect('out-of-work/list')->with('out_of_work_delete','Permanently delete this info!');
+    }
+    function deliveryBoyOutOfWork($id){
+
+        return view('dashboard.deliveryBoy.delivery_boy_out_of_work',[
+            'delivery_boy' =>DeliveryBoy::find($id),
+        ]);
+    }
+    function deliveryBoyEdit($id){
+
+        return view('dashboard.deliveryBoy.delivery_boy_edit',[
+            'delivery_boy' =>DeliveryBoy::find($id),
+        ]);
+    }
+    function deliveryBoyEditPost(Request $request,$id){
+
+
+        $request->validate([
+           "name" => 'required',
+           "email" => 'required|email',
+           "phone_number" => 'required',
+           'photo' => 'mimes:png,jpg|dimensions:max_width=350,max_height=350',
+           "address" => 'required',
+       ]);
+
+       if($request->hasFile('photo')){
+           $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('photo')->getClientOriginalExtension();
+           $img = Image::make($request->file('photo'));
+           $img->save(base_path('public/uploads/delivery_boy_photo/'.$photo), 60);
+
+           DeliveryBoy::find($id)->update([
+               "name" => $request->name,
+               "email" => $request->email,
+               "phone_number" => $request->phone_number,
+               "photo" => $photo,
+               "date_of_birth" => $request->date_of_birth,
+               "Birth_reg_number" => $request->Birth_reg_number,
+               "nid_id" => $request->nid_id,
+               "address" => $request->address,
+               'created_at' => Carbon::now(),
+           ]);
+       }else{
+           DeliveryBoy::find($id)->update([
+               "name" => $request->name,
+               "email" => $request->email,
+               "phone_number" => $request->phone_number,
+               "date_of_birth" => $request->date_of_birth,
+               "Birth_reg_number" => $request->Birth_reg_number,
+               "nid_id" => $request->nid_id,
+               "address" => $request->address,
+               'created_at' => Carbon::now(),
+           ]);
+       }
+       return redirect('delivery/boy/list')->with('update_success_message','Successfully update a delivery boy profile');
+   }
 }
