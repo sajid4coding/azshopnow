@@ -385,7 +385,7 @@
 								</div>
 
                                 @can ('admin-General Settings')
-                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
      									<span class="menu-link">
      										<span class="menu-icon">
      											<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm001.svg-->
@@ -500,6 +500,45 @@
                                                 </div>
                                             </div>
     									</div>
+    								</div>
+                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            <span class="menu-link">
+                                                <span class="menu-icon">
+                                                    <i class="fas fa-truck"></i>
+                                                </span>
+                                                <span class="menu-title">Delivery Boy</span>
+                                                <span class="menu-arrow"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'delivery/boy/add' || $current_page == 'pending-products' || $current_page == 'banned-products') here show @endif">
+                                                <div class="menu-item @if ($current_page == 'delivery/boy/add') here show @endif">
+                                                    <a class="menu-link" href="{{ route('delivery.boy.add') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Add Delivery boy</span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item @if ($current_page == 'delivery/boy/add') here show @endif">
+                                                    <a class="menu-link" href="{{ route('delivery.boy.list') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Delivery boy List</span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item @if ($current_page == 'delivery/boy/add') here show @endif">
+                                                    <a class="menu-link" href="{{ route('delivery.boy.out.of.work.list') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Out of Work List</span>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
     								</div>
                                 @endcan
 
@@ -646,7 +685,7 @@
 				</div>
 				<!--end::Aside-->
 				<!--begin::Wrapper-->
-				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper" style="padding-top:50px !important;">
 					<!--begin::Header-->
 					<div id="kt_header" style="" class="header align-items-stretch">
 						<!--begin::Container-->
