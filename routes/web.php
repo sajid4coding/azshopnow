@@ -178,7 +178,22 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::get('general-settings/404',[GeneralController::class,'Error404'])->name('404.error');
         Route::get('general-settings/502',[GeneralController::class,'Error502'])->name('502.error');
         Route::get('general-settings/503',[GeneralController::class,'Error503'])->name('503.error');
-        //GENERAL SETTINGS ROUTE ENDD
+
+  //GENERAL SETTINGS ROUTE END
+
+  //DELIVERY BOY ROUTE START
+
+        Route::get('delivery/boy/add',[DashboardController::class,'deliveryBoyAdd'])->name('delivery.boy.add');
+        Route::post('delivery/boy/post',[DashboardController::class,'deliveryBoyPost'])->name('delivery.boy.post');
+        Route::get('delivery/boy/list',[DashboardController::class,'deliveryBoyList'])->name('delivery.boy.list');
+        Route::get('delivery/boy/edit/{id}',[DashboardController::class,'deliveryBoyEdit'])->name('delivery.boy.edit');
+        Route::get('delivery/boy/out-of-work/{id}',[DashboardController::class,'deliveryBoyOutOfWork'])->name('delivery.boy.out.of.work');
+        Route::get('out-of-work/list',[DashboardController::class,'deliveryBoyOutOfWorkList'])->name('delivery.boy.out.of.work.list');
+        Route::post('delivery/boy/out-of-work/post/{id}',[DashboardController::class,'deliveryBoyOutOfWorkPost'])->name('delivery.boy.out.work.post');
+        Route::post('delivery/boy/post/{id}',[DashboardController::class,'deliveryBoyEditPost'])->name('delivery.boy.edit.post');
+        Route::get('delivery/boy/delete/{id}',[DashboardController::class,'deliveryBoyDelete'])->name('delivery.boy.delete');
+
+  //DELIVERY BOY ROUTE END
     });
 
 });
