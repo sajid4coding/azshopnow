@@ -978,3 +978,7 @@ function socialLinks()
 {
     return Social::all();
 }
+function mostViewedProducts()
+{
+    return Product::where('status','published')->where('vendorProductStatus','published')->orderBy('product_views','DESC')->limit(3)->get();
+}

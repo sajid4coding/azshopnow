@@ -444,7 +444,7 @@
                                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
                                                 <div class="add-banner">
                                                     <div class="add-banner-img mb-20">
-                                                        <a href="shop.html"><img src="{{ asset('uploads') }}/category_photo/{{ $category->thumbnail }}" alt="img"></a>
+                                                        <a href="{{route('category.product',$category->slug)}}"><img src="{{ asset('uploads') }}/category_photo/{{ $category->thumbnail }}" alt="img"></a>
                                                     </div>
                                                     <div class="add-banner-content">
                                                     </div>
