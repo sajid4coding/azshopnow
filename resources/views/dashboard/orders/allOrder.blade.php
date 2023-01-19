@@ -32,13 +32,13 @@
 @endsection
 @section('content')
 
-<div class=" d-flex flex-column flex-column-fluid" id="kt_content">
+<div class="container">
     <!--begin::Toolbar-->
-    <div id="kt_app_toolbar" class="app-toolbar pb-3 py-lg-6">
+    <div id="kt_app_toolbar" class="app-toolbar pb-3 py-lg-6 px-0 mx-0">
         <!--begin::Toolbar container-->
-        <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+        <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack px-0 mx-0">
             <!--begin::Page title-->
-            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <div class="page-title d-flex flex-column justify-content-center flex-wrap px-1 mx-1">
                 <!--begin::Title-->
                 <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">All Order</h1>
                 <!--end::Title-->
@@ -73,15 +73,14 @@
 
 
                 <!--begin::Card body-->
-                <div class="container">
+                <div class="card">
                 <div class="row gap-0 ">
                     <!--begin::Table-->
-
                     <div class="col-xxl-4 col-xl-4 col-md-4">
                         <!--begin::Mixed Widget 2-->
-                        <div class="card card_hover card-xl-stretch mb-xl-8" style="background: linear-gradient(90deg, rgb(28, 18, 205) 0%, rgba(23,23,199,1) 100%, rgba(0,212,255,1) 100%);">
+                        <div class="card card_hover card-xl-stretch mb-xl-8 bg-success">
                             <!--begin::Header-->
-                            <div class="card-header border-0 text-center py-5" style="background: linear-gradient(90deg, rgb(28, 18, 205) 0%, rgba(23,23,199,1) 100%, rgba(0,212,255,1) 100%);">
+                            <div class="card-header border-0 text-center py-5 bg-success">
                                 {{-- <i  style="margin: 0 auto;font-size:50px;color:rgb(255, 255, 255)" class="fas fa-users"></i> --}}
                                 <img width="50px" style="margin: 0 auto;" src="{{ asset('dashboard_assets/media/order/004-processing.png') }}" alt="tax">
                             </div>
@@ -106,7 +105,7 @@
                     </div>
                     <div class="col-xxl-4 col-xl-4 col-md-4">
                         <!--begin::Mixed Widget 2-->
-                        <div class="card card_hover card-xl-stretch mb-xl-8" style="background: linear-gradient(90deg, rgb(205, 18, 49) 0%, rgb(199, 23, 23) 100%, rgb(255, 0, 0) 100%);">
+                        <div class="card card_hover card-xl-stretch mb-xl-8 bg-primary" >
                             <!--begin::Header-->
                             <div class="card-header border-0 text-center py-5" >
                                 {{-- <i  style="margin: 0 auto;font-size:50px;color:rgb(255, 255, 255)" class="fas fa-users"></i> --}}
@@ -133,9 +132,9 @@
                     </div>
                     <div class="col-xxl-4 col-xl-4 col-md-4">
                         <!--begin::Mixed Widget 2-->
-                        <div class="card card_hover card-xl-stretch mb-xl-8" style="background: linear-gradient(90deg, rgb(28, 18, 205) 0%, rgba(23,23,199,1) 100%, rgba(0,212,255,1) 100%);">
+                        <div class="card card_hover card-xl-stretch mb-xl-8 bg-info">
                             <!--begin::Header-->
-                            <div class="card-header border-0 text-center py-5" style="background: linear-gradient(90deg, rgb(28, 18, 205) 0%, rgba(23,23,199,1) 100%, rgba(0,212,255,1) 100%);">
+                            <div class="card-header border-0 text-center py-5">
                                 {{-- <i  style="margin: 0 auto;font-size:50px;color:rgb(255, 255, 255)" class="fas fa-users"></i> --}}
                                 <img width="50px" style="margin: 0 auto;" src="{{ asset('dashboard_assets/media/order/004-processing.png') }}" alt="tax">
                             </div>
@@ -160,7 +159,7 @@
                     </div>
                     <div class="col-xxl-4 col-xl-4 col-md-4">
                         <!--begin::Mixed Widget 2-->
-                        <div class="card card_hover card-xl-stretch mb-xl-8" style="background: linear-gradient(90deg, rgb(205, 18, 49) 0%, rgb(199, 23, 23) 100%, rgb(255, 0, 0) 100%);">
+                        <div class="card card_hover card-xl-stretch mb-xl-8 bg-warning">
                             <!--begin::Header-->
                             <div class="card-header border-0 text-center py-5" >
                                 {{-- <i  style="margin: 0 auto;font-size:50px;color:rgb(255, 255, 255)" class="fas fa-users"></i> --}}
@@ -212,10 +211,9 @@
                         </div>
                         <!--end::Mixed Widget 2-->
                     </div>
-
                     <div class="col-xxl-4 col-xl-4 col-md-4">
                         <!--begin::Mixed Widget 2-->
-                        <div class="card card_hover card-xl-stretch mb-xl-8" style="background: linear-gradient(90deg, rgb(205, 18, 18) 0%, rgb(199, 96, 23) 100%, rgb(255, 64, 0) 100%);">
+                        <div class="card card_hover card-xl-stretch mb-xl-8 bg-danger">
                             <!--begin::Header-->
                             <div class="card-header border-0 text-center py-5">
                                 {{-- <i  style="margin: 0 auto;font-size:50px;color:rgb(255, 255, 255)" class="fas fa-users"></i> --}}
@@ -242,7 +240,7 @@
                     </div>
                     <div class="col-md-6">
                         <!--begin::Mixed Widget 2-->
-                        <h2  class="bg-primary p-3 my-5 text-light">Latest 10 Processing Order</h2>
+                        <h2  class="bg-primary p-3 my-5 text-light">Latest Processing Order</h2>
                         <div class="card card-xl-stretch mb-xl-8" style="background: #f2f2f2">
                             <table class="table">
                                 <thead>
@@ -316,7 +314,7 @@
                     </div>
                     <div class="col-md-6">
                         <!--begin::Mixed Widget 2-->
-                        <h2 class="bg-primary p-3 my-5 text-light">Latest 10 Delivered Order</h2>
+                        <h2 class="bg-primary p-3 my-5 text-light">Latest Delivered Order</h2>
                         <div class="card card-xl-stretch mb-xl-8" style="background: #f2f2f2">
                             <table class="table">
                                 <thead>
