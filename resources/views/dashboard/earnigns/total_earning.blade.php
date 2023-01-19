@@ -5,7 +5,7 @@
     <div class="col-xl-4">
         <div class="row">
             <div class="col-md-6">
-                <div class="card card-xl-stretch mb-xl-8 bg-info">
+                <div class="card card-xl-stretch mb-xl-8 bg-info py-3">
                     <!--begin::Header-->
                     <div class="card-header border-0 bg-info text-center py-5">
                         <img width="50px" style="margin: 0 auto;" src="{{ asset('dashboard_assets/media/icons/earning.png') }}" alt="earning">
@@ -18,7 +18,7 @@
 
                              <div class="text-white text-center">
                                 <h3 class="text-light"><a style="font-size: 14px; color:#ffffff;display:block; margin-top:20px">Total Earnings</a></h3>
-                               <p class="text-light"> <span style='font-size:35px;color:rgb(255, 255, 255)'>${{ $invoices->sum('total_price') }}</span></p>
+                               <p class="text-light"> <span style='font-size:18px;color:rgb(255, 255, 255)'>${{ $invoices->sum('total_price') }}</span></p>
 
 
 
