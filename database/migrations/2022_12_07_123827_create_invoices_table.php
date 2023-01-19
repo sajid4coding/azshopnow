@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('payment_method');
             $table->string('payment')->default('unpaid');
             $table->string('order_status')->default('processing');
+            $table->string('withdraw_status')->default('not yet requested withdrawal');
             $table->timestamps();
             $table->SoftDeletes();
         });

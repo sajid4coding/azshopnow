@@ -305,31 +305,31 @@
                  @if (auth()->user()->role=='customer')
                     @if ($inventories->size && $inventories->color)
                         @if ($inventoryPrice == 1)
-                           <button wire:click='addtocartWithSizeColor' class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                           <button wire:click='addtocartWithSizeColor' class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
                         {{-- @elseif () --}}
                         @else
-                           <button id="selectVariationFirst" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                           <button id="selectVariationFirst" class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
                         @endif
                     @elseif ($inventories->size && $inventories->color==NULL)
                         @if ($justSize)
-                            <button wire:click="addcartwithjustSize({{$inventories->id}})" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                            <button wire:click="addcartwithjustSize({{$inventories->id}})" class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
                         @else
-                            <button id="selectVariationFirst" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                            <button id="selectVariationFirst" class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
                         @endif
                     @elseif ($inventories->size==NULL && $inventories->color)
                         @if ($justColor)
-                            <button wire:click="addcartwithjustcolor({{$inventories->id}})" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                            <button wire:click="addcartwithjustcolor({{$inventories->id}})" class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
                         @else
-                            <button id="selectVariationFirst" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                            <button id="selectVariationFirst" class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
                         @endif
                     @else
-                        <button wire:click='addtocart({{$inventories->id}})' class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                        <button wire:click='addtocart({{$inventories->id}})' class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
                     @endif
                 @else
-                <button id="not_customer" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                <button id="not_customer" class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
                 @endif
              @else
-                 <button id="not_logged_in" class="btn"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
+                 <button id="not_logged_in" class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add to Cart</button>
              @endauth
              {{-- <a href="shop-details.html" class="cart-btn">Buy now</a> --}}
          </div>

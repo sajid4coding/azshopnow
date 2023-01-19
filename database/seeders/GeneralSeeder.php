@@ -16,7 +16,9 @@ class GeneralSeeder extends Seeder
     public function run()
     {
         DB::table('generals')->insert([
-            'website_title' => null,
+            'website_title' => 'Az Shop',
+            'seller_commission' => 20,
+            'minimum_amount_withdraw' => 50,
             'copyright_text' => null,
             'capcha_status' => null,
             'twak_io_status' => null,

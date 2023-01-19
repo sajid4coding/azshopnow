@@ -50,6 +50,7 @@ class PlanController extends Controller
         $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)->create($request->token);
         User::where('id', auth()->id())->update([
             'dashboard_access' => 'active',
+            'status' => 'active',
         ]);
         return redirect('/vendor/dashboard')->with('registrion_success','Your registation successfully & Subscription purchase successful!');
     }

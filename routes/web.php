@@ -75,41 +75,47 @@ Route::middleware(['admin', 'verified'])->group(function () {
     });
 
     Route::group(['middleware' => ['can:admin-Order Management']], function () {
-        Route::get('admin/order/details/{id}',[DashboardController::class,'OrderDetails'])->name('order.details');
-        Route::get('admin/all/order',[DashboardController::class,'AllOrder'])->name('all.order');
-        Route::get('admin/delivered-order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
-        Route::get('admin/pending-order',[DashboardController::class,'PendingOrder'])->name('pending.order');
-        Route::get('admin/processing-order',[DashboardController::class,'ProcessingOrder'])->name('processing.order');
-        Route::get('admin/canceled-order',[DashboardController::class,'CanceledOrder'])->name('canceled.order');
-        Route::get('admin/order/delete/{id}',[DashboardController::class,'OrderDelete'])->name('order.delete');
+        Route::get('manage-order/order-details/{id}',[DashboardController::class,'OrderDetails'])->name('order.details');
+        Route::get('manage-order/all-order',[DashboardController::class,'AllOrder'])->name('all.order');
+        Route::get('manage-order/delivered-order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
+        Route::get('manage-order/pending-order',[DashboardController::class,'PendingOrder'])->name('pending.order');
+        Route::get('manage-order/processing-order',[DashboardController::class,'ProcessingOrder'])->name('processing.order');
+        Route::get('manage-order/canceled-order',[DashboardController::class,'CanceledOrder'])->name('canceled.order');
+        Route::get('manage-order/order-delete/{id}',[DashboardController::class,'OrderDelete'])->name('order.delete');
     });
 
     Route::group(['middleware' => ['can:admin-Earnings']], function () {
-        Route::get('admin/total-earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
-        Route::get('admin/tax-earning',[DashboardController::class,'TaxEarning'])->name('tax.earning');
-        Route::get('admin/subscription-earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
-        Route::get('admin/commission-earning',[DashboardController::class,'CommissionEarning'])->name('commission.earning');
-        Route::post('admin/year-order-details',[DashboardController::class,'yearInvoiceDownload'])->name('year.invoice.download');
-        Route::post('admin/monthly-order-details',[DashboardController::class,'monthlyInvoiceDownload'])->name('monthly.invoice.download');
-        Route::post('admin/day-order-details',[DashboardController::class,'dayInvoiceDownload'])->name('day.invoice.download');
-        Route::get('admin/invoice-download/{id}', [DashboardController::class, 'invoice_download'])->name('admin.invoice.download');
+        Route::get('manage-earning/total-earning',[DashboardController::class,'TotalEarning'])->name('total.earning');
+        Route::get('manage-earning/tax-earning',[DashboardController::class,'TaxEarning'])->name('tax.earning');
+        Route::get('manage-earning/subscription-earning',[DashboardController::class,'SubscriptionEarning'])->name('subscription.earning');
+        Route::get('manage-earning/commission-earning',[DashboardController::class,'CommissionEarning'])->name('commission.earning');
+        Route::post('manage-earning/year-order-details',[DashboardController::class,'yearInvoiceDownload'])->name('year.invoice.download');
+        Route::post('manage-earning/monthly-order-details',[DashboardController::class,'monthlyInvoiceDownload'])->name('monthly.invoice.download');
+        Route::post('manage-earning/day-order-details',[DashboardController::class,'dayInvoiceDownload'])->name('day.invoice.download');
+        Route::get('manage-earning/invoice-download/{id}', [DashboardController::class, 'invoice_download'])->name('admin.invoice.download');
     });
 
     //PackagingController Resource
     Route::group(['middleware' => ['can:admin-Packaging']], function () {
-        Route::resource('packaging', PackagingController::class);
+        Route::resource('manage-packaging/packaging', PackagingController::class);
+    });
+
+    Route::group(['middleware' => ['can:admin-Packaging']], function () {
+        Route::get('manage-commission/commission', [DashboardController::class, 'commission'])->name('commission');
+        Route::post('manage-commission/commission-save', [DashboardController::class, 'commission_save'])->name('commission.save');
+        Route::post('manage-commission/minimum-seller-amount-withdraw-save', [DashboardController::class, 'minimum_seller_amount_withdraw'])->name('minimum.seller.amount.withdraw');
     });
 
     //CategoryController Resource
     //SubCategoryController Resource
     Route::group(['middleware' => ['can:admin-Product Catalog']], function () {
-        Route::resource('category', CategoryController::class);
-        Route::resource('subcategory', SubCategoryController::class);
+        Route::resource('manage-category/category', CategoryController::class);
+        Route::resource('manage-subcategory/subcategory', SubCategoryController::class);
     });
 
     //SubCategoryController Resource
     Route::group(['middleware' => ['can:admin-Shipping']], function () {
-        Route::resource('shipping',ShippingController::class);
+        Route::resource('manage-shipping/shipping',ShippingController::class);
     });
     //VendormanagementController Resource
     Route::group(['middleware' => ['can:admin-Vendor Management']], function () {
@@ -146,8 +152,8 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //Newslatter Route
     Route::group(['middleware' => ['can:admin-Newsletter Management']], function () {
-        Route::get('admin/newsletter-list', [DashboardController::class, 'newslettter'])->name('newsletters');
-        Route::post('admin/newsletter-list', [DashboardController::class, 'exportNewslettter'])->name('export.newsletters');
+        Route::get('manage-subscriber/newsletter-list', [DashboardController::class, 'newslettter'])->name('newsletters');
+        Route::post('manage-subscriber/newsletter-list', [DashboardController::class, 'exportNewslettter'])->name('export.newsletters');
     });
     //General Settings Route
     Route::group(['middleware' => ['can:admin-General Settings']], function () {
@@ -228,6 +234,12 @@ Route::middleware(['vendor'])->group(function(){
         Route::get('vendor/order',[VendorController::class,'vendor_orders'])->name('vendor.orders');
     });
 
+    Route::group(['middleware' => ['can:vendor-earning']], function () {
+        Route::get('vendor-earning',[VendorController::class,'vendor_earning'])->name('vendor.earning');
+        Route::post('vendor-earning/withdrawal-request',[VendorController::class,'withdrawal_request'])->name('vendor.withdrawal.request');
+        Route::post('vendor-earning/withdrawal',[VendorController::class,'withdrawal'])->name('vendor.withdrawal');
+    });
+
     Route::group(['middleware' => ['can:vendor-product management']], function () {
 
         Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
@@ -248,14 +260,6 @@ Route::middleware(['vendor'])->group(function(){
         Route::post('add_inventory/{product}', [InventoryController::class, 'add_inventory'])->name('add_inventory');
         Route::get('delete_inventory/{id}', [InventoryController::class, 'delete_inventory'])->name('delete_inventory');
     });
-
-
-
-    //Vendor Shipping Route
-    Route::resource('vendor-shipping', VendorShippingController::class);
-
-    //Vendor Packaging Route
-    Route::resource('vendor-packaging', VendorPackagingController::class);
 
     Route::group(['middleware' => ['can:vendor-staff management']], function () {
 
