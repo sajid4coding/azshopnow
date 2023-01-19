@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VendorActivation;
 use App\Mail\VendorBan;
+use App\Models\General;
 use App\Models\Product;
+use App\Models\VendorPaymentRequest;
 
 class VendorsmanagementController extends Controller
 {
@@ -101,5 +103,43 @@ class VendorsmanagementController extends Controller
     {
         User::findOrFail($id)->delete();
         return redirect('/vendormanagement')->with('success','Vendor profile deleted successfully.');
+    }
+
+    function payout(){
+        return view('dashboard.payout.payout',[
+            'seller_date' => General::find(1),
+        ]);
+    }
+    function payout_request(){
+        return view('dashboard.payout.payout-request',[
+            'seller_payout_requests' => VendorPaymentRequest::all(),
+            'seller_data' => General::find(1),
+        ]);
+    }
+
+    function commission(){
+        return view('dashboard.commission.commission',[
+            'seller_date' => General::find(1),
+        ]);
+    }
+
+    function commission_save(Request $request){
+        $request->validate([
+            'seller_commission' => 'required'
+        ]);
+        General::find(1)->update([
+            'seller_commission' => $request->seller_commission,
+        ]);
+        return back()->with('seller_commission_save', 'Seller Commission updated');
+    }
+
+    function minimum_seller_amount_withdraw(Request $request){
+        $request->validate([
+            'minimum_seller_amount_withdraw' => 'required'
+        ]);
+        General::find(1)->update([
+            'minimum_amount_withdraw' => $request->minimum_seller_amount_withdraw,
+        ]);
+        return back()->with('seller_amount_withdraw_save', 'Seller Amount Withdraw updated');
     }
 }

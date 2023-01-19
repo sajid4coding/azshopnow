@@ -192,7 +192,7 @@
                         {{-- <label class="form-label" for="form3Examplea2">Enter your code</label> --}}
                         <input class="form-control form-control-lg" type="text" wire:model="coupon" placeholder=" @if (session('coupon_info')) {{ session('coupon_info')->coupon_code }} @else Coupon Code... @endif">
                         <div class="d-flex justify-content-center">
-                            <button wire:click="apply_coupon({{ $subtotal }},{{ $carts->first()->vendor_id }})" class="my-2 btn btn-sm">Apply Coupon</button>
+                            <button wire:click="apply_coupon({{ $subtotal }},{{ $carts->first()->vendor_id }})" class="my-2 btn btn-primary btn-sm">Apply Coupon</button>
                         </div>
                     </div>
                     <small class="text-danger">{{ $coupon_error }}</small>
@@ -219,7 +219,7 @@
                 @if ($flag == false)
                     @if ($shipping_id != 0)
                         <div class="d-flex justify-content-center">
-                            <a href="{{ route('checkout') }}" class="btn btn-dark my-2 btn btn-sm">Procced to checkout</a>
+                            <a href="{{ route('checkout') }}" class="btn btn-dark my-2 btn btn-primary btn-sm">Procced to checkout</a>
                         </div>
                     @endif
                 @endif

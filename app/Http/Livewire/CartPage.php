@@ -91,8 +91,6 @@ class CartPage extends Component
     }
     public function packagingSelect($packagingId)
     {
-        if(DB::table('subscriptions')->where(['user_id' => Cart::where('user_id', auth()->id())->first()->vendor_id, 'stripe_status' => 'active'])->exists()){
-            session(['packagingCost' => Packaging::find($packagingId)]);
-        }
+        session(['packagingCost' => Packaging::find($packagingId)]);
     }
 }

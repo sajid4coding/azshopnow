@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_packagings', function (Blueprint $table) {
+        Schema::create('vendor_payment_requests', function (Blueprint $table) {
             $table->id();
             $table->integer('vendor_id');
-            $table->string('packaging_name');
-            $table->integer('packaging_cost');
+            $table->integer('invoice_id');
+            $table->string('status')->default('unpaid');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor_packagings');
+        Schema::dropIfExists('vendor_payment_requests');
     }
 };

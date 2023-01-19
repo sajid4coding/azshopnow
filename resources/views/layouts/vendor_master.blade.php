@@ -144,9 +144,16 @@
                                                     </ul>
                                                 </li>
                                             @endcan
+
                                             @can ('vendor-order')
                                                 <li class="nav-item @if ($current_page == 'order') here show @endif" >
                                                     <a class="nav-link cust_a" href="{{ route('vendor.orders') }}"> <i class="fas fa-store"></i> Orders</a>
+                                                </li>
+                                            @endcan
+
+                                            @can ('vendor-earning')
+                                                <li class="nav-item @if ($current_page == 'vendor-earning') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('vendor.earning') }}"> <i class="fas fa-money-bill-alt"></i>Earning</a>
                                                 </li>
                                             @endcan
                                             @can ('vendor-staff management')

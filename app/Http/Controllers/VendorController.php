@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Banner,Coupon,Invoice,Plan,Product,Shipping,SubCategory,User,VendorShipping};
+use App\Models\{Banner,Coupon, General, Invoice,Plan,Product,Shipping,SubCategory,User, VendorPaymentRequest, VendorShipping};
 use Carbon\Carbon;
 use GuzzleHttp\Middleware;
 use Illuminate\Contracts\Validation\Rule;
@@ -47,6 +47,7 @@ class vendorController extends Controller
         $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)->create($request->token);
         User::where('id', auth()->id())->update([
             'dashboard_access' => 'active',
+            'status' => 'active',
         ]);
         return redirect('/vendor/dashboard')->with('registrion_success','Your registation successfully & Subscription purchase successful!');
     }
@@ -330,11 +331,47 @@ class vendorController extends Controller
     }
 
     function vendor_orders(){
-       if(auth()->user()->role == 'vendor'){
         $invoices = Invoice::where('vendor_id',auth()->id())->get();
-       }else{
-        $invoices = Invoice::where('vendor_id',auth()->user()->vendor_id)->get();
-       }
+    //    if(auth()->user()->role == 'vendor'){
+    //         $invoices = Invoice::where('vendor_id',auth()->id())->get();
+    //    }else{
+    //         $invoices = Invoice::where('vendor_id',auth()->user()->vendor_id)->get();
+    //    }
         return view('vendor.orders',compact('invoices'));
+    }
+
+    function vendor_earning(){
+        // $invoices = Invoice::where([
+        //     'vendor_id' => auth()->id(),
+        //     'payment' => 'paid',
+        //     'order_status' => 'delivered',
+        // ])->get();
+        $invoices = Invoice::where('vendor_id',auth()->id())->get();
+        $seller_data = General::find(1);
+        return view('vendor.earning.earning',compact('invoices','seller_data'));
+    }
+
+    function withdrawal_request(Request $request){
+        $request->validate([
+            'checkbox' => 'required',
+        ]);
+        $invoice_pay_request = Invoice::wherein('id', $request->checkbox)->get();
+        $seller_data = General::find(1);
+        return view('vendor.earning.withdrawal-request',compact('invoice_pay_request','seller_data'));
+    }
+
+    function withdrawal(Request $request){
+        $invoice_ids = explode(',', rtrim(ltrim($request->invoice_ids, '['),']'));
+        foreach ($invoice_ids as $invoice_id) {
+            VendorPaymentRequest::insert([
+                'vendor_id' => auth()->id(),
+                'invoice_id' => $invoice_id,
+                'created_at' => now(),
+            ]);
+            Invoice::find($invoice_id)->update([
+                'withdraw_status' => 'Sent Payment Request',
+            ]);
+        }
+        return redirect('vendor-earning');
     }
 }

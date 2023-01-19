@@ -212,7 +212,6 @@ class DashboardController extends Controller
 
         return view('dashboard.earnigns.tax_calculate',[
          'invoices' => Invoice::all(),
-
         ]);
     }
     function TotalEarning(){
@@ -249,9 +248,11 @@ class DashboardController extends Controller
         $newsletters = Newsletter::all();
         return view('dashboard.usersManagement.newsletter',compact('newsletters'));
     }
+
     function exportNewslettter(){
         return Excel::download(new ExportNewslettter(), 'newslettersList.xlsx');
     }
+
     function deliveryBoyAdd(){
         return view('dashboard.deliveryBoy.delivery_boy');
     }
