@@ -351,5 +351,20 @@ class GeneralController extends Controller
 
         return back();
     }
+    function Error401(){
+        return view('error.401');
+    }
+    function Error403(){
+        return view('error.403');
+    }
+    function Error404(){
+        return view('error.404');
+    }
+    function Error502(){
+        return view('error.502');
+    }
+    function Error503(){
+        return view('error.503');
+    }
 
 }

@@ -43,7 +43,6 @@
                                             <div class="alert alert-danger" role="alert">
                                                 <strong>{{ $error }}</strong>
                                             </div>
-
                                         @endforeach
                                     @endif
                                     @if (session('vendor_login_error'))
@@ -51,8 +50,6 @@
                                         <div class="alert alert-danger" role="alert">
                                         <strong>{{ session('vendor_login_error') }}</strong>
                                         </div>
-
-
                                     @endif
 
                                     {{-- Registration Success Message --}}
@@ -70,10 +67,12 @@
                                                 <input name="email" value='{{ old('email') }}' type="email" id="email">
                                             </div>
 
-                                            <div class="form-grp">
+                                            <div class="form-grp mb-1">
                                                     <label for="password">Password *</label>
-                                                    <input   name="password" value='{{ old('password') }}' type="password" id="password">
+                                                    <input id="myInput" name="password" value='{{ old('password') }}' type="password" id="password">
                                             </div>
+                                            <input type="checkbox" onclick="myFunction()" id="show_pass" style="margin-right: 5px"><label for="show_pass">Show Password</label>
+
                                             <div class="text-end">
                                                 <a href="{{ route('password.request') }}" class="text-muted mt-4">Forgot your password?</a>
                                                 </div>
@@ -93,8 +92,18 @@
         </div>
     </section>
     <!-- vendor-registration-area-end -->
-
-
 </main>
 <!-- main-area-end -->
+@endsection
+@section('footer_script')
+<script>
+    function myFunction() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 @endsection

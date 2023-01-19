@@ -147,6 +147,11 @@ class CustomerController extends Controller
 
 
     public function product_review_post(Request $request, $id){
+
+         $request->validate([
+            'review_images' => "max:4"
+         ]);
+
         $request->validate([
             'rating' => 'required',
             'comment' => 'required',
@@ -163,6 +168,7 @@ class CustomerController extends Controller
         ]);
 
         $review_images = $request->file('review_images');
+
         if($review_images){
             foreach($review_images as $review_image){
                 $review_gallery= Carbon::now()->format('Y').rand(1,9999).".".$review_image->getClientOriginalExtension();
