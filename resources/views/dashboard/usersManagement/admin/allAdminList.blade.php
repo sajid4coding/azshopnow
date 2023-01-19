@@ -87,8 +87,9 @@
                                         <div class="col-md-12">
                                             @foreach ($permissions as $permission)
                                                 <div class="d-inline-block" style="font-size:16px!important">
-                                                    <input class="from-control" id="{{$permission->name}}" type="checkbox" name="permission[]" value="{{$permission->id}}"> <label for="{{$permission->name}}">{{$permission->name}}</label>
-                                                </div> &nbsp;
+                                                    <input class="from-control" id="{{$permission->name}}" type="checkbox" name="permission[]" value="{{$permission->id}}">
+                                                    <label for="{{$permission->name}}">{{$permission->name}}</label>
+                                                </div> &nbsp; <br>
                                             @endforeach
                                         </div>
                                     </div>
@@ -210,10 +211,11 @@
                                             <!--end::Badges-->
                                         </td>
                                         <td>
-                                            @foreach ($permissionsId as $permission)
-                                                <span class="badge badge-light-success"> {{DB::table('permissions')->where('id',$permission->permission_id)->first()->name}}</span>
-                                            @endforeach
-
+                                            <div style="height: 100px; width: 200px; overflow-y: scroll;">
+                                                @foreach ($permissionsId as $permission)
+                                                    <span class="badge badge-light-success"> {{DB::table('permissions')->where('id',$permission->permission_id)->first()->name}}</span> <br>
+                                                @endforeach
+                                            </div>
                                         </td>
                                         <!--end::Type=-->
                                         <!--begin::Action=-->

@@ -253,31 +253,6 @@ class DashboardController extends Controller
         return Excel::download(new ExportNewslettter(), 'newslettersList.xlsx');
     }
 
-    function commission(){
-        return view('dashboard.commission.commission',[
-            'seller_date' => General::find(1),
-        ]);
-    }
-
-    function commission_save(Request $request){
-        $request->validate([
-            'seller_commission' => 'required'
-        ]);
-        General::find(1)->update([
-            'seller_commission' => $request->seller_commission,
-        ]);
-        return back()->with('seller_commission_save', 'Seller Commission updated');
-    }
-
-    function minimum_seller_amount_withdraw(Request $request){
-        $request->validate([
-            'minimum_seller_amount_withdraw' => 'required'
-        ]);
-        General::find(1)->update([
-            'minimum_amount_withdraw' => $request->minimum_seller_amount_withdraw,
-        ]);
-        return back()->with('seller_amount_withdraw_save', 'Seller Amount Withdraw updated');
-    }
     function deliveryBoyAdd(){
         return view('dashboard.deliveryBoy.delivery_boy');
     }

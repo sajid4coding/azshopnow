@@ -27,9 +27,9 @@
                                             <td>#{{ $invoice->id }}</td>
                                             <td>{{ $invoice->total_price}}</td>
                                             <td>{{ $invoice->total_price * $seller_data->seller_commission/100}}</td>
-                                            <td>{{ floor($invoice->total_price - $invoice->total_price * $seller_data->seller_commission/100) }}</td>
+                                            <td>{{ $invoice->total_price - $invoice->total_price * $seller_data->seller_commission/100 }}</td>
                                             @php
-                                                $total_amount += floor($invoice->total_price - $invoice->total_price * $seller_data->seller_commission/100);
+                                                $total_amount += $invoice->total_price - $invoice->total_price * $seller_data->seller_commission/100;
                                             @endphp
                                         </tr>
                                     @empty

@@ -28,7 +28,7 @@
                             <td><input type="checkbox" disabled value="{{ $invoice->id }}"></td>
                         @endif
                         <td>#{{ $invoice->id }}</td>
-                        <td>{{ floor($invoice->total_price - $invoice->total_price * $seller_data->seller_commission/100) }}</td>
+                        <td>{{ $invoice->total_price - $invoice->total_price * $seller_data->seller_commission/100 }}</td>
                         <td>
                             <span class="text-danger">{{ $invoice->withdraw_status }}</span>
                         </td>

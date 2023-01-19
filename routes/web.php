@@ -100,12 +100,6 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::resource('manage-packaging/packaging', PackagingController::class);
     });
 
-    Route::group(['middleware' => ['can:admin-Packaging']], function () {
-        Route::get('manage-commission/commission', [DashboardController::class, 'commission'])->name('commission');
-        Route::post('manage-commission/commission-save', [DashboardController::class, 'commission_save'])->name('commission.save');
-        Route::post('manage-commission/minimum-seller-amount-withdraw-save', [DashboardController::class, 'minimum_seller_amount_withdraw'])->name('minimum.seller.amount.withdraw');
-    });
-
     //CategoryController Resource
     //SubCategoryController Resource
     Route::group(['middleware' => ['can:admin-Product Catalog']], function () {
@@ -120,6 +114,11 @@ Route::middleware(['admin', 'verified'])->group(function () {
     //VendormanagementController Resource
     Route::group(['middleware' => ['can:admin-Vendor Management']], function () {
         Route::resource('vendormanagement', VendorsmanagementController::class);
+        Route::get('manage-payout/payout', [VendorsmanagementController::class, 'payout'])->name('payout');
+        Route::get('manage-payout/payout-request', [VendorsmanagementController::class, 'payout_request'])->name('payout.request');
+        Route::get('manage-commission/commission', [VendorsmanagementController::class, 'commission'])->name('commission');
+        Route::post('manage-commission/commission-save', [VendorsmanagementController::class, 'commission_save'])->name('commission.save');
+        Route::post('manage-commission/minimum-seller-amount-withdraw-save', [VendorsmanagementController::class, 'minimum_seller_amount_withdraw'])->name('minimum.seller.amount.withdraw');
     });
     //RolemanagementController Resource
     //PermissionController Resource
@@ -189,12 +188,12 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
   //DELIVERY BOY ROUTE START
 
-        Route::get('delivery/boy/add',[DashboardController::class,'deliveryBoyAdd'])->name('delivery.boy.add');
+        Route::get('delivery-boy-add',[DashboardController::class,'deliveryBoyAdd'])->name('delivery.boy.add');
         Route::post('delivery/boy/post',[DashboardController::class,'deliveryBoyPost'])->name('delivery.boy.post');
-        Route::get('delivery/boy/list',[DashboardController::class,'deliveryBoyList'])->name('delivery.boy.list');
+        Route::get('delivery-boy-list',[DashboardController::class,'deliveryBoyList'])->name('delivery.boy.list');
         Route::get('delivery/boy/edit/{id}',[DashboardController::class,'deliveryBoyEdit'])->name('delivery.boy.edit');
         Route::get('delivery/boy/out-of-work/{id}',[DashboardController::class,'deliveryBoyOutOfWork'])->name('delivery.boy.out.of.work');
-        Route::get('out-of-work/list',[DashboardController::class,'deliveryBoyOutOfWorkList'])->name('delivery.boy.out.of.work.list');
+        Route::get('out-of-work-list',[DashboardController::class,'deliveryBoyOutOfWorkList'])->name('delivery.boy.out.of.work.list');
         Route::post('delivery/boy/out-of-work/post/{id}',[DashboardController::class,'deliveryBoyOutOfWorkPost'])->name('delivery.boy.out.work.post');
         Route::post('delivery/boy/post/{id}',[DashboardController::class,'deliveryBoyEditPost'])->name('delivery.boy.edit.post');
         Route::get('delivery/boy/delete/{id}',[DashboardController::class,'deliveryBoyDelete'])->name('delivery.boy.delete');

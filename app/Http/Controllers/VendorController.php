@@ -369,7 +369,7 @@ class vendorController extends Controller
                 'created_at' => now(),
             ]);
             Invoice::find($invoice_id)->update([
-                'withdraw_status' => 'Send Payment Request',
+                'withdraw_status' => 'Sent Payment Request',
             ]);
         }
         return redirect('vendor-earning');
