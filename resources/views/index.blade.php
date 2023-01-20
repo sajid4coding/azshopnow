@@ -810,7 +810,7 @@
                                     @foreach ($bestCategories as $bestCategory)
                                         <li class="nav-item" role="presentation">
                                             <a href="{{route('listOfVendors',['slug'=>$bestCategory->slug])}}" class="nav-link" id="all-tab">
-                                                    <i class="flaticon-shipping"></i>
+                                                    <i class="{{$bestCategory->icon}}"></i>
                                                     <span>{{$bestCategory->category_name}}</span>
                                             </a>
                                         </li>

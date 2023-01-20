@@ -164,7 +164,7 @@
                                                     <ul class="dropdown-menu @if ($current_page == 'vendor-add-staff' || $current_page == 'vendor-staff-permission' || $current_page == 'vendor-staff-role') active @endif" aria-labelledby="navbarDropdown">
                                                     <li><a class="dropdown-item @if ($current_page == 'vendor-add-staff') show here @endif"  href="{{ route('vendor.add.staff') }}">Add Staff</a></li>
                                                     {{-- <li><a class="dropdown-item @if ($current_page == 'vendor-staff-permission') show here @endif" href="{{ route('vendor.staff.permission') }}">Staff Permission</a></li> --}}
-                                                    <li><a class="dropdown-item @if ($current_page == 'vendor-staff-role') show here @endif" href="{{ route('vendor.staff.role') }}">Staff Role</a></li>
+                                                    <li><a class="dropdown-item @if ($current_page == 'vendor-staff-role') show here @endif" href="{{ route('vendor.staff.role') }}">Create Staff Role</a></li>
                                                     </ul>
                                                 </li>
                                             @endcan

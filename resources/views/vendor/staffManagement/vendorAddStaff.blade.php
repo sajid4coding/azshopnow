@@ -34,6 +34,7 @@
                                          <option value="{{$role->id}}">{{$role->name}}</option>
                                        @endforeach
                                     </select>
+                                    <span class="text-danger">First create a role*</span>
                                 </div>
                                 <div class="my-3">
                                     <label for="permission" class="form-label">Permissions:</label>
@@ -45,7 +46,15 @@
                                     @endforeach
                                 </div>
                                 <div>
-                                    <button class="btn btn-sm btn-primary">Add Staff</button>
+                                    @if (subscriptionName()->name == 1 && staffCount() <2)
+                                        <button class="btn btn-sm btn-primary">Add Staff</button>
+                                    @elseif(subscriptionName()->name == 2 && staffCount() <5)
+                                        <button class="btn btn-sm btn-primary">Add Staff</button>
+                                    @elseif(subscriptionName()->name == 3)
+                                        <button class="btn btn-sm btn-primary">Add Staff</button>
+                                    @else
+                                      <span class="text-danger">Staff Account limit is over. You can upgrade Subscription-Plans</span>
+                                    @endif
                                 </div>
                             </form>
                         </div>

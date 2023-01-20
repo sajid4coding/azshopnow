@@ -374,4 +374,5 @@ class vendorController extends Controller
         }
         return redirect('vendor-earning');
     }
+    
 }

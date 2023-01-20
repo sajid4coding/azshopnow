@@ -982,3 +982,21 @@ function mostViewedProducts()
 {
     return Product::where('status','published')->where('vendorProductStatus','published')->orderBy('product_views','DESC')->limit(3)->get();
 }
+function subscriptionName(){
+    if(auth()->user()->role == 'vendor'){
+        return Subscription::where('user_id',auth()->id())->first();
+    }else{
+        return Subscription::where('user_id',auth()->user()->vendor_id)->first();
+    }
+}
+function staffCount(){
+    if(auth()->user()->role == 'vendor'){
+        return User::where('role','staff')->where('vendor_id',auth()->id())->count();
+    }else{
+        return User::where('role','staff')->where('vendor_id',auth()->user()->vendor_id)->count();
+    }
+}
+// function mostDiscountProduct()
+// {
+
+// }

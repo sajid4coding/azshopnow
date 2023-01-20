@@ -15,12 +15,14 @@ class StaffmanagementController extends Controller
     public function vendorAddStaff()
     {
         if(auth()->user()->role =='vendor'){
+            $name=auth()->user()->shop_name;
             $vendorLists=User::where('role','staff')->where('vendor_id',auth()->id())->where('status','active')->latest()->get();
-            $roles=Role::where('name', 'LIKE', 'vendor-%')->get();
+            $roles=Role::where('name', 'LIKE', "{$name}-%")->get();
             $permissions=Permission::where('name', 'LIKE', 'vendor-%')->get();
         }else{
+            $name=staff(auth()->user()->vendor_id)->shop_name;
             $vendorLists=User::where('role','staff')->where('vendor_id',auth()->user()->vendor_id)->where('status','active')->latest()->get();
-            $roles=Role::where('name', 'LIKE', 'vendor-%')->get();
+            $roles=Role::where('name', 'LIKE', "{$name}-%")->get();
             $permissions=Permission::where('name', 'LIKE', 'vendor-%')->get();
         }
         return view('vendor.staffmanagement.vendorAddStaff',compact('permissions','roles','vendorLists'));
@@ -47,7 +49,13 @@ class StaffmanagementController extends Controller
     // }
     public function vendorStaffRole ()
     {
-        $roles=Role::where('name', 'LIKE', 'vendor-%')->get();
+        if(auth()->user()->role =='vendor'){
+            $name=auth()->user()->shop_name;
+            $roles=Role::where('name', 'LIKE', "{$name}-%")->get();
+        }else{
+            $name=staff(auth()->user()->vendor_id)->shop_name;
+            $roles=Role::where('name', 'LIKE', "{$name}-%")->get();
+        }
         return view('vendor.staffmanagement.vendorStaffRole ',compact('roles'));
     }
     public function vendorStaffRole_Post(Request $request)
@@ -55,9 +63,15 @@ class StaffmanagementController extends Controller
         $request->validate([
             "*"=>'required'
         ]);
-        Role::create([
-            'name' => 'vendor-'.$request->name,
-        ]);
+        if(auth()->user()->role == 'vendor'){
+            Role::create([
+                'name' =>auth()->user()->shop_name.'-'.$request->name,
+            ]);
+        }else{
+            Role::create([
+                'name' =>staff(auth()->user()->vendor_id)->shop_name.'-'.$request->name,
+            ]);
+        }
         return back()->with('success','Role added successfully');
     }
     public function vendorStaffRoleDelete ($id){
@@ -73,6 +87,7 @@ class StaffmanagementController extends Controller
     {
         $request->validate([
             '*'=> 'required',
+            'role'=>'required',
         ]);
        $password = Str::upper(Str::random(8));
         $userId=User::insertGetId([

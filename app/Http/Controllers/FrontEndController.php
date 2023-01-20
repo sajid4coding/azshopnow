@@ -247,6 +247,7 @@ class FrontEndController extends Controller
         // return view('frontend.search',compact('searchResult','products','banners'));
     }
     public function index(){
+
         return view('index', [
             'categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
             'auth_categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
