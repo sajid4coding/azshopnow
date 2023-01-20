@@ -37,6 +37,8 @@ Route::post('report-product/{id}',[FrontEndController::class,'report_product'])-
 Route::get('top-selection',[FrontEndController::class,'topSelection'])->name('top.selection');
 Route::get('new-arrivals',[FrontEndController::class,'newArrivals'])->name('new.arrivals');
 Route::get('search',[FrontEndController::class,'search'])->name('search');
+Route::post('price-filter',[FrontEndController::class,'priceFilter'])->name('price.filter');
+Route::get('product-sorting',[FrontEndController::class,'productSorting'])->name('product.sorting');
 // FrontEnd ROUTE END
 
 // PAYMENTS METHOD INTEGRATION ROUTE START

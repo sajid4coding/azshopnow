@@ -48,7 +48,7 @@ class ProductController extends Controller
             'product_title'=>'required',
             'product_price'=>'required',
             'parent_category'=>'required',
-            'thumbnail'=>'required | mimes:jpg,png,jpeg ',
+            'thumbnail'=>'required | image',
         ]);
 
         if(auth()->user()->role =='vendor'){
@@ -64,6 +64,9 @@ class ProductController extends Controller
                 'tag'=>$request->product_tag,
                 'short_description'=>$request->short_description,
                 'description'=>$request->description,
+                'meta_title'=>$request->meta_title,
+                'meta_description'=>$request->meta_description,
+                'meta_tag'=>$request->meta_tag,
             ]);
 
             if($request->hasFile('thumbnail')){
@@ -101,6 +104,9 @@ class ProductController extends Controller
                 'tag'=>$request->product_tag,
                 'short_description'=>$request->short_description,
                 'description'=>$request->description,
+                'meta_title'=>$request->meta_title,
+                'meta_description'=>$request->meta_description,
+                'meta_tag'=>$request->meta_tag,
             ]);
 
             if($request->hasFile('thumbnail')){
@@ -175,9 +181,12 @@ class ProductController extends Controller
                 'shop_name'=>auth()->user()->shop_name,
                 'sku'=>$request->sku,
                 'tag'=>$request->product_tag,
-                'short_description'=>htmlspecialchars($request->short_description),
-                'description'=>htmlspecialchars($request->description),
+                'short_description'=>$request->short_description,
+                'description'=>$request->description,
                 'vendorProductStatus'=>$request->vendorProductStatus,
+                'meta_title'=>$request->meta_title,
+                'meta_description'=>$request->meta_description,
+                'meta_tag'=>$request->meta_tag,
             ]);
             if($request->hasFile('thumbnail')){
                $thumbnailPhoto=Product::find($id)->thumbnail;
@@ -213,9 +222,12 @@ class ProductController extends Controller
                 'shop_name'=>staff(auth()->user()->vendor_id)->shop_name,
                 'sku'=>$request->sku,
                 'tag'=>$request->product_tag,
-                'short_description'=>htmlspecialchars($request->short_description),
-                'description'=>htmlspecialchars($request->description),
+                'short_description'=>$request->short_description,
+                'description'=>$request->description,
                 'vendorProductStatus'=>$request->vendorProductStatus,
+                'meta_title'=>$request->meta_title,
+                'meta_description'=>$request->meta_description,
+                'meta_tag'=>$request->meta_tag,
             ]);
             if($request->hasFile('thumbnail')){
                $thumbnailPhoto=Product::find($id)->thumbnail;
