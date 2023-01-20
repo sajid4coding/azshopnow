@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->mediumText('product_title');
-            $table->string('product_price');
+            $table->integer('product_price');
             $table->string('discount_price')->nullable();
             $table->integer('parent_category_id')->nullable();
             $table->integer('sub_category_id')->nullable();
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('vendor_id');
             $table->string('shop_name')->nullable();
             $table->string('status')->default('unpublished');
+            $table->integer('product_views')->nullable()->default(0);
             $table->string('campaign')->nullable();
             $table->string('sku')->nullable();
             $table->longText('short_description')->nullable();
@@ -31,6 +32,9 @@ return new class extends Migration
             $table->longText('tag')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('vendorProductStatus')->default('published');
+            $table->string('meta_tag')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
             $table->timestamps();
             $table->softdeletes();
         });

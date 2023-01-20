@@ -150,7 +150,7 @@
                                                     </div>
                                                     <div class="content">
                                                        <h2>
-                                                        <a href="{{route('vendor.product',['id'=>$product->vendor_id,'shopname'=>Str::slug($product->relationwithuser->shop_name)])}}">{{$product->relationwithuser->shop_name}}</a>
+                                                        <a href="{{route('vendor.product',['id'=>$product->vendor_id,'shopname'=>Str::slug($product->relationwithuser->shop_name)])}}">{{Str::limit($product->relationwithuser->shop_name,12)}}</a>
                                                         </h2>
                                                         <ul>
                                                             @php

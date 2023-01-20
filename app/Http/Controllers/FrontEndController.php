@@ -12,11 +12,13 @@ use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Mail;
 use App\Models\General;
 use Carbon\Carbon;
+use PhpParser\Node\Stmt\Return_;
 
 class FrontEndController extends Controller
 {
 
     function single_product ($id,$title){
+        Product::find($id)->increment('product_views');
         $inventory=Inventory::where('product_id',$id)->first();
         $productGalleries= ProductGallery::where('product_id',$id)->get();
         $product_reviews = ProductReview::where('product_id', $id)->get();
@@ -219,7 +221,33 @@ class FrontEndController extends Controller
         ->paginate(9);
         return view('frontend.search',compact('searchResult','products','banners'));
     }
+    public function productSorting (Request $request){
+        if($request->select == 'newest'){
+            $banners = Banner::all()->first();
+            $products=Product::where('status','published')->where('vendorProductStatus','published')->latest()->paginate(9);
+            return view('frontend.newArrivals',compact('products','banners'));
+        }elseif($request->select == 'hightolow'){
+            $banners = Banner::all()->first();
+            $products=Product::where('status','published')->where('vendorProductStatus','published')->orderBy('product_price','DESC')->paginate(9);
+            return view('frontend.HighToLow',compact('products','banners'));
+        }elseif($request->select == 'default'){
+            $products=Product::where('status','published')->where('vendorProductStatus','published')->paginate(9);
+            $banners = Banner::all()->first();
+            return view('frontend.shop',compact('products','banners'));
+        }else{
+            $banners = Banner::all()->first();
+            $products=Product::where('status','published')->where('vendorProductStatus','published')->orderBy('product_price','ASC')->paginate(9);
+            return view('frontend.LowToHigh',compact('products','banners'));
+        }
+
+        // $lowToHigh=$request->q;
+        // $products=Product::where('product_title','LIKE','%'.$searchResult.'%')
+        // ->orWhere('tag','LIKE','%'.$searchResult.'%')
+        // ->paginate(9);
+        // return view('frontend.search',compact('searchResult','products','banners'));
+    }
     public function index(){
+
         return view('index', [
             'categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
             'auth_categories' => Category::where('status','published')->latest()->limit(12)->get()->shuffle(),
@@ -369,7 +397,15 @@ class FrontEndController extends Controller
         return view('frontend.subcategoryProducts', compact('products','categoryName','subCategoryName'));
     }
     public function offers(){
-        $coupons=Coupon::where('vendor_id',auth()->user()->id)->where('expire_date','>',Carbon::now())->get()->shuffle();
+        $coupons=Coupon::where('expire_date','>',Carbon::now())->get()->shuffle();
         return view('frontend.offers',compact('coupons'));
+    }
+    public function priceFilter (Request $request){
+        $priceArry= explode(',',$request->price);
+        $min=(int)$priceArry[0];
+        $max=(int)$priceArry[1];
+        $products=Product::where('status','published')->where('vendorProductStatus','published')->whereBetween('product_price',[$min,$max])->paginate(9);
+        $banners = Banner::all()->first();
+        Return view('frontend.priceFilter',compact('products','banners'));
     }
 }
