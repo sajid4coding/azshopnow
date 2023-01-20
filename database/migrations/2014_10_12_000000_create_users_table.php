@@ -26,6 +26,9 @@ return new class extends Migration
             $table->string('profile_photo')->nullable();
             $table->string('status')->default('deactive');
             $table->string('dashboard_access')->default('active');
+            $table->longText('address')->nullable();
+            $table->longText('bio')->nullable();
+            $table->string('banner')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

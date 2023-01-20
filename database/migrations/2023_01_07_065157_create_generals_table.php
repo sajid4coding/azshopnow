@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('generals', function (Blueprint $table) {
             $table->id();
             $table->mediumText('website_title')->nullable();
+            $table->integer('seller_commission');
+            $table->integer('minimum_amount_withdraw');
             $table->mediumText('copyright_text')->nullable();
             $table->mediumText('capcha_status')->nullable();
             $table->mediumText('twak_io_status')->nullable();

@@ -72,7 +72,10 @@
                                         <label for="password">Password *</label>
                                         <input name="password" value='{{ old('password') }}' type="password" id="myInput">
                                     </div>
+                                    <p class="text-danger" style="font-size: 12px;">**Password must be minimum 1 upper & lower case, 1 symbol and 1 number**</p>
+
                                     <input type="checkbox" onclick="myFunction()" id="show_pass" style="margin-right: 5px"><label for="show_pass">Show Password</label>
+
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-grp">

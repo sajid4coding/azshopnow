@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VendorShipping extends Model
+class DeliveryBoy extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
 }
