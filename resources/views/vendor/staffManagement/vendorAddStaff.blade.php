@@ -53,7 +53,7 @@
                                     @elseif(subscriptionName()->name == 3)
                                         <button class="btn btn-sm btn-primary">Add Staff</button>
                                     @else
-                                      <span class="text-danger">Staff Account limit is over. You can upgrade Subscription-Plans</span>
+                                    <span class="text-danger">Staff Account limit is over. You can upgrade Subscription-Plans</span>, <a href="{{route('upgrade')}}">Upgrade Plan</a>
                                     @endif
                                 </div>
                             </form>
