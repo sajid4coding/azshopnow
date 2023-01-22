@@ -1,21 +1,10 @@
 @extends('layouts.dashboardmaster')
-@section('header_css')
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-<style>
-    /* Chrome, Safari, Edge, Opera */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
 
-    /* Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-</style>
+@section('header_css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
 @endsection
+
 @section('content')
 <div class="container">
     <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6 px-0" >
@@ -37,14 +26,7 @@
                     <li class="breadcrumb-item">
                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
                     </li>
-                    <li class="breadcrumb-item text-muted">Out of work</li>
-                    <!--end::Item-->
-                    <li class="breadcrumb-item">
-                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                    </li>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">List</li>
+                    <li class="breadcrumb-item text-muted">Out of work List</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -56,33 +38,29 @@
         </div>
         <!--end::Toolbar container-->
     </div>
-
-
-    <div class="form_add_delivery">
-        <div class="row">
-
+    <div class="row">
+        <div class="card">
             <div class="col-lg-12">
-                <div class="card">
-                    <table id="example" class="table table-striped" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th><b>SL.</b></th>
-                                <th><b>Photo</b></th>
-                                <th><b>Name</b></th>
-                                <th><b>Email</b></th>
-                                <th><b>Phone Number</b></th>
-                                <th><b>Address</b></th>
-                                <th><b>Date Of Birth</b></th>
-                                <th><b>Birth Reg. Id</b></th>
-                                <th><b>NID Id</b></th>
-                                <th><b>Reason</b></th>
-                                <th><b>Join Date</b></th>
-                                <th><b>Reject Date</b></th>
-                                <th><b>Action</b></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($delivery_boys->where('status','out_of_work') as $delivery_boy)
+                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="delivery_boy_out_list">
+                    <thead>
+                        <tr>
+                            <th><b>SL.</b></th>
+                            <th><b>Photo</b></th>
+                            <th><b>Name</b></th>
+                            <th><b>Email</b></th>
+                            <th><b>Phone Number</b></th>
+                            <th><b>Address</b></th>
+                            <th><b>Date Of Birth</b></th>
+                            <th><b>Birth Reg. Id</b></th>
+                            <th><b>NID Id</b></th>
+                            <th><b>Reason</b></th>
+                            <th><b>Join Date</b></th>
+                            <th><b>Reject Date</b></th>
+                            <th><b>Action</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($delivery_boys->where('status','out_of_work') as $delivery_boy)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>
@@ -126,26 +104,23 @@
                                 </td>
 
                             </tr>
-                            @empty
-                              <tr>
-                                <td colspan="14" class="bg-danger text-center text-light">No Delivery Boy Yet</td>
-                              </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-          </div>
+        </div>
     </div>
 </div>
 @endsection
 @section('footer_script')
-<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
-        $(document).ready(function () {
-           $('#example').DataTable();
-        });
+    $(document).ready(function () {
+        $('#delivery_boy_out_list').DataTable();
+    });
+</script>
+<script>
     @if(session('out_of_work_delete'))
 
         $(document).ready(function(){
