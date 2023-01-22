@@ -56,7 +56,7 @@ Route::middleware(['admin', 'verified'])->group(function () {
     //DashboardController
     Route::get('dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
-    Route::group(['middleware' => ['can:admin-Product Management','can:admin-Product Campaign']], function () {
+    Route::group(['middleware' => ['permission:admin-Product Management|admin-Product Campaign']], function () {
         Route::get('product_lists',[DashboardController::class, 'product_lists'])->middleware(['auth', 'verified'])->name('product_lists');
         Route::get('pending-products',[DashboardController::class, 'pendingProducts'])->middleware(['auth', 'verified'])->name('pending.products');
         Route::get('banned-products',[DashboardController::class, 'bannedProducts'])->middleware(['auth', 'verified'])->name('banned.products');

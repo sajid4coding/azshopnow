@@ -996,7 +996,13 @@ function staffCount(){
         return User::where('role','staff')->where('vendor_id',auth()->user()->vendor_id)->count();
     }
 }
-// function mostDiscountProduct()
-// {
+function mostDiscountProduct()
+{
+   return Product::where('status','published')->where('vendorProductStatus','published')->where('discount_price','!=',NULL)->limit(3)->get()->shuffle();
+    // foreach($products as $product){
+    //     if($product->discount_price){
+    //        return Floor(((100*$product->product_price)-(100*$product->discount_price))/$product->product_price);
+    //     }
+    // }
 
-// }
+}

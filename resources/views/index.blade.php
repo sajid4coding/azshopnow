@@ -534,44 +534,27 @@
             <!-- choose-product-area-end -->
 
             <!-- flash-product-area -->
+                @php
+                    $mostDiscountProducts=mostDiscountProduct()
+                @endphp
             <section class="flash-product-area pt-90 pb-60">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-xl-3 col-lg-4 col-md-8 col-sm-10">
                             <div class="slider-add-banner banner-active mb-45">
-                                <div class="add-banner">
-                                    <div class="add-banner-img">
-                                        <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_slider01.jpg" alt=""></a>
-                                    </div>
-                                    <div class="add-banner-content">
-                                        <span>35% discount</span>
-                                        <h2 class="title">Smart Phone</h2>
-                                        <p>Reference site about</p>
-                                        <a href="shop.html" class="btn">shop now</a>
-                                    </div>
-                                </div>
-                                <div class="add-banner">
-                                    <div class="add-banner-img">
-                                        <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_slider01.jpg" alt=""></a>
-                                    </div>
-                                    <div class="add-banner-content">
-                                        <span>35% discount</span>
-                                        <h2 class="title">Smart Phone</h2>
-                                        <p>Reference site about</p>
-                                        <a href="shop.html" class="btn">shop now</a>
-                                    </div>
-                                </div>
-                                <div class="add-banner">
-                                    <div class="add-banner-img">
-                                        <a href="shop.html"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_slider01.jpg" alt=""></a>
-                                    </div>
-                                    <div class="add-banner-content">
-                                        <span>35% discount</span>
-                                        <h2 class="title">Smart Phone</h2>
-                                        <p>Reference site about</p>
-                                        <a href="shop.html" class="btn">shop now</a>
-                                    </div>
-                                </div>
+                                @foreach ($mostDiscountProducts as $mostDiscountProduct)
+                                        <div class="add-banner">
+                                            <div class="add-banner-img">
+                                                <a href="{{ route('single.product', ['id'=>$mostDiscountProduct->id,'title'=>Str::slug($mostDiscountProduct->product_title)]) }}"><img src="{{ asset('uploads/product_photo') }}/{{$mostDiscountProduct->thumbnail}}" alt=""></a>
+                                            </div>
+                                            <div class="add-banner-content">
+                                                <span>{{Floor(((100*$mostDiscountProduct->product_price)-(100*$mostDiscountProduct->discount_price))/$mostDiscountProduct->product_price)}}% discount</span>
+                                                <h2 class="title">{{Str::limit($mostDiscountProduct->product_title,9)}}</h2>
+                                                <p>{{staff($mostDiscountProduct->vendor_id)->shop_name}}</p>
+                                                <a href="{{ route('single.product', ['id'=>$mostDiscountProduct->id,'title'=>Str::slug($mostDiscountProduct->product_title)]) }}" class="btn">shop now</a>
+                                            </div>
+                                        </div>
+                                @endforeach
                             </div>
                             <div class="trending-product">
                                 <h3 class="title">Trending Products</h3>

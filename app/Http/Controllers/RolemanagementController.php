@@ -14,7 +14,7 @@ class RolemanagementController extends Controller
      */
     public function index()
     {
-        $roles= Role::all();
+        $roles=Role::where('name','LIKE','admin-%')->where('name','NOT LIKE','vendor')->get();
         return view('dashboard.usersManagement.RoleManagement.index', compact('roles'));
     }
 
