@@ -37,13 +37,6 @@
                     </li>
                     <li class="breadcrumb-item text-muted">Delivery Boy</li>
                     <!--end::Item-->
-                    <li class="breadcrumb-item">
-                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                    </li>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">Add</li>
-                    <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
             </div>

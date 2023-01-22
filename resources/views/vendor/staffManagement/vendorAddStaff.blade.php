@@ -46,14 +46,14 @@
                                     @endforeach
                                 </div>
                                 <div>
-                                    @if (subscriptionName()->name == 1 && staffCount() <2)
+                                    @if (subscriptionName()->name == 1 && staffCount() < 2)
                                         <button class="btn btn-sm btn-primary">Add Staff</button>
-                                    @elseif(subscriptionName()->name == 2 && staffCount() <5)
+                                    @elseif(subscriptionName()->name == 2 && staffCount() < 5)
                                         <button class="btn btn-sm btn-primary">Add Staff</button>
                                     @elseif(subscriptionName()->name == 3)
                                         <button class="btn btn-sm btn-primary">Add Staff</button>
                                     @else
-                                    <span class="text-danger">Staff Account limit is over. You can upgrade Subscription-Plans</span>, <a href="{{route('upgrade')}}">Upgrade Plan</a>
+                                        <span class="text-danger">Staff Account limit is over. You can upgrade Subscription-Plans</span>, <a href="{{route('upgrade')}}">Upgrade Plan</a>
                                     @endif
                                 </div>
                             </form>

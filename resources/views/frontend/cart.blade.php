@@ -18,7 +18,6 @@
             </div>
             <div class="col-md-5">
                 <div class="breadcrumb-img text-end">
-
                 </div>
             </div>
         </div>

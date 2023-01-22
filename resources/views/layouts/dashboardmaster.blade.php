@@ -505,7 +505,7 @@
                                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                             <span class="menu-link">
                                                 <span class="menu-icon">
-                                                    <i class="fas fa-truck"></i>
+                                                    <i class="fas fa-user"></i>
                                                 </span>
                                                 <span class="menu-title">Manage Delivery Boy</span>
                                                 <span class="menu-arrow"></span>
@@ -547,7 +547,7 @@
                                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                             <span class="menu-link">
                                                 <span class="menu-icon">
-                                                    <i class="fas fa-truck"></i>
+                                                    <i class="fas fa-users"></i>
                                                 </span>
                                                 <span class="menu-title">Manage Seller</span>
                                                 <span class="menu-arrow"></span>

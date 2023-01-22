@@ -9,7 +9,7 @@
                     <i class="fa-sharp fa-solid fa-cart-shopping"></i>
                 </span>
                 <h3 class="text-primary">There are no more items in your cart</h3>
-                <a class="btn btn_secondary" href="{{ route('shop.page') }}"><i class="fa fa-chevron-left"></i> Continue shopping </a>
+                <a class="btn btn-primary" href="{{ route('shop.page') }}"><i class="fa fa-chevron-left"></i> Continue shopping </a>
             </div>
         </div>
     </section>

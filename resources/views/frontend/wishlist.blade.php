@@ -20,7 +20,6 @@
                 </div>
                 <div class="col-md-5">
                     <div class="breadcrumb-img text-end">
-
                     </div>
                 </div>
             </div>
@@ -42,7 +41,7 @@
                     You don't have any products in the wishlist yet. <br>
                     You will find a lot of interesting products on our "Shop" page.
                 </p>
-                <a class="btn btn_secondary" href="{{ route('shop.page') }}"><i class="fa fa-chevron-left"></i> Continue shopping </a>
+                <a class="btn btn-primary" href="{{ route('shop.page') }}"><i class="fa fa-chevron-left"></i> Continue shopping </a>
             </div>
         </div>
     </section>

@@ -1,21 +1,10 @@
 @extends('layouts.dashboardmaster')
-@section('header_css')
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-<style>
-    /* Chrome, Safari, Edge, Opera */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
 
-    /* Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-</style>
+@section('header_css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
 @endsection
+
 @section('content')
 <div class="container">
     <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6 px-0" >
@@ -37,14 +26,7 @@
                     <li class="breadcrumb-item">
                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
                     </li>
-                    <li class="breadcrumb-item text-muted">Delivery Boy</li>
-                    <!--end::Item-->
-                    <li class="breadcrumb-item">
-                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                    </li>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">List</li>
+                    <li class="breadcrumb-item text-muted">Delivery Boy List</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -60,31 +42,28 @@
     {{-- @if (session('add_success_message'))
       <p class="text-success bg-primary p-5">{{ session('add_success_message') }}</p>
     @endif --}}
-
-    <div class="form_add_delivery">
-        <div class="row">
-
+    <div class="row">
+        <div class="card">
             <div class="col-lg-12">
-                <div class="card">
-                    <table id="example" class="table table-striped" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th><b>SL.</b></th>
-                                <th><b>Photo</b></th>
-                                <th><b>Name</b></th>
-                                <th><b>Email</b></th>
-                                <th><b>Phone Number</b></th>
-                                <th><b>Address</b></th>
-                                <th><b>Date Of Birth</b></th>
-                                <th><b>Birth Reg. Id</b></th>
-                                <th><b>NID Id</b></th>
-                                <th><b>Status</b></th>
-                                <th><b>Join Date</b></th>
-                                <th><b>Action</b></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($delivery_boys->where('status','active') as $delivery_boy)
+                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="delivery_boy_list">
+                    <thead>
+                        <tr>
+                            <th><b>SL.</b></th>
+                            <th><b>Photo</b></th>
+                            <th><b>Name</b></th>
+                            <th><b>Email</b></th>
+                            <th><b>Phone Number</b></th>
+                            <th><b>Address</b></th>
+                            <th><b>Date Of Birth</b></th>
+                            <th><b>Birth Reg. Id</b></th>
+                            <th><b>NID Id</b></th>
+                            <th><b>Status</b></th>
+                            <th><b>Join Date</b></th>
+                            <th><b>Action</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($delivery_boys->where('status','active') as $delivery_boy)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>
@@ -113,115 +92,111 @@
                                                 <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
                                             </svg>
                                         </span>
-                                        <!--end::Svg Icon--></a>
-                                        <!--begin::Menu-->
-                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="{{ route('delivery.boy.edit', $delivery_boy->id) }}" class="btn btn-sm menu-link px-3">View & Edit</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="{{ route('delivery.boy.out.of.work',$delivery_boy->id) }}" class="btn btn-sm menu-link px-3" >Out of Work</a>
-                                            </div>
-                                            <!--end::Menu item-->
+                                        <!--end::Svg Icon-->
+                                    </a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="{{ route('delivery.boy.edit', $delivery_boy->id) }}" class="btn btn-sm menu-link px-3">View & Edit</a>
                                         </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="{{ route('delivery.boy.out.of.work',$delivery_boy->id) }}" class="btn btn-sm menu-link px-3" >Out of Work</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
                                 </td>
-
                             </tr>
-                            @empty
-                              <tr>
-                                <td colspan="12" class="bg-danger text-center text-light">No Delivery Boy Yet</td>
-                              </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-          </div>
+        </div>
     </div>
 </div>
 @endsection
 @section('footer_script')
-<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script>
-        $(document).ready(function () {
-           $('#example').DataTable();
-        });
+    $(document).ready(function () {
+        $('#delivery_boy_list').DataTable();
+    });
+</script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+<script>
     @if(session('add_success_message'))
 
-        $(document).ready(function(){
+    $(document).ready(function(){
 
-            const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            background:'#62C9FF',
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-            })
-
-            Toast.fire({
-            icon: 'success',
-            title: '{{ session('add_success_message') }}'
-            })
-
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        background:'#62C9FF',
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
         })
+
+        Toast.fire({
+        icon: 'success',
+        title: '{{ session('add_success_message') }}'
+        })
+
+    })
     @endif
     @if(session('update_success_message'))
 
-        $(document).ready(function(){
+    $(document).ready(function(){
 
-            const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            background:'#62C9FF',
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-            })
-
-            Toast.fire({
-            icon: 'success',
-            title: '{{ session('update_success_message') }}'
-            })
-
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        background:'#62C9FF',
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
         })
+
+        Toast.fire({
+        icon: 'success',
+        title: '{{ session('update_success_message') }}'
+        })
+
+    })
     @endif
     @if(session('out_of_work'))
 
-        $(document).ready(function(){
+    $(document).ready(function(){
 
-            const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            background:'#62C9FF',
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-            })
-
-            Toast.fire({
-            icon: 'success',
-            title: '{{ session('out_of_work') }}'
-            })
-
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        background:'#62C9FF',
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
         })
-    @endif
 
+        Toast.fire({
+        icon: 'success',
+        title: '{{ session('out_of_work') }}'
+        })
+
+    })
+    @endif
 </script>
 @endsection

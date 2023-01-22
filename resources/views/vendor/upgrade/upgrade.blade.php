@@ -86,7 +86,7 @@
                             @if ($plan_name == 'Premium')
                                 <a disabled class="read">Purchased</a>
                             @else
-                                <a href="{{ route('upgrade.show',$basic->slug) }}" class="read">Choose</a>
+                                <a href="{{ route('upgrade.show',$premium->slug) }}" class="read">Choose</a>
                             @endif
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                             @if ($plan_name == 'Az Shop')
                                 <a disabled class="read">Purchased</a>
                             @else
-                                <a href="{{ route('upgrade.show',$basic->slug) }}" class="read">Choose</a>
+                                <a href="{{ route('upgrade.show',$azshop->slug) }}" class="read">Choose</a>
                             @endif
                         </div>
                     </div>
