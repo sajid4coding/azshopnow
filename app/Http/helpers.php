@@ -984,9 +984,9 @@ function mostViewedProducts()
 }
 function subscriptionName(){
     if(auth()->user()->role == 'vendor'){
-        return Subscription::where('user_id',auth()->id())->first();
+        return Subscription::where('user_id',auth()->id())->latest()->first();
     }else{
-        return Subscription::where('user_id',auth()->user()->vendor_id)->first();
+        return Subscription::where('user_id',auth()->user()->vendor_id)->latest()->first();
     }
 }
 function staffCount(){
@@ -996,7 +996,3 @@ function staffCount(){
         return User::where('role','staff')->where('vendor_id',auth()->user()->vendor_id)->count();
     }
 }
-// function mostDiscountProduct()
-// {
-
-// }

@@ -64,7 +64,7 @@ class PlanController extends Controller
             'basic' => Plan::where('name','Basic')->first(),
             'premium' => Plan::where('name','Premium')->first(),
             'azshop' => Plan::where('name','Az Shop')->first(),
-            'plan_exist' => Subscription::where('user_id',auth()->id())->first(),
+            'plan_exist' => Subscription::where('user_id',auth()->id())->latest()->first(),
         ]);
     }
 
