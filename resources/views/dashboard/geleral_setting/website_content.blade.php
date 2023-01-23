@@ -37,9 +37,9 @@
         <!--end::Toolbar container-->
     </div>
     <div class="row">
-      <div class="col-lg-6 m-auto">
+      <div class="col-lg-7 m-auto">
 
-        <div class="card">
+        <div class="card " style="padding: 50px !important">
             <form action="{{ route('general.website.centent.post') }}" method="post">
                 @csrf
                 <div class="input-group mb-5">
