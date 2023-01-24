@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('nid_id')->nullable();
             $table->string('address');
             $table->string('reason_out_of_work')->nullable();
+            $table->string('reason_of_join_again')->nullable();
             $table->string('status')->default('active');
             $table->timestamps();
         });

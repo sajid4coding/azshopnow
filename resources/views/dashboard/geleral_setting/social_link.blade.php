@@ -42,7 +42,7 @@
     <div class="row">
       <div class="col-lg-5 m-auto">
 
-        <div class="card">
+        <div class="card p-5">
             @if (session('social_add_message'))
                 <div class="alert alert-primary" role="alert">
                     <strong>{{ session('social_add_message') }}</strong>
