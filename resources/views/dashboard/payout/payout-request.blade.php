@@ -37,102 +37,104 @@
         <!--end::Toolbar container-->
     </div>
     <!--end::Toolbar-->
-    <div class="row justify-content-center align-items-center my-3">
-        <div class="col-11">
-            <div class="card">
-              <div class="card-body">
-                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="payout_request_table">
-                    <thead>
-                        <tr>
-                            <th>SL</th>
-                            <th>Seller</th>
-                            <th>Amount</th>
-                            <th>Order Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    @foreach ($errors->all() as $error)
-                        {{ $error }}
-                    @endforeach
-                    <tbody>
-                        @php
-                            $sl = 1;
-                        @endphp
-                        <form action="{{ route('vendor.withdrawal.request') }}" method="POST">
-                            @csrf
-                        @foreach ($seller_payout_requests as $seller_payout_request)
+    <div class="container">
+        <div class="row justify-content-center align-items-center my-3">
+            <div class="col-11">
+                <div class="card">
+                  <div class="card-body">
+                    <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="payout_request_table">
+                        <thead>
                             <tr>
-                                <td>{{ $sl++ }}</td>
-                                <td>{{ $seller_payout_request->relationwithuser->name }} ({{ $seller_payout_request->relationwithuser->shop_name }})</td>
-                                <td>{{ $seller_payout_request->relationwithinvoice->total_price - $seller_payout_request->relationwithinvoice->total_price * $seller_data->seller_commission/100}}</td>
-                                <td>
-                                    {{ $seller_payout_request->created_at->format('d/m/y') }}
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-warning py-1 px-3" style="border: none">
-                                        <i class="fas fa-money-bill-wave"></i> Pay
-                                    </button>
-
-                                    {{-- FIRST MODAL START --}}
-                                        <!-- Button trigger modal (Order Details)-->
-                                        <button type="button" class="btn btn-danger py-1 px-3" data-bs-toggle="modal" data-bs-target="#orderdetail{{ $seller_payout_request->relationwithinvoice->id }}" style="border: none">
-                                            <i class="fas fa-info-circle"></i> Details
+                                <th>SL</th>
+                                <th>Seller</th>
+                                <th>Amount</th>
+                                <th>Order Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        @foreach ($errors->all() as $error)
+                            {{ $error }}
+                        @endforeach
+                        <tbody>
+                            @php
+                                $sl = 1;
+                            @endphp
+                            <form action="{{ route('vendor.withdrawal.request') }}" method="POST">
+                                @csrf
+                            @foreach ($seller_payout_requests as $seller_payout_request)
+                                <tr>
+                                    <td>{{ $sl++ }}</td>
+                                    <td>{{ $seller_payout_request->relationwithuser->name }} ({{ $seller_payout_request->relationwithuser->shop_name }})</td>
+                                    <td>{{ $seller_payout_request->relationwithinvoice->total_price - $seller_payout_request->relationwithinvoice->total_price * $seller_data->seller_commission/100}}</td>
+                                    <td>
+                                        {{ $seller_payout_request->created_at->format('d/m/y') }}
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning py-1 px-3" style="border: none">
+                                            <i class="fas fa-money-bill-wave"></i> Pay
                                         </button>
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="orderdetail{{ $seller_payout_request->relationwithinvoice->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Order Details</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-primary">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <th>Pay. System:</th>
-                                                                        <td>{{ $seller_payout_request->relationwithinvoice->payment_method }}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Pay. Status:</th>
-                                                                        <td>{{ $seller_payout_request->relationwithinvoice->payment }}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Order Status:</th>
-                                                                        <td>{{ $seller_payout_request->relationwithinvoice->order_status }}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Total Amount:</th>
-                                                                        <td>{{ $seller_payout_request->relationwithinvoice->total_price}}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Commission (-{{ $seller_data->seller_commission }}%):</th>
-                                                                        <td>{{ $seller_payout_request->relationwithinvoice->total_price * $seller_data->seller_commission/100 }}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Request Amount:</th>
-                                                                        <td>{{ $seller_payout_request->relationwithinvoice->total_price - $seller_payout_request->relationwithinvoice->total_price * $seller_data->seller_commission/100}}</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+                                        {{-- FIRST MODAL START --}}
+                                            <!-- Button trigger modal (Order Details)-->
+                                            <button type="button" class="btn btn-danger py-1 px-3" data-bs-toggle="modal" data-bs-target="#orderdetail{{ $seller_payout_request->relationwithinvoice->id }}" style="border: none">
+                                                <i class="fas fa-info-circle"></i> Details
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="orderdetail{{ $seller_payout_request->relationwithinvoice->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Order Details</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <div class="modal-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-primary">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th>Pay. System:</th>
+                                                                            <td>{{ $seller_payout_request->relationwithinvoice->payment_method }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>Pay. Status:</th>
+                                                                            <td>{{ $seller_payout_request->relationwithinvoice->payment }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>Order Status:</th>
+                                                                            <td>{{ $seller_payout_request->relationwithinvoice->order_status }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>Total Amount:</th>
+                                                                            <td>{{ $seller_payout_request->relationwithinvoice->total_price}}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>Commission (-{{ $seller_data->seller_commission }}%):</th>
+                                                                            <td>{{ $seller_payout_request->relationwithinvoice->total_price * $seller_data->seller_commission/100 }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>Request Amount:</th>
+                                                                            <td>{{ $seller_payout_request->relationwithinvoice->total_price - $seller_payout_request->relationwithinvoice->total_price * $seller_data->seller_commission/100}}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    {{-- FIRST MODAL EMD --}}
-                                </td>
-                            </tr>
-                        @endforeach
-                        </form>
-                    </tbody>
-                </table>
-              </div>
+                                        {{-- FIRST MODAL EMD --}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </form>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
             </div>
         </div>
     </div>

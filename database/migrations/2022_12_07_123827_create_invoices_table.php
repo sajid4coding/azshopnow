@@ -34,7 +34,7 @@ return new class extends Migration
             $table->integer('total_price');
             $table->string('payment_method');
             $table->string('payment')->default('unpaid');
-            $table->string('order_status')->default('processing');
+            $table->string('order_status')->default('pending');
             $table->string('withdraw_status')->default('not yet requested withdrawal');
             $table->timestamps();
             $table->SoftDeletes();

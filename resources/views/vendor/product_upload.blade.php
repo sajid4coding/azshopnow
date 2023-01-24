@@ -219,12 +219,12 @@
 
                 </div>
                 <div class="form-grp">
-                    <label for="description">Short Description</label>
-                    <textarea style=" min-height: 80px !important"  name="short_description"></textarea>
+                    <label for="shortdescription">Short Description</label>
+                    <textarea id="shortdescription" style=" min-height: 80px !important"  name="short_description"></textarea>
                 </div>
 
                 <div class="form-grp">
-                    <label for="description">Description</label>
+                    <label>Description</label>
                     <textarea id="summernote" name="description"></textarea>
                 </div>
                 <label>Product Tag</label>
@@ -294,24 +294,6 @@
         });
 
     });
-
-
-
-
-
-//     document.getElementById('readUrl').addEventListener('change', function(){
-//   if (this.files[0] ) {
-//     var picture = new FileReader();
-//     picture.readAsDataURL(this.files[0]);
-//     picture.addEventListener('load', function(event) {
-//       document.getElementById('uploadedImage').setAttribute('src', event.target.result);
-//       document.getElementById('uploadedImage').style.display = 'block';
-//     });
-//   }
-// });
-
-
-
 
 
 

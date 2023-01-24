@@ -316,7 +316,7 @@ class DashboardController extends Controller
             'reason_out_of_work' =>  $request->reason_out_of_work,
             'updated_at' =>  Carbon::now(),
         ]);
-        return redirect('delivery-boy-list')->with('out_of_work','Successfully out of work this boy!');
+        return redirect('manage-delivery-boy/delivery-boy-list')->with('out_of_work','Successfully out of work this boy!');
     }
     function deliveryBoyDelete($id){
 
@@ -374,6 +374,6 @@ class DashboardController extends Controller
                'created_at' => Carbon::now(),
            ]);
        }
-       return redirect('delivery/boy/list')->with('update_success_message','Successfully update a delivery boy profile');
+       return redirect('manage-delivery-boy/delivery-boy-list')->with('update_success_message','Successfully update a delivery boy profile');
    }
 }
