@@ -55,8 +55,13 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //DashboardController
     Route::get('dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('markasread',[DashboardController::class, 'markasread'])->middleware(['auth', 'verified'])->name('markasread');
+    Route::get('productmarkasread',[DashboardController::class, 'productmarkasread'])->middleware(['auth', 'verified'])->name('productmarkasread');
+    Route::get('ordermarkasread',[DashboardController::class, 'ordermarkasread'])->middleware(['auth', 'verified'])->name('ordermarkasread');
+    Route::get('all-notification',[DashboardController::class, 'allNotification'])->middleware(['auth', 'verified'])->name('all.notification');
+    Route::get('delete-notification',[DashboardController::class, 'deleteNotification'])->middleware(['auth', 'verified'])->name('delete.notification');
 
-    Route::group(['middleware' => ['can:admin-Product Management','can:admin-Product Campaign']], function () {
+    Route::group(['middleware' => ['permission:admin-Product Management|admin-Product Campaign']], function () {
         Route::get('product_lists',[DashboardController::class, 'product_lists'])->middleware(['auth', 'verified'])->name('product_lists');
         Route::get('pending-products',[DashboardController::class, 'pendingProducts'])->middleware(['auth', 'verified'])->name('pending.products');
         Route::get('banned-products',[DashboardController::class, 'bannedProducts'])->middleware(['auth', 'verified'])->name('banned.products');

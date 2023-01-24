@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductGallery;
 use App\Models\Product;
+use App\Models\User;
+use App\Notifications\ProductNotification;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Faker\Core\File;
@@ -132,6 +134,11 @@ class ProductController extends Controller
                 }
             }
         }
+        $admins=User::where('role','admin')->get();
+        foreach($admins as $admin){
+            $admin->notify(new ProductNotification($product));
+        }
+
         return redirect("inventory/$product->id")->with('product_add_success','Successfully added a new product!');
 
     }

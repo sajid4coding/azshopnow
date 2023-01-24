@@ -26,72 +26,48 @@
                     </div>
                     <div class="widget mb-40">
                         <div class="widget-title mb-25">
-                            <h4 class="title">Best Seller</h4>
+                            <h4 class="title">Most Viewd Products</h4>
                         </div>
                         <div class="sidebar-product-list">
                             <ul>
-                                <li>
-                                    <div class="thumb">
-                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/sidebar_product01.jpg" alt="img"></a>
-                                    </div>
-                                    <div class="content">
-                                        <h6 class="title"><a href="shop-details.html">Appliance Aid Kitchen Stand</a></h6>
-                                        <div class="rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
+                                @php
+                                    $mostviewedproducts=mostViewedProducts()
+                                @endphp
+                                @foreach ($mostviewedproducts as $product)
+                                    <li>
+                                        <div class="thumb">
+                                            <a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}"><img src="{{ asset('uploads/product_photo') }}/{{$product->thumbnail}}" alt="img"></a>
                                         </div>
-                                        <h4 class="price"><del>$39.08</del> $19.00</h4>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="thumb">
-                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/sidebar_product02.jpg" alt="img"></a>
-                                    </div>
-                                    <div class="content">
-                                        <h6 class="title"><a href="shop-details.html">One Washer Dryer</a></h6>
-                                        <div class="rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
+                                        <div class="content">
+                                            <h6 class="title"><a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}">{{Str::limit($product->product_title,8)}}</a></h6>
+                                            <div class="rating">
+                                                @if (review($product->id))
+                                                    @for ($x = 1; $x <= 5; $x++)
+                                                        @if ($x <= review($product->id))
+                                                            <i class="fas fa-star"></i>
+                                                        @else
+                                                            <i class="far fa-star"></i><!--Empty star-->
+                                                        @endif
+                                                    @endfor
+                                                    <span style="font-size: 10px;">({{ count_review($product->id) }})</span>
+                                                @else
+                                                    <span class="text-danger">No Review Yet</span>
+                                                @endif
+                                            </div>
+                                            @if ($product->discount_price)
+                                                <h4>
+                                                    ${{$product->discount_price}}
+                                                    <span class="price text-muted">
+                                                        <del> ${{$product->product_price}}</del>
+                                                    </span>
+                                                </h4>
+                                            @else
+                                                <h4 class="price">${{$product->product_price}}</h4>
+                                            @endif
                                         </div>
-                                        <h4 class="price"><del>$39.08</del> $19.00</h4>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="thumb">
-                                        <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/sidebar_product03.jpg" alt="img"></a>
-                                    </div>
-                                    <div class="content">
-                                        <h6 class="title"><a href="shop-details.html">Electric Blender Mixer</a></h6>
-                                        <div class="rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        </div>
-                                        <h4 class="price"><del>$39.08</del> $19.00</h4>
-                                    </div>
-                                </li>
+                                    </li>
+                                @endforeach
                             </ul>
-                        </div>
-                    </div>
-                    <div class="widget mb-40">
-                        <div class="widget-title price-title mb-15">
-                            <h4 class="title">Filter by price :</h4>
-                        </div>
-                        <div class="price_filter">
-                            <div id="slider-range"></div>
-                            <div class="price_slider_amount">
-                                <input type="submit" class="btn" value="Filter">
-                                <span>Price :</span>
-                                <input type="text" id="amount" name="price" placeholder="Add Your Price" />
-                            </div>
                         </div>
                     </div>
                     <div class="widget">
@@ -116,24 +92,7 @@
             <div class="col-xl-9 col-lg-8">
                 <div class="shop-top-wrap mb-35">
                     <div class="shop-top-left">
-                        <h5 class="title">Shop</h5>
-                    </div>
-                    <div class="shop-top-right">
-                        <form action="#">
-                            <label for="shortBy">sort By</label>
-                            <select id="shortBy" name="select" class="form-select" aria-label="Default select example">
-                                <option value="">Sorting</option>
-                                <option>Free Shipping</option>
-                                <option>Best Match</option>
-                                <option>Newest Item</option>
-                                <option>Size A - Z</option>
-                            </select>
-                        </form>
-                        {{-- <ul>
-                            <li>View</li>
-                            <li class="active"><a href="#"><i class="fa-solid fa-table-cells"></i></a></li>
-                            <li><a href="#"><i class="fa-solid fa-bars"></i></a></li>
-                        </ul> --}}
+                        <h5 class="title">List of Vendors By Each Categories</h5>
                     </div>
                 </div>
                 <div class="row justify-content-center">

@@ -12,7 +12,7 @@
                         <h2 class="title">Wishlist</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('customerhome') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
                             </ol>
                         </nav>
@@ -71,7 +71,7 @@
                                 <td>
                                     <div class="cart_product">
                                         <img width="50" src="{{ asset('uploads/product_photo') }}/{{ $wishlist->relationwithproduct->thumbnail }}" alt="image_not_found" />
-                                        <a class="" style="color:#FF4800;" href="{{ route('single.product', $wishlist->relationwithproduct->id) }}">{{ $wishlist->relationwithproduct->product_title }}</span>
+                                        <a class="" style="color:#FF4800;" href="{{ route('single.product', ['id'=>$wishlist->relationwithproduct->id,'title'=>$wishlist->relationwithproduct->product_title]) }}">{{ $wishlist->relationwithproduct->product_title }}</span>
                                     </div>
                                 </td>
                                 <td class="text-center" style="padding-top: 20px">
@@ -88,7 +88,7 @@
                                     <td class="text-center" style="padding-top: 20px"><span class="price_text text-success">In Stock</span></td>
                                 @endif
                                 <td class="text-center" style="padding-top: 20px">
-                                    <a href="#!" style="padding: 5px 10px; font-size: 10px;" class="btn btn_primary">Add To Cart</a>
+                                    <a href="{{route('single.product', ['id'=>$wishlist->relationwithproduct->id,'title'=>$wishlist->relationwithproduct->product_title])}}" style="padding: 5px 10px; font-size: 10px;" class="btn btn_primary text-dark">Add To Cart</a>
                                 </td>
                                 <td class="text-center" style="padding-top: 20px">
                                     <a href="{{ route('wishlist.delete', $wishlist->inventory_id) }}" class="remove_btn"><i class="fa fa-trash-alt"></i></a>

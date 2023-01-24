@@ -20,7 +20,7 @@ class VendorsmanagementController extends Controller
      */
     public function index()
     {
-        $vendors=User::where('role','vendor')->get();
+        $vendors=User::where('role','vendor')->latest()->get();
         return view('dashboard.usersManagement.vendor.allVendorsList', compact('vendors'));
     }
 
