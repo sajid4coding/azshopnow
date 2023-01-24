@@ -204,6 +204,8 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::post('delivery/boy/out-of-work/post/{id}',[DashboardController::class,'deliveryBoyOutOfWorkPost'])->name('delivery.boy.out.work.post');
         Route::post('delivery/boy/post/{id}',[DashboardController::class,'deliveryBoyEditPost'])->name('delivery.boy.edit.post');
         Route::get('delivery/boy/delete/{id}',[DashboardController::class,'deliveryBoyDelete'])->name('delivery.boy.delete');
+        Route::get('delivery/boy/join/again/{id}',[DashboardController::class,'deliveryBoyJoinAgain'])->name('delivery.boy.join.again');
+        Route::post('delivery/boy/join/again/post/{id}',[DashboardController::class,'deliveryBoyJoinAgainPost'])->name('delivery.boy.join.again.post');
 
   //DELIVERY BOY ROUTE END
     });

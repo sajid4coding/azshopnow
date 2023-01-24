@@ -60,31 +60,31 @@
                         <div class="col-lg-6">
                             <div class="input-group mb-5">
                                 <span class="input-group-text">Name<span style="color:red">*</span></span>
-                                <input type="text" class="form-control" placeholder="name here" name="name" value="">
+                                <input type="text" class="form-control" placeholder="name here" name="name" value="{{ old('name') }}">
                             </div>
                             @error('name')
                             <p class="text-light rounded bg-danger p-4">{{ $message }}</p>
                             @enderror
                             <div class="input-group mb-5">
                                 <span class="input-group-text">Email<span style="color:red">*</span></span>
-                                <input type="text" class="form-control" placeholder="Email here" name="email" value="">
+                                <input type="text" class="form-control" placeholder="Email here" name="email" value="{{ old('email') }}">
                             </div>
                             @error('email')
                             <p class="text-light rounded bg-danger p-4">{{ $message }}</p>
                             @enderror
                             <div class="input-group mb-5">
                                 <span class="input-group-text">Date of Birth <span style="opacity: .5">(Optional)</span></span>
-                                <input type="date" class="form-control" placeholder="date" name="date_of_birth" value="">
+                                <input type="date" class="form-control" placeholder="date" name="date_of_birth" value="{{ old('date_of_birth') }}">
                             </div>
                             <div class="input-group mb-5">
                                 <span class="input-group-text">Birth Reg. Id <span style="opacity: .5">(Optional)</span></span>
-                                <input type="text" class="form-control" placeholder="Id here" name="Birth_reg_number" value="">
+                                <input type="text" class="form-control" placeholder="Id here" name="Birth_reg_number" value="{{ old('Birth_reg_number') }}">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="input-group mb-5">
                                 <span class="input-group-text">Photo<span style="opacity: .5">(Optional)</span></span>
-                                <input type="file" class="form-control" placeholder="name here" name="photo" value="">
+                                <input type="file" class="form-control" placeholder="name here" name="photo">
                             </div>
                             <p class="text-danger">This image maximum 350px*350px & must be jpg,png format</p>
                             @error('photo')
@@ -92,21 +92,21 @@
                             @enderror
                             <div class="input-group mb-5">
                                 <span class="input-group-text">Phone Number<span style="color:red">*</span></span>
-                                <input type="tell" class="form-control" placeholder="number here" name="phone_number" value="">
+                                <input type="tell" class="form-control" placeholder="number here" name="phone_number" value="{{ old('phone_number') }}">
                             </div>
                             @error('phone_number')
                             <p class="text-light rounded bg-danger p-4">{{ $message }}</p>
                             @enderror
                             <div class="input-group mb-5">
                                 <span class="input-group-text">Address<span style="color:red">*</span></span>
-                                <input type="text" class="form-control" placeholder="Address here" name="address" value="">
+                                <input type="text" class="form-control" placeholder="Address here" name="address" value="{{ old('address') }}">
                             </div>
                             @error('address')
                             <p class="text-light rounded bg-danger p-4">{{ $message }}</p>
                             @enderror
                             <div class="input-group mb-5">
                                 <span class="input-group-text">NID Id <span style="opacity: .5">(Optional)</span></span>
-                                <input type="text" class="form-control" placeholder="Id here" name="nid_id" value="">
+                                <input type="text" class="form-control" placeholder="Id here" name="nid_id" value="{{ old('nid_id') }}">
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,6 @@
             position: 'top-end',
             showConfirmButton: false,
             timer: 3000,
-            background:'#62C9FF',
             timerProgressBar: true,
             didOpen: (toast) => {
                 toast.addEventListener('mouseenter', Swal.stopTimer)

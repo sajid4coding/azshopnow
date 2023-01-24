@@ -46,7 +46,11 @@
 
                     <div class="card-body">
                         <p>Previous Logo</p>
-                        <img style="width: 120px; display:block" src="{{asset('uploads/general_photo')}}/{{$general->header_logo}}" class="card-img-top" alt="...">
+                        @if ($general->header_logo)
+                           <img style="width: 120px; display:block" src="{{asset('uploads/general_photo')}}/{{$general->header_logo}}" class="card-img-top" alt="...">
+                        @else
+                           <img style="width: 120px; display:block" src="{{asset('uploads/demo/demo_logo.jpg')}}" class="card-img-top" alt="...">
+                        @endif
                     </div>
 
                     <div class="card-body">
@@ -78,7 +82,11 @@
 
                 <div class="card-body">
                     <p>Previous Logo</p>
+                    @if ($general->footer_logo)
                     <img style="width: 120px; display:block" src="{{asset('uploads/general_photo')}}/{{$general->footer_logo}}" class="card-img-top" alt="...">
+                    @else
+                        <img style="width: 120px; display:block" src="{{asset('uploads/demo/demo_logo.jpg')}}" class="card-img-top" alt="...">
+                    @endif
 
                 </div>
 
@@ -106,7 +114,11 @@
 
                 <div class="card-body">
                     <p>Previous Logo</p>
+                    @if ($general->invoice_logo)
                     <img style="width: 120px; display:block" src="{{asset('uploads/general_photo')}}/{{$general->invoice_logo}}" class="card-img-top" alt="...">
+                    @else
+                        <img style="width: 120px; display:block" src="{{asset('uploads/demo/demo_logo.jpg')}}" class="card-img-top" alt="...">
+                    @endif
 
                 </div>
 
@@ -135,7 +147,11 @@
 
                 <div class="card-body">
                     <p>Previous Favicon</p>
-                    <img style="width: 32px; display:block" src="{{asset('uploads/general_photo')}}/{{$general->favicon_logo}}" class="card-img-top" alt="favicon logo">
+                    @if ($general->favicon_logo)
+                    <img style="width: 120px; display:block" src="{{asset('uploads/general_photo')}}/{{$general->favicon_logo}}" class="card-img-top" alt="...">
+                    @else
+                        <img style="width: 120px; display:block" src="{{asset('uploads/demo/demo_logo.jpg')}}" class="card-img-top" alt="...">
+                    @endif
 
                 </div>
 
@@ -200,7 +216,12 @@
 
                     <div class="card-body">
                         <p>Previous Logo</p>
-                        <img style="width: 120px; display:block" src="{{asset('uploads/general_photo')}}/{{$general->dashboard_logo}}" class="card-img-top" alt="...">
+                        @if ($general->dashboard_logo)
+                            <img style="width: 120px; display:block" src="{{asset('uploads/general_photo')}}/{{$general->dashboard_logo}}" class="card-img-top" alt="...">
+                        @else
+                            <img style="width: 120px; display:block" src="{{asset('uploads/demo/demo_logo.jpg')}}" class="card-img-top" alt="...">
+                        @endif
+
                     </div>
 
                     <div class="card-body">
@@ -232,7 +253,11 @@
 
                     <div class="card-body">
                         <p>Previous Favicon</p>
-                        <img style="width: 32px; display:block" src="{{asset('uploads/general_photo')}}/{{$general->dashboard_favicon_logo}}" class="card-img-top" alt="favicon logo">
+                        @if ($general->dashboard_favicon_logo)
+                        <img style="width: 120px; display:block" src="{{asset('uploads/general_photo')}}/{{$general->dashboard_favicon_logo}}" class="card-img-top" alt="...">
+                    @else
+                        <img style="width: 120px; display:block" src="{{asset('uploads/demo/demo_logo.jpg')}}" class="card-img-top" alt="...">
+                    @endif
 
                     </div>
 
