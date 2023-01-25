@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VendorRegisterNotification as MailVendorRegisterNotification;
 use App\Models\{Banner,Coupon, General, Invoice,Plan,Product,Shipping,SubCategory,User, VendorPaymentRequest, VendorShipping};
 use App\Notifications\VendorRegisterNotification;
 use Carbon\Carbon;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rules\Password;
 use Intervention\Image\Facades\Image;
@@ -94,6 +96,22 @@ class vendorController extends Controller
         $vendor=User::find($vendor_id);
         foreach($admins as $admin){
             $admin->notify(new VendorRegisterNotification($vendor));
+        }
+
+        //mail notification
+        $admins= User::where('role','admin')->latest()->get();
+        foreach($admins as $admin){
+            $email=$admin->email;
+            $roleID=DB::table('model_has_roles')->where('model_id',$admin->id)->first()->role_id;
+            // $roleID=DB::table('roles')->where('id',$roleID)->first()->name;
+            $permissionsId=DB::table('role_has_permissions')->where('role_id',$roleID)->get();
+            foreach ($permissionsId as $permission) {
+                if(DB::table('permissions')->where('id',$permission->permission_id)->first()->name == 'admin-Vendor Management'){
+                //    if($email != 'admin@azshopnow.com'){
+                    Mail::to($email)->send(new MailVendorRegisterNotification($request->shop_name));
+                //    }
+                }
+            }
         }
 
         return redirect('plans'.'/'.$plan->slug);

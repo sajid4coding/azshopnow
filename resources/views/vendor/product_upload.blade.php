@@ -222,15 +222,15 @@ i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before{
 
                 </div>
                 <div class="form-grp">
-                    <label for="description">Short Description</label>
-                    <textarea style=" min-height: 80px !important"  name="short_description"></textarea>
+                    <label for="short_description">Short Description</label>
+                    <textarea style=" min-height: 80px !important" id="short_description" name="short_description"></textarea>
                 </div>
 
                 <div class="form-grp">
-                    <label for="description">Description</label>
+                    <label>Description</label>
                     <textarea id="summernote" name="description"></textarea>
                 </div>
-                <label>Product Tag</label>
+                <label for="tag-input1">Product Tag</label>
                 <input type="text" class="form-control" name="product_tag" id="tag-input1">
                 <span class="muted">Add tags for a product</span>
                 <br>
