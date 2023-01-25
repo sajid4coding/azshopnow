@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\VendorActivation;
 use App\Mail\VendorBan;
 use App\Models\General;
+use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\VendorPaymentRequest;
 
@@ -64,10 +65,10 @@ class VendorsmanagementController extends Controller
      */
     public function edit($id)
     {
-       $vendorProducts= Product::where('vendor_id', $id)->where('status', 'published')->where('vendorProductStatus', 'published')->latest()->get();
-        $vendor=User::findOrFail($id);
-        return view('dashboard.usersManagement.vendor.vendorAction',compact('vendor', 'vendorProducts'));
-
+        $vendorProducts= Product::where('vendor_id', $id)->where('status', 'published')->where('vendorProductStatus', 'published')->latest()->get();
+        $vendor = User::findOrFail($id);
+        $general_setting = General::find(1);
+        return view('dashboard.usersManagement.vendor.vendorAction',compact('vendor', 'vendorProducts', 'general_setting'));
     }
 
     /**
@@ -79,7 +80,13 @@ class VendorsmanagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user=User::find($id);
+        $request->validate([
+            'seller_commission' => 'required',
+            'minimum_amount_withdraw' => 'required',
+        ]);
+        $user = User::find($id);
+
+        // ACTIVE STATUS CONDITION START
         if ($user->status=='active') {
           $user->status='deactive';
           $user->email_verified_at=now();
@@ -90,7 +97,23 @@ class VendorsmanagementController extends Controller
           Mail::to($user->email)->send(new VendorActivation($user->name,$user->email,$user->shop_name));
         }
         $user->save();
-        return redirect('/vendormanagement')->with('success','Vendor profile status changed successfully.');
+        // ACTIVE STATUS CONDITION END
+
+        // SELLER COMMISSION STATUS CONDITION START
+        if ($request->seller_commission) {
+            $user->seller_commission = $request->seller_commission;
+        }
+        $user->save();
+        // SELLER COMMISSION STATUS CONDITION END
+
+        // SELLER MINIMUM AMOUNT WITHDRAW STATUS CONDITION START
+        if ($request->minimum_amount_withdraw) {
+            $user->minimum_amount_withdraw = $request->minimum_amount_withdraw;
+        }
+        $user->save();
+        // SELLER MINIMUM AMOUNT WITHDRAW STATUS CONDITION END
+
+        return back()->with('success','Vendor profile status changed successfully.');
     }
 
     /**
@@ -110,11 +133,45 @@ class VendorsmanagementController extends Controller
             'seller_date' => General::find(1),
         ]);
     }
+
     function payout_request(){
         return view('dashboard.payout.payout-request',[
             'seller_payout_requests' => VendorPaymentRequest::all(),
             'seller_data' => General::find(1),
         ]);
+    }
+
+    function get_paid(Request $request, $id){
+        $request->validate([
+            'transactions_id' => 'required',
+        ]);
+        Invoice::find(VendorPaymentRequest::find($id)->invoice_id)->update([
+            'withdraw_status' => 'Payment Clear',
+            'transactions_id' => $request->transactions_id
+        ]);
+        VendorPaymentRequest::find($id)->update([
+            'status' => 'paid'
+        ]);
+        return back();
+    }
+    function payout_request_accepted($id){
+        Invoice::find(VendorPaymentRequest::find($id)->invoice_id)->update([
+            'withdraw_status' => 'Payout Request Approved'
+        ]);
+        VendorPaymentRequest::find($id)->update([
+            'status' => 'processing'
+        ]);
+        return back();
+    }
+
+    function payout_request_declined($id){
+        Invoice::find(VendorPaymentRequest::find($id)->invoice_id)->update([
+            'withdraw_status' => 'Payout Request Rejected'
+        ]);
+        VendorPaymentRequest::find($id)->update([
+            'status' => 'rejected'
+        ]);
+        return back();
     }
 
     function commission(){

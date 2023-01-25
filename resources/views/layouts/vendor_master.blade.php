@@ -153,7 +153,7 @@
 
                                             @can ('vendor-earning')
                                                 <li class="nav-item @if ($current_page == 'vendor-earning') here show @endif" >
-                                                    <a class="nav-link cust_a" href="{{ route('vendor.earning') }}"> <i class="fas fa-money-bill-alt"></i>Earning</a>
+                                                    <a class="nav-link cust_a" href="{{ route('vendor.earning') }}"> <i class="fas fa-money-bill-alt"></i>Withdraw</a>
                                                 </li>
                                             @endcan
                                             @can ('vendor-staff management')
@@ -177,9 +177,9 @@
                                             </li> --}}
 
                                             @if (auth()->user()->role=='vendor')
-                                                    <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >
-                                                        <a class="nav-link cust_a" href="{{ route('upgrade') }}"> <i class="fa-solid fa-truck-fast"></i>Plans</a>
-                                                    </li>
+                                                <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('upgrade') }}"> <i class="fa-solid fa-truck-fast"></i>Plans</a>
+                                                </li>
                                             @endif
 
                                             <li class="mb-3">
@@ -197,17 +197,17 @@
 
                                     <div class="vs-widget" >
                                         @if (auth()->user()->address || auth()->user()->phone_number)
-                                        <div class="widget-title mt-5">
-                                            <h4 class="title">Contacts</h4>
-                                        </div>
-                                        <ul class="contact-info">
-                                            @if (auth()->user()->address)
-                                            <li><i class="fa-solid fa-location-dot"></i>{{ auth()->user()->address }}</li>
-                                            @endif
-                                            @if (auth()->user()->phone_number)
-                                            <li><i class="fa-solid fa-phone-volume"></i> <a href="tel:{{ auth()->user()->phone_number }}">{{ auth()->user()->phone_number }}</a></li>
-                                            @endif
-                                        </ul>
+                                            <div class="widget-title mt-5">
+                                                <h4 class="title">Contacts</h4>
+                                            </div>
+                                            <ul class="contact-info">
+                                                @if (auth()->user()->address)
+                                                <li><i class="fa-solid fa-location-dot"></i>{{ auth()->user()->address }}</li>
+                                                @endif
+                                                @if (auth()->user()->phone_number)
+                                                <li><i class="fa-solid fa-phone-volume"></i> <a href="tel:{{ auth()->user()->phone_number }}">{{ auth()->user()->phone_number }}</a></li>
+                                                @endif
+                                            </ul>
                                         @endif
                                     </div>
                                 </aside>

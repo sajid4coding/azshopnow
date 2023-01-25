@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -43,8 +44,8 @@ class AdminSeeder extends Seeder
             'shop_name' => 'AZ Shop Now',
             'role' => 'vendor',
             'status' => 'active',
-            'email_verified_at' => now(),
-            'created_at' => now(),
+            'email_verified_at' => Carbon::yesterday(),
+            'created_at' => Carbon::yesterday(),
             'password' => Hash::make('123456789'),
         ]);
         // $role = Role::where('name','vendor')->first();
