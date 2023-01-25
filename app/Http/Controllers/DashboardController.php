@@ -401,7 +401,7 @@ class DashboardController extends Controller
        return redirect('manage-delivery-boy/delivery-boy-list')->with('update_success_message','Successfully update a delivery boy profile');
    }
    function markasread(){
-    auth()->user()->unreadNotifications->markAsRead();
+    auth()->user()->unreadNotifications->where('type','App\Notifications\VendorRegisterNotification')->markAsRead();
     return back();
    }
    function productmarkasread(){
@@ -416,10 +416,6 @@ class DashboardController extends Controller
     return view('dashboard.notification.vendorRegisterNotification');
    }
    function deleteNotification (){
-    // $user=User::where('role','admin')->get();
-    // foreach($user->notifications->where('notifiable_id',$user->id) as $notification){
-    //     $notification->delete();
-    // }
     auth()->user()->Notifications()->delete();
     return back();
    }

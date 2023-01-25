@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AdminProductNotification;
 use App\Models\ProductGallery;
 use App\Models\Product;
 use App\Models\User;
@@ -9,6 +10,8 @@ use App\Notifications\ProductNotification;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Faker\Core\File;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
@@ -137,6 +140,22 @@ class ProductController extends Controller
         $admins=User::where('role','admin')->get();
         foreach($admins as $admin){
             $admin->notify(new ProductNotification($product));
+        }
+
+        //mail notification
+        $admins= User::where('role','admin')->latest()->get();
+        foreach($admins as $admin){
+            $email=$admin->email;
+            $roleID=DB::table('model_has_roles')->where('model_id',$admin->id)->first()->role_id;
+            // $roleID=DB::table('roles')->where('id',$roleID)->first()->name;
+            $permissionsId=DB::table('role_has_permissions')->where('role_id',$roleID)->get();
+            foreach ($permissionsId as $permission) {
+                if(DB::table('permissions')->where('id',$permission->permission_id)->first()->name == 'admin-Product Management'){
+                //    if($email != 'admin@azshopnow.com'){
+                    Mail::to($email)->send(new AdminProductNotification($request->product_title));
+                //    }
+                }
+            }
         }
 
         return redirect("inventory/$product->id")->with('product_add_success','Successfully added a new product!');

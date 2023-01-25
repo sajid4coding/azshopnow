@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
+use App\Mail\OrderMailNotification;
 use App\Models\{Banner, Cart, Category, Coupon, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReport, ProductReview, ReviewGallery, SubCategory, User, Wishlist};
 use Khsing\World\World;
 use Khsing\World\Models\Country;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\General;
 use App\Notifications\OrderNotification;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\Return_;
 
 class FrontEndController extends Controller
@@ -166,6 +168,9 @@ class FrontEndController extends Controller
             foreach($admins as $admin){
                 $admin->notify(new OrderNotification($invoice));
             }
+            $vendorEmail=auth()->user(Cart::where('user_id',auth()->id())->first()->vendor_id)->email;
+
+
 
         }
 
@@ -189,6 +194,22 @@ class FrontEndController extends Controller
 
             if(Inventory::find($order_detail->inventory_id)->exists()){
                 Inventory::find($order_detail->inventory_id)->decrement('quantity', $order_detail->quantity);
+            }
+        }
+        //mail notification
+        $admins= User::where('role','admin')->latest()->get();
+        $productId=Cart::where('user_id',auth()->id())->first()->product_id;
+        // $productName=Product::find($productId)->product_title;
+        $orders=Order_Detail::where('invoice_id',$invoice_id)->get();
+        foreach($admins as $admin){
+            $email=$admin->email;
+            $roleID=DB::table('model_has_roles')->where('model_id',$admin->id)->first()->role_id;
+            // $roleID=DB::table('roles')->where('id',$roleID)->first()->name;
+            $permissionsId=DB::table('role_has_permissions')->where('role_id',$roleID)->get();
+            foreach ($permissionsId as $permission) {
+                if(DB::table('permissions')->where('id',$permission->permission_id)->first()->name == 'admin-Product Management'){
+                    Mail::to($email)->bcc($vendorEmail,$request->billing_email)->send(new OrderMailNotification($orders,$invoice,$request->billing_first_name));
+                }
             }
         }
 
