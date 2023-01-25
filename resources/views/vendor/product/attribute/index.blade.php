@@ -30,7 +30,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center m-3">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm py-2 px-3 item-certer button-prevent-multiple-submits">Add Size</button>
+                                        <button type="submit" class="btn btn-outline-primary text-black btn-sm py-2 px-3 item-certer button-prevent-multiple-submits">Add Size</button>
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-outline-primary btn-sm py-2 px-3 item-certer button-prevent-multiple-submits">Add Color</button>
+                                                <button type="submit" class="btn btn-outline-primary text-black btn-sm py-2 px-3 item-certer button-prevent-multiple-submits">Add Color</button>
                                             </div>
                                         </div>
                                     </div>

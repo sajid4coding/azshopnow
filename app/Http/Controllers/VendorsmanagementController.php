@@ -66,8 +66,9 @@ class VendorsmanagementController extends Controller
     public function edit($id)
     {
         $vendorProducts= Product::where('vendor_id', $id)->where('status', 'published')->where('vendorProductStatus', 'published')->latest()->get();
-        $vendor=User::findOrFail($id);
-        return view('dashboard.usersManagement.vendor.vendorAction',compact('vendor', 'vendorProducts'));
+        $vendor = User::findOrFail($id);
+        $general_setting = General::find(1);
+        return view('dashboard.usersManagement.vendor.vendorAction',compact('vendor', 'vendorProducts', 'general_setting'));
     }
 
     /**
@@ -79,7 +80,13 @@ class VendorsmanagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user=User::find($id);
+        $request->validate([
+            'seller_commission' => 'required',
+            'minimum_amount_withdraw' => 'required',
+        ]);
+        $user = User::find($id);
+
+        // ACTIVE STATUS CONDITION START
         if ($user->status=='active') {
           $user->status='deactive';
           $user->email_verified_at=now();
@@ -90,7 +97,23 @@ class VendorsmanagementController extends Controller
           Mail::to($user->email)->send(new VendorActivation($user->name,$user->email,$user->shop_name));
         }
         $user->save();
-        return redirect('/vendormanagement')->with('success','Vendor profile status changed successfully.');
+        // ACTIVE STATUS CONDITION END
+
+        // SELLER COMMISSION STATUS CONDITION START
+        if ($request->seller_commission) {
+            $user->seller_commission = $request->seller_commission;
+        }
+        $user->save();
+        // SELLER COMMISSION STATUS CONDITION END
+
+        // SELLER MINIMUM AMOUNT WITHDRAW STATUS CONDITION START
+        if ($request->minimum_amount_withdraw) {
+            $user->minimum_amount_withdraw = $request->minimum_amount_withdraw;
+        }
+        $user->save();
+        // SELLER MINIMUM AMOUNT WITHDRAW STATUS CONDITION END
+
+        return back()->with('success','Vendor profile status changed successfully.');
     }
 
     /**

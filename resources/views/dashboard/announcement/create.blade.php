@@ -49,12 +49,23 @@
 
                         <textarea id="summernote" class="form-control " name="description"></textarea>
 
-                        <input type="checkbox" class="mb-5 mt-5"> <span>Check For All Seller</span> <br>
-                        <select class="form-control mb-5 js-example-tags" multiple="multiple">
-                            <option selected="selected">orange</option>
-                            <option>white</option>
-                            <option selected="selected">purple</option>
-                        </select>
+                        <div class="mt-5">
+                            <input type="radio" id="all_seller" name="drone" value="All Seller" checked>
+                            <label for="all_seller">All Seller</label>
+                        </div>
+
+                        <div class="mb-5">
+                            <input type="radio" id="specific_seller" name="drone" value="Specific Seller">
+                            <label for="specific_seller">Specific Seller</label>
+                        </div>
+
+                        <div id="vendor_list" style="display: none">
+                            <select class="form-control mb-5 js-example-tags" multiple="multiple">
+                                <option selected="selected">orange</option>
+                                <option>white</option>
+                                <option selected="selected">purple</option>
+                            </select>
+                        </div>
 
                         <div class="d-grid gap-2 col-4 mx-auto">
                             <button class="btn btn-primary mt-5" type="submit">Create Announcement</button>
@@ -79,6 +90,13 @@
             $('#summernote').summernote({
                 placeholder: 'type description...',
                 height: 300,
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $("#specific_seller").click(function(){
+                $("#vendor_list").slideToggle();
             });
         });
     </script>
