@@ -11,6 +11,7 @@ use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Mail;
 use App\Models\General;
+use App\Notifications\OrderNotification;
 use Carbon\Carbon;
 use PhpParser\Node\Stmt\Return_;
 
@@ -160,6 +161,12 @@ class FrontEndController extends Controller
                 'payment_method' => $request->payment_method,
                 'created_at' => now()
             ]);
+            $admins=User::where('role','admin')->get();
+            $invoice=Invoice::find($invoice_id);
+            foreach($admins as $admin){
+                $admin->notify(new OrderNotification($invoice));
+            }
+
         }
 
         foreach(Cart::where('user_id', auth()->id())->get() as $order_detail){

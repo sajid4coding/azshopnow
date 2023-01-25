@@ -47,12 +47,7 @@
                             <th><b>SL.</b></th>
                             <th><b>Photo</b></th>
                             <th><b>Name</b></th>
-                            <th><b>Email</b></th>
-                            <th><b>Phone Number</b></th>
                             <th><b>Address</b></th>
-                            <th><b>Date Of Birth</b></th>
-                            <th><b>Birth Reg. Id</b></th>
-                            <th><b>NID Id</b></th>
                             <th><b>Reason</b></th>
                             <th><b>Join Date</b></th>
                             <th><b>Reject Date</b></th>
@@ -72,12 +67,7 @@
                                     @endif
                                 </td>
                                 <td>{{ $delivery_boy->name }}</td>
-                                <td>{{ $delivery_boy->email }}</td>
-                                <td>{{ $delivery_boy->phone_number }}</td>
                                 <td>{{ $delivery_boy->address }}</td>
-                                <td>{{ $delivery_boy->date_of_birth }}</td>
-                                <td>{{ $delivery_boy->Birth_reg_number }}</td>
-                                <td>{{ $delivery_boy->nid_id }}</td>
                                 <td>{{ $delivery_boy->reason_out_of_work }}</td>
                                 <td>{{ $delivery_boy->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $delivery_boy->updated_at->format('Y-m-d') }}</td>
@@ -97,13 +87,74 @@
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
-                                                <a href="{{ route('delivery.boy.delete',$delivery_boy->id) }}" class="btn btn-sm menu-link px-3" >Delete Info</a>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $delivery_boy->id }}" class="btn btn-sm menu-link px-3">Details</a>
                                             </div>
+                                            <div class="menu-item px-3">
+                                                <a href="{{ route('delivery.boy.delete',$delivery_boy->id) }}" class="btn btn-sm menu-link px-3" >Delete Info</a>
+                                                <a href="{{ route('delivery.boy.join.again', $delivery_boy->id) }}" class="btn btn-sm menu-link px-3" >
+                                                    Join Again
+                                                </a>
+                                        </div>
                                             <!--end::Menu item-->
                                         </div>
                                 </td>
-
                             </tr>
+                            <div class="modal fade" id="exampleModal{{ $delivery_boy->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="row">
+                                        <div class="col-lg-4 m-auto">
+                                            <img width="100" src="{{ asset('uploads/delivery_boy_photo') }}/{{ $delivery_boy->photo }}" alt="">
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-lg-12">
+                                            <p>
+                                                <span class=""> <b>Name : </b> {{ $delivery_boy->name }}</span>
+                                            </p>
+                                            <p>
+                                                <span class=""> <b>Email : </b> {{ $delivery_boy->email }}</span>
+                                            </p>
+                                            <p>
+                                                <span class=""> <b>Phone Number : </b> {{ $delivery_boy->phone_number }}</span>
+                                            </p>
+                                            <p>
+                                                <span class=""> <b>Address : </b> {{ $delivery_boy->address }}</span>
+                                            </p>
+                                            <p>
+                                                <span class=""> <b>Date of Birth : </b> {{ $delivery_boy->date_of_birth }}</span>
+                                            </p>
+                                            <p>
+                                                <span class=""> <b>Birth Reg. Number : </b> {{ $delivery_boy->Birth_reg_number }}</span>
+                                            </p>
+                                            <p>
+                                                <span class=""> <b>Nid Id : </b> {{ $delivery_boy->nid_id}}</span>
+                                            </p>
+                                            <p>
+                                                <span class=""> <b>Join Date : </b> {{ $delivery_boy->created_at->format('D M,Y') }}</span>
+                                            </p>
+                                            <p>
+                                                <span class=""> <b>Reject Date : </b> {{ $delivery_boy->updated_at->format('D M,Y') }}</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-12 text-center m-auto">
+                                            <p>
+                                                <span class=""> <b class="block">Reason out of work :</b> <span class="text-danger">{{ $delivery_boy->reason_out_of_work }}</span> </span>
+                                            </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -130,7 +181,6 @@
             position: 'top-end',
             showConfirmButton: false,
             timer: 3000,
-            background:'#62C9FF',
             timerProgressBar: true,
             didOpen: (toast) => {
                 toast.addEventListener('mouseenter', Swal.stopTimer)

@@ -153,7 +153,7 @@
 
                                             @can ('vendor-earning')
                                                 <li class="nav-item @if ($current_page == 'vendor-earning') here show @endif" >
-                                                    <a class="nav-link cust_a" href="{{ route('vendor.earning') }}"> <i class="fas fa-money-bill-alt"></i>Earning</a>
+                                                    <a class="nav-link cust_a" href="{{ route('vendor.earning') }}"> <i class="fas fa-money-bill-alt"></i>Withdraw</a>
                                                 </li>
                                             @endcan
                                             @can ('vendor-staff management')

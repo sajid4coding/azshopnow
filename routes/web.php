@@ -59,8 +59,13 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     //DashboardController
     Route::get('dashboard',[DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('markasread',[DashboardController::class, 'markasread'])->middleware(['auth', 'verified'])->name('markasread');
+    Route::get('productmarkasread',[DashboardController::class, 'productmarkasread'])->middleware(['auth', 'verified'])->name('productmarkasread');
+    Route::get('ordermarkasread',[DashboardController::class, 'ordermarkasread'])->middleware(['auth', 'verified'])->name('ordermarkasread');
+    Route::get('all-notification',[DashboardController::class, 'allNotification'])->middleware(['auth', 'verified'])->name('all.notification');
+    Route::get('delete-notification',[DashboardController::class, 'deleteNotification'])->middleware(['auth', 'verified'])->name('delete.notification');
 
-    Route::group(['middleware' => ['can:admin-Product Management','can:admin-Product Campaign']], function () {
+    Route::group(['middleware' => ['permission:admin-Product Management|admin-Product Campaign']], function () {
         Route::get('product_lists',[DashboardController::class, 'product_lists'])->middleware(['auth', 'verified'])->name('product_lists');
         Route::get('pending-products',[DashboardController::class, 'pendingProducts'])->middleware(['auth', 'verified'])->name('pending.products');
         Route::get('banned-products',[DashboardController::class, 'bannedProducts'])->middleware(['auth', 'verified'])->name('banned.products');
@@ -122,6 +127,9 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::resource('vendormanagement', VendorsmanagementController::class);
         Route::get('manage-payout/payout', [VendorsmanagementController::class, 'payout'])->name('payout');
         Route::get('manage-payout/payout-request', [VendorsmanagementController::class, 'payout_request'])->name('payout.request');
+        Route::post('manage-payout/get-paid/{id}', [VendorsmanagementController::class, 'get_paid'])->name('payout.request.get.paid');
+        Route::get('manage-payout/payout-request-accepted/{id}', [VendorsmanagementController::class, 'payout_request_accepted'])->name('payout.request.accepted');
+        Route::get('manage-payout/payout-request-declined/{id}', [VendorsmanagementController::class, 'payout_request_declined'])->name('payout.request.declined');
         Route::get('manage-commission/commission', [VendorsmanagementController::class, 'commission'])->name('commission');
         Route::post('manage-commission/commission-save', [VendorsmanagementController::class, 'commission_save'])->name('commission.save');
         Route::post('manage-commission/minimum-seller-amount-withdraw-save', [VendorsmanagementController::class, 'minimum_seller_amount_withdraw'])->name('minimum.seller.amount.withdraw');
@@ -268,9 +276,9 @@ Route::middleware(['vendor'])->group(function(){
     });
 
     Route::group(['middleware' => ['can:vendor-earning']], function () {
-        Route::get('vendor-earning',[VendorController::class,'vendor_earning'])->name('vendor.earning');
-        Route::post('vendor-earning/withdrawal-request',[VendorController::class,'withdrawal_request'])->name('vendor.withdrawal.request');
-        Route::post('vendor-earning/withdrawal',[VendorController::class,'withdrawal'])->name('vendor.withdrawal');
+        Route::get('withdraw/vendor-earning',[VendorController::class,'vendor_earning'])->name('vendor.earning');
+        Route::post('withdraw/vendor-earning/withdrawal-request',[VendorController::class,'withdrawal_request'])->name('vendor.withdrawal.request');
+        Route::post('withdraw/vendor-earningvendor-earning/withdrawal',[VendorController::class,'withdrawal'])->name('vendor.withdrawal');
     });
 
     Route::group(['middleware' => ['can:vendor-product management']], function () {

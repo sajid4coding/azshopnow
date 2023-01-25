@@ -8,7 +8,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-		<link rel="shortcut icon" type="image/x-icon" href="{{asset('uploads/general_photo')}}/{{getGeneralValue("favicon_logo")}}">
+        @if (getGeneralValue("favicon_logo"))
+		  <link rel="shortcut icon" type="image/x-icon" href="{{asset('uploads/general_photo')}}/{{getGeneralValue("favicon_logo")}}">
+        @else
+	      <link rel="shortcut icon" type="image/x-icon" href="{{asset('uploads/demo/demo_logo.jpg')}}">
+        @endif
         <!-- Place favicon.ico in the root directory -->
 
         <!-- CSS here -->
@@ -89,7 +93,11 @@
                     <div class="row align-items-center">
                         <div class="col-xl-2 col-lg-3">
                             <div class="logo">
-                                <a href="{{ route('home') }}"><img src="{{asset('uploads/general_photo')}}/{{getGeneralValue("header_logo")}}" alt=""></a>
+                                 @if (getGeneralValue("header_logo"))
+                                     <a  href="{{ route('home') }}"><img width="100" src="{{asset('uploads/general_photo')}}/{{getGeneralValue("header_logo")}}" alt=""></a>
+                                 @else
+                                     <a href="{{ route('home') }}"><img  width="100" src="{{asset('uploads/demo/demo_logo.jpg')}}" alt="demo_logo.jpg"></a>
+                                 @endif
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-9">

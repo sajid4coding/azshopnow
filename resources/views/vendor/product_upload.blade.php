@@ -114,6 +114,9 @@
     display: inline-block;
     cursor: pointer;
 }
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before{
+    line-height: normal !important;
+}
 </style>
 
 <div class="col-lg-9 col-md-9">

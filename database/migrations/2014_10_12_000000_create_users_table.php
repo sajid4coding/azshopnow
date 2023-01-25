@@ -29,6 +29,8 @@ return new class extends Migration
             $table->longText('address')->nullable();
             $table->longText('bio')->nullable();
             $table->string('banner')->nullable();
+            $table->integer('seller_commission')->nullable();
+            $table->integer('minimum_amount_withdraw')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

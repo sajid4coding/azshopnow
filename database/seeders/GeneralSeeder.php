@@ -27,12 +27,6 @@ class GeneralSeeder extends Seeder
             'phone_number' => "+990 (22) 0123665",
             'teliphone' => "+990 (22) 0123665",
             'address' => "1/2 Kala Vabhon",
-            'header_logo' => 'header_logo.png',
-            'footer_logo' => 'footer_logo.png',
-            'invoice_logo' => 'invoice_logo.png',
-            'favicon_logo' => 'favicon_logo.png',
-            'dashboard_logo' => 'dashboard_logo.png',
-            'dashboard_favicon_logo' => 'dashboard_favicon_logo.png',
             'created_at' => now()
         ]);
     }

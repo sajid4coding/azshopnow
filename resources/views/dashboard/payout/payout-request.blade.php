@@ -49,6 +49,8 @@
                                 <th>Seller</th>
                                 <th>Amount</th>
                                 <th>Order Date</th>
+                                <th>Payout Status</th>
+                                <th>Transactions No.</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -59,8 +61,6 @@
                             @php
                                 $sl = 1;
                             @endphp
-                            <form action="{{ route('vendor.withdrawal.request') }}" method="POST">
-                                @csrf
                             @foreach ($seller_payout_requests as $seller_payout_request)
                                 <tr>
                                     <td>{{ $sl++ }}</td>
@@ -70,13 +70,47 @@
                                         {{ $seller_payout_request->created_at->format('d/m/y') }}
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-warning py-1 px-3" style="border: none">
-                                            <i class="fas fa-money-bill-wave"></i> Pay
-                                        </button>
+                                        @if ($seller_payout_request->status == 'paid')
+                                            <span class="badge bg-success">Paid</span>
+                                        @elseif ($seller_payout_request->status == 'processing')
+                                            <span class="badge bg-primary">Processing</span>
+                                        @elseif ($seller_payout_request->status == 'rejected')
+                                            <span class="badge bg-danger">Rejected</span>
+                                        @else
+                                            <span class="badge bg-warning text-dark">Unpaid</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('payout.request.get.paid', $seller_payout_request->id) }}" method="POST">
+                                            @csrf
+
+                                        @if ($seller_payout_request->status == 'processing')
+                                            <input class="form-control @error('transactions_id') is-invalid @enderror" type="text" placeholder="type transactions no." name="transactions_id">
+
+                                        @elseif ($seller_payout_request->status == 'paid')
+                                            {{ $seller_payout_request->relationwithinvoice->transactions_id }}
+
+                                        @elseif ($seller_payout_request->status == 'rejected')
+                                            <span class="text-muted">NULL</span>
+                                            
+                                        @else
+                                            <span class="text-muted">NULL</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($seller_payout_request->status == 'processing')
+                                            <button type="submit" class="btn btn-warning py-1 px-3">Get Paid</button>
+                                        @endif
+                                        </form>
+
+                                        @if ($seller_payout_request->status == 'unpaid')
+                                            <input type="button" onclick="location.href='{{ route('payout.request.accepted', $seller_payout_request->id) }}';" class="btn btn-warning py-1 px-3" value="Accept" />
+                                            <input type="button" onclick="location.href='{{ route('payout.request.declined', $seller_payout_request->id) }}';" class="btn btn-danger py-1 px-3" value="Decline" />
+                                        @endif
 
                                         {{-- FIRST MODAL START --}}
                                             <!-- Button trigger modal (Order Details)-->
-                                            <button type="button" class="btn btn-danger py-1 px-3" data-bs-toggle="modal" data-bs-target="#orderdetail{{ $seller_payout_request->relationwithinvoice->id }}" style="border: none">
+                                            <button type="button" class="btn btn-primary py-1 px-3" data-bs-toggle="modal" data-bs-target="#orderdetail{{ $seller_payout_request->relationwithinvoice->id }}" style="border: none">
                                                 <i class="fas fa-info-circle"></i> Details
                                             </button>
 
@@ -116,6 +150,16 @@
                                                                             <th>Request Amount:</th>
                                                                             <td>{{ $seller_payout_request->relationwithinvoice->total_price - $seller_payout_request->relationwithinvoice->total_price * $seller_data->seller_commission/100}}</td>
                                                                         </tr>
+                                                                        @if ($seller_payout_request->relationwithinvoice->transactions_id)
+                                                                            <tr>
+                                                                                <th>Transactions ID:</th>
+                                                                                <td>{{ $seller_payout_request->relationwithinvoice->transactions_id }}</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th>Vendor Payment Gateway:</th>
+                                                                                <td>{{ $seller_payout_request->relationwithinvoice->vendor_payment_method }}</td>
+                                                                            </tr>
+                                                                        @endif
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -130,7 +174,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            </form>
                         </tbody>
                     </table>
                   </div>

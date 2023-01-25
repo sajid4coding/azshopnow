@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{Banner,Coupon, General, Invoice,Plan,Product,Shipping,SubCategory,User, VendorPaymentRequest, VendorShipping};
+use App\Notifications\VendorRegisterNotification;
 use Carbon\Carbon;
 use GuzzleHttp\Middleware;
 use Illuminate\Contracts\Validation\Rule;
@@ -89,6 +90,11 @@ class vendorController extends Controller
         session(['vendor_id' => $vendor_id]);
 
         $plan = Plan::find($request->plan);
+        $admins=User::where('role','admin')->get();
+        $vendor=User::find($vendor_id);
+        foreach($admins as $admin){
+            $admin->notify(new VendorRegisterNotification($vendor));
+        }
 
         return redirect('plans'.'/'.$plan->slug);
 
@@ -372,7 +378,7 @@ class vendorController extends Controller
                 'withdraw_status' => 'Sent Payment Request',
             ]);
         }
-        return redirect('vendor-earning');
+        return redirect('withdraw/vendor-earning');
     }
-    
+
 }

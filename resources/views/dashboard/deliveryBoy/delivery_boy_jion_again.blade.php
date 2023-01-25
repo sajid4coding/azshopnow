@@ -35,14 +35,10 @@
                     <li class="breadcrumb-item">
                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
                     </li>
-                    <li class="breadcrumb-item text-muted">Delivery Boy</li>
-                    <!--end::Item-->
-                    <li class="breadcrumb-item">
-                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                    </li>
+                    <li class="breadcrumb-item text-muted">Join Again</li>
+
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="breadcrumb-item text-muted">Edit</li>
                     <!--end::Item-->
                 </ul>
                 <!--end::Breadcrumb-->
@@ -60,7 +56,7 @@
         <div class="row">
             <div class="col-lg-12">
               <div class="card p-5">
-                  <form action="{{ route('delivery.boy.out.work.post',$delivery_boy->id) }}" method="post" enctype="multipart/form-data">
+                  <form action="{{ route('delivery.boy.join.again.post',$delivery_boy->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
 
@@ -75,14 +71,14 @@
                                 @endif
                             </picture>
                             <div class="input-group my-5">
-                                <span class="input-group-text">Reason Of Out<span style="color:red">*</span></span>
-                                <input type="text" class="form-control" placeholder="reason here" name="reason_out_of_work">
+                                <span class="input-group-text">Reason Of Join Again<span style="color:red">*</span></span>
+                                <input type="text" class="form-control" placeholder="reason here....." name="reason_of_join_again">
                             </div>
                         </div>
 
                     </div>
 
-                      <button type="submit" class="btn btn-danger mt-5">Out of Work</button>
+                      <button type="submit" class="btn btn-danger mt-5">Join Again</button>
                   </form>
               </div>
             </div>

@@ -26,8 +26,11 @@ use App\Models\DeliveryBoy;
 use App\Models\Newsletter;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Laravel\Cashier\Subscription as CashierSubscription;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpParser\Node\Stmt\Return_;
+use Stripe\Subscription;
 
 class DashboardController extends Controller
 {
@@ -220,10 +223,14 @@ class DashboardController extends Controller
         ]);
     }
     function SubscriptionEarning(){
-        return view('dashboard.earnigns.subscription');
+        return view('dashboard.earnigns.subscription',[
+            'subscriptions' => CashierSubscription::all(),
+        ]);
     }
     function CommissionEarning(){
-        return view('dashboard.earnigns.commission');
+        return view('dashboard.earnigns.commission',[
+            'invoices' => Invoice::all(),
+        ]);
     }
 
     function report(){
@@ -318,6 +325,17 @@ class DashboardController extends Controller
         ]);
         return redirect('manage-delivery-boy/delivery-boy-list')->with('out_of_work','Successfully out of work this boy!');
     }
+    function deliveryBoyJoinAgainPost(Request $request,$id){
+          $request->validate([
+            'reason_of_join_again' => 'required'
+          ]);
+        DeliveryBoy::find($id)->update([
+            'status' => 'active',
+            'reason_of_join_again' =>  $request->reason_of_join_again,
+            'updated_at' =>  Carbon::now(),
+        ]);
+        return redirect('delivery-boy-list')->with('out_of_work','Successfully out of work this boy!');
+    }
     function deliveryBoyDelete($id){
 
         DeliveryBoy::find($id)->Delete();
@@ -332,6 +350,12 @@ class DashboardController extends Controller
     function deliveryBoyEdit($id){
 
         return view('dashboard.deliveryBoy.delivery_boy_edit',[
+            'delivery_boy' =>DeliveryBoy::find($id),
+        ]);
+    }
+    function deliveryBoyJoinAgain($id){
+
+        return view('dashboard.deliveryBoy.delivery_boy_jion_again',[
             'delivery_boy' =>DeliveryBoy::find($id),
         ]);
     }
@@ -375,5 +399,28 @@ class DashboardController extends Controller
            ]);
        }
        return redirect('manage-delivery-boy/delivery-boy-list')->with('update_success_message','Successfully update a delivery boy profile');
+   }
+   function markasread(){
+    auth()->user()->unreadNotifications->markAsRead();
+    return back();
+   }
+   function productmarkasread(){
+    auth()->user()->unreadNotifications->where('type','App\Notifications\ProductNotification')->markAsRead();
+    return back();
+   }
+   function ordermarkasread(){
+    auth()->user()->unreadNotifications->where('type','App\Notifications\OrderNotification')->markAsRead();
+    return back();
+   }
+   function allNotification (){
+    return view('dashboard.notification.vendorRegisterNotification');
+   }
+   function deleteNotification (){
+    // $user=User::where('role','admin')->get();
+    // foreach($user->notifications->where('notifiable_id',$user->id) as $notification){
+    //     $notification->delete();
+    // }
+    auth()->user()->Notifications()->delete();
+    return back();
    }
 }

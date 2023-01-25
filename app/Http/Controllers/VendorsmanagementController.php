@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\VendorActivation;
 use App\Mail\VendorBan;
 use App\Models\General;
+use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\VendorPaymentRequest;
 
@@ -20,7 +21,7 @@ class VendorsmanagementController extends Controller
      */
     public function index()
     {
-        $vendors=User::where('role','vendor')->get();
+        $vendors=User::where('role','vendor')->latest()->get();
         return view('dashboard.usersManagement.vendor.allVendorsList', compact('vendors'));
     }
 
@@ -64,10 +65,9 @@ class VendorsmanagementController extends Controller
      */
     public function edit($id)
     {
-       $vendorProducts= Product::where('vendor_id', $id)->where('status', 'published')->where('vendorProductStatus', 'published')->latest()->get();
+        $vendorProducts= Product::where('vendor_id', $id)->where('status', 'published')->where('vendorProductStatus', 'published')->latest()->get();
         $vendor=User::findOrFail($id);
         return view('dashboard.usersManagement.vendor.vendorAction',compact('vendor', 'vendorProducts'));
-
     }
 
     /**
@@ -110,11 +110,45 @@ class VendorsmanagementController extends Controller
             'seller_date' => General::find(1),
         ]);
     }
+
     function payout_request(){
         return view('dashboard.payout.payout-request',[
             'seller_payout_requests' => VendorPaymentRequest::all(),
             'seller_data' => General::find(1),
         ]);
+    }
+
+    function get_paid(Request $request, $id){
+        $request->validate([
+            'transactions_id' => 'required',
+        ]);
+        Invoice::find(VendorPaymentRequest::find($id)->invoice_id)->update([
+            'withdraw_status' => 'Payment Clear',
+            'transactions_id' => $request->transactions_id
+        ]);
+        VendorPaymentRequest::find($id)->update([
+            'status' => 'paid'
+        ]);
+        return back();
+    }
+    function payout_request_accepted($id){
+        Invoice::find(VendorPaymentRequest::find($id)->invoice_id)->update([
+            'withdraw_status' => 'Payout Request Approved'
+        ]);
+        VendorPaymentRequest::find($id)->update([
+            'status' => 'processing'
+        ]);
+        return back();
+    }
+
+    function payout_request_declined($id){
+        Invoice::find(VendorPaymentRequest::find($id)->invoice_id)->update([
+            'withdraw_status' => 'Payout Request Rejected'
+        ]);
+        VendorPaymentRequest::find($id)->update([
+            'status' => 'rejected'
+        ]);
+        return back();
     }
 
     function commission(){
