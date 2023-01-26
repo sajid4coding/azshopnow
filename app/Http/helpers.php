@@ -14,6 +14,7 @@ use App\Models\General;
 use App\Models\Slider;
 use App\Models\Social;
 use App\Models\SubCategory;
+use App\Models\VendorPaymentRequest;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Subscription;
 
@@ -1005,4 +1006,8 @@ function mostDiscountProduct()
     //     }
     // }
 
+}
+
+function payout_request_pending(){
+    return VendorPaymentRequest::where('status', 'unpaid')->count();
 }

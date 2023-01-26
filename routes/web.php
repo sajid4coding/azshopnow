@@ -1,10 +1,11 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController, PermissionController, RolemanagementController, StaffmanagementController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AnnouncementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController, PermissionController, RolemanagementController, StaffmanagementController};
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Action;
+use Illuminate\Routing\RouteGroup;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -42,9 +43,12 @@ Route::get('product-sorting',[FrontEndController::class,'productSorting'])->name
 // FrontEnd ROUTE END
 
 // PAYMENTS METHOD INTEGRATION ROUTE START
-//STRIPE
+
+//STRIPE ROUTE START
 Route::get('stripe/checkout/post',[StripeController::class,'checkout'])->name('stripe_checkout_post');
 Route::get('/success',action:'App\Http\Controllers\StripeController@Success')->name('success');
+//STRIPE ROUTE END
+
 // PAYMENTS METHOD INTEGRATION ROUTE END
 
 //NEWSLATTER ROUTE START
@@ -123,31 +127,30 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::resource('vendormanagement', VendorsmanagementController::class);
         Route::get('manage-payout/payout', [VendorsmanagementController::class, 'payout'])->name('payout');
         Route::get('manage-payout/payout-request', [VendorsmanagementController::class, 'payout_request'])->name('payout.request');
+        Route::post('manage-payout/get-paid/{id}', [VendorsmanagementController::class, 'get_paid'])->name('payout.request.get.paid');
+        Route::get('manage-payout/payout-request-accepted/{id}', [VendorsmanagementController::class, 'payout_request_accepted'])->name('payout.request.accepted');
+        Route::get('manage-payout/payout-request-declined/{id}', [VendorsmanagementController::class, 'payout_request_declined'])->name('payout.request.declined');
         Route::get('manage-commission/commission', [VendorsmanagementController::class, 'commission'])->name('commission');
         Route::post('manage-commission/commission-save', [VendorsmanagementController::class, 'commission_save'])->name('commission.save');
         Route::post('manage-commission/minimum-seller-amount-withdraw-save', [VendorsmanagementController::class, 'minimum_seller_amount_withdraw'])->name('minimum.seller.amount.withdraw');
     });
     //RolemanagementController Resource
     //PermissionController Resource
+
     //AdminmanagementController Resource
     Route::group(['middleware' => ['can:admin-Admin Management']], function () {
-
         Route::resource('adminmanagement', AdminmanagementController::class);
+    });
+
+    //RolemanagementController Resource
+    Route::group(['middleware' => ['can:admin-staff Management']], function () {
         Route::resource('role', RolemanagementController::class);
         // Route::resource('permission', PermissionController::class);
     });
+
     //CustomermanagementController Resource
     Route::group(['middleware' => ['can:admin-Customer Management']], function () {
         Route::resource('customermanagement', CustomermanagementController::class);
-    });
-
-    // All Banner Management Controller
-    Route::group(['middleware' => ['can:admin-Pages']], function () {
-        Route::get('banner-edit',[BannerController::class,'index'])->name('banner.edit');
-        Route::post('shop-page-banner-post',[BannerController::class,'shop_page'])->name('shop.banner.edit');
-        Route::post('vendor-page-banner-post',[BannerController::class,'vendor_page'])->name('vendor.banner.edit');
-        Route::post('customer-page-banner-post',[BannerController::class,'customer_page'])->name('customer.banner.edit');
-        Route::post('cart-page-banner-post',[BannerController::class,'cart_page'])->name('cart.banner.edit');
     });
 
     // ProfileController
@@ -185,30 +188,45 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::get('general-settings/dashboard-social-delete/{id}',[GeneralController::class,'socialLinkDelete'])->name('general.social.delete');
         Route::get('general-settings/dashboard-contact-info',[GeneralController::class,'contactInfo'])->name('general.contact.info');
         Route::post('general-settings/dashboard-contact-info-post',[GeneralController::class,'contactInfoPost'])->name('general.contact.info.post');
+
+        // All Banner Management Controller
+        Route::get('banner-edit',[BannerController::class,'index'])->name('banner.edit');
+        Route::post('shop-page-banner-post',[BannerController::class,'shop_page'])->name('shop.banner.edit');
+        Route::post('vendor-page-banner-post',[BannerController::class,'vendor_page'])->name('vendor.banner.edit');
+        Route::post('customer-page-banner-post',[BannerController::class,'customer_page'])->name('customer.banner.edit');
+        Route::post('cart-page-banner-post',[BannerController::class,'cart_page'])->name('cart.banner.edit');
+
         Route::get('general-settings/401',[GeneralController::class,'Error401'])->name('401.error');
         Route::get('general-settings/403',[GeneralController::class,'Error403'])->name('403.error');
         Route::get('general-settings/404',[GeneralController::class,'Error404'])->name('404.error');
         Route::get('general-settings/502',[GeneralController::class,'Error502'])->name('502.error');
         Route::get('general-settings/503',[GeneralController::class,'Error503'])->name('503.error');
 
-  //GENERAL SETTINGS ROUTE END
-
-  //DELIVERY BOY ROUTE START
-
-        Route::get('delivery-boy-add',[DashboardController::class,'deliveryBoyAdd'])->name('delivery.boy.add');
-        Route::post('delivery/boy/post',[DashboardController::class,'deliveryBoyPost'])->name('delivery.boy.post');
-        Route::get('delivery-boy-list',[DashboardController::class,'deliveryBoyList'])->name('delivery.boy.list');
-        Route::get('delivery/boy/edit/{id}',[DashboardController::class,'deliveryBoyEdit'])->name('delivery.boy.edit');
-        Route::get('delivery/boy/out-of-work/{id}',[DashboardController::class,'deliveryBoyOutOfWork'])->name('delivery.boy.out.of.work');
-        Route::get('out-of-work-list',[DashboardController::class,'deliveryBoyOutOfWorkList'])->name('delivery.boy.out.of.work.list');
-        Route::post('delivery/boy/out-of-work/post/{id}',[DashboardController::class,'deliveryBoyOutOfWorkPost'])->name('delivery.boy.out.work.post');
-        Route::post('delivery/boy/post/{id}',[DashboardController::class,'deliveryBoyEditPost'])->name('delivery.boy.edit.post');
-        Route::get('delivery/boy/delete/{id}',[DashboardController::class,'deliveryBoyDelete'])->name('delivery.boy.delete');
-        Route::get('delivery/boy/join/again/{id}',[DashboardController::class,'deliveryBoyJoinAgain'])->name('delivery.boy.join.again');
-        Route::post('delivery/boy/join/again/post/{id}',[DashboardController::class,'deliveryBoyJoinAgainPost'])->name('delivery.boy.join.again.post');
-
-  //DELIVERY BOY ROUTE END
+        //GENERAL SETTINGS ROUTE END
     });
+
+    Route::group(['middleware' => ['can:admin-delivery boy Management']], function () {
+
+        //DELIVERY BOY ROUTE START
+        Route::get('manage-delivery-boy/delivery-boy-add',[DashboardController::class,'deliveryBoyAdd'])->name('delivery.boy.add');
+        Route::post('manage-delivery-boy/delivery-boy-post',[DashboardController::class,'deliveryBoyPost'])->name('delivery.boy.post');
+        Route::get('manage-delivery-boy/delivery-boy-list',[DashboardController::class,'deliveryBoyList'])->name('delivery.boy.list');
+        Route::get('manage-delivery-boy/delivery-boy-edit/{id}',[DashboardController::class,'deliveryBoyEdit'])->name('delivery.boy.edit');
+        Route::get('manage-delivery-boy/delivery-boy/out-of-work/{id}',[DashboardController::class,'deliveryBoyOutOfWork'])->name('delivery.boy.out.of.work');
+        Route::get('manage-delivery-boy/out-of-work-list',[DashboardController::class,'deliveryBoyOutOfWorkList'])->name('delivery.boy.out.of.work.list');
+        Route::post('manage-delivery-boy/delivery-boy/out-of-work-post/{id}',[DashboardController::class,'deliveryBoyOutOfWorkPost'])->name('delivery.boy.out.work.post');
+        Route::post('manage-delivery-boy/delivery-boy-post/{id}',[DashboardController::class,'deliveryBoyEditPost'])->name('delivery.boy.edit.post');
+        Route::get('manage-delivery-boy/delivery-boy-delete/{id}',[DashboardController::class,'deliveryBoyDelete'])->name('delivery.boy.delete');
+        //DELIVERY BOY ROUTE END
+
+    });
+
+    Route::group(['middleware' => ['can:admin-announcement Management']], function () {
+        //ACCOUNCEMENT ROUTE START
+        Route::resource('announcement', AnnouncementController::class);
+        //ACCOUNCEMENT ROUTE END
+    });
+
 
 });
 
@@ -216,7 +234,6 @@ require __DIR__.'/auth.php';
 
 
 // VENDOR ROUTE START
-
 
 //BEFORE LOGIN TRY TO SUBCRIPTION ROUTE START
 Route::get('plans', [VendorController::class, 'plan_index'])->name("plans"); //--1st Step
@@ -233,6 +250,7 @@ Route::middleware(['planlinkhide'])->group(function(){
     Route::post('subscription_done', [PlanController::class, 'subscription_done'])->name("subscription.done");
     //AFTER LOGIN TRY TO SUBCRIPTION ROUTE END
 });
+
 Route::get('vendor/login', [VendorController::class, 'vendor_login'])->name('vendor.login');
 Route::post('vendor/login', [VendorController::class, 'vendor_login_post_form'])->name('vendor.login.post');
 
@@ -258,9 +276,9 @@ Route::middleware(['vendor'])->group(function(){
     });
 
     Route::group(['middleware' => ['can:vendor-earning']], function () {
-        Route::get('vendor-earning',[VendorController::class,'vendor_earning'])->name('vendor.earning');
-        Route::post('vendor-earning/withdrawal-request',[VendorController::class,'withdrawal_request'])->name('vendor.withdrawal.request');
-        Route::post('vendor-earning/withdrawal',[VendorController::class,'withdrawal'])->name('vendor.withdrawal');
+        Route::get('withdraw/vendor-earning',[VendorController::class,'vendor_earning'])->name('vendor.earning');
+        Route::post('withdraw/vendor-earning/withdrawal-request',[VendorController::class,'withdrawal_request'])->name('vendor.withdrawal.request');
+        Route::post('withdraw/vendor-earningvendor-earning/withdrawal',[VendorController::class,'withdrawal'])->name('vendor.withdrawal');
     });
 
     Route::group(['middleware' => ['can:vendor-product management']], function () {
@@ -307,10 +325,6 @@ Route::middleware(['vendor'])->group(function(){
 // VENDOR ROUTE END
 
 
-// =========================== ALL COMMON ROUTES START HERE =================
-
-
-
 Route::middleware(['customer'])->group(function(){
     Route::get('edit/profile', [CustomerController::class, 'edit_profile'])->name('edit.profile');
     Route::post('password/update', [CustomerController::class, 'password_update'])->name('password.update');
@@ -324,7 +338,7 @@ Route::middleware(['customer'])->group(function(){
 });
 
 // HOME CONTROLLER START
-    Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome')->middleware(['auth', 'verified']);
+Route::get('customerhome', [HomeController::class, 'customerhome'])->name('customerhome')->middleware(['auth', 'verified']);
 // HOME CONTROLLER END
 
 // CUSTOMER CONTROLLER START
@@ -335,6 +349,8 @@ Route::post('customer/login/post', [CustomerController::class, 'customer_login_p
 Route::post('customer/profile/submit', [CustomerController::class, 'customer_profile_submit'])->name('customer.profile.submit');
 // CUSTOMER CONTROLLER END
 
+
+// =========================== ALL COMMON ROUTES START HERE =================
 
 // EMAIL VERIFY ROUTE START
 Route::get('/email/verify', function () {

@@ -287,20 +287,20 @@
                                                     <span class="menu-title">All Orders</span>
                                                 </a>
                                             </div>
-                                            <div class="menu-item @if ($current_page == 'processing-order') here show @endif">
-                                                <a class="menu-link" href="{{ route('processing.order') }}">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-title">Processing Orders</span>
-                                                </a>
-                                            </div>
                                             <div class="menu-item @if ($current_page == 'pending-order') here show @endif">
                                                 <a class="menu-link" href="{{ route('pending.order') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
                                                     <span class="menu-title">Pending Orders</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item @if ($current_page == 'processing-order') here show @endif">
+                                                <a class="menu-link" href="{{ route('processing.order') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Processing Orders</span>
                                                 </a>
                                             </div>
                                             <div class="menu-item @if ($current_page == 'delivered-order') here show @endif">
@@ -322,6 +322,7 @@
     									</div>
     								</div>
                                 @endcan
+
                                 @can ('admin-Earnings')
                                     <div data-kt-menu-trigger="click" class="menu-item  menu-accordion">
     									<span class="menu-link">
@@ -501,6 +502,9 @@
                                             </div>
     									</div>
     								</div>
+                                @endcan
+
+                                @can('admin-delivery boy Management')
                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                             <span class="menu-link">
@@ -539,74 +543,26 @@
                                             </div>
 
                                         </div>
-    								</div>
+                                    </div>
                                 @endcan
 
-                                @can ('admin-Vendor Management')
-                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                            <span class="menu-link">
-                                                <span class="menu-icon">
-                                                    <i class="fas fa-users"></i>
+                                @can('admin-announcement Management')
+                                    <div class="menu-item @if ($current_page == 'announcement') here show @endif menu-accordion">
+                                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                                <span class="svg-icon svg-icon-2">
+                                                    <i class="fas fa-box"></i>
                                                 </span>
-                                                <span class="menu-title">Manage Seller</span>
-                                                <span class="menu-arrow"></span>
+                                                <!--end::Svg Icon-->
                                             </span>
-                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'vendormanagement' || $current_page == 'commission' || $current_page == 'payout' || $current_page == 'payout-request') here show @endif">
-                                                <div class="menu-item @if ($current_page == 'vendormanagement') here show @endif">
-                                                    <a class="menu-link" href="{{route('vendormanagement.index')}}">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">All Seller</span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item @if ($current_page == 'payout') here show @endif">
-                                                    <a class="menu-link" href="{{ route('payout') }}">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">Payout</span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item @if ($current_page == 'payout-request') here show @endif">
-                                                    <a class="menu-link" href="{{ route('payout.request') }}">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">Payout Request</span>
-                                                    </a>
-                                                </div>
-                                                <div class="menu-item @if ($current_page == 'commission') here show @endif">
-                                                    <a class="menu-link" href="{{ route('commission') }}">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">Seller Commission</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-    								</div>
+                                            <a href="{{ route('announcement.index') }}" class="menu-title">Manage Announcement</a>
+                                        </span>
+                                    </div>
                                 @endcan
-
-                                {{-- @can ('admin-Packaging')
-                                    <div class="menu-item @if ($current_page == 'commission') here show @endif menu-accordion">
-    									<span class="menu-link">
-    										<span class="menu-icon">
-    											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-    											<span class="svg-icon svg-icon-2">
-    												<i class="fas fa-handshake"></i>
-    											</span>
-    											<!--end::Svg Icon-->
-    										</span>
-    										<a href="{{ route('commission') }}" class="menu-title">Manage Commission</a>
-    									</span>
-    								</div>
-                                @endcan --}}
 
                                 @can ('admin-Shipping')
-                                    <div class="menu-item @if ($current_page == 'shipping.index') here show @endif menu-accordion">
+                                    <div class="menu-item @if ($current_page == 'shipping') here show @endif menu-accordion">
                                         <span class="menu-link">
                                             <span class="menu-icon">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -635,67 +591,6 @@
     								</div>
                                 @endcan
 
-                                {{-- SYSTEM ALL FUNCTIONALITY MANGE END HERE --}}
-
-
-
-                                {{-- APP ALL FUNCTIONALITY MANGE START HERE --}}
-
-								<div class="menu-item">
-									<div class="menu-content pt-8 pb-2">
-										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Apps</span>
-									</div>
-								</div>
-
-								<div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
-									{{-- @can (['admin-Admin Management'||'admin-Vendor Management'||'admin-Customer Management']) --}}
-                                        <span class="menu-link">
-                                            <span class="menu-icon">
-                                                <!--begin::Svg Icon | path: icons/duotune/general/gen051.svg-->
-                                                    <i class="fas fa-users"></i>
-                                                <!--end::Svg Icon-->
-                                            </span>
-                                            <span class="menu-title">Manage User</span>
-                                            <span class="menu-arrow"></span>
-                                        </span>
-                                    {{-- @endcan --}}
-
-									<div class="menu-sub menu-sub-accordion">
-                                        <div class="menu-sub menu-sub-accordion">
-                                            @can ('admin-Admin Management')
-                                                <div class="menu-item">
-                                                    <a class="menu-link" href="{{route('adminmanagement.index')}}">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">Admin</span>
-                                                    </a>
-                                                </div>
-                                            @endcan
-                                            @can ('admin-Customer Management')
-                                                <div class="menu-item">
-                                                    <a class="menu-link" href="{{route('customermanagement.index')}}">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">Customer</span>
-                                                    </a>
-                                                </div>
-                                            @endcan
-                                            @can ('admin-Admin Management')
-                                                <div class="menu-item">
-                                                    <a class="menu-link" href="{{route('role.index')}}">
-                                                        <span class="menu-bullet">
-                                                            <span class="bullet bullet-dot"></span>
-                                                        </span>
-                                                        <span class="menu-title">Admin Role Management</span>
-                                                    </a>
-                                                </div>
-                                            @endcan
-                                        </div>
-									</div>
-								</div>
-
                                 @can ('admin-Newsletter Management')
                                     <div class="menu-item @if ($current_page == 'newsletter-list') here show @endif menu-accordion">
     									<span class="menu-link">
@@ -710,6 +605,111 @@
     										<a href="{{ route('newsletters') }}" class="menu-title">Manage Subscriber</a>
     									</span>
     								</div>
+                                @endcan
+
+                                {{-- SYSTEM ALL FUNCTIONALITY MANGE END HERE --}}
+
+
+
+                                {{-- APP ALL FUNCTIONALITY MANGE START HERE --}}
+
+								<div class="menu-item">
+									<div class="menu-content pt-8 pb-2">
+										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Users</span>
+									</div>
+								</div>
+
+                                @can ('admin-Admin Management')
+                                    <div class="menu-item @if ($current_page == 'adminmanagement') here show @endif menu-accordion">
+                                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                                <span class="svg-icon svg-icon-2">
+                                                    <i class="fas fa-user-cog"></i>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                            <a href="{{ route('adminmanagement.index') }}" class="menu-title">Manage Admins</a>
+                                        </span>
+                                    </div>
+                                @endcan
+
+                                @can ('admin-Vendor Management')
+                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            <span class="menu-link">
+                                                <span class="menu-icon">
+                                                    <i class="fas fa-users"></i>
+                                                </span>
+                                                <span class="menu-title" style="position: relative;">Manage Sellers @if (payout_request_pending() != 0) <span class="bullet bullet-dot bg-danger h-6px w-6px position-absolute top-0 animation-blink" style="right: 55px"></span> @endif</span>
+                                                <span class="menu-arrow"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'vendormanagement' || $current_page == 'commission' || $current_page == 'payout' || $current_page == 'payout-request') here show @endif">
+                                                <div class="menu-item @if ($current_page == 'vendormanagement') here show @endif">
+                                                    <a class="menu-link" href="{{route('vendormanagement.index')}}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">All Seller</span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item @if ($current_page == 'payout') here show @endif">
+                                                    <a class="menu-link" href="{{ route('payout') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Payout</span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item @if ($current_page == 'payout-request') here show @endif">
+                                                    <a class="menu-link" href="{{ route('payout.request') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title" style="position: relative;">Payout Request @if (payout_request_pending() != 0) <span class="bullet bullet-dot bg-danger h-6px w-6px position-absolute top-0 animation-blink" style="right: 70px"></span> @endif</span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item @if ($current_page == 'commission') here show @endif">
+                                                    <a class="menu-link" href="{{ route('commission') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Seller Commission</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endcan
+
+                                @can ('admin-Customer Management')
+                                    <div class="menu-item @if ($current_page == 'customermanagement') here show @endif menu-accordion">
+                                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                                <span class="svg-icon svg-icon-2">
+                                                    <i class="fas fa-user"></i>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                            <a href="{{ route('customermanagement.index') }}" class="menu-title">Manage Customers</a>
+                                        </span>
+                                    </div>
+                                @endcan
+
+                                @can ('admin-staff Management')
+                                    <div class="menu-item @if ($current_page == 'shipping.index') here show @endif menu-accordion">
+                                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                                <span class="svg-icon svg-icon-2">
+                                                    <i class="fas fa-user-tie"></i>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                            <a href="{{ route('role.index') }}" class="menu-title">Manage Staffs</a>
+                                        </span>
+                                    </div>
                                 @endcan
 
                                 {{-- APP ALL FUNCTIONALITY MANGE END HERE --}}

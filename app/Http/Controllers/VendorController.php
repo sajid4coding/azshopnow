@@ -396,7 +396,7 @@ class vendorController extends Controller
                 'withdraw_status' => 'Sent Payment Request',
             ]);
         }
-        return redirect('vendor-earning');
+        return redirect('withdraw/vendor-earning');
     }
 
 }

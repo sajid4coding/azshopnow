@@ -354,7 +354,7 @@
                                     <!--begin::Card header-->
                                     <div class="card-header">
                                         <div class="card-title">
-                                            <h2>Payment Details</h2>
+                                            <h2>Shipping Address</h2>
                                         </div>
                                     </div>
                                     <!--end::Card header-->
@@ -385,7 +385,7 @@
                                     <!--begin::Card header-->
                                     <div class="card-header">
                                         <div class="card-title">
-                                            <h2>Shipping Address</h2>
+                                            <h2>Payment Details</h2>
                                         </div>
                                     </div>
                                     <!--end::Card header-->
