@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VendorRegisterNotification as MailVendorRegisterNotification;
-use App\Models\{Banner,Coupon, General, Invoice,Plan,Product,Shipping,SubCategory,User, VendorPaymentRequest, VendorShipping};
+use App\Models\{Banner,Coupon, General, Invoice,Plan,Product,Shipping,SubCategory,User, VendorPaymentRequest, VendorShipping, Wallet};
 use App\Notifications\VendorRegisterNotification;
 use Carbon\Carbon;
 use GuzzleHttp\Middleware;
@@ -364,6 +364,105 @@ class vendorController extends Controller
         return view('vendor.orders',compact('invoices'));
     }
 
+    function vendor_wallet(){
+        return view('vendor.wallet.wallet',[
+            'payment_setting' => General::find(1),
+            'wallet' => Wallet::where('vendor_id', auth()->id())->first()
+        ]);
+    }
+    function vendor_wallet_update(Request $request){
+        $request->validate([
+            '*' => 'required',
+            'paypal' => 'email',
+            'stripe' => 'email',
+            'skrill' => 'email'
+        ]);
+        if($request->paypal){
+            if(Wallet::where([
+                'vendor_id' => auth()->id()
+            ])->exists()){
+                Wallet::where('vendor_id', auth()->id())->update([
+                    'paypal' => $request->paypal,
+                ]);
+                return back();
+            }else{
+                Wallet::insert([
+                    'vendor_id' => auth()->id(),
+                    'paypal' => $request->paypal,
+                    'created_at' => now()
+                ]);
+                return back();
+            }
+        }
+
+        if($request->stripe){
+            if(Wallet::where([
+                'vendor_id' => auth()->id()
+            ])->exists()){
+                Wallet::where('vendor_id', auth()->id())->update([
+                    'stripe' => $request->stripe,
+                ]);
+                return back();
+            }else{
+                Wallet::insert([
+                    'vendor_id' => auth()->id(),
+                    'stripe' => $request->stripe,
+                    'created_at' => now()
+                ]);
+                return back();
+            }
+        }
+        if($request->skrill){
+            if(Wallet::where([
+                'vendor_id' => auth()->id()
+            ])->exists()){
+                Wallet::where('vendor_id', auth()->id())->update([
+                    'skrill' => $request->skrill,
+                ]);
+                return back();
+            }else{
+                Wallet::insert([
+                    'vendor_id' => auth()->id(),
+                    'skrill' => $request->skrill,
+                    'created_at' => now()
+                ]);
+                return back();
+            }
+        }
+        if($request->account_holder){
+            if(Wallet::where([
+                'vendor_id' => auth()->id()
+            ])->exists()){
+                Wallet::where('vendor_id', auth()->id())->update([
+                    'bank_account_holder' => $request->account_holder,
+                    'bank_account_type' => $request->account_type,
+                    'bank_routing_number' => $request->routing_number,
+                    'bank_name' => $request->bank_name,
+                    'bank_address' => $request->bank_address,
+                    'bank_IBAN' => $request->bank_IBAN,
+                    'bank_swift_code' => $request->bank_swift_code,
+                    'checkbox' => $request->checkbox,
+                    'created_at' => now()
+                ]);
+                return back();
+            }else{
+                Wallet::insert([
+                    'vendor_id' => auth()->id(),
+                    'bank_account_holder' => $request->account_holder,
+                    'bank_account_number' => $request->account_number,
+                    'bank_routing_number' => $request->routing_number,
+                    'bank_name' => $request->bank_name,
+                    'bank_address' => $request->bank_address,
+                    'bank_IBAN' => $request->bank_IBAN,
+                    'bank_swift_code' => $request->bank_swift_code,
+                    'checkbox' => $request->checkbox,
+                    'created_at' => now()
+                ]);
+                return back();
+            }
+        }
+    }
+
     function vendor_earning(){
         // $invoices = Invoice::where([
         //     'vendor_id' => auth()->id(),
@@ -372,7 +471,8 @@ class vendorController extends Controller
         // ])->get();
         $invoices = Invoice::where('vendor_id',auth()->id())->get();
         $seller_data = General::find(1);
-        return view('vendor.earning.earning',compact('invoices','seller_data'));
+        $user_table_seller_data = User::where('id', auth()->id())->first();
+        return view('vendor.earning.earning',compact('invoices','seller_data','user_table_seller_data'));
     }
 
     function withdrawal_request(Request $request){
@@ -381,17 +481,20 @@ class vendorController extends Controller
         ]);
         $invoice_pay_request = Invoice::wherein('id', $request->checkbox)->get();
         $seller_data = General::find(1);
-        return view('vendor.earning.withdrawal-request',compact('invoice_pay_request','seller_data'));
+        $user_table_seller_data = User::where('id', auth()->id())->first();
+        $seller_payment_method = Wallet::where('vendor_id', auth()->id())->first();
+        return view('vendor.earning.withdrawal-request',compact('invoice_pay_request','seller_data','user_table_seller_data','seller_payment_method'));
     }
 
     function withdrawal(Request $request){
         $invoice_ids = explode(',', rtrim(ltrim($request->invoice_ids, '['),']'));
         foreach ($invoice_ids as $invoice_id) {
             VendorPaymentRequest::insert([
-                'vendor_id' => auth()->id(),
-                'invoice_id' => $invoice_id,
-                'created_at' => now(),
-            ]);
+                    'vendor_id' => auth()->id(),
+                    'invoice_id' => $invoice_id,
+                    'seller_payment_method' => $request->seller_payment_method,
+                    'created_at' => now(),
+                ]);
             Invoice::find($invoice_id)->update([
                 'withdraw_status' => 'Sent Payment Request',
             ]);

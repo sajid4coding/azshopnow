@@ -644,7 +644,7 @@
                                                 <span class="menu-title" style="position: relative;">Manage Sellers @if (payout_request_pending() != 0) <span class="bullet bullet-dot bg-danger h-6px w-6px position-absolute top-0 animation-blink" style="right: 55px"></span> @endif</span>
                                                 <span class="menu-arrow"></span>
                                             </span>
-                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'vendormanagement' || $current_page == 'commission' || $current_page == 'payout' || $current_page == 'payout-request') here show @endif">
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'vendormanagement' || $current_page == 'commission' || $current_page == 'payout' || $current_page == 'payout-request'|| $current_page == 'payment-setting') here show @endif">
                                                 <div class="menu-item @if ($current_page == 'vendormanagement') here show @endif">
                                                     <a class="menu-link" href="{{route('vendormanagement.index')}}">
                                                         <span class="menu-bullet">
@@ -675,6 +675,14 @@
                                                             <span class="bullet bullet-dot"></span>
                                                         </span>
                                                         <span class="menu-title">Seller Commission</span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item @if ($current_page == 'payment-setting') here show @endif">
+                                                    <a class="menu-link" href="{{ route('payment.setting') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Payment Setting</span>
                                                     </a>
                                                 </div>
                                             </div>

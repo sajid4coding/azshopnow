@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('vendor_id');
             $table->integer('invoice_id');
+            $table->string('seller_payment_method');
             $table->string('status')->default('unpaid');
             $table->timestamps();
         });

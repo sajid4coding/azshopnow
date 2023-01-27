@@ -133,6 +133,8 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::get('manage-commission/commission', [VendorsmanagementController::class, 'commission'])->name('commission');
         Route::post('manage-commission/commission-save', [VendorsmanagementController::class, 'commission_save'])->name('commission.save');
         Route::post('manage-commission/minimum-seller-amount-withdraw-save', [VendorsmanagementController::class, 'minimum_seller_amount_withdraw'])->name('minimum.seller.amount.withdraw');
+        Route::get('vendor-management/payment-setting', [VendorsmanagementController::class, 'payment_setting'])->name('payment.setting');
+        Route::post('vendor-management/payment-setting-selected', [VendorsmanagementController::class, 'payment_setting_select'])->name('payment.setting.select');
     });
     //RolemanagementController Resource
     //PermissionController Resource
@@ -279,6 +281,8 @@ Route::middleware(['vendor'])->group(function(){
         Route::get('withdraw/vendor-earning',[VendorController::class,'vendor_earning'])->name('vendor.earning');
         Route::post('withdraw/vendor-earning/withdrawal-request',[VendorController::class,'withdrawal_request'])->name('vendor.withdrawal.request');
         Route::post('withdraw/vendor-earningvendor-earning/withdrawal',[VendorController::class,'withdrawal'])->name('vendor.withdrawal');
+        Route::get('wallet/vendor-wallet',[VendorController::class,'vendor_wallet'])->name('vendor.wallet');
+        Route::post('wallet/vendor-wallet-update',[VendorController::class,'vendor_wallet_update'])->name('vendor.wallet.update');
     });
 
     Route::group(['middleware' => ['can:vendor-product management']], function () {
