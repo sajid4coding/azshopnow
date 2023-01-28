@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Announcement;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Coupon;

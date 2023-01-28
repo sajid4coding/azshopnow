@@ -394,7 +394,6 @@ class vendorController extends Controller
                 return back();
             }
         }
-
         if($request->stripe){
             if(Wallet::where([
                 'vendor_id' => auth()->id()

@@ -3,6 +3,8 @@
 @section('header_css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -55,94 +57,127 @@
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Title</th>
-                                        <th scope="col">Description</th>
+                                        <th scope="col">Seller</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($invoices->where('order_status','pending') as $invoice)
-                                    <tr class="odd">
-                                        <!--begin::Order ID=-->
-                                        <td data-kt-ecommerce-order-filter="order_id">
-                                            {{ $loop->index+1 }}
-                                        </td>
-                                        <!--end::Order ID=-->
-                                        <!--begin::Customer=-->
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <!--begin:: Avatar -->
-                                                <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                    <a href="../../demo1/dist/apps/user-management/users/view.html">
-                                                        <div class="symbol-label fs-3 bg-light-danger text-danger">
-                                                            <img style="width:60px;display:block;height:60px" src="{{ asset('uploads/profile_photo') }}/@if($invoice->relationwithCustomerUser->profile_photo){{ $invoice->relationwithCustomerUser->profile_photo }}@else default.png @endif" alt="dfgf">
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <!--end::Avatar-->
-                                                <div class="ms-5">
-                                                    <!--begin::Title-->
-                                                    <a href="../../demo1/dist/apps/user-management/users/view.html" class="text-gray-800 text-hover-primary fs-5 fw-bolder">{{ $invoice->relationwithCustomerUser->name }}</a>
-                                                    <!--end::Title-->
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <!--end::Customer=-->
-                                        <!--begin::Status=-->
-                                        <td data-order="Completed">
-                                            <!--begin::Badges-->
-                                            <div class="badge @if ($invoice->order_status == 'processing')
-                                                badge-light-primary
-                                            @elseif ($invoice->order_status == 'pending')
-                                                badge-light-warning
-                                            @elseif ($invoice->order_status == 'delivered')
-                                                badge-light-success
-                                            @else
-                                            badge-light-danger
-                                            @endif ">{{ $invoice->order_status }}</div>
-                                            <!--end::Badges-->
-                                        </td>
-                                        <!--end::Status=-->
-                                        <!--begin::Total=-->
-                                        <td>
-                                            <span class="fw-bolder">${{ $invoice->total_price }}</span>
-                                        </td>
-                                        <!--end::Total=-->
-                                        <!--begin::Date Added=-->
-                                        <td data-order="2022-03-23">
-                                            <span class="fw-bolder">{{ $invoice->created_at->format('d-m-y') }}</span>
-                                        </td>
-                                        <!--end::Date Added=-->
-                                        <!--begin::Action=-->
-                                        <td>
-                                            <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                            <span class="svg-icon svg-icon-5 m-0">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon--></a>
-                                            <!--begin::Menu-->
-                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('order.details',$invoice->id) }}" class="menu-link px-3">View</a>
-                                                </div>
-                                                <!--end::Menu item-->
+                                    @foreach ($announcements as $announcement)
+                                        <tr class="odd">
+                                            <td data-kt-ecommerce-order-filter="order_id">
+                                                {{ $loop->index+1 }}
+                                            </td>
+                                            <td>
+                                                {{ $announcement->title }}
+                                            </td>
+                                            <td>
+                                                @if ($announcement->where([
+                                                    'title' => $announcement->title,
+                                                    'description' => $announcement->description,
+                                                    'vendor_type' => 'Specific Seller'
+                                                ])->exists())
+                                                    @foreach ($announcement->where([
+                                                        'title' => $announcement->title,
+                                                        'description' => $announcement->description,
+                                                        'vendor_type' => 'Specific Seller'
+                                                    ])->get() as $seller)
+                                                        <span class="badge bg-warning text-dark">{{ App\Models\User::find($seller->specific_seller)->shop_name }}</span> <br>
+                                                    @endforeach
+                                                @else
+                                                    <span class="badge bg-success">{{ $announcement->vendor_type }}</span>
+                                                @endif
+                                                {{-- @if ($announcement->vendor_type == 'Specific Seller')
+                                                    @foreach ($sellers as $seller)
+                                                        <span class="badge bg-warning text-dark">{{ App\Models\User::find($seller)->shop_name }}</span> <br>
+                                                    @endforeach
+                                                @else
+                                                    <span class="badge bg-success">{{ $announcement->vendor_type }}</span>
+                                                @endif --}}
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-primary">{{ $announcement->status }}</span>
+                                            </td>
+                                            <td data-order="2022-03-23">
+                                                <span class="fw-bolder">{{ $announcement->created_at->format('d-m-y') }}</span>
+                                            </td>
+                                            <!--begin::Action=-->
+                                            <td>
+                                                <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                                <span class="svg-icon svg-icon-5 m-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                        <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon--></a>
+                                                <!--begin::Menu-->
+                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('announcement.edit',$announcement->id) }}" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#announcement{{ $announcement->id }}">View</a>
+                                                    </div>
+                                                    <!--end::Menu item-->
 
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('order.delete',$invoice->id) }}" class="menu-link px-3" data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('announcement.destroy',$announcement->id) }}" class="menu-link px-3" data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                                    </div>
+                                                    <!--end::Menu item-->
                                                 </div>
-                                                <!--end::Menu item-->
+                                                <!--end::Menu-->
+                                            </td>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="announcement{{ $announcement->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog-centered modal-dialog modal-xl">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Edit Announcement</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{{ route('announcement.update', $announcement->id) }}" method="POST">
+                                                     @csrf
+                                                        <div class="modal-body">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <input class="form-control mb-5" type="text" placeholder="type title..." name="title" value="{{ $announcement->title }}">
+
+                                                                    <textarea class="form-control summernote" name="description">{{ $announcement->description }}</textarea>
+
+                                                                    <div class="mt-5">
+                                                                        <input type="radio" class="allsellers" id="all_seller" name="drone" value="All Seller" {{ $announcement->vendor_type == 'All Seller' ? 'checked' : '' }}>
+                                                                        <label for="all_seller">All Seller</label>
+                                                                    </div>
+
+                                                                    <div class="mb-5">
+                                                                        <input type="radio" class="specific" id="specific_seller" name="drone" value="Specific Seller" {{ $announcement->vendor_type == 'Specific Seller' ? 'checked' : '' }}>
+                                                                        <label for="specific_seller">Specific Seller</label>
+                                                                    </div>
+
+                                                                    <div class="vendor_list" style="display: none">
+                                                                        <select name="specific_seller[]" class="form-control mb-5 js-example-tags" multiple="multiple">
+                                                                            @foreach ($all_seller as $seller)
+                                                                                <option value="{{ $seller->id }}">{{ $seller->shop_name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary">Update</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                </div>
                                             </div>
-                                            <!--end::Menu-->
-                                        </td>
-                                        <!--end::Action=-->
-                                    </tr>
-                                    @endforeach --}}
+
+                                            <!--end::Action=-->
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -188,6 +223,30 @@
         })
     @endif
 
+</script>
+
+<script>
+    $(".js-example-tags").select2({
+        tags: true
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote({
+            placeholder: 'type description...',
+            height: 300,
+        });
+    });
+</script>
+<script>
+    $('.specific').click(function(){
+        $(".vendor_list").slideDown();})
+    $('.allsellers').click(function(){
+        $(".vendor_list").slideUp();
+    })
 </script>
 
 @endsection

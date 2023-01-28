@@ -281,13 +281,15 @@ Route::middleware(['vendor'])->group(function(){
         Route::get('withdraw/vendor-earning',[VendorController::class,'vendor_earning'])->name('vendor.earning');
         Route::post('withdraw/vendor-earning/withdrawal-request',[VendorController::class,'withdrawal_request'])->name('vendor.withdrawal.request');
         Route::post('withdraw/vendor-earningvendor-earning/withdrawal',[VendorController::class,'withdrawal'])->name('vendor.withdrawal');
+    });
+    Route::group(['middleware' => ['can:vendor-wallet']], function () {
         Route::get('wallet/vendor-wallet',[VendorController::class,'vendor_wallet'])->name('vendor.wallet');
         Route::post('wallet/vendor-wallet-update',[VendorController::class,'vendor_wallet_update'])->name('vendor.wallet.update');
     });
 
     Route::group(['middleware' => ['can:vendor-product management']], function () {
 
-        Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
+        Route::get('vendor/product-upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
 
         //ProductController Resource
         Route::resource('product', ProductController::class);
@@ -319,6 +321,12 @@ Route::middleware(['vendor'])->group(function(){
         Route::post('vendor-addstaff', [StaffmanagementController::class, 'vendorAddStaff_post'])->name("vendor.add.staff.post");
         Route::delete('vendor-addstaff/{id}', [StaffmanagementController::class, 'vendorAddStaff_delete'])->name("vendor.add.staff.delete");
     });
+
+    //VENDOR ACCOUNCEMENT ROUTE START
+    Route::get('vendor-announcement', [AnnouncementController::class, 'vendor_announcement'])->name('vendor.announcement');
+    Route::get('vendor-announcement-details/{id}', [AnnouncementController::class, 'vendor_details_announcement'])->name('vendor.details.announcement');
+    //VENDOR ACCOUNCEMENT ROUTE END
+
     //UPGRADE SUBCRIPTION ROUTE START
     Route::get('upgrade', [PlanController::class, 'upgrade'])->name('upgrade');
     Route::get('upgrade/{plan}', [PlanController::class, 'upgrade_show'])->name("upgrade.show");

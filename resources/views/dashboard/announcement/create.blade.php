@@ -60,10 +60,12 @@
                         </div>
 
                         <div id="vendor_list" style="display: none">
-                            <select class="form-control mb-5 js-example-tags" multiple="multiple">
-                                <option selected="selected">orange</option>
-                                <option>white</option>
-                                <option selected="selected">purple</option>
+                            <select name="specific_seller[]" class="form-control mb-5 js-example-tags" multiple="multiple">
+                                {{-- <option selected="selected">orange</option>
+                                <option selected="selected">purple</option> --}}
+                                @foreach ($all_seller as $seller)
+                                    <option value="{{ $seller->id }}">{{ $seller->shop_name }}</option>
+                                @endforeach
                             </select>
                         </div>
 
