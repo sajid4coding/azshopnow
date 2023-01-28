@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AnnouncementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController, PermissionController, RolemanagementController, StaffmanagementController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AnnouncementController, AttributeController, BannerController, BlogController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController, PermissionController, RolemanagementController, StaffmanagementController};
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -29,6 +29,8 @@ Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
 Route::get('/list-of-vendors/{slug}',[FrontEndController::class,'listOfVendors'])->name('listOfVendors');
 Route::get('/category-{slug}-{id}{scName}',[FrontEndController::class,'subcategoryProducts'])->name('subcategory.products');
 Route::get('/offers',[FrontEndController::class,'offers'])->name('offers');
+Route::get('/post-blog',[FrontEndController::class,'postBlog'])->name('post.blog');
+Route::get('blog-post/{id}/{title}',[FrontEndController::class,'singleBlogPost'])->name('blog.single.post');
 
 
 Route::post('/getStateCode',[FrontEndController::class,'stateTex']);
@@ -225,6 +227,15 @@ Route::middleware(['admin', 'verified'])->group(function () {
         //ACCOUNCEMENT ROUTE START
         Route::resource('announcement', AnnouncementController::class);
         //ACCOUNCEMENT ROUTE END
+    });
+    Route::group(['middleware' => ['can:admin-Blog Management']], function () {
+        //BlogController
+        Route::resource('blog', BlogController::class);
+        Route::get('blog-category',[BlogController::class,'blogCategoryAdd'])->name('blog.category.add');
+        Route::post('blog-categoryadd',[BlogController::class,'blogCategoryPost'])->name('blog.category.post');
+        Route::delete('blog-categorydelete/{id}',[BlogController::class,'blogCategoryDelete'])->name('blog.category.delete');
+        Route::get('blog-category-edit/{id}',[BlogController::class,'blogCategoryedit'])->name('blog.category.edit');
+        Route::post('blog-category-edit/{id}',[BlogController::class,'blogCategoryeditPost'])->name('blog.category.edit.post');
     });
 
 

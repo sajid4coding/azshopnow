@@ -15,7 +15,7 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                 <!--begin::Title-->
-                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Announcement</h1>
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Blog List</h1>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -28,7 +28,7 @@
                     <li class="breadcrumb-item">
                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
                     </li>
-                    <li class="breadcrumb-item text-muted">Announcement</li>
+                    <li class="breadcrumb-item text-muted">Blog-List</li>
                     <!--end::Item-->
 
                     <!--end::Item-->
@@ -49,24 +49,23 @@
             <div class="card card-flush">
                 <div class="card-body pt-0">
                     <div class="my-3">
-                        <a href="{{route('announcement.create')}}" class="btn btn-primary btn-sm">Add Announcement</a>
+                        <a href="{{route('blog.create')}}" class="btn btn-primary btn-sm">Add Blog</a>
                     </div>
                     <!--begin::Table-->
                     <div id="kt_ecommerce_sales_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="table-responsive">
-                            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="announcement">
+                            <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="blog">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
+                                        <th scope="col">Thumbnal</th>
                                         <th scope="col">Title</th>
-                                        <th scope="col">Description</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Date</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($invoices->where('order_status','pending') as $invoice)
+                                    @foreach ($blogs as $blog)
                                     <tr class="odd">
                                         <!--begin::Order ID=-->
                                         <td data-kt-ecommerce-order-filter="order_id">
@@ -77,47 +76,32 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <!--begin:: Avatar -->
-                                                <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                    <a href="../../demo1/dist/apps/user-management/users/view.html">
-                                                        <div class="symbol-label fs-3 bg-light-danger text-danger">
-                                                            <img style="width:60px;display:block;height:60px" src="{{ asset('uploads/profile_photo') }}/@if($invoice->relationwithCustomerUser->profile_photo){{ $invoice->relationwithCustomerUser->profile_photo }}@else default.png @endif" alt="dfgf">
+                                                <div class="">
+                                                    <a href="#">
+                                                        <div class="">
+                                                            <img  src="{{ asset('uploads/blog_photo') }}/{{$blog->blog_photo}}" class="img-fluid" width="150px">
                                                         </div>
+
                                                     </a>
                                                 </div>
-                                                <!--end::Avatar-->
-                                                <div class="ms-5">
-                                                    <!--begin::Title-->
-                                                    <a href="../../demo1/dist/apps/user-management/users/view.html" class="text-gray-800 text-hover-primary fs-5 fw-bolder">{{ $invoice->relationwithCustomerUser->name }}</a>
-                                                    <!--end::Title-->
-                                                </div>
                                             </div>
+                                        </td>
+                                        <td>
+                                            <h2 class="text-gray-800 text-hover-primary fs-5 fw-bolder">{{$blog->blog_title}}</h2>
                                         </td>
                                         <!--end::Customer=-->
                                         <!--begin::Status=-->
                                         <td data-order="Completed">
                                             <!--begin::Badges-->
-                                            <div class="badge @if ($invoice->order_status == 'processing')
-                                                badge-light-primary
-                                            @elseif ($invoice->order_status == 'pending')
-                                                badge-light-warning
-                                            @elseif ($invoice->order_status == 'delivered')
+                                            <div class="badge @if ($blog->status == 'published')
                                                 badge-light-success
-                                            @else
-                                            badge-light-danger
-                                            @endif ">{{ $invoice->order_status }}</div>
+                                            @elseif ($blog->status == 'unpublished')
+                                                badge-light-danger
+                                            @endif ">{{ $blog->status }}</div> <br>
+                                            <span class="fw-bolder">{{ $blog->created_at->diffForHumans() }}</span>
                                             <!--end::Badges-->
                                         </td>
                                         <!--end::Status=-->
-                                        <!--begin::Total=-->
-                                        <td>
-                                            <span class="fw-bolder">${{ $invoice->total_price }}</span>
-                                        </td>
-                                        <!--end::Total=-->
-                                        <!--begin::Date Added=-->
-                                        <td data-order="2022-03-23">
-                                            <span class="fw-bolder">{{ $invoice->created_at->format('d-m-y') }}</span>
-                                        </td>
-                                        <!--end::Date Added=-->
                                         <!--begin::Action=-->
                                         <td>
                                             <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -132,13 +116,17 @@
                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="{{ route('order.details',$invoice->id) }}" class="menu-link px-3">View</a>
+                                                    <a href="{{ route('blog.edit',$blog->id) }}" class="menu-link px-3">View</a>
                                                 </div>
                                                 <!--end::Menu item-->
 
                                                 <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('order.delete',$invoice->id) }}" class="menu-link px-3" data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                                <div class="menu-item px-3 my-2">
+                                                    <form action="{{ route('blog.destroy',$blog->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-sm btn-primary">Delete</button>
+                                                    </form>
                                                 </div>
                                                 <!--end::Menu item-->
                                             </div>
@@ -146,7 +134,7 @@
                                         </td>
                                         <!--end::Action=-->
                                     </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -165,14 +153,14 @@
 @section('footer_script')
 <script>
     $(document).ready(function () {
-        $('#announcement').DataTable();
+        $('#blog').DataTable();
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
-    @if (session('delete_success'))
+    @if (session('success'))
 
         const Toast = Swal.mixin({
         toast: true,
@@ -188,7 +176,7 @@
 
         Toast.fire({
         icon: 'success',
-        title: 'Successfully deleted a invoice history'
+        title: "{{session('success')}}"
         })
     @endif
 
