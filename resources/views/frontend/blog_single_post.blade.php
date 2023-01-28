@@ -28,7 +28,11 @@
             <div class="row my-5">
                 <div class="col-md-12">
                     <div class="text-center">
-                        <img src="{{asset('uploads/blog_photo')}}/{{$blog->blog_photo}}" alt="" class="img-fluid" width="70%">
+                        @if ($blog->blog_photo != NULL)
+                            <img src="{{asset('uploads/blog_photo')}}/{{$blog->blog_photo}}" alt="" class="img-fluid" width="70%">
+                        @else
+                            <img src="{{asset('uploads/blog_photo')}}/default.png" alt="" class="img-fluid" width="50%">
+                        @endif
                     </div>
                     <div class="mt-5">
                         @php

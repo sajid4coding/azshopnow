@@ -79,7 +79,11 @@
                                                 <div class="">
                                                     <a href="#">
                                                         <div class="">
-                                                            <img  src="{{ asset('uploads/blog_photo') }}/{{$blog->blog_photo}}" class="img-fluid" width="150px">
+                                                            @if ($blog->blog_photo != NULL)
+                                                                <img  src="{{ asset('uploads/blog_photo') }}/{{$blog->blog_photo}}" class="img-fluid" width="150px">
+                                                            @else
+                                                                <img  src="{{ asset('uploads/blog_photo') }}/default.png" class="img-fluid" width="150px">
+                                                            @endif
                                                         </div>
 
                                                     </a>

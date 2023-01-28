@@ -1,7 +1,11 @@
 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-9">
     <div class="blog-item mb-30">
         <div class="blog-thumb">
-            <a href="{{route('blog.single.post',['id'=>$blog->id,'title'=>Str::slug($blog->blog_title)])}}"><img src="{{ asset('uploads/blog_photo') }}/{{$blog->blog_photo}}" alt=""></a>
+            @if ($blog->blog_photo != NULL)
+                <a href="{{route('blog.single.post',['id'=>$blog->id,'title'=>Str::slug($blog->blog_title)])}}"><img src="{{ asset('uploads/blog_photo') }}/{{$blog->blog_photo}}" alt=""></a>
+            @else
+                <a href="{{route('blog.single.post',['id'=>$blog->id,'title'=>Str::slug($blog->blog_title)])}}"><img src="{{ asset('uploads/blog_photo') }}/default.png" alt=""></a>
+            @endif
         </div>
         <div class="blog-content">
             <div class="comment">
