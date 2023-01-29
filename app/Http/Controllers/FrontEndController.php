@@ -248,7 +248,7 @@ class FrontEndController extends Controller
 
         contact::create($request->except('_token'));
 
-        Mail::to('mdshrabon.dev@gmail.com')->send(new ContactMessage($request->except('_token')));
+        Mail::to(config('mail.from.address'))->send(new ContactMessage($request->except('_token')));
 
         return back()->with('contact_success_message','Your message successfully we have received!');
     }
