@@ -50,7 +50,7 @@
                                 <th>Amount</th>
                                 <th>Order Date</th>
                                 <th>Payout Status</th>
-                                <th>Transactions No.</th>
+                                <th>Seller Payment Method</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -81,27 +81,75 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <form action="{{ route('payout.request.get.paid', $seller_payout_request->id) }}" method="POST">
-                                            @csrf
-
-                                        @if ($seller_payout_request->status == 'processing')
-                                            <input class="form-control @error('transactions_id') is-invalid @enderror" type="text" placeholder="type transactions no." name="transactions_id">
-
-                                        @elseif ($seller_payout_request->status == 'paid')
-                                            {{ $seller_payout_request->relationwithinvoice->transactions_id }}
-
-                                        @elseif ($seller_payout_request->status == 'rejected')
-                                            <span class="text-muted">NULL</span>
-                                            
-                                        @else
-                                            <span class="text-muted">NULL</span>
-                                        @endif
+                                        {{ $seller_payout_request->seller_payment_method }}
                                     </td>
                                     <td>
                                         @if ($seller_payout_request->status == 'processing')
-                                            <button type="submit" class="btn btn-warning py-1 px-3">Get Paid</button>
+                                            {{-- <button type="submit" class="btn btn-warning py-1 px-3">Get Paid</button> --}}
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-warning py-1 px-3" data-bs-toggle="modal" data-bs-target="#get_paid{{ $seller_payout_request->relationwithinvoice->id }}">
+                                                Get Paid
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="get_paid{{ $seller_payout_request->relationwithinvoice->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Get Paid</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{{ route('payout.request.get.paid', $seller_payout_request->id) }}" method="POST">
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-primary">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th>Seller Payment Method:</th>
+                                                                            <td>{{ $seller_payout_request->seller_payment_method }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>Details:</th>
+                                                                            @php
+                                                                                $methods = array();
+                                                                                if ($seller_payout_request->seller_payment_method == 'paypal') {
+                                                                                    $methods[] = App\Models\Wallet::where('vendor_id', $seller_payout_request->vendor_id)->first()->paypal;
+                                                                                }elseif($seller_payout_request->seller_payment_method == 'stripe'){
+                                                                                    $methods[] = App\Models\Wallet::where('vendor_id', $seller_payout_request->vendor_id)->first()->stripe;
+                                                                                }elseif($seller_payout_request->seller_payment_method == 'skrill'){
+                                                                                    $methods[] = App\Models\Wallet::where('vendor_id', $seller_payout_request->vendor_id)->first()->skrill;
+                                                                                }else{
+                                                                                    $methods[] = 'Bank Account Holder: '. App\Models\Wallet::where('vendor_id', $seller_payout_request->vendor_id)->first()->bank_account_holder;
+                                                                                    $methods[] = 'Bank Account Number: '. App\Models\Wallet::where('vendor_id', $seller_payout_request->vendor_id)->first()->bank_account_type;
+                                                                                    $methods[] = 'Bank Routing Number: '. App\Models\Wallet::where('vendor_id', $seller_payout_request->vendor_id)->first()->bank_routing_number;
+                                                                                    $methods[] = 'Bank Name: '. App\Models\Wallet::where('vendor_id', $seller_payout_request->vendor_id)->first()->bank_name;
+                                                                                    $methods[] = 'Bank Address: '. App\Models\Wallet::where('vendor_id', $seller_payout_request->vendor_id)->first()->bank_address;
+                                                                                    $methods[] = 'Bank IBAN: '. App\Models\Wallet::where('vendor_id', $seller_payout_request->vendor_id)->first()->bank_IBAN;
+                                                                                    $methods[] = 'Bank Swift Code: '. App\Models\Wallet::where('vendor_id', $seller_payout_request->vendor_id)->first()->bank_swift_code;
+                                                                                }
+                                                                            @endphp
+                                                                            <td>
+                                                                                @foreach ($methods as $method)
+                                                                                    <span class="d-block">{{ $method }}</span>
+                                                                                @endforeach
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <label for="transactions_id" class="form-label mt-3">Transactions ID</label>
+                                                            <input id="transactions_id" class="form-control mb-3 @error('transactions_id') is-invalid @enderror" type="text" placeholder="type transactions no." name="transactions_id">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-warning">Get Paid</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                </div>
+                                            </div>
                                         @endif
-                                        </form>
 
                                         @if ($seller_payout_request->status == 'unpaid')
                                             <input type="button" onclick="location.href='{{ route('payout.request.accepted', $seller_payout_request->id) }}';" class="btn btn-warning py-1 px-3" value="Accept" />

@@ -38,10 +38,12 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'admin-Admin Management']);
         Permission::create(['name' => 'admin-delivery boy Management']);
         Permission::create(['name' => 'admin-announcement Management']);
+        Permission::create(['name' => 'admin-Blog Management']);
 
         //For Vendor
         Permission::create(['name' => 'vendor-order']);
         Permission::create(['name' => 'vendor-earning']);
+        Permission::create(['name' => 'vendor-wallet']);
         Permission::create(['name' => 'vendor-product management']);
         Permission::create(['name' => 'vendor-staff management']);
         Permission::create(['name' => 'vendor-coupon']);

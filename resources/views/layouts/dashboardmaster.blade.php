@@ -399,7 +399,7 @@
      										<span class="menu-title">Manage General</span>
      										<span class="menu-arrow"></span>
      									</span>
-     									<div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'logo-edit' || $current_page == 'dashboard-website-content' || $current_page == 'dashboard-slider' || $current_page == 'dashboard-social-link' || $current_page == 'dashboard-contact-info' || $current_page == 'banner-edit') here show @endif">
+     									<div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'logo-edit' || $current_page == 'dashboard-website-content' || $current_page == 'dashboard-slider' || $current_page == 'dashboard-social-link' || $current_page == 'dashboard-contact-info' || $current_page == 'banner-edit' || $current_page == 'payment-setting') here show @endif">
      										<div class="menu-item menu-accordion @if ($current_page == 'logo-edit') here show @endif">
                                                 <a class="menu-link" href="{{ route('general.logo.edit') }}">
                                                     <span class="menu-bullet">
@@ -416,6 +416,14 @@
                                                     <span class="menu-title">Website Contents</span>
                                                 </a>
     										</div>
+                                            <div class="menu-item @if ($current_page == 'payment-setting') here show @endif">
+                                                <a class="menu-link" href="{{ route('payment.setting') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Payment Setting</span>
+                                                </a>
+                                            </div>
                                             <div class="menu-item menu-accordion @if ($current_page == 'dashboard-slider') here show @endif">
                                                 <a class="menu-link" href="{{ route('general.slider') }}">
                                                     <span class="menu-bullet">
@@ -546,6 +554,47 @@
                                         </div>
                                     </div>
                                 @endcan
+                                @can('admin-Blog Management')
+                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            <span class="menu-link">
+                                                <span class="menu-icon">
+                                                    <i class="fas fa-bookmark"></i>
+                                                </span>
+                                                <span class="menu-title">Manage Blog</span>
+                                                <span class="menu-arrow"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'blog/create' || $current_page == 'blog' || $current_page == 'out-of-work-list') here show @endif">
+                                                <div class="menu-item @if ($current_page == 'blog/create') here show @endif">
+                                                    <a class="menu-link" href="{{ route('blog.create') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Add Blog</span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item @if ($current_page == 'blog') here show @endif">
+                                                    <a class="menu-link" href="{{ route('blog.index') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">List of Blogs</span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item @if ($current_page == 'out-of-work-list') here show @endif">
+                                                    <a class="menu-link" href="{{ route('blog.category.add') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Blog Category</span>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                @endcan
 
                                 @can('admin-announcement Management')
                                     <div class="menu-item @if ($current_page == 'announcement') here show @endif menu-accordion">
@@ -553,7 +602,7 @@
                                             <span class="menu-icon">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                                 <span class="svg-icon svg-icon-2">
-                                                    <i class="fas fa-box"></i>
+                                                    <i class="fas fa-bell"></i>
                                                 </span>
                                                 <!--end::Svg Icon-->
                                             </span>
@@ -3912,15 +3961,6 @@
 									<div class="d-flex align-items-center ms-1 ms-lg-3">
 										<!--begin::Menu- wrapper-->
 										<div class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-											<!--begin::Svg Icon | path: icons/duotune/general/gen022.svg-->
-											{{-- <span class="svg-icon svg-icon-1">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-													<path d="M11.2929 2.70711C11.6834 2.31658 12.3166 2.31658 12.7071 2.70711L15.2929 5.29289C15.6834 5.68342 15.6834 6.31658 15.2929 6.70711L12.7071 9.29289C12.3166 9.68342 11.6834 9.68342 11.2929 9.29289L8.70711 6.70711C8.31658 6.31658 8.31658 5.68342 8.70711 5.29289L11.2929 2.70711Z" fill="currentColor" />
-													<path d="M11.2929 14.7071C11.6834 14.3166 12.3166 14.3166 12.7071 14.7071L15.2929 17.2929C15.6834 17.6834 15.6834 18.3166 15.2929 18.7071L12.7071 21.2929C12.3166 21.6834 11.6834 21.6834 11.2929 21.2929L8.70711 18.7071C8.31658 18.3166 8.31658 17.6834 8.70711 17.2929L11.2929 14.7071Z" fill="currentColor" />
-													<path opacity="0.3" d="M5.29289 8.70711C5.68342 8.31658 6.31658 8.31658 6.70711 8.70711L9.29289 11.2929C9.68342 11.6834 9.68342 12.3166 9.29289 12.7071L6.70711 15.2929C6.31658 15.6834 5.68342 15.6834 5.29289 15.2929L2.70711 12.7071C2.31658 12.3166 2.31658 11.6834 2.70711 11.2929L5.29289 8.70711Z" fill="currentColor" />
-													<path opacity="0.3" d="M17.2929 8.70711C17.6834 8.31658 18.3166 8.31658 18.7071 8.70711L21.2929 11.2929C21.6834 11.6834 21.6834 12.3166 21.2929 12.7071L18.7071 15.2929C18.3166 15.6834 17.6834 15.6834 17.2929 15.2929L14.7071 12.7071C14.3166 12.3166 14.3166 11.6834 14.7071 11.2929L17.2929 8.70711Z" fill="currentColor" />
-												</svg>
-											</span> --}}
                                             <span class="badge bg-light text-dark">
                                                 <i class="fas fa-bell" style="font-size: 20px !important"></i>
                                                 @if (auth()->user()->unreadNotifications()->groupBy('notifiable_id')->count())

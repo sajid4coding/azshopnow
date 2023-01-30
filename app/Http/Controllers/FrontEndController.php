@@ -6,7 +6,7 @@ use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
 use App\Mail\OrderMailNotification;
-use App\Models\{Banner, Cart, Category, Coupon, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReport, ProductReview, ReviewGallery, SubCategory, User, Wishlist};
+use App\Models\{Banner, Blog, Cart, Category, Coupon, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReport, ProductReview, ReviewGallery, SubCategory, User, Wishlist};
 use Khsing\World\World;
 use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
@@ -65,11 +65,22 @@ class FrontEndController extends Controller
     function contact_us_index(){
         return view('frontend.contact_us');
     }
+    function postBlog (){
+        $banners = Banner::all()->first();
+        $blogs=Blog::where('status','published')->get()->shuffle();
+        return view('frontend.blog',compact('blogs','banners'));
+    }
+    function singleBlogPost ($id,$title){
+        $banners = Banner::all()->first();
+        $blog=Blog::findOrFail($id);
+        return view('frontend.blog_single_post',compact('blog','banners'));
+    }
 
     function newArrivals(){
         $products=Product::where('status','published')->where('vendorProductStatus','published')->latest()->paginate(9);
         $banners = Banner::all()->first();
-        return view('frontend.newArrivals',compact('products','banners'));
+        $bannerProducts=Product::where('status','published')->where('vendorProductStatus','published')->where('discount_price','!=',NULL)->latest()->limit(3)->get();
+        return view('frontend.newArrivals',compact('products','banners','bannerProducts'));
     }
 
     function topSelection(){
@@ -79,8 +90,9 @@ class FrontEndController extends Controller
     }
     function shop_page(){
         $products=Product::where('status','published')->where('vendorProductStatus','published')->paginate(9);
+        $bannerProducts=Product::where('status','published')->where('vendorProductStatus','published')->latest()->limit(3)->get();
         $banners = Banner::all()->first();
-        return view('frontend.shop',compact('products','banners'));
+        return view('frontend.shop',compact('products','banners','bannerProducts'));
     }
     function categoryProduct($slug){
         $categoryName=Category::where('slug', $slug)->first();
@@ -236,7 +248,7 @@ class FrontEndController extends Controller
 
         contact::create($request->except('_token'));
 
-        Mail::to('mdshrabon.dev@gmail.com')->send(new ContactMessage($request->except('_token')));
+        Mail::to(config('mail.from.address'))->send(new ContactMessage($request->except('_token')));
 
         return back()->with('contact_success_message','Your message successfully we have received!');
     }
@@ -252,20 +264,24 @@ class FrontEndController extends Controller
     public function productSorting (Request $request){
         if($request->select == 'newest'){
             $banners = Banner::all()->first();
+            $bannerProducts=Product::where('status','published')->where('vendorProductStatus','published')->where('discount_price','!=',NULL)->latest()->limit(3)->get();
             $products=Product::where('status','published')->where('vendorProductStatus','published')->latest()->paginate(9);
-            return view('frontend.newArrivals',compact('products','banners'));
+            return view('frontend.newArrivals',compact('products','banners','bannerProducts'));
         }elseif($request->select == 'hightolow'){
             $banners = Banner::all()->first();
+            $bannerProducts=Product::where('status','published')->where('vendorProductStatus','published')->where('discount_price','!=',NULL)->latest()->limit(3)->get();
             $products=Product::where('status','published')->where('vendorProductStatus','published')->orderBy('product_price','DESC')->paginate(9);
-            return view('frontend.HighToLow',compact('products','banners'));
+            return view('frontend.HighToLow',compact('products','banners','bannerProducts'));
         }elseif($request->select == 'default'){
             $products=Product::where('status','published')->where('vendorProductStatus','published')->paginate(9);
+            $bannerProducts=Product::where('status','published')->where('vendorProductStatus','published')->where('discount_price','!=',NULL)->latest()->limit(3)->get();
             $banners = Banner::all()->first();
-            return view('frontend.shop',compact('products','banners'));
+            return view('frontend.shop',compact('products','banners','bannerProducts'));
         }else{
             $banners = Banner::all()->first();
+            $bannerProducts=Product::where('status','published')->where('vendorProductStatus','published')->where('discount_price','!=',NULL)->latest()->limit(3)->get();
             $products=Product::where('status','published')->where('vendorProductStatus','published')->orderBy('product_price','ASC')->paginate(9);
-            return view('frontend.LowToHigh',compact('products','banners'));
+            return view('frontend.LowToHigh',compact('products','banners','bannerProducts'));
         }
 
         // $lowToHigh=$request->q;
@@ -288,6 +304,7 @@ class FrontEndController extends Controller
             'flashSaleProducts' => Product::where('status','published')->where('vendorProductStatus','published')->limit(8)->get()->shuffle(),
             'bestCategories'=>Category::where('status','published')->latest()->limit(7)->get()->shuffle(),
             'general' => General::find(1),
+            'blogs'=>Blog::where('status','published')->latest()->limit('3')->get()->shuffle(),
         ]);
     }
     public function stateTex(Request $request){
@@ -434,6 +451,7 @@ class FrontEndController extends Controller
         $max=(int)$priceArry[1];
         $products=Product::where('status','published')->where('vendorProductStatus','published')->whereBetween('product_price',[$min,$max])->paginate(9);
         $banners = Banner::all()->first();
-        Return view('frontend.priceFilter',compact('products','banners'));
+        $bannerProducts=Product::where('status','published')->where('vendorProductStatus','published')->where('discount_price','!=',NULL)->latest()->limit(3)->get();
+        Return view('frontend.priceFilter',compact('products','banners','bannerProducts'));
     }
 }

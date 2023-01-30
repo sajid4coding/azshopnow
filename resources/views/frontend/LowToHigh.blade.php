@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-xl-3 col-lg-4 col-md-5 col-sm-8 order-2 order-md-0">
-                    <div class="breadcrumb-product text-center">
+                    {{-- <div class="breadcrumb-product text-center">
                         <div class="thumb">
                             <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/br_product_img.png" alt="img"></a>
                             <span>35% OFF</span>
@@ -25,6 +25,21 @@
                             <h4 class="title"><a href="shop-details.html">Blender Mixer Food</a></h4>
                             <h5 class="price">$37.00</h5>
                         </div>
+                    </div> --}}
+                    <div class="slider-add-banner banner-active mb-45">
+                        @foreach ($bannerProducts as $bannerProducts)
+                                <div class="add-banner">
+                                    <div class="add-banner-img">
+                                        <a href="{{ route('single.product', ['id'=>$bannerProducts->id,'title'=>Str::slug($bannerProducts->product_title)]) }}"><img src="{{ asset('uploads/product_photo') }}/{{$bannerProducts->thumbnail}}" alt=""></a>
+                                    </div>
+                                    <div class="add-banner-content">
+                                        <span>{{Floor(((100*$bannerProducts->product_price)-(100*$bannerProducts->discount_price))/$bannerProducts->product_price)}}% discount</span>
+                                        <h2 class="title">{{Str::limit($bannerProducts->product_title,9)}}</h2>
+                                        <p>{{staff($bannerProducts->vendor_id)->shop_name}}</p>
+                                        <a href="{{ route('single.product', ['id'=>$bannerProducts->id,'title'=>Str::slug($bannerProducts->product_title)]) }}" class="btn">shop now</a>
+                                    </div>
+                                </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-8 col-md-7">
@@ -163,7 +178,10 @@
                                             <option value="hightolow">High To Low</option>
                                             <option value="newest">Newest Item</option>
                                         </select> &nbsp;
-                                        <button class="btn btn-primary btn-sm">Sort</button>
+                                        <button style="padding: 5px 20px;
+                                        background: #FF4800;
+                                        color: #fff;
+                                        border: none;">Sort</button>
                                     </form>
                                     {{-- <ul>
                                         <li>View</li>

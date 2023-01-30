@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class AnnouncementController extends Controller
 {
@@ -13,7 +17,10 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        return view('dashboard.announcement.index');
+        return view('dashboard.announcement.index',[
+            'announcements' => Announcement::all(),
+            'all_seller' => User::where('role', 'vendor')->get()
+        ]);
     }
 
     /**
@@ -23,7 +30,9 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-        return view('dashboard.announcement.create');
+        return view('dashboard.announcement.create',[
+            'all_seller' => User::where('role', 'vendor')->get()
+        ]);
     }
 
     /**
@@ -34,7 +43,27 @@ class AnnouncementController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        if($request->specific_seller){
+            foreach ($request->specific_seller as $seller) {
+                Announcement::insert([
+                    'title' => $request->title,
+                    'description' => $request->description,
+                    'vendor_type' => $request->drone,
+                    'specific_seller' => $seller,
+                    'status' => 'publish',
+                    'created_at' => now()
+                ]);
+            }
+        }else{
+            Announcement::insert([
+                'title' => $request->title,
+                'description' => $request->description,
+                'vendor_type' => $request->drone,
+                'status' => 'publish',
+                'created_at' => now()
+            ]);
+        }
+        return redirect('announcement')->with('announcement_created', 'Announcement Publish');
     }
 
     /**
@@ -68,7 +97,13 @@ class AnnouncementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Announcement::find($id)->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'vendor_type' => $request->drone,
+            'status' => $request->status,
+        ]);
+        return back()->with('announcement_updated', 'Announcement Updated');
     }
 
     /**
@@ -79,6 +114,34 @@ class AnnouncementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Announcement::find($id)->delete();
+        return back()->with('announcement_delete', 'Announcement Delete');
+    }
+
+    public function vendor_announcement()
+    {
+        return view('vendor.announcement.announcement',[
+            'announcements' => Announcement::where([
+                'vendor_type'=> 'All Seller',
+                'status' => 'publish',
+            ])->orWhere([
+                'specific_seller' => auth()->id(),
+                'status' => 'publish',
+            ])->get(),
+
+            'announcement_count' => Announcement::where([
+                'vendor_type'=> 'All Seller',
+                'status' => 'publish',
+            ])->orWhere([
+                'specific_seller' => auth()->id(),
+                'status' => 'publish',
+            ])->count()
+        ]);
+    }
+    public function vendor_details_announcement($id)
+    {
+        return view('vendor.announcement.details',[
+            'announcement' => Announcement::find($id)
+        ]);
     }
 }

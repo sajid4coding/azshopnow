@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AnnouncementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController, PermissionController, RolemanagementController, StaffmanagementController, VendorContact};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AnnouncementController, AttributeController, BannerController,BlogController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController, PermissionController, RolemanagementController, StaffmanagementController, VendorContact};
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -29,6 +29,8 @@ Route::get('checkout',[FrontEndController::class,'checkout'])->name('checkout');
 Route::get('/list-of-vendors/{slug}',[FrontEndController::class,'listOfVendors'])->name('listOfVendors');
 Route::get('/category-{slug}-{id}{scName}',[FrontEndController::class,'subcategoryProducts'])->name('subcategory.products');
 Route::get('/offers',[FrontEndController::class,'offers'])->name('offers');
+Route::get('/post-blog',[FrontEndController::class,'postBlog'])->name('post.blog');
+Route::get('blog-post/{id}/{title}',[FrontEndController::class,'singleBlogPost'])->name('blog.single.post');
 
 
 Route::post('/getStateCode',[FrontEndController::class,'stateTex']);
@@ -133,6 +135,8 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::get('manage-commission/commission', [VendorsmanagementController::class, 'commission'])->name('commission');
         Route::post('manage-commission/commission-save', [VendorsmanagementController::class, 'commission_save'])->name('commission.save');
         Route::post('manage-commission/minimum-seller-amount-withdraw-save', [VendorsmanagementController::class, 'minimum_seller_amount_withdraw'])->name('minimum.seller.amount.withdraw');
+        Route::get('vendor-management/payment-setting', [VendorsmanagementController::class, 'payment_setting'])->name('payment.setting');
+        Route::post('vendor-management/payment-setting-selected', [VendorsmanagementController::class, 'payment_setting_select'])->name('payment.setting.select');
     });
     //RolemanagementController Resource
     //PermissionController Resource
@@ -230,6 +234,16 @@ Route::middleware(['admin', 'verified'])->group(function () {
         //ACCOUNCEMENT ROUTE END
     });
 
+    Route::group(['middleware' => ['can:admin-Blog Management']], function () {
+        //BlogController
+        Route::resource('blog', BlogController::class);
+        Route::get('blog-category',[BlogController::class,'blogCategoryAdd'])->name('blog.category.add');
+        Route::post('blog-categoryadd',[BlogController::class,'blogCategoryPost'])->name('blog.category.post');
+        Route::delete('blog-categorydelete/{id}',[BlogController::class,'blogCategoryDelete'])->name('blog.category.delete');
+        Route::get('blog-category-edit/{id}',[BlogController::class,'blogCategoryedit'])->name('blog.category.edit');
+        Route::post('blog-category-edit/{id}',[BlogController::class,'blogCategoryeditPost'])->name('blog.category.edit.post');
+    });
+
 
 });
 
@@ -283,10 +297,14 @@ Route::middleware(['vendor'])->group(function(){
         Route::post('withdraw/vendor-earning/withdrawal-request',[VendorController::class,'withdrawal_request'])->name('vendor.withdrawal.request');
         Route::post('withdraw/vendor-earningvendor-earning/withdrawal',[VendorController::class,'withdrawal'])->name('vendor.withdrawal');
     });
+    Route::group(['middleware' => ['can:vendor-wallet']], function () {
+        Route::get('wallet/vendor-wallet',[VendorController::class,'vendor_wallet'])->name('vendor.wallet');
+        Route::post('wallet/vendor-wallet-update',[VendorController::class,'vendor_wallet_update'])->name('vendor.wallet.update');
+    });
 
     Route::group(['middleware' => ['can:vendor-product management']], function () {
 
-        Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
+        Route::get('vendor/product-upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
 
         //ProductController Resource
         Route::resource('product', ProductController::class);
@@ -318,6 +336,12 @@ Route::middleware(['vendor'])->group(function(){
         Route::post('vendor-addstaff', [StaffmanagementController::class, 'vendorAddStaff_post'])->name("vendor.add.staff.post");
         Route::delete('vendor-addstaff/{id}', [StaffmanagementController::class, 'vendorAddStaff_delete'])->name("vendor.add.staff.delete");
     });
+
+    //VENDOR ACCOUNCEMENT ROUTE START
+    Route::get('vendor-announcement', [AnnouncementController::class, 'vendor_announcement'])->name('vendor.announcement');
+    Route::get('vendor-announcement-details/{id}', [AnnouncementController::class, 'vendor_details_announcement'])->name('vendor.details.announcement');
+    //VENDOR ACCOUNCEMENT ROUTE END
+
     //UPGRADE SUBCRIPTION ROUTE START
     Route::get('upgrade', [PlanController::class, 'upgrade'])->name('upgrade');
     Route::get('upgrade/{plan}', [PlanController::class, 'upgrade_show'])->name("upgrade.show");

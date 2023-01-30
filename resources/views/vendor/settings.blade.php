@@ -11,7 +11,7 @@
                             <div class="container">
                                 <div class="avatar-upload">
                                     <div class="avatar-edit">
-                                        <input @if (membership()) type='file' @else placeholder="No able to upload Banner Photo" @endif id="imageUpload" name="profile_photo" accept=".png, .jpg, .jpeg" />
+                                        <input type='file' id="imageUpload" name="profile_photo" accept=".png, .jpg, .jpeg" />
                                         <label for="imageUpload"></label>
                                     </div>
                                     <div class="avatar-preview">
@@ -28,52 +28,50 @@
                         <div class="col-lg-12">
                              <div class="form-grp">
                                  <label >Banner Photo : </label>
-                                <input @if (membership()) type='file' @else placeholder="No able to upload Banner Photo" @endif name="banner" accept=".png, .jpg, .jpeg" />
+                                <input type='file' name="banner" accept=".png, .jpg, .jpeg" />
                              </div>
                         </div>
 
                         <div class="col-lg-6">
                             <div class="form-grp">
                                 <label>Name</label>
-                                <input @if (!membership()) readonly @endif type="text" name="name" value="{{ auth()->user()->name }}">
+                                <input type="text" name="name" value="{{ auth()->user()->name }}">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-grp">
                                 <label >Email</label>
-                                <input @if (!membership()) readonly @endif type="email" name="email" value="{{ auth()->user()->email }}">
+                                <input type="email" name="email" value="{{ auth()->user()->email }}">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-grp">
                                 <label >Phone Number</label>
-                                <input @if (!membership()) readonly @endif type="phone" name="phone_number" value="{{ auth()->user()->phone_number }}">
+                                <input type="phone" name="phone_number" value="{{ auth()->user()->phone_number }}">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-grp">
                                 <label >shop Name</label>
-                                <input @if (!membership()) readonly @endif type="text" name="shop_name" value="{{ auth()->user()->shop_name }}">
+                                <input type="text" name="shop_name" value="{{ auth()->user()->shop_name }}">
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="form-grp">
                                 <label >Bio</label>
-                                <textarea @if (!membership()) readonly @endif name="bio" id="" cols="30" rows="10">{{ auth()->user()->bio  }}</textarea>
+                                <textarea name="bio" id="" cols="30" rows="10">{{ auth()->user()->bio  }}</textarea>
 
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="form-grp">
                                 <label >Address</label>
-                                <input @if (!membership()) readonly @endif type="text" name="address" value="{{ auth()->user()->address }}">
+                                <input type="text" name="address" value="{{ auth()->user()->address }}">
                             </div>
                         </div>
                     </div>
-                    @if (membership())
-                        {{-- <button type="submit">Update Info</button> --}}
-                        <button class=" button-prevent-multiple-submits" type="submit">Update Info</button>
-                    @endif
+                    {{-- <button type="submit">Update Info</button> --}}
+                    <button class=" button-prevent-multiple-submits" type="submit">Update Info</button>
                 </form>
 
 

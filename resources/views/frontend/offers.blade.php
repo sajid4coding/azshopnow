@@ -21,7 +21,7 @@
                     <i class="fas fa-exclamation-triangle"></i>
                 </span>
                 <h3 class="text-primary">No coupon available</h3>
-                <a class="btn btn_secondary" href="{{ route('shop.page') }}"><i class="fa fa-chevron-left"></i> Continue shopping </a>
+                <a class="btn btn_secondary text-dark" href="{{ route('shop.page') }}"><i class="fa fa-chevron-left"></i> Continue shopping </a>
             </div>
         </div>
     </section>
