@@ -14,7 +14,7 @@
                 <h4>Announcement</h4>
             </div>
             <div class="card-body">
-                <table id="example" class="table table-striped text-center" style="width:100%;">
+                <table id="example" class="table table-striped" style="width:100%;">
                     <thead>
                         <tr>
                             <th>Time</th>
