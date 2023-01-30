@@ -3,7 +3,6 @@
    <!-- main-area -->
    <main>
     <style>
-
         .Shop_BG{
             background: url( https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg);
             repeat: no-repeat;
@@ -54,6 +53,9 @@
                                     {{$shopName->shop_name}}
                                 @endif</li>
                             </ol>
+                            {{-- {{ $shopName->id }} --}}
+
+                            <a  href="{{ route('customer.contact.vendor',$shopName->id) }}" class="btn mt-2 btn-sm btn-primary">Contact</a>
                         </nav>
                     </div>
                 </div>

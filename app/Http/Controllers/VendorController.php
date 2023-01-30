@@ -162,7 +162,7 @@ class vendorController extends Controller
 
             $photo= 'vendor_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
             $img = Image::make($request->file('profile_photo'))->resize(300, 300);
-            $img->save(base_path('public/uploads/vendor_profile/'.$photo), 60);
+            $img->save(base_path('public/uploads/profile_photo/'.$photo), 60);
 
 
             $banner_photo= 'banner'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('banner')->getClientOriginalExtension();
@@ -174,7 +174,7 @@ class vendorController extends Controller
             }
 
             if(auth()->user()->profile_photo != NULL){
-                unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
+                unlink(base_path('public/uploads/profile_photo/'.auth()->user()->profile_photo));
             }
 
                 User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
@@ -187,10 +187,10 @@ class vendorController extends Controller
 
                 $photo = 'vendor_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
                 $img = Image::make($request->file('profile_photo'))->resize(300, 300);
-                $img->save(base_path('public/uploads/vendor_profile/'.$photo), 60);
+                $img->save(base_path('public/uploads/profile_photo/'.$photo), 60);
 
                 if(auth()->user()->profile_photo !== NULL){
-                    unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
+                    unlink(base_path('public/uploads/profile_photo/'.auth()->user()->profile_photo));
                 }
 
                     User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
@@ -221,10 +221,10 @@ class vendorController extends Controller
 
                     $photo= 'vendor_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
                     $img = Image::make($request->file('profile_photo'))->resize(300, 300);
-                    $img->save(base_path('public/uploads/vendor_profile/'.$photo), 60);
+                    $img->save(base_path('public/uploads/profile_photo/'.$photo), 60);
 
                     if(auth()->user()->profile_photo !== NULL){
-                        unlink(base_path('public/uploads/vendor_profile/'.auth()->user()->profile_photo));
+                        unlink(base_path('public/uploads/profile_photo/'.auth()->user()->profile_photo));
                     }
 
                      User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
@@ -499,6 +499,9 @@ class vendorController extends Controller
             ]);
         }
         return redirect('withdraw/vendor-earning');
+    }
+    function chatVendor(){
+        return view('vendor.chat.chat');
     }
 
 }
