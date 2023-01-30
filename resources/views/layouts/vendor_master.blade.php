@@ -156,6 +156,19 @@
                                                     <a class="nav-link cust_a" href="{{ route('vendor.earning') }}"> <i class="fas fa-money-bill-alt"></i>Withdraw</a>
                                                 </li>
                                             @endcan
+
+                                            @can('vendor-wallet')
+                                                <li class="nav-item @if ($current_page == 'vendor-wallet') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('vendor.wallet') }}"> <i class="fas fa-wallet"></i>Wallet</a>
+                                                </li>
+                                            @endcan
+
+                                            @can('vendor-wallet')
+                                                <li class="nav-item @if ($current_page == 'vendor-announcement') here show @endif">
+                                                    <a class="nav-link cust_a" href="{{ route('vendor.announcement') }}"> <i class="fas fa-bell"></i>Announcement</span></a>
+                                                </li>
+                                            @endcan
+
                                             @can ('vendor-staff management')
                                                 <li class="nav-item dropdown">
                                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

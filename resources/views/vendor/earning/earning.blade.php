@@ -140,7 +140,7 @@
                                                                     <td>{{ $invoice->total_price}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Commission (-{{ $seller_data->seller_commission }}%):</th>
+                                                                    <th>Commission (-{{ $user_table_seller_data->seller_commission ? $user_table_seller_data->seller_commission : $seller_data->seller_commission }}%):</th>
                                                                     <td>{{ $invoice->total_price * $seller_data->seller_commission/100 }}</td>
                                                                 </tr>
                                                                 <tr>

@@ -398,7 +398,7 @@
      										<span class="menu-title">Manage General</span>
      										<span class="menu-arrow"></span>
      									</span>
-     									<div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'logo-edit' || $current_page == 'dashboard-website-content' || $current_page == 'dashboard-slider' || $current_page == 'dashboard-social-link' || $current_page == 'dashboard-contact-info' || $current_page == 'banner-edit') here show @endif">
+     									<div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'logo-edit' || $current_page == 'dashboard-website-content' || $current_page == 'dashboard-slider' || $current_page == 'dashboard-social-link' || $current_page == 'dashboard-contact-info' || $current_page == 'banner-edit' || $current_page == 'payment-setting') here show @endif">
      										<div class="menu-item menu-accordion @if ($current_page == 'logo-edit') here show @endif">
                                                 <a class="menu-link" href="{{ route('general.logo.edit') }}">
                                                     <span class="menu-bullet">
@@ -415,6 +415,14 @@
                                                     <span class="menu-title">Website Contents</span>
                                                 </a>
     										</div>
+                                            <div class="menu-item @if ($current_page == 'payment-setting') here show @endif">
+                                                <a class="menu-link" href="{{ route('payment.setting') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Payment Setting</span>
+                                                </a>
+                                            </div>
                                             <div class="menu-item menu-accordion @if ($current_page == 'dashboard-slider') here show @endif">
                                                 <a class="menu-link" href="{{ route('general.slider') }}">
                                                     <span class="menu-bullet">
@@ -593,7 +601,7 @@
                                             <span class="menu-icon">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                                 <span class="svg-icon svg-icon-2">
-                                                    <i class="fas fa-box"></i>
+                                                    <i class="fas fa-bell"></i>
                                                 </span>
                                                 <!--end::Svg Icon-->
                                             </span>
