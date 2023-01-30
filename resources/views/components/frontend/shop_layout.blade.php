@@ -119,7 +119,10 @@
                                             <option value="hightolow">High To Low</option>
                                             <option value="newest">Newest Item</option>
                                         </select> &nbsp;
-                                        <button class="btn btn-primary btn-sm">Sort</button>
+                                        <button style="padding: 5px 20px;
+                                        background: #FF4800;
+                                        color: #fff;
+                                        border: none;">Sort</button>
                                     </form>
                                     {{-- <ul>
                                         <li>View</li>

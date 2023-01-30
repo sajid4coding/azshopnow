@@ -682,11 +682,11 @@
                                                     <li><a href="shop.html">Our Shop</a></li>
                                                 </ul> --}}
                                             </li>
-                                            <li class="menu-item-has-children"><a href="#">Blog</a>
-                                                <ul class="submenu">
+                                            <li class="menu-item-has-children"><a href="{{route('post.blog')}}">Blogs</a>
+                                                {{-- <ul class="submenu">
                                                     <li><a href="shop.html">Our Blog</a></li>
                                                     <li><a href="shop-details.html">Blog Details</a></li>
-                                                </ul>
+                                                </ul> --}}
                                             </li>
                                             <li class="@if ($current_page == 'offers') active @endif"><a href="{{ route('offers') }}">Offers</a>
                                             </li>
