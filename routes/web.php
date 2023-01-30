@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AnnouncementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController, PermissionController, RolemanagementController, StaffmanagementController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AnnouncementController, AttributeController, BannerController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController, PermissionController, RolemanagementController, StaffmanagementController, VendorContact};
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -203,6 +203,9 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::get('general-settings/503',[GeneralController::class,'Error503'])->name('503.error');
 
         //GENERAL SETTINGS ROUTE END
+        //CHAT SYSTEM ROUTE START
+        Route::get('chat/admin',[DashboardController::class,'chatAdmin'])->name('chat.admin');
+        //CHAT SYSTEM ROUTE END
     });
 
     Route::group(['middleware' => ['can:admin-delivery boy Management']], function () {
@@ -320,6 +323,9 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('upgrade/{plan}', [PlanController::class, 'upgrade_show'])->name("upgrade.show");
     Route::post('subscription', [PlanController::class, 'upgrade_done'])->name("upgrade.done");
     //UPGRADE SUBCRIPTION ROUTE END
+    //VENDOR CHAT ROUTE START
+    Route::get('chat/vendor',[VendorController::class,'chatVendor'])->name('chat.vendor');
+    //VENDOR CHAT ROUTE END
 });
 
 // VENDOR ROUTE END
@@ -335,6 +341,8 @@ Route::middleware(['customer'])->group(function(){
     Route::get('customer/product-review-list/', [CustomerController::class, 'product_review_list'])->name('product.review.list');
     Route::get('customer/product-review/{id}', [CustomerController::class, 'product_review'])->name('product.review');
     Route::post('customer/product-review-post/{id}', [CustomerController::class, 'product_review_post'])->name('product.review.post');
+    Route::get('customer/chat-with-vendor', [CustomerController::class, 'customer_caht_with_vendor'])->name('customer.chat.vendor');
+    Route::get('customer/contact-with-vendor/{id}', [VendorContact::class, 'customer_with_with_vendor'])->name('customer.contact.vendor');
 });
 
 // HOME CONTROLLER START

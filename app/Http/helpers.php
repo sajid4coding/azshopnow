@@ -11,6 +11,7 @@ use App\Models\ProductReview;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Models\General;
+use App\Models\Message;
 use App\Models\Slider;
 use App\Models\Social;
 use App\Models\SubCategory;
@@ -18,6 +19,12 @@ use App\Models\VendorPaymentRequest;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Subscription;
 
+function messageHaveorNot($id){
+  return  Message::where('sender_id',$id)->exists();
+}
+function userProfilePhoto($id){
+  return  User::find($id)->profile_photo;
+}
 function getGeneralValue($value){
   return  General::find(1)->$value;
 }

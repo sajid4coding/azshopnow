@@ -94,11 +94,12 @@
         });
     </script>
     <script>
-        $(document).ready(function(){
-            $("#specific_seller").click(function(){
-                $("#vendor_list").slideToggle();
-            });
-        });
+        $('#specific_seller').click(function(e){
+            $("#vendor_list").slideDown();
+        })
+        $('#all_seller').click(function(){
+            $("#vendor_list").slideUp();
+        })
     </script>
 @endsection
 

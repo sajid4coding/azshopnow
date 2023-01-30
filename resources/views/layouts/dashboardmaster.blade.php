@@ -32,6 +32,7 @@
 		<link href="{{ asset('dashboard_assets') }}/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('dashboard_assets') }}/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
+        @livewireStyles
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -708,6 +709,22 @@
                                                 <!--end::Svg Icon-->
                                             </span>
                                             <a href="{{ route('role.index') }}" class="menu-title">Manage Staffs</a>
+                                        </span>
+                                    </div>
+                                @endcan
+                                @can ('admin-staff Management')
+                                    <div class="menu-item @if ($current_page == 'shipping.index') here show @endif menu-accordion">
+                                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <span class="svg-icon svg-icon-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                        <path opacity="0.3" d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z" fill="currentColor"></path>
+                                                        <rect x="6" y="12" width="7" height="2" rx="1" fill="currentColor"></rect>
+                                                        <rect x="6" y="7" width="12" height="2" rx="1" fill="currentColor"></rect>
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                            <a href="{{ route('chat.admin') }}" class="menu-title">Chat With Vendor</a>
                                         </span>
                                     </div>
                                 @endcan
@@ -8501,6 +8518,7 @@
 		<!--end::Page Custom Javascript-->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @yield('footer_script')
+        @livewireScripts
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
