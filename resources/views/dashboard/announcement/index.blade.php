@@ -101,10 +101,14 @@
                                                 @endif --}}
                                             </td>
                                             <td>
-                                                <span class="badge bg-primary">{{ $announcement->status }}</span>
+                                                @if ($announcement->status == 'publish')
+                                                    <span class="badge bg-primary">{{ $announcement->status }}</span>
+                                                @else
+                                                    <span class="badge bg-danger">{{ $announcement->status }}</span>
+                                                @endif
                                             </td>
                                             <td data-order="2022-03-23">
-                                                <span class="fw-bolder">{{ $announcement->created_at->format('d-m-y') }}</span>
+                                                <span class="fw-bolder">{{ $announcement->created_at->diffForHumans() }}</span>
                                             </td>
                                             <!--begin::Action=-->
                                             <td>
@@ -126,7 +130,11 @@
 
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <a href="{{ route('announcement.destroy',$announcement->id) }}" class="menu-link px-3" data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                                        <form action="{{ route('announcement.destroy',$announcement->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button style="border: none;" class="menu-link px-3 text-danger" data-kt-ecommerce-order-filter="delete_row">Delete</button>
+                                                        </form>
                                                     </div>
                                                     <!--end::Menu item-->
                                                 </div>
@@ -143,6 +151,7 @@
                                                     </div>
                                                     <form action="{{ route('announcement.update', $announcement->id) }}" method="POST">
                                                      @csrf
+                                                     @method('PUT')
                                                         <div class="modal-body">
                                                             <div class="card">
                                                                 <div class="card-body">
@@ -160,11 +169,18 @@
                                                                         <label for="specific_seller">Specific Seller</label>
                                                                     </div>
 
-                                                                    <div class="vendor_list" style="display: none">
+                                                                    <div class="mb-5" class="vendor_list" style="display: none">
                                                                         <select name="specific_seller[]" class="form-control mb-5 js-example-tags" multiple="multiple">
                                                                             @foreach ($all_seller as $seller)
                                                                                 <option value="{{ $seller->id }}">{{ $seller->shop_name }}</option>
                                                                             @endforeach
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="mb-5">
+                                                                        <select class="form-select" name="status" id="status">
+                                                                            <option value="publish" {{ $announcement->status == 'publish'? 'selected' : '' }}>Publish</option>
+                                                                            <option value="private" {{ $announcement->status == 'private'? 'selected' : '' }}>Private</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -172,7 +188,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Update</button>
+                                                            <button type="submit" class="btn btn-primary">Update</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -207,7 +223,7 @@
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
-    @if (session('delete_success'))
+    @if (session('announcement_created'))
 
         const Toast = Swal.mixin({
         toast: true,
@@ -223,7 +239,47 @@
 
         Toast.fire({
         icon: 'success',
-        title: 'Successfully deleted a invoice history'
+        title: '{{ session('announcement_created') }}'
+        })
+    @endif
+
+    @if (session('announcement_updated'))
+
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        Toast.fire({
+        icon: 'success',
+        title: '{{ session('announcement_updated') }}'
+        })
+    @endif
+
+    @if (session('announcement_delete'))
+
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        Toast.fire({
+        icon: 'success',
+        title: '{{ session('announcement_delete') }}'
         })
     @endif
 

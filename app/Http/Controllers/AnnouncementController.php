@@ -63,7 +63,7 @@ class AnnouncementController extends Controller
                 'created_at' => now()
             ]);
         }
-        return back();
+        return redirect('announcement')->with('announcement_created', 'Announcement Publish');
     }
 
     /**
@@ -97,7 +97,13 @@ class AnnouncementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Announcement::find($id)->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'vendor_type' => $request->drone,
+            'status' => $request->status,
+        ]);
+        return back()->with('announcement_updated', 'Announcement Updated');
     }
 
     /**
@@ -108,14 +114,28 @@ class AnnouncementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Announcement::find($id)->delete();
+        return back()->with('announcement_delete', 'Announcement Delete');
     }
 
     public function vendor_announcement()
     {
         return view('vendor.announcement.announcement',[
-            'announcements' => Announcement::where('specific_seller', auth()->id())->orwhere('vendor_type', 'All Seller')->get(),
-            'announcement_count' => Announcement::where('specific_seller', auth()->id())->orwhere('vendor_type', 'All Seller')->count()
+            'announcements' => Announcement::where([
+                'vendor_type'=> 'All Seller',
+                'status' => 'publish',
+            ])->orWhere([
+                'specific_seller' => auth()->id(),
+                'status' => 'publish',
+            ])->get(),
+
+            'announcement_count' => Announcement::where([
+                'vendor_type'=> 'All Seller',
+                'status' => 'publish',
+            ])->orWhere([
+                'specific_seller' => auth()->id(),
+                'status' => 'publish',
+            ])->count()
         ]);
     }
     public function vendor_details_announcement($id)

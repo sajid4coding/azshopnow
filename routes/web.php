@@ -230,6 +230,7 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::resource('announcement', AnnouncementController::class);
         //ACCOUNCEMENT ROUTE END
     });
+    
     Route::group(['middleware' => ['can:admin-Blog Management']], function () {
         //BlogController
         Route::resource('blog', BlogController::class);
