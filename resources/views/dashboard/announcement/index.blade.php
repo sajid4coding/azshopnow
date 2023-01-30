@@ -35,6 +35,7 @@
 
                     <!--end::Item-->
                 </ul>
+
                 <!--end::Breadcrumb-->
             </div>
             <!--end::Page title-->
@@ -49,6 +50,9 @@
             <!--begin::Products-->
             <div class="card card-flush">
                 <div class="card-body pt-0">
+                    <div class="my-3">
+                        <a href="{{route('announcement.create')}}" class="btn btn-primary btn-sm">Add Announcement</a>
+                    </div>
                     <!--begin::Table-->
                     <div id="kt_ecommerce_sales_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="table-responsive">

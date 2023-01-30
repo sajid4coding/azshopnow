@@ -553,6 +553,47 @@
                                         </div>
                                     </div>
                                 @endcan
+                                @can('admin-Blog Management')
+                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            <span class="menu-link">
+                                                <span class="menu-icon">
+                                                    <i class="fas fa-bookmark"></i>
+                                                </span>
+                                                <span class="menu-title">Manage Blog</span>
+                                                <span class="menu-arrow"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'blog/create' || $current_page == 'blog' || $current_page == 'out-of-work-list') here show @endif">
+                                                <div class="menu-item @if ($current_page == 'blog/create') here show @endif">
+                                                    <a class="menu-link" href="{{ route('blog.create') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Add Blog</span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item @if ($current_page == 'blog') here show @endif">
+                                                    <a class="menu-link" href="{{ route('blog.index') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">List of Blogs</span>
+                                                    </a>
+                                                </div>
+                                                <div class="menu-item @if ($current_page == 'out-of-work-list') here show @endif">
+                                                    <a class="menu-link" href="{{ route('blog.category.add') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Blog Category</span>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                @endcan
 
                                 @can('admin-announcement Management')
                                     <div class="menu-item @if ($current_page == 'announcement') here show @endif menu-accordion">
