@@ -190,7 +190,7 @@ class CustomerController extends Controller
 
                 $photo= 'customer_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
                 $img = Image::make($request->file('profile_photo'))->resize(300, 300);
-                $img->save(base_path('public/uploads/customer_profile/'.$photo), 60);
+                $img->save(base_path('public/uploads/profile_photo/'.$photo), 60);
 
 
                 $banner_photo= 'banner'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('banner')->getClientOriginalExtension();
@@ -202,7 +202,7 @@ class CustomerController extends Controller
                 }
 
                 if(auth()->user()->profile_photo != NULL){
-                    unlink(base_path('public/uploads/customer_profile/'.auth()->user()->profile_photo));
+                    unlink(base_path('public/uploads/profile_photo/'.auth()->user()->profile_photo));
                 }
 
                  User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
@@ -215,10 +215,10 @@ class CustomerController extends Controller
 
                     $photo= 'customer_profile'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('profile_photo')->getClientOriginalExtension();
                     $img = Image::make($request->file('profile_photo'))->resize(300, 300);
-                    $img->save(base_path('public/uploads/customer_profile/'.$photo), 60);
+                    $img->save(base_path('public/uploads/profile_photo/'.$photo), 60);
 
                     if(auth()->user()->profile_photo != NULL){
-                        unlink(base_path('public/uploads/customer_profile/'.auth()->user()->profile_photo));
+                        unlink(base_path('public/uploads/profile_photo/'.auth()->user()->profile_photo));
                     }
 
                      User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner')+[
@@ -242,10 +242,10 @@ class CustomerController extends Controller
                     User::find(auth()->user()->id)->update($request->except('_token','profile_photo','banner'));
                 }
             }
-
-
              return back();
     }
-
+    public function customer_caht_with_vendor(){
+        return view('frontend.customer.chat');
+     }
 
 }

@@ -419,4 +419,8 @@ class DashboardController extends Controller
     auth()->user()->Notifications()->delete();
     return back();
    }
+
+   function chatAdmin(){
+      return view('dashboard.chat.chat');
+   }
 }

@@ -191,7 +191,7 @@
                     <div class="effect bg-danger" style="top: 32px; left: -54px;"></div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            {{-- <div class="col-sm-6">
                 <div class="card avtivity-card">
                     <div class="card-body">
                         <div class="media  d-flex align-items-center gap-2">
@@ -217,7 +217,7 @@
                     </div>
                     <div class="effect bg-warning" style="top: 36px; left: -12.5px;"></div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     {{-- <hr> --}}
