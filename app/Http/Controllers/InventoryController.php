@@ -84,7 +84,7 @@ class InventoryController extends Controller
             }
         }
 
-        return back()->with('add_inventory', 'Inventory Added Successfully');
+        return back()->with('add_inventory', 'Product and Inventory Added Successfully');
     }
     public function delete_inventory($id)
     {
