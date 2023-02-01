@@ -791,7 +791,7 @@
                             <div class="best-sell-nav">
                                 <ul class="nav nav-tabs best_vendor_slider" id="myTab" role="tablist">
                                     @foreach ($bestCategories as $bestCategory)
-                                        <li class="nav-item" role="presentation">
+                                        <li class="nav-item text-center" role="presentation">
                                             <a href="{{route('listOfVendors',['slug'=>$bestCategory->slug])}}" class="nav-link" id="all-tab">
                                                     <i class="{{$bestCategory->icon}}"></i>
                                                     <span>{{$bestCategory->category_name}}</span>
