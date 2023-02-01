@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('sender_id');
             $table->string('receiver_id');
-            $table->string('message');
+            $table->string('message')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

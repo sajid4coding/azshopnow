@@ -234,7 +234,14 @@
                                                             <div style="font-size: 10px !important"  class="text-muted fs-7 mb-1"> {{  $message->created_at->diffForHumans() }} </div>
                                                         </div>
                                                         <!--end::Avatar-->
-                                                        <div style="box-shadow: 0 5px 10px 0 #00000046" class="p-3 rounded mb-5  text-dark fw-bold mw-lg-400px text-end" data-kt-element="message-text"> {{  $message->message }}</div>
+                                                        @if ($message->image)
+                                                        <div style="box-shadow: 0 5px 10px 0 #00000046;display:block;width:200px" class=" bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
+                                                            <img style="display: block;width:200px;height:100px" src="{{ asset('uploads/messanger') }}/{{ $message->image }}" alt="{{ $message->image }}">
+                                                        </div>
+                                                        @endif
+                                                        @if ( $message->message)
+                                                           <div style="box-shadow: 0 5px 10px 0 #00000046" class="p-3 rounded mb-5  text-dark fw-bold mw-lg-400px text-end" data-kt-element="message-text"> {{  $message->message }}</div>
+                                                        @endif
 
                                                     </div>
                                                     <!--end::User-->
@@ -252,9 +259,19 @@
                                                     <!--begin::User-->
 
                                                     <!--begin::Text-->
-                                                    <div style="box-shadow: 0 5px 10px 0 #00000046" class="p-3 rounded mb-5  text-dark fw-bold mw-lg-400px text-end" data-kt-element="message-text"> {{  $message->message }}</div>
-                                                    <span style="font-size: 10px !important"  class="text-muted fs-7 mb-1"> {{  $message->created_at->diffForHumans() }}</span>
 
+                                                    @if ($message->image)
+                                                    <div style="box-shadow: 0 5px 10px 0 #00000046;display:block;width:200px" class=" bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
+                                                        <img style="display: block;width:200px;height:100px" src="{{ asset('uploads/messanger') }}/{{ $message->image }}" alt="{{ $message->image }}">
+                                                    </div>
+                                                    @endif
+                                                    @if ($message->message)
+                                                        <div style="box-shadow: 0 5px 10px 0 #00000046" class="p-3 rounded mb-5  text-dark fw-bold mw-lg-400px text-end" data-kt-element="message-text">
+                                                           {{  $message->message }}
+                                                        </div>
+                                                    @endif
+
+                                                    <span style="font-size: 10px !important"  class="text-muted fs-7 mb-1"> {{  $message->created_at->diffForHumans() }}</span>
                                                     <!--end::Text-->
                                                 </div>
                                                 <!--end::Wrapper-->
@@ -268,12 +285,18 @@
                                 </div>
                                 <!--end::Card body-->
                                 <!--begin::Card footer-->
-                                <div class="card-footer pt-4" id="kt_chat_messenger_footer">
+                                <div class="card-footer pt-4 d-flex" id="kt_chat_messenger_footer">
                                     <!--begin::Input-->
-                                    <textarea wire:model="message"  class="form-control form-control-flush mb-3" rows="1" data-kt-element="input" placeholder="Type a message"></textarea>
+                                    <label  class="msg_img  @if ($img_message)
+                                    bg-danger
+                                    @else
+                                    bg-primary
+                                    @endif " for="msg_img"><i class="fas fa-image"></i></label>
+                                    <input wire:model="img_message" style="display: none" type="file"  id="msg_img">
+
+                                    <input wire:model="message"  class="form-control form-control-flush mb-3" rows="1" data-kt-element="input" placeholder="Type a message">
                                     <!--end::Input-->
-                                    <!--begin:Toolbar-->
-                                    <div class="d-flex flex-stack">
+                                     <div class="d-flex flex-stack">
                                         <!--begin::Actions-->
 
                                         <!--end::Actions-->
@@ -282,6 +305,21 @@
                                         <!--end::Send-->
                                     </div>
                                     <!--end::Toolbar-->
+                                    <style>
+                                        .msg_img{
+                                            width: 50px !important;
+                                            height: 50px !important;
+                                            /* background: #0D6EFD; */
+                                            color: #ffffff;
+                                            opacity: 1;
+                                            font-size: 20px;
+                                            text-align: center;
+                                            line-height: 50px;
+                                            border-radius: 100%;
+                                            box-shadow: 0 0 20px 0 #00000046;
+                                            cursor: pointer;
+                                        }
+                                    </style>
                                 </div>
                                 <!--end::Card footer-->
                             </div>
