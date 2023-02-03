@@ -158,7 +158,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect("inventory/$product->id")->with('product_add_success','Successfully added a new product!');
+        return redirect("inventory/$product->id")->with('product_add_success','Product added Successfully added.');
 
     }
 

@@ -69,9 +69,16 @@
                                  <div style="font-size: 8px !important" class="text-muted small text-nowrap mt-2  font_size_small">{{  $message->created_at->diffForHumans() }}</div>
                              </div>
                              <div>
-                                <div style="box-shadow: 0 5px 10px 0 #00000046;" class=" bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
+                                @if ($message->image)
+                                <div style="box-shadow: 0 5px 10px 0 #00000046;display:block;width:200px" class=" bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
+                                    <img src="{{ asset('uploads/messanger') }}/{{ $message->image }}" alt="">
+                                </div>
+                                @endif
+                                @if ($message->message)
+                                <div style="box-shadow: 0 5px 10px 0 #00000046;" class="mt-2 bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
                                     {{ $message->message }}
                                 </div>
+                                @endif
                              </div>
                              </div>
                              @else
@@ -81,9 +88,16 @@
                                      <div style="font-size: 8px !important" class="text-muted small text-nowrap mt-2  font_size_small">{{  $message->created_at->diffForHumans() }}</div>
                                     </div>
                                    <div>
-                                    <div style="box-shadow: 0 5px 10px 0 #00000046;" class=" bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
+                                    @if ($message->image)
+                                    <div style="box-shadow: 0 5px 10px 0 #00000046;display:block;width:200px" class=" bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
+                                        <img src="{{ asset('uploads/messanger') }}/{{ $message->image }}" alt="{{ $message->image }}">
+                                    </div>
+                                    @endif
+                                    @if ($message->message)
+                                    <div style="box-shadow: 0 5px 10px 0 #00000046;" class="bg-light mt-2 py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
                                         {{ $message->message }}
                                     </div>
+                                    @endif
                                    </div>
                              </div>
                             @endif
@@ -95,12 +109,31 @@
 
                     <div class="flex-grow-0 py-3 px-4 border-top">
                         <div class="input-group">
+                            <label  class="msg_img  @if ($img_message)
+                            bg-danger
+                            @else
+                            bg-primary
+                            @endif " for="msg_img"><i class="fas fa-image"></i></label>
+                             <input wire:model="img_message" style="display: none" type="file" name="" id="msg_img">
                             <input wire:model="message" type="text" class="form-control" placeholder="Type your message">
                             <button class="btn btn-primary">Send</button>
                         </div>
                     </div>
                 </form>
                  @endif
+                 <style>
+                    .msg_img{
+                        width: 50px;
+                        height: 50px;
+                        /* background: #0D6EFD; */
+                        color: #ffffff;
+                        font-size: 20px;
+                        text-align: center;
+                        line-height: 50px;
+                        border-radius: 100%;
+                        box-shadow: 0 0 20px 0 #00000046;
+                    }
+                </style>
             </div>
         </div>
     </div>

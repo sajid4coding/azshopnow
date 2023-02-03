@@ -15,6 +15,7 @@
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1 pt-3 pb-2 mb-2 border-b-2" style="border-bottom:1px solid #79797977">
                             All vendor
+
                         </div>
                     </div>
                 </div>
@@ -66,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div wire:poll class="position-relative px-3" style="height: 410px;padding-top:20px">
+                    <div wire:poll class="position-relative px-3" style="height: 400px;padding-top:20px">
                         <div class="chat-messages" >
                             @foreach ($allMessage as $message)
                             @if ($message->receiver_id == $select_id && $message->sender_id== auth()->id() ||
@@ -77,37 +78,69 @@
                                     <img src="{{ asset('uploads/profile_photo') }}/{{ userProfilePhoto($message->sender_id) }}" class="rounded-circle mr-1" alt="Sharon Lessman" width="30" height="30">
                                     <div style="font-size: 8px !important" class="text-muted small text-nowrap mt-2  font_size_small">{{  $message->created_at->diffForHumans() }}</div>
                                 </div>
-                                <div style="box-shadow: 0 5px 10px 0 #00000046; height:100%" class=" bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
-                                    {{ $message->message }}
+                                <div >
+                                    @if ($message->image)
+                                    <div style="box-shadow: 0 5px 10px 0 #00000046;;display:block;width:200px" class=" bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
+                                        <img src="{{ asset('uploads/messanger') }}/{{ $message->image }}" alt="">
+                                    </div>
+                                    @endif
+                                    <div style="box-shadow: 0 5px 10px 0 #00000046; " class=" bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
+                                        {{ $message->message }}
+                                    </div>
                                 </div>
                                 </div>
                                 @else
-                                <div class="chat-message-right pb-4">
+                                <div class="chat-message-right pb-4 mb-5">
                                         <div style="text-align:right">
                                         <img src="{{ asset('uploads/profile_photo') }}/{{ userProfilePhoto($message->sender_id) }}" class="rounded-circle mr-1" alt="Chris Wood" width="30" height="30">
                                         <div style="font-size: 8px !important" class="text-muted small text-nowrap mt-2  font_size_small">{{  $message->created_at->diffForHumans() }}</div>
                                         </div>
-                                    <div style="box-shadow: 0 5px 10px 0 #00000046; height:100%" class=" bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
-                                        {{ $message->message }}
-                                    </div>
+                                        <div>
+                                            @if ($message->image)
+                                            <div style="box-shadow: 0 5px 10px 0 #00000046;display:block;width:200px" class=" bg-light py-2 px-2 rounded-lg  font_size_small shadow-black shadow-xl ">
+                                                <img src="{{ asset('uploads/messanger') }}/{{ $message->image }}" alt="">
+                                            </div>
+                                            @endif
+                                            @if ( $message->message)
+                                            <div style="box-shadow: 0 5px 10px 0 #00000046;" class=" bg-light py-2 px-2 mt-3 rounded-lg  font_size_small shadow-black shadow-xl ">
+                                                {{ $message->message }}
+                                            </div>
+                                            @endif
+                                        </div>
                                 </div>
                                 @endif
                              @endif
                             @endforeach
                         </div>
                     </div>
-                    @if (App\Models\User::find($select_id)->role == 'vendor')
+                    {{-- @if (App\Models\User::find($select_id)->role == 'vendor') --}}
                     <form wire:submit.prevent="sendMessage">
                         <div class="flex-grow-0 py-3 px-4 border-top">
                             <div class="input-group">
+                                <label  class="msg_img  @if ($img_message)
+                                bg-danger
+                                @else
+                                bg-primary
+                                @endif " for="msg_img"><i class="fas fa-image"></i></label>
+                                 <input wire:model="img_message" style="display: none" type="file" name="" id="msg_img">
                                 <input wire:model="message" type="text" class="form-control" placeholder="Type your message">
                                 <button class="btn btn-primary">Send</button>
                             </div>
                         </div>
                     </form>
-                    @else
-                      <p class="d-block text-center text-dark py-2" style="background: #cacacaaf;">Conversasion is not available</p>
-                    @endif
+                    <style>
+                        .msg_img{
+                            width: 50px;
+                            height: 50px;
+                            /* background: #0D6EFD; */
+                            color: #ffffff;
+                            font-size: 20px;
+                            text-align: center;
+                            line-height: 50px;
+                            border-radius: 100%;
+                            box-shadow: 0 0 20px 0 #00000046;
+                        }
+                    </style>
                 @endif
             </div>
         </div>
