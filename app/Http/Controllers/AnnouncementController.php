@@ -120,14 +120,17 @@ class AnnouncementController extends Controller
 
     public function vendor_announcement()
     {
+        // 'announcements' => Announcement::where([
+        //     'vendor_type'=> 'All Seller',
+        //     'status' => 'publish',
+        // ])->orWhere([
+        //     'vendor_type' => 'Specific Seller',
+        //     'specific_seller' => auth()->id(),
+        //     'status' => 'publish',
+        // ])->get()
+
         return view('vendor.announcement.announcement',[
-            'announcements' => Announcement::where([
-                'vendor_type'=> 'All Seller',
-                'status' => 'publish',
-            ])->orWhere([
-                'specific_seller' => auth()->id(),
-                'status' => 'publish',
-            ])->get(),
+            'announcements' => Announcement::where('status', 'publish',)->get(),
 
             'announcement_count' => Announcement::where([
                 'vendor_type'=> 'All Seller',

@@ -197,7 +197,7 @@
                                             @endif
                                             @if (auth()->user()->role=='vendor')
                                                 <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >
-                                                    <a class="nav-link cust_a" href="{{ route('chat.vendor') }}"> <i class="fas fa-comments"></i> Chat with admin</a>
+                                                    <a class="nav-link cust_a" href="{{ route('chat.vendor') }}"> <i class="fas fa-comments"></i> Messenger </a>
                                                 </li>
                                             @endif
 
