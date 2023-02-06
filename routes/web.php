@@ -89,6 +89,7 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     Route::group(['middleware' => ['can:admin-Order Management']], function () {
         Route::get('manage-order/order-details/{id}',[DashboardController::class,'OrderDetails'])->name('order.details');
+        Route::post('manage-order/order-details-post/{id}',[DashboardController::class,'OrderDetailsPost'])->name('order.details.post');
         Route::get('manage-order/all-order',[DashboardController::class,'AllOrder'])->name('all.order');
         Route::get('manage-order/delivered-order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
         Route::get('manage-order/pending-order',[DashboardController::class,'PendingOrder'])->name('pending.order');

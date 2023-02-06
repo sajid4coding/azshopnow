@@ -186,7 +186,7 @@
 
         Toast.fire({
         icon: 'success',
-        title: 'Successfully deleted a invoice history'
+        title: "{{session('delete_success')}}"
         })
     @endif
 

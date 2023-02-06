@@ -34,10 +34,14 @@
                             <img src="{{asset('uploads/blog_photo')}}/default.png" alt="" class="img-fluid" width="50%">
                         @endif
                     </div>
-                    <div class="mt-5">
-                        @php
-                            echo $blog->description;
-                        @endphp
+                    <div class="">
+                        <h1 class="title text-dark h1 text-start">{{$blog->blog_title}}</h1>
+                        <span>Date: {{$blog->created_at->format('M d Y')}}</span>
+                        <p class="lead mt-5" style="line-height: 1.7rem; text-align:justify;">
+                            @php
+                                echo $blog->description;
+                            @endphp
+                        </p>
                     </div>
                 </div>
             </div>
