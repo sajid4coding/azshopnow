@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AnnouncementController, AttributeController, BannerController, BlogController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController, PermissionController, RolemanagementController, StaffmanagementController};
+use App\Http\Controllers\{ProfileController, CategoryController, CustomerController, FrontEndController, HomeController, VendorsmanagementController, VendorController, SubCategoryController, AdminmanagementController, AnnouncementController, AttributeController, BannerController,BlogController, CustomermanagementController, DashboardController, InventoryController, ProductController, ShippingController, StripeController, PackagingController, NewsletterController, PlanController, VendorPackagingController, VendorShippingController, GeneralController, PermissionController, RolemanagementController, StaffmanagementController, VendorContact};
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -136,6 +136,8 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::get('manage-commission/commission', [VendorsmanagementController::class, 'commission'])->name('commission');
         Route::post('manage-commission/commission-save', [VendorsmanagementController::class, 'commission_save'])->name('commission.save');
         Route::post('manage-commission/minimum-seller-amount-withdraw-save', [VendorsmanagementController::class, 'minimum_seller_amount_withdraw'])->name('minimum.seller.amount.withdraw');
+        Route::get('vendor-management/payment-setting', [VendorsmanagementController::class, 'payment_setting'])->name('payment.setting');
+        Route::post('vendor-management/payment-setting-selected', [VendorsmanagementController::class, 'payment_setting_select'])->name('payment.setting.select');
     });
     //RolemanagementController Resource
     //PermissionController Resource
@@ -206,6 +208,9 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::get('general-settings/503',[GeneralController::class,'Error503'])->name('503.error');
 
         //GENERAL SETTINGS ROUTE END
+        //CHAT SYSTEM ROUTE START
+        Route::get('chat/admin',[DashboardController::class,'chatAdmin'])->name('chat.admin');
+        //CHAT SYSTEM ROUTE END
     });
 
     Route::group(['middleware' => ['can:admin-delivery boy Management']], function () {
@@ -229,6 +234,7 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::resource('announcement', AnnouncementController::class);
         //ACCOUNCEMENT ROUTE END
     });
+
     Route::group(['middleware' => ['can:admin-Blog Management']], function () {
         //BlogController
         Route::resource('blog', BlogController::class);
@@ -292,10 +298,14 @@ Route::middleware(['vendor'])->group(function(){
         Route::post('withdraw/vendor-earning/withdrawal-request',[VendorController::class,'withdrawal_request'])->name('vendor.withdrawal.request');
         Route::post('withdraw/vendor-earningvendor-earning/withdrawal',[VendorController::class,'withdrawal'])->name('vendor.withdrawal');
     });
+    Route::group(['middleware' => ['can:vendor-wallet']], function () {
+        Route::get('wallet/vendor-wallet',[VendorController::class,'vendor_wallet'])->name('vendor.wallet');
+        Route::post('wallet/vendor-wallet-update',[VendorController::class,'vendor_wallet_update'])->name('vendor.wallet.update');
+    });
 
     Route::group(['middleware' => ['can:vendor-product management']], function () {
 
-        Route::get('vendor/product/upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
+        Route::get('vendor/product-upload',[VendorController::class,'vendor_product_upload'])->name('vendor.product.upload');
 
         //ProductController Resource
         Route::resource('product', ProductController::class);
@@ -327,11 +337,20 @@ Route::middleware(['vendor'])->group(function(){
         Route::post('vendor-addstaff', [StaffmanagementController::class, 'vendorAddStaff_post'])->name("vendor.add.staff.post");
         Route::delete('vendor-addstaff/{id}', [StaffmanagementController::class, 'vendorAddStaff_delete'])->name("vendor.add.staff.delete");
     });
+
+    //VENDOR ACCOUNCEMENT ROUTE START
+    Route::get('vendor-announcement', [AnnouncementController::class, 'vendor_announcement'])->name('vendor.announcement');
+    Route::get('vendor-announcement-details/{id}', [AnnouncementController::class, 'vendor_details_announcement'])->name('vendor.details.announcement');
+    //VENDOR ACCOUNCEMENT ROUTE END
+
     //UPGRADE SUBCRIPTION ROUTE START
     Route::get('upgrade', [PlanController::class, 'upgrade'])->name('upgrade');
     Route::get('upgrade/{plan}', [PlanController::class, 'upgrade_show'])->name("upgrade.show");
     Route::post('subscription', [PlanController::class, 'upgrade_done'])->name("upgrade.done");
     //UPGRADE SUBCRIPTION ROUTE END
+    //VENDOR CHAT ROUTE START
+    Route::get('chat/vendor',[VendorController::class,'chatVendor'])->name('chat.vendor');
+    //VENDOR CHAT ROUTE END
 });
 
 // VENDOR ROUTE END
@@ -347,6 +366,8 @@ Route::middleware(['customer'])->group(function(){
     Route::get('customer/product-review-list/', [CustomerController::class, 'product_review_list'])->name('product.review.list');
     Route::get('customer/product-review/{id}', [CustomerController::class, 'product_review'])->name('product.review');
     Route::post('customer/product-review-post/{id}', [CustomerController::class, 'product_review_post'])->name('product.review.post');
+    Route::get('customer/chat-with-vendor', [CustomerController::class, 'customer_caht_with_vendor'])->name('customer.chat.vendor');
+    Route::get('customer/contact-with-vendor/{id}', [VendorContact::class, 'customer_with_with_vendor'])->name('customer.contact.vendor');
 });
 
 // HOME CONTROLLER START

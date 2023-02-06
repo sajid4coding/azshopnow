@@ -43,6 +43,7 @@ class RolesAndPermissionsSeeder extends Seeder
         //For Vendor
         Permission::create(['name' => 'vendor-order']);
         Permission::create(['name' => 'vendor-earning']);
+        Permission::create(['name' => 'vendor-wallet']);
         Permission::create(['name' => 'vendor-product management']);
         Permission::create(['name' => 'vendor-staff management']);
         Permission::create(['name' => 'vendor-coupon']);

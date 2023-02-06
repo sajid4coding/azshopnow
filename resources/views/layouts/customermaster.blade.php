@@ -14,7 +14,7 @@
                         <div class="store-thumb" style="overflow: hidden">
                             {{-- https://pondokindahmall.co.id/assets/img/default.png --}}
                             @if (auth()->user()->profile_photo)
-                               <img  src="{{ asset('uploads/customer_profile') }}/{{ auth()->user()->profile_photo }}" alt="img">
+                               <img  src="{{ asset('uploads/profile_photo') }}/{{ auth()->user()->profile_photo }}" alt="img">
                             @else
                                <img src="https://pondokindahmall.co.id/assets/img/default.png" alt="img">
                             @endif
@@ -67,6 +67,7 @@
                                 <li class=" @if ($current_page == 'details') selected @endif"><a class="messages" href="{{ route('customer.account.details') }}"><i class="fas fa-user"></i> Profile </a></li>
                                   <li class="@if ($current_page == 'invoice') selected @endif"><a class="settings" href="{{ route('customer.invoice.details') }}"><i class="fas fa-file-invoice"></i> Orders</a></li>
                                   <li class="@if ($current_page == 'product-review-list') selected @endif"><a class="review" href="{{ route('product.review.list') }}"><i class="fas fa-file-invoice"></i>Reviews</a></li>
+                                  <li class="@if ($current_page == 'chat-with-vendor') selected @endif"><a class="chat" href="{{ route('customer.chat.vendor') }}"><i class="fas fa-comments"></i>Messanger</a></li>
                                      <li>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
@@ -131,6 +132,9 @@
                             }
                             .form li a.review {
                                     border-left:5px solid #fecf54;
+                            }
+                            .form li a.chat {
+                                    border-left:5px solid #4b84ff;
                             }
                             .form li a.logout {
                                     border-left:5px solid #dde2d5;

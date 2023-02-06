@@ -17,13 +17,13 @@
                             {{-- https://pondokindahmall.co.id/assets/img/default.png --}}
                             @if (auth()->user()->role == 'vendor')
                                 @if (auth()->user()->profile_photo)
-                                   <img  src="{{ asset('uploads/vendor_profile') }}/{{ auth()->user()->profile_photo }}" alt="img">
+                                   <img  src="{{ asset('uploads/profile_photo') }}/{{ auth()->user()->profile_photo }}" alt="img">
                                 @else
                                    <img src="https://pondokindahmall.co.id/assets/img/default.png" alt="img">
                                 @endif
                             @else
                                 @if (staff(auth()->user()->vendor_id)->profile_photo)
-                                    <img  src="{{ asset('uploads/vendor_profile') }}/{{ staff(auth()->user()->vendor_id)->profile_photo }}" alt="img">
+                                    <img  src="{{ asset('uploads/profile_photo') }}/{{ staff(auth()->user()->vendor_id)->profile_photo }}" alt="img">
                                 @else
                                     <img src="https://pondokindahmall.co.id/assets/img/default.png" alt="img">
                                 @endif
@@ -156,6 +156,19 @@
                                                     <a class="nav-link cust_a" href="{{ route('vendor.earning') }}"> <i class="fas fa-money-bill-alt"></i>Withdraw</a>
                                                 </li>
                                             @endcan
+
+                                            @can('vendor-wallet')
+                                                <li class="nav-item @if ($current_page == 'vendor-wallet') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('vendor.wallet') }}"> <i class="fas fa-wallet"></i>Wallet</a>
+                                                </li>
+                                            @endcan
+
+                                            @can('vendor-wallet')
+                                                <li class="nav-item @if ($current_page == 'vendor-announcement') here show @endif">
+                                                    <a class="nav-link cust_a" href="{{ route('vendor.announcement') }}"> <i class="fas fa-bell"></i>Announcement</span></a>
+                                                </li>
+                                            @endcan
+
                                             @can ('vendor-staff management')
                                                 <li class="nav-item dropdown">
                                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -169,6 +182,7 @@
                                                 </li>
                                             @endcan
 
+
                                             {{-- <li class="nav-item @if ($current_page == 'vendor-shipping') here show @endif" >
                                                 <a class="nav-link cust_a" href="{{ route('vendor-shipping.index') }}"> <i class="fa-solid fa-truck-fast"></i>Shipping</a>
                                             </li>
@@ -179,6 +193,11 @@
                                             @if (auth()->user()->role=='vendor')
                                                 <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >
                                                     <a class="nav-link cust_a" href="{{ route('upgrade') }}"> <i class="fa-solid fa-truck-fast"></i>Plans</a>
+                                                </li>
+                                            @endif
+                                            @if (auth()->user()->role=='vendor')
+                                                <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('chat.vendor') }}"> <i class="fas fa-comments"></i> Chat with admin</a>
                                                 </li>
                                             @endif
 

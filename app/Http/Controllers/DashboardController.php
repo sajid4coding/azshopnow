@@ -426,4 +426,7 @@ class DashboardController extends Controller
     return back();
    }
 
+   function chatAdmin(){
+      return view('dashboard.chat.chat');
+   }
 }

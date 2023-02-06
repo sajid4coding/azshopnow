@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_payment_requests', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->integer('vendor_id');
-            $table->integer('invoice_id');
-            $table->string('seller_payment_method');
-            $table->string('status')->default('unpaid');
+            $table->string('sender_id');
+            $table->string('receiver_id');
+            $table->string('message')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor_payment_requests');
+        Schema::dropIfExists('messages');
     }
 };

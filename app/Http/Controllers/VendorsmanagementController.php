@@ -130,13 +130,14 @@ class VendorsmanagementController extends Controller
 
     function payout(){
         return view('dashboard.payout.payout',[
-            'seller_date' => General::find(1),
+            'seller_data' => General::find(1),
+            'seller_payout_requests' => VendorPaymentRequest::where('status', 'paid')->get()
         ]);
     }
 
     function payout_request(){
         return view('dashboard.payout.payout-request',[
-            'seller_payout_requests' => VendorPaymentRequest::all(),
+            'seller_payout_requests' => VendorPaymentRequest::where('status', 'processing')->orwhere('status', 'rejected')->orwhere('status', 'unpaid')->get(),
             'seller_data' => General::find(1),
         ]);
     }
@@ -198,5 +199,17 @@ class VendorsmanagementController extends Controller
             'minimum_amount_withdraw' => $request->minimum_seller_amount_withdraw,
         ]);
         return back()->with('seller_amount_withdraw_save', 'Seller Amount Withdraw updated');
+    }
+
+    function payment_setting(){
+        return view('dashboard.payment_setting.payment-setting',[
+            'payment_setting' => General::find(1)
+        ]);
+    }
+    function payment_setting_select(Request $request){
+        General::find(1)->update([
+            'payment_setting' => collect($request->except('_token'))->implode('|')
+        ]);
+        return back()->with('payment_status', 'Payment Settings Updated');
     }
 }

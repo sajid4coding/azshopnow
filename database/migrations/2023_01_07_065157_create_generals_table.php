@@ -18,6 +18,7 @@ return new class extends Migration
             $table->mediumText('website_title')->nullable();
             $table->integer('seller_commission');
             $table->integer('minimum_amount_withdraw');
+            $table->string('payment_setting')->nullable();
             $table->mediumText('copyright_text')->nullable();
             $table->mediumText('capcha_status')->nullable();
             $table->mediumText('twak_io_status')->nullable();
