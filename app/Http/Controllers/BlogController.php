@@ -43,8 +43,7 @@ class BlogController extends Controller
     public function store(Request $request)
     {
        $request->validate([
-            'blog_photo'=>'required | image',
-            'category'=>'required',
+            'blog_photo'=>'image',
             'blog_title'=>'required',
             'description'=>'required',
        ]);

@@ -278,8 +278,8 @@
     										<span class="menu-title">Manage Order</span>
     										<span class="menu-arrow"></span>
     									</span>
-    									<div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'order' || $current_page == 'processing-order' || $current_page == 'pending-order' || $current_page == 'delivered-order' || $current_page == 'canceled-order') here show @endif">
-                                            <div class="menu-item @if ($current_page == 'order') here show @endif">
+    									<div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'all-order' || $current_page == 'processing-order' || $current_page == 'pending-order' || $current_page == 'delivered-order' || $current_page == 'canceled-order') here show @endif">
+                                            <div class="menu-item @if ($current_page == 'all-order') here show @endif">
                                                 <a class="menu-link" href="{{ route('all.order') }}">
                                                     <span class="menu-bullet">
                                                         <span class="bullet bullet-dot"></span>
@@ -3961,10 +3961,10 @@
 												<!--begin::Tabs-->
 												<ul class="nav nav-line-tabs nav-line-tabs-2x nav-stretch fw-bold px-9">
 													<li class="nav-item">
-														<a class="nav-link text-white opacity-75 opacity-state-100 pb-4" data-bs-toggle="tab" href="#kt_topbar_notifications_1">Seller</a>
+														<a class="nav-link text-white opacity-75 opacity-state-100 pb-4 active" data-bs-toggle="tab" href="#kt_topbar_notifications_1">Seller</a>
 													</li>
 													<li class="nav-item">
-														<a class="nav-link text-white opacity-75 opacity-state-100 pb-4 active" data-bs-toggle="tab" href="#kt_topbar_notifications_2">Products</a>
+														<a class="nav-link text-white opacity-75 opacity-state-100 pb-4 " data-bs-toggle="tab" href="#kt_topbar_notifications_2">Products</a>
 													</li>
 													<li class="nav-item">
 														<a class="nav-link text-white opacity-75 opacity-state-100 pb-4" data-bs-toggle="tab" href="#kt_topbar_notifications_3">Orders</a>
