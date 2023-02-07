@@ -169,7 +169,7 @@ class DashboardController extends Controller
     }
     function DeliveredOrder(){
         return view('dashboard.orders.deliveredOrder',[
-         'invoices' => Invoice::all(),
+         'invoices' => Invoice::where('order_status','delivered')->latest()->get(),
 
         ]);
     }
@@ -183,19 +183,19 @@ class DashboardController extends Controller
 
     function PendingOrder(){
         return view('dashboard.orders.pendingOrder',[
-         'invoices' => Invoice::all(),
+         'invoices' => Invoice::where('order_status','pending')->latest()->get(),
 
         ]);
     }
     function ProcessingOrder(){
         return view('dashboard.orders.processingOrder',[
-         'invoices' => Invoice::all(),
+         'invoices' => Invoice::where('order_status','processing')->latest()->get(),
 
         ]);
     }
     function CanceledOrder(){
         return view('dashboard.orders.canceledOrder',[
-         'invoices' => Invoice::all(),
+         'invoices' => Invoice::where('order_status','canceled')->latest()->get(),
 
         ]);
     }
@@ -205,6 +205,12 @@ class DashboardController extends Controller
          'orders' => Order_Detail::where('invoice_id',$id)->get(),
 
         ]);
+    }
+    function OrderDetailsPost(Request $request,$id){
+        Invoice::findOrFail($id)->update([
+            'order_status'=>$request->order_status,
+        ]);
+         return back()->with('delete_success','Orde status changed successfully');
     }
     function OrderDelete($id){
          Invoice::find($id)->delete();

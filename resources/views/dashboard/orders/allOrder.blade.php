@@ -91,9 +91,9 @@
                                 <div class="card-p mt-n20 position-relative">
 
                                      <div class="text-white text-center">
-                                        <h3 class="text-light"><a style="font-size: 14px; color:#ffffff;display:block; margin-top:20px" >Processing Orders</a></h3>
+                                        <h3 class="text-light"><a style="font-size: 14px; color:#ffffff;display:block; margin-top:20px" >All Orders</a></h3>
                                        {{-- <p class="text-light"> <span style='font-size:44px;color:rgb(255, 255, 255)'>${{ $invoices->sum('tax_amount') }}</span></p> --}}
-                                       <p class="text-light"> <span style='font-size:44px;color:rgb(255, 255, 255)'>{{ $invoices->where('order_status','processing')->count() }}</span></p>
+                                       <p class="text-light"> <span style='font-size:44px;color:rgb(255, 255, 255)'>{{ $invoices->count() }}</span></p>
                                      </div>
                                 </div>
                                 <!--end::Stats-->

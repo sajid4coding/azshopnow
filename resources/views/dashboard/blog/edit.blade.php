@@ -4,7 +4,41 @@
     <!-- include summernote css/js -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 @endsection
+<style>
 
+    .tags-input-wrapper{
+        background: transparent;
+        padding: 10px;
+        border-radius: 4px;
+        /* max-width: 400px; */
+        border: 1px solid #ccc
+    }
+    .tags-input-wrapper input{
+        border: none;
+        background: transparent;
+        outline: none;
+        /* width: 100%; */
+        margin-left: 8px;
+    }
+    .tags-input-wrapper .tag{
+        display: inline-block;
+        background-color: #ff4800;
+        color: white;
+        border-radius: 40px;
+        padding: 0px 3px 0px 7px;
+        margin-right: 5px;
+        margin-bottom:5px;
+        /* box-shadow: 0 5px 15px -2px rgba(250 , 14 , 126 , .7) */
+    }
+    .tags-input-wrapper .tag a {
+        margin: 0 7px 3px;
+        display: inline-block;
+        cursor: pointer;
+    }
+    i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before{
+        line-height: normal !important;
+    }
+</style>
 @section('content')
     <div class="container">
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
