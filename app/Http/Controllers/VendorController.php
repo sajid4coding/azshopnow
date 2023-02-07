@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VendorRegisterNotification as MailVendorRegisterNotification;
-use App\Models\{Banner,Coupon, General, Invoice,Plan,Product,Shipping,SubCategory,User, VendorPaymentRequest, VendorShipping, Wallet};
+use App\Models\{Banner,Coupon, General, Invoice,Plan,Product, ProductReview, ReplyFeedback, Shipping,SubCategory,User, VendorPaymentRequest, VendorShipping, Wallet};
 use App\Notifications\VendorRegisterNotification;
 use Carbon\Carbon;
 use GuzzleHttp\Middleware;
@@ -503,5 +503,14 @@ class vendorController extends Controller
     function chatVendor(){
         return view('vendor.chat.chat');
     }
+    function feedback(){
+        return view('vendor.feedback.feedback',[
+            'reviews' => ProductReview::all(),
+        ]);
+    }
+    function feedbackPost(Request $request){
+         ReplyFeedback::insert($request->except('_token'));
+         return back()->with('reply_success','Reply Sended!');
 
+    }
 }

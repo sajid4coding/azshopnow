@@ -456,7 +456,15 @@
                                                     <span class="menu-title">Banners</span>
                                                 </a>
                                             </div>
-                                            <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                            <div class="menu-item menu-accordion  @if ($current_page == 'error') here show @endif">
+                                                <a class="menu-link" href="{{ route('error.page') }}">
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                                    <span class="menu-title">Error Pages</span>
+                                                </a>
+                                            </div>
+                                            {{-- <div class="menu-sub menu-sub-accordion menu-active-bg">
                                                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                                     <span class="menu-link">
                                                         <span class="menu-bullet">
@@ -508,7 +516,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
     									</div>
     								</div>
                                 @endcan

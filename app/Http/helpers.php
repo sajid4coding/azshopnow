@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Wishlist;
 use App\Models\General;
 use App\Models\Message;
+use App\Models\ReplyFeedback;
 use App\Models\Slider;
 use App\Models\Social;
 use App\Models\SubCategory;
@@ -20,6 +21,12 @@ use App\Models\VendorPaymentRequest;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Subscription;
 
+function reply($id){
+  return  ReplyFeedback::where('review_id',$id)->get();
+}
+function replyHaveorNot($id){
+  return  ReplyFeedback::where('review_id',$id)->exists();
+}
 function messageHaveorNot($id){
   return  Message::where('sender_id',$id)->exists();
 }
