@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Banner, Invoice, User, Order_Detail, Product, ProductReview, ReviewGallery};
+use App\Models\{Banner, Invoice, User, Order_Detail, Product, Product_Return, ProductReview, ReviewGallery};
 use Carbon\Carbon;
 use App\Http\Controllers\HomeController;
+use App\Mail\Productreturn;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 
 
@@ -246,6 +248,40 @@ class CustomerController extends Controller
     }
     public function customer_caht_with_vendor(){
         return view('frontend.customer.chat');
+     }
+    public function listReturnProduct (){
+        $returnProducts=Product_Return::where('user_id',auth()->id())->latest()->get();
+        return view('frontend.customer.listreturnProduct',compact('returnProducts'));
+     }
+    public function returnProduct($id){
+        $invoiceID=$id;
+        $returnProducts=Product_Return::where('user_id',auth()->id())->latest()->get();
+        $productId= Order_Detail::where('invoice_id',$id)->first()->product_id;
+        $product=Product::findOrFail($productId);
+        return view('frontend.customer.returnProduct',compact('product','returnProducts','invoiceID'));
+     }
+     public function returnProductPOST(Request $request,$productId ,$invoiceID){
+        $request->validate([
+            '*'=>'required',
+        ]);
+        $vendorID=Product::find($productId)->vendor_id;
+        Product_Return::insert([
+            'user_id'=>auth()->id(),
+            'vendor_id'=>$vendorID,
+            'invoice_id'=>$invoiceID,
+            'product_id'=>$productId,
+            'product_name'=>$request->product_name,
+            'return_message'=>$request->return_message,
+            'created_at'=>Carbon::now(),
+        ]);
+        // $email=User::find($vendorID)->email;
+        // Mail::to($email)->bcc('')->send(new Productreturn($request->product_name,auth()->user()->name));
+        return redirect(route('listreturn.product'))->with('success','Product Return Requested');
+     }
+     public function returnProductdelete ($id){
+        Product_Return::find($id)->delete();
+        return back()->with('success','Deleted Successfully.');
+
      }
 
 }

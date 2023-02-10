@@ -14,7 +14,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h6>Vendor Register Notifications</h6>
                                 <div>
                                     <!--begin::Item-->
@@ -56,7 +56,7 @@
                                     <!--end::Item-->
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h6>Product Notification</h6>
                                 <div >
                                     <!--begin::Item-->
@@ -100,7 +100,7 @@
                                     <!--end::Item-->
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h6>Order Notifications</h6>
                                 <div class="scroll-y mh-325px my-5 px-8">
                                     <!--begin::Item-->
@@ -121,6 +121,43 @@
                                                             <!--end::Code-->
                                                             <!--begin::Title-->
                                                             <a href="{{route('pending.order')}}" class="fs-6 text-gray-800 text-hover-primary fw-bolder"><b>{{$notification->data['name']}}</b>, Ordered a product.</a>
+                                                            <!--end::Title-->
+                                                        </div>
+                                                        <!--end::Symbol-->
+                                                    </div>
+                                                    <!--end::Section-->
+                                                    <!--begin::Label-->
+                                                    <span class="badge badge-light fs-8">{{$notification->created_at->diffForHumans()}}</span>
+                                                    <!--end::Label-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                    <!--end::Item-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>Return Notifications</h6>
+                                <div class="scroll-y mh-325px my-5 px-8">
+                                    <!--begin::Item-->
+                                    @foreach (auth()->user()->notifications->where('type','App\Notifications\ProductreturnNotification') as $notification)
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="d-flex flex-stack py-4">
+                                                    <!--begin::Section-->
+                                                    <div class="d-flex align-items-center">
+                                                        <!--begin::Symbol-->
+                                                        <div class="d-flex align-items-center me-2">
+                                                            <!--begin::Code-->
+                                                            <div class="symbol symbol-35px me-4">
+                                                                <span class="symbol-label bg-light-primary">
+                                                                    <span class="symbol-label bg-light-primary"><i class="fas fa-credit-card"></i></span>
+                                                                </span>
+                                                            </div>
+                                                            <!--end::Code-->
+                                                            <!--begin::Title-->
+                                                            <a href="{{route('pending.order')}}" class="fs-6 text-gray-800 text-hover-primary fw-bolder"><b>{{$notification->data['product']}}</b>, this product has a return request.</a>
                                                             <!--end::Title-->
                                                         </div>
                                                         <!--end::Symbol-->

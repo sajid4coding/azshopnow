@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\CampaignNotification;
 use App\Models\DeliveryBoy;
 use App\Models\Newsletter;
+use App\Models\Product_Return;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -210,6 +211,11 @@ class DashboardController extends Controller
         Invoice::findOrFail($id)->update([
             'order_status'=>$request->order_status,
         ]);
+        if($request->order_status=='delivered'){
+            Invoice::findOrFail($id)->update([
+                'payment'=>'paid',
+            ]);
+        }
          return back()->with('delete_success','Orde status changed successfully');
     }
     function OrderDelete($id){
@@ -418,6 +424,10 @@ class DashboardController extends Controller
     auth()->user()->unreadNotifications->where('type','App\Notifications\OrderNotification')->markAsRead();
     return back();
    }
+   function ordermarkasreadreturn(){
+    auth()->user()->unreadNotifications->where('type','App\Notifications\ProductreturnNotification')->markAsRead();
+    return back();
+   }
    function allNotification (){
     return view('dashboard.notification.vendorRegisterNotification');
    }
@@ -428,5 +438,16 @@ class DashboardController extends Controller
 
    function chatAdmin(){
       return view('dashboard.chat.chat');
+   }
+   function productReturn (){
+      $returnProducts=Product_Return::where('status','!=','rejected')->latest()->get();
+      return view('dashboard.productReturn.productReturn',compact('returnProducts'));
+   }
+   function productReturnView($id){
+        $invoiceID=Product_Return::findOrfail($id)->invoice_id;
+        $invoice=Invoice::find($invoiceID);
+        $returnProducts=Product_Return::findOrfail($id);
+        $customerID=User::find(Product_Return::findOrfail($id)->user_id);
+      return view('dashboard.productReturn.productReturnview',compact('returnProducts','invoice','customerID'));
    }
 }

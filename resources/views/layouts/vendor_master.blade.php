@@ -199,7 +199,10 @@
                                                 <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >
                                                     <a class="nav-link cust_a" href="{{ route('chat.vendor') }}"> <i class="fas fa-comments"></i> Chat with admin</a>
                                                 </li>
-                                            @endif
+                                                @endif
+                                                <li class="nav-item @if ($current_page == 'listofreturn-product') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('list.of.return.product') }}"> <i class="fas fa-comments"></i> Return Products</a>
+                                                </li>
 
                                             <li class="mb-3">
                                                 <form method="POST" action="{{ route('logout') }}">

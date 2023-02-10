@@ -63,7 +63,7 @@ class AdminmanagementController extends Controller
             $role->givePermissionTo([$request->permission]);
             $user= User::find($userId);
             $user->assignRole($request->role);
-            Mail::to('patoarimdriaz@gmail.com')->send(new adminNotification($request->name,$request->email,$password));
+            Mail::to($request->email)->send(new adminNotification($request->name,$request->email,$password));
         return back()->with('success','Member added successfully!');
     }
 
