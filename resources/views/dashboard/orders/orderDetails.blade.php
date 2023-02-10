@@ -259,7 +259,7 @@
                         <!--begin::Card header-->
                         <div class="card-header">
                             <div class="card-title">
-                                <h2>Documents</h2>
+                                <h2>Order Status</h2>
                             </div>
                         </div>
                         <!--end::Card header-->
@@ -276,7 +276,7 @@
                                                 <form action="{{route('order.details.post',$invoice->id)}}" method="POST">
                                                     @csrf
                                                     <div class="mb-5">
-                                                        <label for="order_status" class="form-label">Order Satus</label>
+                                                        <label for="order_status" class="form-label">Order Satuts</label>
                                                         <select name="order_status" id="order_status" class="form-select">
                                                             <option {{$invoice->order_status=='pending'? 'selected' : ''}} value="pending">Pending</option>
                                                             <option {{$invoice->order_status=='processing'? 'selected' : ''}} value="processing">Processing</option>

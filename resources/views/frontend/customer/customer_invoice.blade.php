@@ -54,12 +54,20 @@
                             @if (!$reviews)
                                 <a href="{{ route('product.review', $review->id) }}" class="btn btn-danger py-2 px-4" style="margin:10px;background:#FF4800;font-weight:300">Review <i class="fas fa-pen-alt"></i> </a>
                             @endif
+                            @php
+                               $existData= App\Models\Product_Return::where('invoice_id',$order->id)->exists();
+                            @endphp
+                            @if ($existData == 0 )
+                                @if ($order->order_status=='delivered' && $order->payment=='paid')
+                                   @if ($order->created_at->diffInDays(\Carbon\Carbon::now()) < 7)
+                                     <a href="{{ route('return.product', $order->id) }}" class="btn btn-danger py-2 px-4" style="margin:10px;background:#FF4800;font-weight:300">Return Product </a>
+                                   @endif
+                                @endif
+                            @endif
                         </span>
                     @endforeach
                 </td>
              </tr>
-
-
         @empty
             <tr>
                 <td colspan="50" class="text-center text-danger">
