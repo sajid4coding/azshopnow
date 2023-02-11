@@ -40,7 +40,14 @@ class BlogSeeder extends Seeder
         ]);
         DB::table('blogs')->insert([
             'blog_title' => "About - 'Seller Commission'",
-            'description' => 'Use these category-specific fields for health & beauty products in your catalog.Use these category-specific fields for health & beauty products in your catalog.Use these category-specific fields for health & beauty products in your catalog.Use these category-specific fields for health & beauty products in your catalog.Use these category-specific fields for health & beauty products in your catalog.Use these category-specific fields for health & beauty products in your catalog.Use these category-specific fields for health & beauty products in your catalog.Use these category-specific fields for health & beauty products in your catalog.',
+            'description' => "About'AZ Shop Now' Multi-Vendor eCommerce Subscription",
+            'description' =>"Multi-Vendor eCommerce Subscription refers to a business model in which an eCommerce platform charges vendors a monthly or annual fee for the privilege of selling their products on the platform. Unlike the commission model, in which the platform earns revenue from a percentage of each sale, the subscription model generates income from the recurring fees paid by the vendors.
+
+            With a Multi-Vendor eCommerce Subscription model, vendors have the opportunity to create their own online store and list their products for sale without having to worry about the technical and operational aspects of running an eCommerce platform. The platform owner takes care of website management, customer support, payment processing, and security, among other things.
+
+            The subscription fee charged by the platform owner can vary depending on the level of service provided, with higher fees often offering more advanced features and benefits to the vendor. For example, some platforms may offer a basic subscription package with limited features and a lower fee, while a premium subscription may offer more storage space, custom branding, and other advanced features.
+
+            Multi-Vendor eCommerce Subscription is a useful model for both the platform owner and the vendors. The platform owner can generate a predictable and recurring income stream from the subscription fees, while vendors benefit from having access to a ready-made online marketplace with a large customer base. Additionally, because vendors are not dependent on making sales to generate income, they are free to focus on creating and promoting their products, making this model an attractive option for small businesses and entrepreneurs.",
             'category' => 'AZ Shop Now',
             'blog_photo' => NULL,
             'status' => 'published',
