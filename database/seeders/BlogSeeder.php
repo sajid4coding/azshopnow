@@ -75,5 +75,109 @@ class BlogSeeder extends Seeder
             'Meta_Tag_Keywords'=>'',
             'created_at' => now()
         ]);
+        DB::table('blogs')->insert([
+            'blog_title' => "About - 'AZ Shop Seller' eCommerce Commission",
+            'description' => "Multi-Vendor eCommerce Commission refers to a business model in which an eCommerce platform allows multiple vendors or sellers to sell their products through a single online store. The platform owner earns revenue by charging each seller a commission fee on every sale made through the website. This commission fee is a percentage of the total sale value and may vary depending on the agreement between the platform owner and the seller.
+
+            Multi-Vendor eCommerce Commission provides a cost-effective way for small businesses and entrepreneurs to sell their products online, as they do not need to invest in building and maintaining their own online store. It also provides a centralized platform for customers to shop from multiple vendors in one place, increasing their convenience and the variety of products available.
+
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.",
+            'category' => 'AZ Shop Now',
+            'blog_photo' => NULL,
+            'status' => 'published',
+            'Meta_Tag_Title' => "About - 'Seller Subscription'",
+            'Meta_Tag_Description' => "Multi-Vendor eCommerce Commission refers to a business model in which an eCommerce platform allows multiple vendors or sellers to sell their products through a single online store. The platform owner earns revenue by charging each seller a commission fee on every sale made through the website. This commission fee is a percentage of the total sale value and may vary depending on the agreement between the platform owner and the seller.
+
+            Multi-Vendor eCommerce Commission provides a cost-effective way for small businesses and entrepreneurs to sell their products online, as they do not need to invest in building and maintaining their own online store. It also provides a centralized platform for customers to shop from multiple vendors in one place, increasing their convenience and the variety of products available.
+
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.",
+            'Meta_Tag_Keywords'=>'',
+            'created_at' => now()
+        ]);
+        DB::table('blogs')->insert([
+            'blog_title' => "About - 'AZ Shop Seller'",
+            'description' => "Multi-Vendor eCommerce Commission refers to a business model in which an eCommerce platform allows multiple vendors or sellers to sell their products through a single online store. The platform owner earns revenue by charging each seller a commission fee on every sale made through the website. This commission fee is a percentage of the total sale value and may vary depending on the agreement between the platform owner and the seller.
+
+            Multi-Vendor eCommerce Commission provides a cost-effective way for small businesses and entrepreneurs to sell their products online, as they do not need to invest in building and maintaining their own online store. It also provides a centralized platform for customers to shop from multiple vendors in one place, increasing their convenience and the variety of products available.
+
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.",
+            'category' => 'AZ Shop Now',
+            'blog_photo' => NULL,
+            'status' => 'published',
+            'Meta_Tag_Title' => "About - 'Seller Subscription'",
+            'Meta_Tag_Description' => "Multi-Vendor eCommerce Commission refers to a business model in which an eCommerce platform allows multiple vendors or sellers to sell their products through a single online store. The platform owner earns revenue by charging each seller a commission fee on every sale made through the website. This commission fee is a percentage of the total sale value and may vary depending on the agreement between the platform owner and the seller.
+
+            Multi-Vendor eCommerce Commission provides a cost-effective way for small businesses and entrepreneurs to sell their products online, as they do not need to invest in building and maintaining their own online store. It also provides a centralized platform for customers to shop from multiple vendors in one place, increasing their convenience and the variety of products available.
+
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.",
+            'Meta_Tag_Keywords'=>'',
+            'created_at' => now()
+        ]);
+        DB::table('blogs')->insert([
+            'blog_title' => "AZ Shop Seller Account",
+            'description' => "Multi-Vendor eCommerce Commission refers to a business model in which an eCommerce platform allows multiple vendors or sellers to sell their products through a single online store. The platform owner earns revenue by charging each seller a commission fee on every sale made through the website. This commission fee is a percentage of the total sale value and may vary depending on the agreement between the platform owner and the seller.
+
+            Multi-Vendor eCommerce Commission provides a cost-effective way for small businesses and entrepreneurs to sell their products online, as they do not need to invest in building and maintaining their own online store. It also provides a centralized platform for customers to shop from multiple vendors in one place, increasing their convenience and the variety of products available.
+
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.",
+            'category' => 'AZ Shop Now',
+            'blog_photo' => NULL,
+            'status' => 'published',
+            'Meta_Tag_Title' => "About - 'Seller Subscription'",
+            'Meta_Tag_Description' => "Multi-Vendor eCommerce Commission refers to a business model in which an eCommerce platform allows multiple vendors or sellers to sell their products through a single online store. The platform owner earns revenue by charging each seller a commission fee on every sale made through the website. This commission fee is a percentage of the total sale value and may vary depending on the agreement between the platform owner and the seller.
+
+            Multi-Vendor eCommerce Commission provides a cost-effective way for small businesses and entrepreneurs to sell their products online, as they do not need to invest in building and maintaining their own online store. It also provides a centralized platform for customers to shop from multiple vendors in one place, increasing their convenience and the variety of products available.
+
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.",
+            'Meta_Tag_Keywords'=>'',
+            'created_at' => now()
+        ]);
+        DB::table('blogs')->insert([
+            'blog_title' => "'AZ Shop Now' - Customer Support",
+            'description' => "Multi-Vendor eCommerce Commission refers to a business model in which an eCommerce platform allows multiple vendors or sellers to sell their products through a single online store. The platform owner earns revenue by charging each seller a commission fee on every sale made through the website. This commission fee is a percentage of the total sale value and may vary depending on the agreement between the platform owner and the seller.
+
+            Multi-Vendor eCommerce Commission provides a cost-effective way for small businesses and entrepreneurs to sell their products online, as they do not need to invest in building and maintaining their own online store. It also provides a centralized platform for customers to shop from multiple vendors in one place, increasing their convenience and the variety of products available.
+
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.",
+            'category' => 'AZ Shop Now',
+            'blog_photo' => NULL,
+            'status' => 'published',
+            'Meta_Tag_Title' => "About - 'Seller Subscription'",
+            'Meta_Tag_Description' => "Multi-Vendor eCommerce Commission refers to a business model in which an eCommerce platform allows multiple vendors or sellers to sell their products through a single online store. The platform owner earns revenue by charging each seller a commission fee on every sale made through the website. This commission fee is a percentage of the total sale value and may vary depending on the agreement between the platform owner and the seller.
+
+            Multi-Vendor eCommerce Commission provides a cost-effective way for small businesses and entrepreneurs to sell their products online, as they do not need to invest in building and maintaining their own online store. It also provides a centralized platform for customers to shop from multiple vendors in one place, increasing their convenience and the variety of products available.
+
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.
+            The platform owner is responsible for managing the website, handling customer service and support, and ensuring the security of the transactions. In return, the platform owner earns a commission on every sale made through the website, making this model a lucrative business opportunity for those with the technical skills and expertise to run an eCommerce platform.
+
+            Overall, Multi-Vendor eCommerce Commission provides a win-win solution for both the platform owner and the sellers, as it allows for a cost-effective and convenient way for small businesses to reach a wider audience and for the platform owner to earn a passive income.",
+            'Meta_Tag_Keywords'=>'',
+            'created_at' => now()
+        ]);
     }
 }
