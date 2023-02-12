@@ -228,9 +228,14 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::post('manage-delivery-boy/delivery-boy-post/{id}',[DashboardController::class,'deliveryBoyEditPost'])->name('delivery.boy.edit.post');
         Route::get('manage-delivery-boy/delivery-boy-delete/{id}',[DashboardController::class,'deliveryBoyDelete'])->name('delivery.boy.delete');
         //DELIVERY BOY ROUTE END
-
     });
 
+    Route::group(['middleware' => ['can:admin-Product Return']], function () {
+        Route::get('product-return',[DashboardController::class,'productReturn'])->name('product.return');
+        Route::get('productreturn-view/{id}',[DashboardController::class,'productReturnView'])->name('product.return.view');
+        Route::delete('product-return-delete/{id}',[DashboardController::class,'productReturnDelete'])->name('product.return.delete');
+        Route::get('ordermarkasread-return',[DashboardController::class, 'ordermarkasreadreturn'])->middleware(['auth', 'verified'])->name('ordermarkasread.return');
+    });
     Route::group(['middleware' => ['can:admin-announcement Management']], function () {
         //ACCOUNCEMENT ROUTE START
         Route::resource('announcement', AnnouncementController::class);
@@ -355,6 +360,9 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('feedback',[VendorController::class,'feedback'])->name('feedback');
     Route::post('feedback/post',[VendorController::class,'feedbackPost'])->name('feedback.post');
     //VENDOR CHAT ROUTE END
+    Route::get('listofreturn-product',[VendorController::class,'listofreturnproduct'])->name('list.of.return.product');
+    Route::get('view-return-product/{id}',[VendorController::class,'viewreturnproduct'])->name('view.return.product');
+    Route::post('view-return-product/{id}',[VendorController::class,'viewreturnproductPost'])->name('view.return.product.Post');
 });
 
 // VENDOR ROUTE END
@@ -372,6 +380,10 @@ Route::middleware(['customer'])->group(function(){
     Route::post('customer/product-review-post/{id}', [CustomerController::class, 'product_review_post'])->name('product.review.post');
     Route::get('customer/chat-with-vendor', [CustomerController::class, 'customer_caht_with_vendor'])->name('customer.chat.vendor');
     Route::get('customer/contact-with-vendor/{id}', [VendorContact::class, 'customer_with_with_vendor'])->name('customer.contact.vendor');
+    Route::get('return-product/{id}', [CustomerController::class, 'returnProduct'])->name('return.product');
+    Route::get('list-ofreturn-product', [CustomerController::class, 'listReturnProduct'])->name('listreturn.product');
+    Route::post('return-product-post/{id}/{invoiceID}', [CustomerController::class, 'returnProductPOST'])->name('return.product.post');
+    Route::delete('return-product-delete/{id}', [CustomerController::class, 'returnProductdelete'])->name('return.product.delete');
 });
 
 // HOME CONTROLLER START

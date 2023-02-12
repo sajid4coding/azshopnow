@@ -43,39 +43,42 @@
                     @if (replyHaveorNot("$review->id"))
                        <span style="color:rgba(80, 80, 80, 0.521)">Already sended</span>
                     @else
-                    <span class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <span class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $review->id }}">
                        <i class="fa-sharp fa-solid fa-reply"></i>
                     </span>
                     @endif
+
+
                 </td>
+                <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{ $review->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" style="font-family:Verdana, Geneva, Tahoma, sans-serif;color:rgb(90, 90, 90)" id="exampleModalLabel">Reply of feedback</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('feedback.post') }}"  method="post">
+                                    @csrf
+                                    <input hidden name="review_id" type="text" value="{{ $review->id }}">
+                                    <input hidden name="vendor_id" type="text" value="{{ auth()->id() }}">
+                                    <input hidden name="customer_id" type="text" value="{{ $review->user_id }}">
+                                    <textarea style="resize:none" name="reply" id="" cols="30" rows="5"></textarea>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary p-2 px-5 mt-4">Reply</button>
+                            </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                <!-- Modal -->
             </tr>
             <!-- Button trigger modal -->
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" style="font-family:Verdana, Geneva, Tahoma, sans-serif;color:rgb(90, 90, 90)" id="exampleModalLabel">Reply of feedback</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('feedback.post') }}"  method="post">
-                            @csrf
-                            <input hidden name="review_id" type="text" value="{{ $review->id }}">
-                            <input hidden name="vendor_id" type="text" value="{{ auth()->id() }}">
-                            <input hidden name="customer_id" type="text" value="{{ $review->user_id }}">
-                            <textarea style="resize:none" name="reply" id="" cols="30" rows="5"></textarea>
 
-                            <button type="submit" class="btn btn-primary p-2 px-5 mt-4">Reply</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <!-- Modal -->
            @endforeach
         </tbody>
     </table>
