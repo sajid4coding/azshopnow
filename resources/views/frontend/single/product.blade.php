@@ -303,52 +303,6 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            {{-- <div class="best-sell-nav">
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button"
-                                            role="tab" aria-controls="all" aria-selected="true">
-                                                <i class="flaticon-shipping"></i>
-                                                <span>All Categories</span>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="watch-tab" data-bs-toggle="tab" data-bs-target="#watch" type="button"
-                                            role="tab" aria-controls="watch" aria-selected="false">
-                                                <i class="flaticon-smartwatch"></i>
-                                                <span>smart watch</span>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="electronics-tab" data-bs-toggle="tab" data-bs-target="#electronics"
-                                            type="button" role="tab" aria-controls="electronics" aria-selected="false">
-                                                <i class="flaticon-lamp"></i>
-                                                <span>Consumer Electronics</span>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="appliance-tab" data-bs-toggle="tab" data-bs-target="#appliance" type="button"
-                                            role="tab" aria-controls="appliance" aria-selected="false">
-                                                <i class="flaticon-kitchen-utensils"></i>
-                                                <span>home appliance</span>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="shoes-tab" data-bs-toggle="tab" data-bs-target="#shoes" type="button"
-                                            role="tab" aria-controls="shoes" aria-selected="false">
-                                                <i class="flaticon-high-heels-1"></i>
-                                                <span>Shoes & Accessories</span>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="sports-tab" data-bs-toggle="tab" data-bs-target="#sports" type="button"
-                                            role="tab" aria-controls="sports" aria-selected="false">
-                                                <i class="flaticon-sport-equipment"></i>
-                                                <span>Sports & Entertainment</span>
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div> --}}
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
                                     <div class="row mb-20">
@@ -1025,13 +979,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <!--reviews------>
-                                                                        {{-- <div class="reviews">
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="fas fa-star"></i>
-                                                                            <i class="far fa-star"></i><!--Empty star-->
-                                                                        </div> --}}
+
                                                                         <div class="reviews">
                                                                             @for ($x = 1; $x <= 5; $x++)
                                                                                 @if ($x <= $product_review->rating)
@@ -1045,14 +993,39 @@
                                                                     <!--Comments---------------------------------------->
                                                                     <div class="client-comment">
                                                                         <p class="mb-3">{{ $product_review->comment }}</p>
+                                                                        <div class="d-flex">
                                                                         @php
                                                                             $product_galleries = App\Models\ReviewGallery::where('product_review_id', $product_review->id)->get();
                                                                         @endphp
                                                                         @if ($product_galleries)
                                                                             @foreach ($product_galleries as $product_gallery)
-                                                                                <img class="m-2" height="100" src="{{ asset('uploads/product_review_images') }}/{{ $product_gallery->review_image }}" alt="azshopshow">
+                                                                                <img class="m-2" height="60" src="{{ asset('uploads/product_review_images') }}/{{ $product_gallery->review_image }}" alt="azshopshow">
                                                                             @endforeach
                                                                         @endif
+                                                                        @foreach (reply("$product_review->id") as $reply)
+                                                                           <div class="mt-4">
+                                                                            <i class="fas fa-reply"></i>
+
+                                                                           <div class="profile pl-5">
+                                                                                <!--img---->
+                                                                                <div class="profile-img">
+                                                                                   <img width="50" src="{{ asset('uploads/profile_photo') }}/{{  App\Models\User::find($reply->vendor_id)->profile_photo }}" />
+                                                                                </div>
+                                                                                <!--name-and-username-->
+                                                                                <div>
+                                                                                <div class="name-user" style="font-size: 10px !important">
+                                                                                   <strong>{{ App\Models\User::find($reply->vendor_id)->name}}</strong>
+                                                                                </div>
+                                                                                <div class="name-user pl-5" style="font-size: 10px !important">
+                                                                                <p>{{ $reply->reply }}</p>
+                                                                                </div>
+                                                                                </div>
+                                                                           </div>
+                                                                           </div>
+
+                                                                        @endforeach
+                                                                    </div>
+
                                                                     </div>
                                                                 </div>
                                                             @empty
@@ -1063,9 +1036,6 @@
                                                         </div>
                                                     </section>
                                                 </div>
-                                                {{-- <div class="right-rc">
-                                                    <a href="#">Write a review</a>
-                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -1187,6 +1157,48 @@
         $('#single_product_description').innerHTML({{  $single_product->description  }})
     })
 </script>
+<style>
+    @media (min-width:320px) and (max-width:575px){
+        .home_banner_slider{
+        height: 326px;
+        }
+        .home_banner_slider a {
+            height: 326px;
+        }
+        .home_banner_slider a img{
+            height: 326px;
+        }
+       .m-w-50{
+        width: 50% !important;
+       }
+       .product-content .title a {
+        font-size: 10px !important;
+       }
+       .product-content .title a h6{
+        font-size: 10px !important;
+       }
+       .product-content .title span{
+        font-size: 10px !important;
+       }
+       .product-content .rating{
+        font-size: 10px;
+       }
+       .product-content p{
+        font-size: 10px;
+       }
+       .product-content .rating span{
+        font-size: 10px;
+       }
+    }
+    @media (min-width:768px) and (max-width:991px){
+        .join-olle-wrap h3{
+           font-size: 14px !important;
+        }
+        .join-olle-wrap a{
+           font-size: 10px !important;
+        }
+    }
+</style>
 @endsection
 
 @section('footer_script')
@@ -1202,5 +1214,6 @@
         });
     });
 </script>
+
 @endsection
 

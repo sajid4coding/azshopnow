@@ -196,8 +196,13 @@
                                                 </li>
                                             @endif
                                             @if (auth()->user()->role=='vendor')
-                                                <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >
-                                                    <a class="nav-link cust_a" href="{{ route('chat.vendor') }}"> <i class="fas fa-comments"></i> Chat with admin</a>
+                                                <li class="nav-item @if ($current_page == 'chat/vendor') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('chat.vendor') }}"> <i class="fas fa-comments"></i>Messanger</a>
+                                                </li>
+                                            @endif
+                                            @if (auth()->user()->role=='vendor')
+                                                <li class="nav-item @if ($current_page == 'feedback') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('feedback') }}"> <i class="fas fa-comment-alt"></i> Feedbacks</a>
                                                 </li>
                                                 @endif
                                                 <li class="nav-item @if ($current_page == 'listofreturn-product') here show @endif" >

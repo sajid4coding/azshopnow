@@ -206,6 +206,8 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::get('general-settings/404',[GeneralController::class,'Error404'])->name('404.error');
         Route::get('general-settings/502',[GeneralController::class,'Error502'])->name('502.error');
         Route::get('general-settings/503',[GeneralController::class,'Error503'])->name('503.error');
+        Route::get('general-settings/error',[GeneralController::class,'errorPage'])->name('error.page');
+
 
         //GENERAL SETTINGS ROUTE END
         //CHAT SYSTEM ROUTE START
@@ -355,6 +357,8 @@ Route::middleware(['vendor'])->group(function(){
     //UPGRADE SUBCRIPTION ROUTE END
     //VENDOR CHAT ROUTE START
     Route::get('chat/vendor',[VendorController::class,'chatVendor'])->name('chat.vendor');
+    Route::get('feedback',[VendorController::class,'feedback'])->name('feedback');
+    Route::post('feedback/post',[VendorController::class,'feedbackPost'])->name('feedback.post');
     //VENDOR CHAT ROUTE END
     Route::get('listofreturn-product',[VendorController::class,'listofreturnproduct'])->name('list.of.return.product');
     Route::get('view-return-product/{id}',[VendorController::class,'viewreturnproduct'])->name('view.return.product');
