@@ -15,7 +15,7 @@
     <!-- empty_coupon_web_page_section - start
     ================================================== -->
     <section class="empty_cart_section section_space">
-        <div class="container m-5">
+        <div class="container my-5">
             <div class="empty_cart_content text-center">
                 <span class="cart_icon display-4 text-primary">
                     <i class="fas fa-exclamation-triangle"></i>
@@ -121,5 +121,37 @@
     </section>
     <!-- coupon-product-area-end -->
 @endif
+<style>
+       @media (min-width:320px) and (max-width:575px){
+            .empty_cart_content{
+                margin: 0 auto !important;
+            }
+           .empty_cart_content h3{
+             font-size: 12px !important;
+           }
+           .empty_cart_content a{
+             font-size: 12px !important;
+             padding: 5px 6px;
+           }
+           .product-content .title a {
+            font-size: 10px !important;
+           }
+           .product-content .title a h6{
+            font-size: 10px !important;
+           }
+           .product-content .title span{
+            font-size: 10px !important;
+           }
+           .product-content .rating{
+            font-size: 10px;
+           }
+           .product-content p{
+            font-size: 10px;
+           }
+           .product-content .rating span{
+            font-size: 10px;
+           }
+        }
 
+</style>
 @endsection

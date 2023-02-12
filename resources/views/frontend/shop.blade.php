@@ -56,7 +56,7 @@
                                         <span>{{Floor(((100*$bannerProducts->product_price)-(100*$bannerProducts->discount_price))/$bannerProducts->product_price)}}% discount</span>
                                         <h2 class="title">{{Str::limit($bannerProducts->product_title,9)}}</h2>
                                         <p>{{staff($bannerProducts->vendor_id)->shop_name}}</p>
-                                        <a href="{{ route('single.product', ['id'=>$bannerProducts->id,'title'=>Str::slug($bannerProducts->product_title)]) }}" class="btn">shop now</a>
+                                        <a href="{{ route('single.product', ['id'=>$bannerProducts->id,'title'=>Str::slug($bannerProducts->product_title)]) }}" class="btn m-p-0">shop now</a>
                                     </div>
                                 </div>
                         @endforeach
@@ -78,4 +78,37 @@
     </section>
     <!-- breadcrumb-area-end -->
 @include('components.frontend.shop_layout')
+<style>
+    .btn:hover{
+        border-color: #FF4800 !important;
+    }
+    .m-p-0{
+        padding: 6px 10px !important;
+        background: blue;
+       }
+    @media (min-width:320px) and (max-width:575px){
+       .m-w-50{
+        width: 50% !important;
+       }
+
+       .product-content .title a {
+        font-size: 10px !important;
+       }
+       .product-content .title a h6{
+        font-size: 10px !important;
+       }
+       .product-content .title span{
+        font-size: 10px !important;
+       }
+       .product-content .rating{
+        font-size: 10px;
+       }
+       .product-content p{
+        font-size: 10px;
+       }
+       .product-content .rating span{
+        font-size: 10px;
+       }
+    }
+</style>
 @endsection

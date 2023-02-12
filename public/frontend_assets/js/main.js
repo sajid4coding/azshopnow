@@ -301,7 +301,7 @@ $('.best_vendor_slider').slick({
 		{
 			breakpoint: 575,
 			settings: {
-				slidesToShow: 2,
+				slidesToShow: 1,
 				slidesToScroll: 2,
 				arrows: false,
 			}
@@ -347,7 +347,7 @@ $('.brand-active').slick({
 		{
 			breakpoint: 575,
 			settings: {
-				slidesToShow: 2,
+				slidesToShow: 1,
 				slidesToScroll: 1,
 				arrows: false,
 			}
@@ -429,14 +429,14 @@ $('.banner-active').slick({
 		{
 			breakpoint: 992,
 			settings: {
-				slidesToShow: 1,
+				slidesToShow: 2,
 				slidesToScroll: 1
 			}
 		},
 		{
 			breakpoint: 767,
 			settings: {
-				slidesToShow: 1,
+				slidesToShow: 2,
 				slidesToScroll: 1,
 				arrows: false,
 			}
@@ -444,7 +444,7 @@ $('.banner-active').slick({
 		{
 			breakpoint: 575,
 			settings: {
-				slidesToShow: 1,
+				slidesToShow: 2,
 				slidesToScroll: 1,
 				arrows: false,
 			}
@@ -631,7 +631,7 @@ $('.popular-product-active').slick({
 		{
 			breakpoint: 767,
 			settings: {
-				slidesToShow: 2,
+				slidesToShow: 3,
 				slidesToScroll: 1,
 				arrows: false,
 			}
@@ -639,7 +639,7 @@ $('.popular-product-active').slick({
 		{
 			breakpoint: 575,
 			settings: {
-				slidesToShow: 1,
+				slidesToShow: 2,
 				slidesToScroll: 1,
 				arrows: false,
 			}

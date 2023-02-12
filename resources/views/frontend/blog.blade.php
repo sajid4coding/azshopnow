@@ -31,4 +31,29 @@
             </div>
         </div>
     </section>
+    <style>
+        /* @media (min-width:320px) and (max-width:575px){
+           .m-w-50{
+            width: 50% !important;
+           }
+           .product-content .title a {
+            font-size: 10px !important;
+           }
+           .product-content .title a h6{
+            font-size: 10px !important;
+           }
+           .product-content .title span{
+            font-size: 10px !important;
+           }
+           .product-content .rating{
+            font-size: 10px;
+           }
+           .product-content p{
+            font-size: 10px;
+           }
+           .product-content .rating span{
+            font-size: 10px;
+           }
+        } */
+    </style>
 @endsection

@@ -103,7 +103,7 @@
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-9">
-                            <div class="d-block d-sm-flex align-items-center justify-content-end">
+                            <div class="d-block m-d-flex d-sm-flex align-items-center justify-content-end">
                                 <div class="header-search-wrap">
                                     <form action="{{route('search')}}">
                                         <input type="search" name="q" placeholder="Search for product...">
@@ -114,14 +114,14 @@
                                     <ul>
                                         @auth
                                             <li class="header-shop">
-                                                <a href="{{ route('wishlist') }}">
+                                                <a class="m-f-size" href="{{ route('wishlist') }}">
                                                     <i class="fa-regular fa-heart"></i>Wishlist
                                                     <span class="cart-count" style="right: 2px !important;">{{ wishlist() }}</span>
                                                 </a>
                                             </li>
                                             {{-- <li><a href="#"><i class="fas fa-redo"></i>Compare</a></li> --}}
                                             <li class="header-shop">
-                                                <a href="{{ route('cart') }}">
+                                                <a class="m-f-size" href="{{ route('cart') }}">
                                                     <i class="flaticon-shopping-bag"></i>Cart
                                                     <span class="cart-count">{{ cart() }}</span>
                                                 </a>
@@ -147,27 +147,28 @@
                                                 @endif
                                             </li>
                                         @endauth
+
                                         @guest
                                         {{-- CUSTOMER LOGIN START --}}
                                         <li class="header-sine-in">
                                             <a href="{{ route('home') }}">
                                                 <i class="flaticon-user"></i>
                                             </a>
-                                         <li class="ms-1">
+                                         <li class="ms-1 m-f-size m-t-15" >
                                               <style>
                                                 .ms-1 {
                                                  margin-left: ($spacer * .30) !important;
                                                 }
                                             </style>
-                                               <a href="{{ route('customer.login') }}">Login /</a>
-                                                </li>
-                                           <li class="ms-1">
+                                               <a class="m-f-size" href="{{ route('customer.login') }}">Login -</a>
+                                            </li>
+                                           <li class="ms-1 m-f-size m-t-15">
                                             <style>
                                                 .ms-1 {
                                                  margin-left: ($spacer * .25) !important;
                                                 }
                                             </style>
-                                               <a href="{{ route('customer.register') }}">Register</a>
+                                               <a class="m-f-size" href="{{ route('customer.register') }}">Register</a>
                                            </li>
                                         </li>
                                     </ul>
@@ -189,7 +190,7 @@
                             <div class="menu-wrap">
                                 <nav class="menu-nav">
                                     <div class="logo d-none">
-                                        <a href="index.html"><img src="{{ asset('frontend_assets') }}/img/logo/w_logo.png" alt=""></a>
+                                        <a href="{{ route('home') }}"><img src="{{ asset('frontend_assets') }}/img/logo/w_logo.png" alt=""></a>
                                     </div>
 
                                     @php
@@ -709,6 +710,26 @@
                                     </div>
                                     <div class="menu-outer">
                                         <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                                        @auth
+                                        <li class="header-sine-in" style="text-align: center !important;">
+                                            @if (auth()->user()->role == 'vendor')
+                                                <a href="{{ route('vendor.dashboard') }}">
+                                                    <i class="flaticon-user"></i>
+                                                    <p>{{ Str::title(auth()->user()->name) }}</span></p>
+                                                </a>
+                                            @elseif (auth()->user()->role == 'customer')
+                                            <a href="{{ route('customerhome') }}">
+                                                <i class="flaticon-user"></i>
+                                                <p>{{ Str::title(auth()->user()->name) }}</span></p>
+                                            </a>
+                                            @elseif (auth()->user()->role == 'staff')
+                                            <a href="{{ route('vendor.dashboard') }}">
+                                                <i class="flaticon-user"></i>
+                                                <p>{{ Str::title(auth()->user()->name) }}</span></p>
+                                            </a>
+                                            @endif
+                                        </li>
+                                    @endauth
                                     </div>
                                     <div class="social-links">
                                         <ul class="clearfix">
@@ -773,7 +794,7 @@
             <div class="footer-top pt-60 pb-40">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-8">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-8 m-w-50">
                             <div class="footer-widget mb-30">
                                 <div class="f-logo mb-25">
                                     <a href="index.html"><img src="{{ asset('frontend_assets') }}/img/logo/logo.png" alt=""></a>
@@ -804,7 +825,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-4">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-4 m-w-50">
                             <div class="footer-widget mb-30">
                                 <div class="fw-title mb-20">
                                     <h2 class="title">INFORMATION</h2>
@@ -821,7 +842,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 m-w-50">
                             <div class="footer-widget mb-30">
                                 <div class="fw-title mb-20">
                                     <h2 class="title">MY ACCOUNT</h2>
@@ -838,7 +859,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 m-w-50">
                             <div class="footer-widget mb-30">
                                 <div class="fw-title mb-20">
                                     <h2 class="title">CUSTOMER SERVICE</h2>
@@ -878,7 +899,60 @@
     </footer>
     <!-- footer-area-end -->
 
-
+    <style>
+        @media (min-width:320px) and (max-width:575px){
+            .m-t-15{
+                margin-top: -15px;
+            }
+            
+            .m-d-flex{
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+            }
+            .m-f-size{
+                font-size: 10px !important;
+            }
+            .home_banner_slider{
+            height: 326px;
+            }
+            .home_banner_slider a {
+                height: 326px;
+            }
+            .home_banner_slider a img{
+                height: 326px;
+            }
+           .m-w-50{
+            width: 50% !important;
+           }
+           .product-content .title a {
+            font-size: 10px !important;
+           }
+           .product-content .title a h6{
+            font-size: 10px !important;
+           }
+           .product-content .title span{
+            font-size: 10px !important;
+           }
+           .product-content .rating{
+            font-size: 10px;
+           }
+           .product-content p{
+            font-size: 10px;
+           }
+           .product-content .rating span{
+            font-size: 10px;
+           }
+        }
+        @media (min-width:768px) and (max-width:991px){
+            .join-olle-wrap h3{
+               font-size: 14px !important;
+            }
+            .join-olle-wrap a{
+               font-size: 10px !important;
+            }
+        }
+    </style>
 
     <!-- JS here -->
     <script src="{{ asset('frontend_assets') }}/js/vendor/jquery-3.6.0.min.js"></script>
