@@ -72,6 +72,8 @@
     background: #ec4d37;
 }
 .best-sell-nav .slick-dots{
+    width: 100%;
+    text-align: center;
     position: absolute;
     bottom: -50px;
     right: 50%;
@@ -168,7 +170,7 @@
                         <div class="col-xl-12">
                             <div class="product-wrap mb-30">
                                 <div class="row align-items-center mb-20">
-                                    <div class="col-xl-3 col-lg-4 col-md-3">
+                                    <div class="col-xl-3  col-lg-3 col-md-3">
                                         <div class="section-title">
                                             <h2 class="title">Super <span>Deals</span></h2>
                                         </div>
@@ -188,7 +190,7 @@
                                 <div class="container">
                                     <div class="row popular-product-active">
                                         @foreach ($superDealspProducts as $Products)
-                                            <div class="col-xl-2">
+                                            <div class="col-xl-2 ">
                                                 <div class="product-item-three">
                                                     <div class="product-thumb">
                                                         <a href="{{route('single.product',['id'=>$Products->id,'title'=>Str::slug($Products->product_title)])}}"><img src="{{ asset('uploads/product_photo') }}/{{$Products->thumbnail}}" alt="img"></a>
@@ -234,7 +236,7 @@
                     </div>
                     @if ($topReviews->count() >=3)
                         <div class="row justify-content-center">
-                            <div class="col-xl-6 col-lg-9">
+                            <div class="col-xl-6 col-lg-9 ">
                                 <div class="product-wrap top-product mb-20">
                                     <div class="row mb-20">
                                         <div class="col-sm-6">
@@ -252,7 +254,7 @@
                                     <div class="row custom justify-content-center">
                                         @foreach ($topReviews as $product)
                                                 {{-- @if (floor(review($product->relationwithproduct->id)) ==5) --}}
-                                                    <div class="col-md-4 col-sm-6">
+                                                    <div class="col-md-4 col-sm-6 m-w-50">
                                                         <div class="product-item mb-30">
                                                             <div class="product-thumb">
                                                                 <a href="{{route('single.product',['id'=>$product->relationwithproduct->id,'title'=>Str::slug($product->relationwithproduct->product_title)])}}"><img src="{{ asset('uploads/product_photo') }}/{{$product->relationwithproduct->thumbnail}}" alt=""></a>
@@ -307,7 +309,7 @@
                                     </div>
                                     <div class="row custom justify-content-center">
                                         @foreach ($products as $product)
-                                            <div class="col-md-4 col-sm-6">
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 m-w-50">
                                                 <div class="product-item mb-30">
                                                     <div class="product-thumb">
                                                         <a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}"><img src="{{asset('uploads/product_photo')}}/{{$product->thumbnail}}" alt=""></a>
@@ -385,7 +387,7 @@
                                     </div>
                                     <div class="row custom justify-content-center">
                                         @foreach ($EmptyReviewsproducts as $product)
-                                            <div class="col-md-2 col-sm-2">
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 m-w-50">
                                                 <div class="product-item mb-30">
                                                     <div class="product-thumb">
                                                         <a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}"><img src="{{asset('uploads/product_photo')}}/{{$product->thumbnail}}" alt=""></a>
@@ -468,7 +470,7 @@
                                 <div class="col-xl-12">
                                     <div class="row justify-content-center">
                                         @foreach ($auth_categories as $category)
-                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-8 m-w-50">
                                                 <div class="add-banner">
                                                     <div class="add-banner-img mb-10">
                                                         <style>
@@ -495,7 +497,7 @@
                                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8">
                                     <div class="row justify-content-center">
                                         @foreach ($categories as $category)
-                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8">
+                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-8 m-w-50">
                                                 <div class="add-banner">
                                                     <div class="add-banner-img mb-20">
                                                         <a href="{{route('category.product',$category->slug)}}"><img src="{{ asset('uploads') }}/category_photo/{{ $category->thumbnail }}" alt="img"></a>
@@ -517,8 +519,8 @@
                                         </div>
                                         <h3 class="title">Business with AZShop</h3>
                                         <div class="join-btn">
-                                            <a href="{{ route('plans') }}" class="btn">Join Us</a>
-                                            <a href="{{ route('vendor.login') }}" class="btn">Sign In</a>
+                                            <a href="{{ route('plans') }}" class="btn p-1">Join Us</a>
+                                            <a href="{{ route('vendor.login') }}" class="btn p-1">Sign In</a>
                                         </div>
                                         <a href="{{ route('home') }}"><img src="https://image.shutterstock.com/image-photo/business-development-success-growth-banking-260nw-2017842467.jpg" alt=""></a>
                                     </div>
@@ -540,8 +542,9 @@
             <section class="flash-product-area pt-90 pb-60">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-xl-3 col-lg-4 col-md-8 col-sm-10">
-                            <div class="slider-add-banner banner-active mb-45">
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+
+                            <div class="slider-add-banner banner-active mb-45 m-hidden">
                                 @foreach ($mostDiscountProducts as $mostDiscountProduct)
                                         <div class="add-banner">
                                             <div class="add-banner-img">
@@ -551,11 +554,13 @@
                                                 <span>{{Floor(((100*$mostDiscountProduct->product_price)-(100*$mostDiscountProduct->discount_price))/$mostDiscountProduct->product_price)}}% discount</span>
                                                 <h2 class="title">{{Str::limit($mostDiscountProduct->product_title,9)}}</h2>
                                                 <p>{{staff($mostDiscountProduct->vendor_id)->shop_name}}</p>
-                                                <a href="{{ route('single.product', ['id'=>$mostDiscountProduct->id,'title'=>Str::slug($mostDiscountProduct->product_title)]) }}" class="btn">shop now</a>
+                                                <a href="{{ route('single.product', ['id'=>$mostDiscountProduct->id,'title'=>Str::slug($mostDiscountProduct->product_title)]) }}" class="btn m-p-0">shop now</a>
                                             </div>
                                         </div>
                                 @endforeach
                             </div>
+
+
                             <div class="trending-product">
                                 <h3 class="title">Trending Products</h3>
                                 <ul>
@@ -595,8 +600,10 @@
                                     @endforeach
                                 </ul>
                             </div>
+
+
                         </div>
-                        <div class="col-xl-9 col-lg-8 col-md-12">
+                        <div class="col-xl-9 col-lg-8 col-md-8 col-sm-6">
                             <div class="add-banner-thumb mb-55">
                                 <a href="#"><img src="{{ asset('frontend_assets') }}/img/images/add_banner_img02.jpg" alt=""></a>
                             </div>
@@ -618,7 +625,7 @@
                             <div class="flash-product-item-wrap">
                                 <div class="row flash-isotope-active">
                                     @foreach ($flashSaleProducts as $flashSaleProducts)
-                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer all @if($flashSaleProducts->campaign=='trending') {{'cat-two'}} @elseif($flashSaleProducts->campaign=='flash-sale'){{'cat-one'}} @elseif($flashSaleProducts->campaign=='super-deals'){{'cat-three'}} @endif  ">
+                                        <div class="col-xl-3  col-lg-3 m-w-50 col-md-4 col-sm-6 grid-item grid-sizer all @if($flashSaleProducts->campaign=='trending') {{'cat-two'}} @elseif($flashSaleProducts->campaign=='flash-sale'){{'cat-one'}} @elseif($flashSaleProducts->campaign=='super-deals'){{'cat-three'}} @endif  ">
                                             <div class="product-item-two mb-30">
                                                 <div class="product-thumb">
                                                     <a href="{{ route('single.product', ['id'=>$flashSaleProducts->id,'title'=>Str::slug($flashSaleProducts->product_title)]) }}"><img src="{{ asset('uploads/product_photo') }}/{{$flashSaleProducts->thumbnail}}" alt=""></a>
@@ -649,7 +656,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    {{-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two cat-one">
+                                    {{-- <div class="col-xl-3  col-lg-3 col-md-6 col-sm-6 grid-item grid-sizer cat-two cat-one">
                                         <div class="product-item-two mb-30">
                                             <div class="product-thumb">
                                                 <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/flash_product02.jpg" alt=""></a>
@@ -666,7 +673,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-one">
+                                    <div class="col-xl-3  col-lg-3 col-md-6 col-sm-6 grid-item grid-sizer cat-one">
                                         <div class="product-item-two mb-30">
                                             <div class="product-thumb">
                                                 <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/flash_product03.jpg" alt=""></a>
@@ -683,7 +690,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-one cat-two">
+                                    <div class="col-xl-3  col-lg-3 col-md-6 col-sm-6 grid-item grid-sizer cat-one cat-two">
                                         <div class="product-item-two mb-30">
                                             <div class="product-thumb">
                                                 <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/flash_product04.jpg" alt=""></a>
@@ -700,7 +707,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two cat-one">
+                                    <div class="col-xl-3  col-lg-3 col-md-6 col-sm-6 grid-item grid-sizer cat-two cat-one">
                                         <div class="product-item-two mb-30">
                                             <div class="product-thumb">
                                                 <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/flash_product05.jpg" alt=""></a>
@@ -717,7 +724,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
+                                    <div class="col-xl-3  col-lg-3 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
                                         <div class="product-item-two mb-30">
                                             <div class="product-thumb">
                                                 <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/flash_product06.jpg" alt=""></a>
@@ -734,7 +741,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-one">
+                                    <div class="col-xl-3  col-lg-3 col-md-6 col-sm-6 grid-item grid-sizer cat-one">
                                         <div class="product-item-two mb-30">
                                             <div class="product-thumb">
                                                 <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/flash_product07.jpg" alt=""></a>
@@ -751,7 +758,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
+                                    <div class="col-xl-3  col-lg-3 col-md-6 col-sm-6 grid-item grid-sizer cat-two">
                                         <div class="product-item-two mb-30">
                                             <div class="product-thumb">
                                                 <a href="shop-details.html"><img src="{{ asset('frontend_assets') }}/img/product/flash_product08.jpg" alt=""></a>
@@ -807,10 +814,10 @@
             <!-- best-sell-product-area-end -->
 
             <!-- features-area -->
-            <section class="features-area pt-90">
+            <section class="features-area pt-90 m-hidden">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-10">
+                        <div class="col-lg-6 col-md-6">
                             <div class="features-item mb-30">
                                 <div class="features-thumb">
                                     <img src="{{ asset('frontend_assets') }}/img/features/features_img01.jpg" alt="">
@@ -823,7 +830,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-10">
+                        <div class="col-lg-6 col-md-6">
                             <div class="features-item mb-30">
                                 <div class="features-thumb">
                                     <img src="{{ asset('frontend_assets') }}/img/features/features_img02.jpg" alt="">
@@ -864,6 +871,65 @@
                 </div>
             </section>
             <!-- blog-area-end -->
-
+<style>
+        .m-p-0{
+        padding: 6px 10px !important;
+        background: blue;
+       }
+        .m-p-0:hover{
+            border-color: #FF4800 !important;
+       }
+    @media (min-width:320px) and (max-width:575px){
+        .best-sell-nav .slick-dots li button{
+            width: 8px;
+            height: 8px;
+        }
+        .best-sell-nav .slick-dots li button::after{
+            width: 6px;
+            height: 6px;
+        }
+        .m-hidden{
+            display: none;
+        }
+        .home_banner_slider{
+        height: 326px;
+        }
+        .home_banner_slider a {
+            height: 326px;
+        }
+        .home_banner_slider a img{
+            height: 326px;
+        }
+       .m-w-50{
+        width: 50% !important;
+       }
+       .product-content .title a {
+        font-size: 10px !important;
+       }
+       .product-content .title a h6{
+        font-size: 10px !important;
+       }
+       .product-content .title span{
+        font-size: 10px !important;
+       }
+       .product-content .rating{
+        font-size: 10px;
+       }
+       .product-content p{
+        font-size: 10px;
+       }
+       .product-content .rating span{
+        font-size: 10px;
+       }
+    }
+    @media (min-width:768px) and (max-width:991px){
+        .join-olle-wrap h3{
+           font-size: 14px !important;
+        }
+        .join-olle-wrap a{
+           font-size: 10px !important;
+        }
+    }
+</style>
 
 @endsection

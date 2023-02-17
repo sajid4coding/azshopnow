@@ -37,6 +37,11 @@
                     <div class="">
                         <h1 class="title text-dark h1 text-start">{{$blog->blog_title}}</h1>
                         <span>Date: {{$blog->created_at->format('M d Y')}}</span>
+                        <p class="lead mt-5" style="line-height: 1.7rem; text-align:justify;">
+                            @php
+                                echo $blog->description;
+                            @endphp
+                        </p>
                         <style>
                             #social-links ul li{
                                 display: inline-block;
@@ -47,12 +52,9 @@
                                 font-size: 25px;
                             }
                         </style>
+                        <h6 class="mt-5">Social Share: </h6>
                        {!! $shareButtons !!}
-                        <p class="lead mt-5" style="line-height: 1.7rem; text-align:justify;">
-                            @php
-                                echo $blog->description;
-                            @endphp
-                        </p>
+
                     </div>
                 </div>
             </div>

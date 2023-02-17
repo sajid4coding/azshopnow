@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\Productreturn;
 use App\Mail\VendorRegisterNotification as MailVendorRegisterNotification;
-use App\Models\{Banner,Coupon, General, Invoice,Plan,Product, Product_Return, Shipping,SubCategory,User, VendorPaymentRequest, VendorShipping, Wallet};
+use App\Models\{Banner,Coupon, General, Invoice,Plan,Product, ProductReview, ReplyFeedback, Shipping,SubCategory,User, VendorPaymentRequest, VendorShipping, Wallet,Product_Return};
 use App\Notifications\ProductreturnNotification;
 use App\Notifications\VendorRegisterNotification;
 use Carbon\Carbon;
@@ -505,6 +505,15 @@ class vendorController extends Controller
     function chatVendor(){
         return view('vendor.chat.chat');
     }
+    function feedback(){
+        return view('vendor.feedback.feedback',[
+            'reviews' => ProductReview::all(),
+        ]);
+    }
+    function feedbackPost(Request $request){
+         ReplyFeedback::insert($request->except('_token'));
+         return back()->with('reply_success','Reply Sended!');
+    }
     function viewreturnproduct($id){
         $returnProducts=Product_Return::find($id);
         $customer=User::find($returnProducts->user_id);
@@ -553,4 +562,5 @@ class vendorController extends Controller
         return redirect(route('list.of.return.product'))->with('success','Status changed successfully');
     }
 
-}
+    }
+

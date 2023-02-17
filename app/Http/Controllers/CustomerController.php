@@ -149,11 +149,9 @@ class CustomerController extends Controller
 
 
     public function product_review_post(Request $request, $id){
-
          $request->validate([
             'review_images' => "max:4"
          ]);
-
         $request->validate([
             'rating' => 'required',
             'comment' => 'required',
@@ -162,7 +160,7 @@ class CustomerController extends Controller
             'invoice_id' => Order_Detail::find($id)->invoice_id,
             'order_detail_id' => $id,
             'user_id' => auth()->id(),
-            'vendor_id' => Invoice::find($id)->vendor_id,
+            'vendor_id' => Order_Detail::find($id)->vendor_id,
             'product_id' => Order_Detail::find($id)->product_id,
             'rating' => $request->rating,
             'comment' => $request->comment,

@@ -72,9 +72,7 @@ p{
     <div class="headding404">
         <span>401</span>
     </div>
-    <p>Unauthorized
-
-    </p>
+    <p>Unauthorized</p>
      <div class="button">
         <a href="{{ route('home') }}">Go To Home</a>
      </div>
