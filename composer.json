@@ -10,6 +10,7 @@
         "barryvdh/laravel-dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
+        "jorenvanhocht/laravel-share": "^4.2",
         "khsing/world": "^9.0",
         "laravel/cashier": "^14.5",
         "laravel/framework": "^9.19",

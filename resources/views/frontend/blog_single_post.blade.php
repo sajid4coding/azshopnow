@@ -37,6 +37,17 @@
                     <div class="">
                         <h1 class="title text-dark h1 text-start">{{$blog->blog_title}}</h1>
                         <span>Date: {{$blog->created_at->format('M d Y')}}</span>
+                        <style>
+                            #social-links ul li{
+                                display: inline-block;
+                            }
+                            #social-links ul li a{
+                                padding:20px;
+                                margin: 2px;
+                                font-size: 25px;
+                            }
+                        </style>
+                       {!! $shareButtons !!}
                         <p class="lead mt-5" style="line-height: 1.7rem; text-align:justify;">
                             @php
                                 echo $blog->description;

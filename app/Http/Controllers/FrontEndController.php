@@ -16,6 +16,7 @@ use App\Notifications\OrderNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\Return_;
+use Share;
 
 class FrontEndController extends Controller
 {
@@ -33,7 +34,14 @@ class FrontEndController extends Controller
             'vendorProductStatus'=>'published',
             ])->where('id','!=',$id)->limit(4)->get();
 
-        return view('frontend.single.product', compact('single_product','recommendedProducts', 'productGalleries','product_reviews','inventory','product_id'));
+        // Product Share
+       $shareButtons= Share::currentPage()
+       ->facebook()
+       ->linkedin()
+       ->twitter()
+       ->telegram();
+
+        return view('frontend.single.product', compact('single_product','recommendedProducts', 'productGalleries','product_reviews','inventory','product_id','shareButtons'));
     }
      function newsletter(Request $request){
          $request -> validate([
@@ -73,7 +81,12 @@ class FrontEndController extends Controller
     function singleBlogPost ($id,$title){
         $banners = Banner::all()->first();
         $blog=Blog::findOrFail($id);
-        return view('frontend.blog_single_post',compact('blog','banners'));
+        $shareButtons= Share::currentPage()
+       ->facebook()
+       ->linkedin()
+       ->twitter()
+       ->telegram();
+        return view('frontend.blog_single_post',compact('blog','banners','shareButtons'));
     }
 
     function newArrivals(){
