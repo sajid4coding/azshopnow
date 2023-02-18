@@ -247,9 +247,17 @@
                                         </li>
                                         <li class="sd-share">
                                             <span class="title">Share Now :</span>
-                                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                            <style>
+                                                #social-links ul li{
+                                                    display: inline-block;
+                                                }
+                                                #social-links ul li a{
+                                                    padding:20px;
+                                                    margin: 2px;
+                                                    font-size: 25px;
+                                                }
+                                            </style>
+                                           {!! $shareButtons !!}
                                         </li>
                                     </ul>
                                 </div>
@@ -1214,6 +1222,7 @@
         });
     });
 </script>
-
+<script src="{{ asset('js/share.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
 @endsection
 

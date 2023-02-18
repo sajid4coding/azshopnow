@@ -42,9 +42,26 @@
                                 echo $blog->description;
                             @endphp
                         </p>
+                        <style>
+                            #social-links ul li{
+                                display: inline-block;
+                            }
+                            #social-links ul li a{
+                                padding:20px;
+                                margin: 2px;
+                                font-size: 25px;
+                            }
+                        </style>
+                        <h6 class="mt-5">Social Share: </h6>
+                       {!! $shareButtons !!}
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
+@endsection
+@section('footer_script')
+<script src="{{ asset('js/share.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
 @endsection
