@@ -298,6 +298,8 @@ Route::middleware(['vendor'])->group(function(){
 
     Route::group(['middleware' => ['can:vendor-order']], function () {
         Route::get('vendor/order',[VendorController::class,'vendor_orders'])->name('vendor.orders');
+        Route::get('vendor/custom-invoice',[VendorController::class,'custom_invoice'])->name('custom.invoice');
+        Route::post('vendor/custom-invoice',[VendorController::class,'custom_invoice_post'])->name('custom.invoice.post');
     });
 
     Route::group(['middleware' => ['can:vendor-earning']], function () {

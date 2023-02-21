@@ -149,6 +149,9 @@
                                                 <li class="nav-item @if ($current_page == 'order') here show @endif" >
                                                     <a class="nav-link cust_a" href="{{ route('vendor.orders') }}"> <i class="fas fa-store"></i> Orders</a>
                                                 </li>
+                                                <li class="nav-item @if ($current_page == 'custom-invoice') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('custom.invoice') }}"> <i class="fas fa-store"></i> Custom Invoice</a>
+                                                </li>
                                             @endcan
 
                                             @can ('vendor-earning')
