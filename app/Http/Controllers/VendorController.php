@@ -18,10 +18,12 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rules\Password;
 use Intervention\Image\Facades\Image;
+use PhpParser\Node\Stmt\Return_;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Stripe\Stripe;
 use function PHPUnit\Framework\returnSelf;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class vendorController extends Controller
@@ -561,6 +563,46 @@ class vendorController extends Controller
         }
         return redirect(route('list.of.return.product'))->with('success','Status changed successfully');
     }
-
+    function custom_invoice(){
+        if(auth()->user()->role== 'vendor'){
+            $vendorProducts=Product::where('vendor_id',auth()->id())
+                        ->where('status','published')
+                        ->where('vendorProductStatus','published')
+                        ->orderBy('product_title','asc')
+                        ->get();
+        }else{
+            $vendorProducts=Product::where('vendor_id',auth()->user()->vendor_id)
+                        ->where('status','published')
+                        ->where('vendorProductStatus','published')
+                        ->orderBy('product_title','asc')
+                        ->get();
+        }
+        return view('vendor.custom_invoice',compact('vendorProducts'));
     }
+    function custom_invoice_post(Request $request){
+        $request->validate([
+            '*'=>'required'
+        ]);
+        $name= $request->name;
+        $email= $request->email;
+        $address= $request->address;
+        $phone_number= $request->phone_number;
+        $product_title= $request->product_title;
+        $price= $request->price;
+        $quantity= $request->quantity;
+        $size= $request->size;
+        $color= $request->color;
+        $tax= $request->tax;
+        $delivery_charge= $request->delivery_charge;
+        $payment_status= $request->payment_status;
+        if(auth()->user()->role =='vendor'){
+            $shopname=auth()->user()->shop_name;
+        }else{
+            $shopname=staff(auth()->user()->vendor_id)->shop_name;
+        }
+        $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdf.customInvoice', compact('product_title','price','quantity','size','color','payment_status','shopname','name','email','address','phone_number','tax','delivery_charge'));
+        return $pdf->stream("Invoice.pdf");
+    }
+
+}
 
