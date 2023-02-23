@@ -153,7 +153,7 @@
 
                                             @can ('vendor-earning')
                                                 <li class="nav-item @if ($current_page == 'vendor-earning') here show @endif" >
-                                                    <a class="nav-link cust_a" href="{{ route('vendor.earning') }}"> <i class="fas fa-money-bill-alt"></i>Withdraw</a>
+                                                    <a class="nav-link cust_a" href="{{ route('vendor.earning') }}"> <i class="fas fa-money-bill-alt"></i>Earning</a>
                                                 </li>
                                             @endcan
 
@@ -181,14 +181,6 @@
                                                     </ul>
                                                 </li>
                                             @endcan
-
-
-                                            {{-- <li class="nav-item @if ($current_page == 'vendor-shipping') here show @endif" >
-                                                <a class="nav-link cust_a" href="{{ route('vendor-shipping.index') }}"> <i class="fa-solid fa-truck-fast"></i>Shipping</a>
-                                            </li>
-                                            <li class="nav-item @if ($current_page == 'vendor-packaging') here show @endif" >
-                                                <a class="nav-link cust_a" href="{{ route('vendor-packaging.index') }}"> <i class="fa-solid fa-cube"></i>Packaging</a>
-                                            </li> --}}
 
                                             @if (auth()->user()->role=='vendor')
                                                 <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >

@@ -533,7 +533,7 @@ label {
 	justify-content: flex-start;
 }
 .logo img {
-    max-width: 200px;
+    max-width: 100px;
 }
 .header-category {
 	position: relative;

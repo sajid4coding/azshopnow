@@ -8,6 +8,8 @@ use App\Models\General;
 use App\Models\Slider;
 use App\Models\Social;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+
 
 class GeneralController extends Controller
 {
@@ -17,102 +19,88 @@ class GeneralController extends Controller
         'general' => General::find(1),
        ]);
     }
-    function HeaderLogoPost(Request $request){
+
+    function faviconPost(Request $request){
         $request->validate([
-            'header_logo' =>'required|max:2048|mimes:jpg,bmp,png',
+            'favicon' =>'required|max:2048|mimes:jpg,bmp,png',
         ]);
-        $old_image = General::find(1)->header_logo;
+        $old_image = General::find(1)->favicon;
         if($old_image){
-            unlink(base_path('public/uploads/general_photo/'.$old_image));
+            // unlink(base_path('public/uploads/general_photo/'.$old_image));
+            // unlink(base_path('storage/general_photos/favicon/'.$old_image));
+            $image_path = storage_path('public/general_photos/favicon/'.$old_image);
+            Storage::delete($image_path);
         }
-        $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('header_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('header_logo'))->resize(85, 28);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
+        // $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('favicon')->getClientOriginalExtension();
+        // $img = Image::make($request->file('favicon'))->resize(32, 32);
+        // $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
+
+        $destination = 'public/general_photos/favicon';
+        $photo= 'favicon'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('favicon')->getClientOriginalExtension();
+        $path = $request->file('favicon')->storeAs($destination, $photo);
+
         General::find(1)->update([
-            'header_logo' =>$photo,
+            'favicon' =>$photo,
         ]);
-        return  back()->with('success_msg','Changed Header Logo');
+        return  back()->with('favicon_success_msg','Changed Favicon Logo');
     }
-    function footerLogoPost(Request $request){
+
+    function LogoPost(Request $request){
         $request->validate([
-            'footer_logo' =>'required|max:2048|mimes:jpg,bmp,png',
+            'logo' =>'required|max:2048|mimes:jpg,bmp,png',
         ]);
-        $old_image = General::find(1)->footer_logo;
+
+        $old_image = General::find(1)->logo;
+
         if($old_image){
-            unlink(base_path('public/uploads/general_photo/'.$old_image));
+            // unlink(base_path('public/uploads/general_photo/'.$old_image));
+            $image_path = storage_path('public/general_photos/logo/'.$old_image);
+            Storage::delete($image_path);
         }
-        $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('footer_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('footer_logo'))->resize(85, 28);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
+
+        // $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('logo')->getClientOriginalExtension();
+        // $img = Image::make($request->file('logo'))->resize(225, 225);
+        // $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
+
+        $destination = 'public/general_photos/logo';
+        $photo= 'logo'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('logo')->getClientOriginalExtension();
+        $path = $request->file('logo')->storeAs($destination, $photo);
+
         General::find(1)->update([
-            'footer_logo' =>$photo,
+            'logo' =>$photo,
         ]);
-        return  back()->with('success_msg','Changed Footer Logo');
+        return  back()->with('success_msg','Changed Logo');
     }
+
     function invoiceLogoPost(Request $request){
         $request->validate([
             'invoice_logo' =>'required|max:2048|mimes:jpg,bmp,png',
         ]);
+
         $old_image = General::find(1)->invoice_logo;
+
         if($old_image){
-            unlink(base_path('public/uploads/general_photo/'.$old_image));
+            // unlink(base_path('public/uploads/general_photo/'.$old_image));
+            $image_path = storage_path('public/general_photos/invoice_logo/'.$old_image);
+            Storage::delete($image_path);
         }
-        $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('invoice_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('invoice_logo'))->resize(85, 28);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
+
+        // $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('invoice_logo')->getClientOriginalExtension();
+        // $img = Image::make($request->file('invoice_logo'))->resize(85, 28);
+        // $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
+
+        $destination = 'public/general_photos/invoice_logo';
+        $photo= 'invoice_logo'.Carbon::now()->format('Y').rand(1,9999).".".$request->file('invoice_logo')->getClientOriginalExtension();
+        $path = $request->file('invoice_logo')->storeAs($destination, $photo);
+
+
         General::find(1)->update([
             'invoice_logo' =>$photo,
         ]);
         return  back()->with('success_msg','Changed Invoice Logo');
     }
-    function faviconPost(Request $request){
-        $request->validate([
-            'favicon_logo' =>'required|max:2048|mimes:jpg,bmp,png',
-        ]);
-        $old_image = General::find(1)->favicon_logo;
-        if($old_image){
-            unlink(base_path('public/uploads/general_photo/'.$old_image));
-        }
-        $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('favicon_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('favicon_logo'))->resize(32, 32);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
-        General::find(1)->update([
-            'favicon_logo' =>$photo,
-        ]);
-        return  back()->with('favicon_success_msg','Changed Favicon Logo');
-    }
-    function dashboardLogoPost(Request $request){
-        $request->validate([
-            'dashboard_logo' =>'required|max:2048|mimes:jpg,bmp,png',
-        ]);
-        $old_image = General::find(1)->dashboard_logo;
-        if($old_image){
-            unlink(base_path('public/uploads/general_photo/'.$old_image));
-        }
-        $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('dashboard_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('dashboard_logo'))->resize(270, 56);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
-        General::find(1)->update([
-            'dashboard_logo' =>$photo,
-        ]);
-        return  back()->with('dashboard_logo_success_msg','Changed Dashboard Logo');
-    }
-    function DashboardFaviconLogoPost(Request $request){
-        $request->validate([
-            'dashboard_favicon_logo' =>'required|max:2048|mimes:jpg,bmp,png',
-        ]);
-        $old_image = General::find(1)->dashboaed_favicon_logo;
-        if($old_image){
-            unlink(base_path('public/uploads/general_photo/'.$old_image));
-        }
-        $photo= Carbon::now()->format('Y').rand(1,9999).".".$request->file('dashboard_favicon_logo')->getClientOriginalExtension();
-        $img = Image::make($request->file('dashboard_favicon_logo'))->resize(270, 56);
-        $img->save(base_path('public/uploads/general_photo/'.$photo), 100);
-        General::find(1)->update([
-            'dashboard_favicon_logo' =>$photo,
-        ]);
-        return  back()->with('dashboard_favicon_logo_success_msg','Changed Dashboard Favicon Logo');
-    }
+
+
     function websiteContents(){
         return view('dashboard.geleral_setting.website_content',[
             'general' => General::find(1),

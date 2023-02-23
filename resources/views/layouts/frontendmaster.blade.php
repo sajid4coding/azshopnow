@@ -8,11 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        @if (getGeneralValue("favicon_logo"))
-		  <link rel="shortcut icon" type="image/x-icon" href="{{asset('uploads/general_photo')}}/{{getGeneralValue("favicon_logo")}}">
-        @else
-	      <link rel="shortcut icon" type="image/x-icon" href="{{asset('uploads/demo/demo_logo.jpg')}}">
-        @endif
+        <link rel="shortcut icon" type="image/x-icon" href="{{asset('storage/general_photos/favicon')}}/{{getGeneralValue("favicon")}}">
+
         <!-- Place favicon.ico in the root directory -->
 
         <!-- CSS here -->
@@ -93,8 +90,8 @@
                     <div class="row align-items-center">
                         <div class="col-xl-2 col-lg-3">
                             <div class="logo">
-                                 @if (getGeneralValue("header_logo"))
-                                     <a  href="{{ route('home') }}"><img width="100" src="{{asset('uploads/general_photo')}}/{{getGeneralValue("header_logo")}}" alt=""></a>
+                                 @if (getGeneralValue("logo"))
+                                     <a  href="{{ route('home') }}"><img style="min-width: 100px !important;" src="{{asset('storage/general_photos/logo')}}/{{ getGeneralValue("logo") }}" alt=""></a>
                                  @else
                                      <a href="{{ route('home') }}"><img  width="100" src="{{asset('uploads/demo/demo_logo.jpg')}}" alt="demo_logo.jpg"></a>
                                  @endif
@@ -774,7 +771,7 @@
                         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-8">
                             <div class="footer-widget mb-30">
                                 <div class="f-logo mb-25">
-                                    <a href="index.html"><img src="{{ asset('frontend_assets') }}/img/logo/logo.png" alt=""></a>
+                                    <a href="{{ route('home') }}"><img style="max-width: 100px !important;" src="{{asset('storage/general_photos/logo')}}/{{ getGeneralValue("logo") }}" alt=""></a>
                                 </div>
                                 <div class="footer-content">
                                     <span>Got Question? Call us 24/7</span>

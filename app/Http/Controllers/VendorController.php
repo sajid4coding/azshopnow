@@ -365,10 +365,13 @@ class vendorController extends Controller
     }
 
     function vendor_wallet(){
-        return view('vendor.wallet.wallet',[
-            'payment_setting' => General::find(1),
-            'wallet' => Wallet::where('vendor_id', auth()->id())->first()
-        ]);
+        $payment_setting = General::find(1);
+        if(auth()->user()->role =='vendor'){
+            $wallet = Wallet::where('vendor_id', auth()->id())->first();
+        }else{
+            $wallet = Wallet::where('vendor_id',auth()->user()->vendor_id)->first();
+        }
+        return view('vendor.wallet.wallet',compact('payment_setting', 'wallet'));
     }
     function vendor_wallet_update(Request $request){
         $request->validate([
@@ -377,60 +380,94 @@ class vendorController extends Controller
             'stripe' => 'email',
             'skrill' => 'email'
         ]);
+
         if($request->paypal){
-            if(Wallet::where([
-                'vendor_id' => auth()->id()
-            ])->exists()){
-                Wallet::where('vendor_id', auth()->id())->update([
-                    'paypal' => $request->paypal,
-                ]);
+            if(
+                Wallet::where([
+                    'vendor_id' => auth()->id()
+                ])->orWhere([
+                    'vendor_id' => User::find(auth()->id())->vendor_id
+                ])->exists()){
+                if(auth()->user()->role == 'vendor'){
+                    Wallet::where('vendor_id', auth()->id())->update([
+                        'paypal' => $request->paypal,
+                    ]);
+                }else{
+                    Wallet::where('vendor_id',auth()->user()->vendor_id)->update([
+                        'paypal' => $request->paypal,
+                    ]);
+                }
                 return back();
             }else{
-                Wallet::insert([
-                    'vendor_id' => auth()->id(),
-                    'paypal' => $request->paypal,
-                    'created_at' => now()
-                ]);
+                if(auth()->user()->role == 'vendor'){
+                    Wallet::insert([
+                        'vendor_id' => auth()->id(),
+                        'paypal' => $request->paypal,
+                        'created_at' => now()
+                    ]);
+                }
                 return back();
             }
         }
         if($request->stripe){
             if(Wallet::where([
                 'vendor_id' => auth()->id()
+            ])->orWhere([
+                'vendor_id' => User::find(auth()->id())->vendor_id
             ])->exists()){
-                Wallet::where('vendor_id', auth()->id())->update([
-                    'stripe' => $request->stripe,
-                ]);
+                if(auth()->user()->role == 'vendor'){
+                    Wallet::where('vendor_id', auth()->id())->update([
+                        'stripe' => $request->stripe,
+                    ]);
+                }else{
+                    Wallet::where('vendor_id',auth()->user()->vendor_id)->update([
+                        'stripe' => $request->stripe,
+                    ]);
+                }
                 return back();
             }else{
-                Wallet::insert([
-                    'vendor_id' => auth()->id(),
-                    'stripe' => $request->stripe,
-                    'created_at' => now()
-                ]);
+                if(auth()->user()->role == 'vendor'){
+                    Wallet::insert([
+                        'vendor_id' => auth()->id(),
+                        'stripe' => $request->stripe,
+                        'created_at' => now()
+                    ]);
+                }
                 return back();
             }
         }
         if($request->skrill){
             if(Wallet::where([
                 'vendor_id' => auth()->id()
+            ])->orWhere([
+                'vendor_id' => User::find(auth()->id())->vendor_id
             ])->exists()){
-                Wallet::where('vendor_id', auth()->id())->update([
-                    'skrill' => $request->skrill,
-                ]);
+                if(auth()->user()->role == 'vendor'){
+                    Wallet::where('vendor_id', auth()->id())->update([
+                        'skrill' => $request->skrill,
+                    ]);
+                }else{
+                    Wallet::where('vendor_id',auth()->user()->vendor_id)->update([
+                        'skrill' => $request->skrill,
+                    ]);
+                }
                 return back();
             }else{
-                Wallet::insert([
-                    'vendor_id' => auth()->id(),
-                    'skrill' => $request->skrill,
-                    'created_at' => now()
-                ]);
+                if(auth()->user()->role == 'vendor'){
+                    Wallet::insert([
+                        'vendor_id' => auth()->id(),
+                        'skrill' => $request->skrill,
+                        'created_at' => now()
+                    ]);
+                }
                 return back();
             }
         }
         if($request->account_holder){
             if(Wallet::where([
                 'vendor_id' => auth()->id()
+            ])->orWhere([
+                'vendor_id' => User::find(auth()->id())->vendor_id
             ])->exists()){
                 Wallet::where('vendor_id', auth()->id())->update([
                     'bank_account_holder' => $request->account_holder,
@@ -445,18 +482,20 @@ class vendorController extends Controller
                 ]);
                 return back();
             }else{
-                Wallet::insert([
-                    'vendor_id' => auth()->id(),
-                    'bank_account_holder' => $request->account_holder,
-                    'bank_account_number' => $request->account_number,
-                    'bank_routing_number' => $request->routing_number,
-                    'bank_name' => $request->bank_name,
-                    'bank_address' => $request->bank_address,
-                    'bank_IBAN' => $request->bank_IBAN,
-                    'bank_swift_code' => $request->bank_swift_code,
-                    'checkbox' => $request->checkbox,
-                    'created_at' => now()
-                ]);
+                if(auth()->user()->role == 'vendor'){
+                    Wallet::insert([
+                        'vendor_id' => auth()->id(),
+                        'bank_account_holder' => $request->account_holder,
+                        'bank_account_number' => $request->account_number,
+                        'bank_routing_number' => $request->routing_number,
+                        'bank_name' => $request->bank_name,
+                        'bank_address' => $request->bank_address,
+                        'bank_IBAN' => $request->bank_IBAN,
+                        'bank_swift_code' => $request->bank_swift_code,
+                        'checkbox' => $request->checkbox,
+                        'created_at' => now()
+                    ]);
+                }
                 return back();
             }
         }
@@ -468,7 +507,11 @@ class vendorController extends Controller
         //     'payment' => 'paid',
         //     'order_status' => 'delivered',
         // ])->get();
-        $invoices = Invoice::where('vendor_id',auth()->id())->get();
+        if(auth()->user()->role =='vendor'){
+            $invoices = Invoice::where('vendor_id',auth()->id())->get();
+        }else{
+            $invoices = Invoice::where('vendor_id',auth()->user()->vendor_id)->get();
+        }
         $seller_data = General::find(1);
         $user_table_seller_data = User::where('id', auth()->id())->first();
         return view('vendor.earning.earning',compact('invoices','seller_data','user_table_seller_data'));
