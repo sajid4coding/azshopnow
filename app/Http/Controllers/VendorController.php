@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Productreturn;
 use App\Mail\VendorRegisterNotification as MailVendorRegisterNotification;
-use App\Models\{Banner,Coupon, General, Invoice,Plan,Product,Shipping,SubCategory,User, VendorPaymentRequest, VendorShipping, Wallet};
+use App\Models\{Banner,Coupon, General, Invoice,Plan,Product, ProductReview, ReplyFeedback, Shipping,SubCategory,User, VendorPaymentRequest, VendorShipping, Wallet,Product_Return};
+use App\Notifications\ProductreturnNotification;
 use App\Notifications\VendorRegisterNotification;
 use Carbon\Carbon;
 use GuzzleHttp\Middleware;
@@ -16,10 +18,12 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rules\Password;
 use Intervention\Image\Facades\Image;
+use PhpParser\Node\Stmt\Return_;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Stripe\Stripe;
 use function PHPUnit\Framework\returnSelf;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class vendorController extends Controller
@@ -546,5 +550,102 @@ class vendorController extends Controller
     function chatVendor(){
         return view('vendor.chat.chat');
     }
+    function feedback(){
+        return view('vendor.feedback.feedback',[
+            'reviews' => ProductReview::all(),
+        ]);
+    }
+    function feedbackPost(Request $request){
+         ReplyFeedback::insert($request->except('_token'));
+         return back()->with('reply_success','Reply Sended!');
+    }
+    function viewreturnproduct($id){
+        $returnProducts=Product_Return::find($id);
+        $customer=User::find($returnProducts->user_id);
+        return view('vendor.productReturen.view',compact('returnProducts','customer'));
+    }
+    function listofreturnproduct (){
+       if(auth()->user()->role=='vendor'){
+        $returnProducts=Product_Return::where('vendor_id',auth()->id())->latest()->get();
+       }else{
+        $returnProducts=Product_Return::where('vendor_id',auth()->user()->vendor_id)->latest()->get();
+       }
+        return view('vendor.productReturen.list',compact('returnProducts'));
+    }
+    function viewreturnproductPost (Request $request,$id){
+        if($request->status=='completed'){
+            Product_Return::findOrFail($id)->update([
+                'status'=>'completed',
+            ]);
+
+        }else{
+            Product_Return::findOrFail($id)->update([
+                'status'=>'rejected',
+            ]);
+
+        }
+        $returnProduct=Product_Return::find($id);
+        $admins=User::where('role','admin')->get();
+        foreach($admins as $admin){
+            $admin->notify(new ProductreturnNotification($returnProduct));
+        }
+        //mail notification
+        $admins= User::where('role','admin')->latest()->get();
+        foreach($admins as $admin){
+            $email=$admin->email;
+            $roleID=DB::table('model_has_roles')->where('model_id',$admin->id)->first()->role_id;
+            // $roleID=DB::table('roles')->where('id',$roleID)->first()->name;
+            $permissionsId=DB::table('role_has_permissions')->where('role_id',$roleID)->get();
+            foreach ($permissionsId as $permission) {
+                if(DB::table('permissions')->where('id',$permission->permission_id)->first()->name == 'admin-Product Return'){
+                //    if($email != 'admin@azshopnow.com'){
+                    Mail::to($email)->send(new Productreturn($returnProduct->product_name));
+                //    }
+                }
+            }
+        }
+        return redirect(route('list.of.return.product'))->with('success','Status changed successfully');
+    }
+    function custom_invoice(){
+        if(auth()->user()->role== 'vendor'){
+            $vendorProducts=Product::where('vendor_id',auth()->id())
+                        ->where('status','published')
+                        ->where('vendorProductStatus','published')
+                        ->orderBy('product_title','asc')
+                        ->get();
+        }else{
+            $vendorProducts=Product::where('vendor_id',auth()->user()->vendor_id)
+                        ->where('status','published')
+                        ->where('vendorProductStatus','published')
+                        ->orderBy('product_title','asc')
+                        ->get();
+        }
+        return view('vendor.custom_invoice',compact('vendorProducts'));
+    }
+    function custom_invoice_post(Request $request){
+        $request->validate([
+            '*'=>'required'
+        ]);
+        $name= $request->name;
+        $email= $request->email;
+        $address= $request->address;
+        $phone_number= $request->phone_number;
+        $product_title= $request->product_title;
+        $price= $request->price;
+        $quantity= $request->quantity;
+        $size= $request->size;
+        $color= $request->color;
+        $tax= $request->tax;
+        $delivery_charge= $request->delivery_charge;
+        $payment_status= $request->payment_status;
+        if(auth()->user()->role =='vendor'){
+            $shopname=auth()->user()->shop_name;
+        }else{
+            $shopname=staff(auth()->user()->vendor_id)->shop_name;
+        }
+        $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdf.customInvoice', compact('product_title','price','quantity','size','color','payment_status','shopname','name','email','address','phone_number','tax','delivery_charge'));
+        return $pdf->stream("Invoice.pdf");
+    }
 
 }
+

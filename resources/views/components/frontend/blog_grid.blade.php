@@ -1,4 +1,4 @@
-<div class="col-xl-4 col-lg-6 col-md-6 col-sm-9">
+<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 m-w-50">
     <div class="blog-item mb-30">
         <div class="blog-thumb">
             @if ($blog->blog_photo != NULL)

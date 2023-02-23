@@ -149,6 +149,9 @@
                                                 <li class="nav-item @if ($current_page == 'order') here show @endif" >
                                                     <a class="nav-link cust_a" href="{{ route('vendor.orders') }}"> <i class="fas fa-store"></i> Orders</a>
                                                 </li>
+                                                <li class="nav-item @if ($current_page == 'custom-invoice') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('custom.invoice') }}"> <i class="fas fa-store"></i> Custom Invoice</a>
+                                                </li>
                                             @endcan
 
                                             @can ('vendor-earning')
@@ -188,10 +191,18 @@
                                                 </li>
                                             @endif
                                             @if (auth()->user()->role=='vendor')
-                                                <li class="nav-item @if ($current_page == 'upgrade') here show @endif" >
-                                                    <a class="nav-link cust_a" href="{{ route('chat.vendor') }}"> <i class="fas fa-comments"></i> Messenger </a>
+                                                <li class="nav-item @if ($current_page == 'chat/vendor') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('chat.vendor') }}"> <i class="fas fa-comments"></i>Messanger</a>
                                                 </li>
                                             @endif
+                                            @if (auth()->user()->role=='vendor')
+                                                <li class="nav-item @if ($current_page == 'feedback') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('feedback') }}"> <i class="fas fa-comment-alt"></i> Feedbacks</a>
+                                                </li>
+                                                @endif
+                                                <li class="nav-item @if ($current_page == 'listofreturn-product') here show @endif" >
+                                                    <a class="nav-link cust_a" href="{{ route('list.of.return.product') }}"> <i class="fas fa-comments"></i> Return Products</a>
+                                                </li>
 
                                             <li class="mb-3">
                                                 <form method="POST" action="{{ route('logout') }}">

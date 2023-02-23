@@ -4,7 +4,7 @@
             <div class="shop-area pt-90 pb-90">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-xl-3 col-lg-4 col-md-8 col-sm-10 order-2 order-lg-0">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-10 ">
                             <aside class="shop-sidebar">
                                 <div class="widget mb-35">
                                     <div class="widget-title mb-25">
@@ -79,7 +79,7 @@
                                         <div class="price_filter">
                                             <div id="slider-range"></div>
                                             <div class="price_slider_amount">
-                                                <input type="submit" class="btn" value="Filter">
+                                                <input type="submit" class="btn " value="Filter">
                                                 <span>Price :</span>
                                                 <input type="text" id="amount" name="price" placeholder="Add Your Price" />
                                             </div>
@@ -105,7 +105,7 @@
                                 </div>
                             </aside>
                         </div>
-                        <div class="col-xl-9 col-lg-8">
+                        <div class="col-xl-9 col-lg-9 col-md-9">
                             <div class="shop-top-wrap mb-35">
                                 <div class="shop-top-left">
                                     <h5 class="title">Shop</h5>
@@ -113,7 +113,7 @@
                                 <div class="shop-top-right">
                                     <form action="{{route('product.sorting')}}">
                                        <label for="shortBy">Sorting By &nbsp;</label>
-                                        <select id="shortBy" name="select" class="form-select" aria-label="Default select example" style="border: 1px solid">
+                                        <select id="shortBy" name="select" class="form-select !form-control" aria-label="Default select example" style="border: 1px solid">
                                             <option value="default">Default</option>
                                             <option value="lowtohigh">Low To High</option>
                                             <option value="hightolow">High To Low</option>
@@ -133,7 +133,7 @@
                             </div>
                             <div class="row justify-content-center">
                                 @foreach ($products->shuffle() as $product)
-                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-8">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 m-w-50">
                                         @include('components.frontend.productgrid')
                                     </div>
                                 @endforeach
@@ -148,5 +148,16 @@
                         </div>
                     </div>
                 </div>
+                <style>
+                .btn{
+                    background-color: #FF4800 !important;
+                    border-color: #FF4800 !important;
+                }
+                .btn:hover{
+                    background-color: #1339FE !important;
+                    border-color: #1339FE !important;
+                    /* background-color: #1339FE !important; */
+                }
+                </style>
             </div>
             <!-- shop-area-end -->

@@ -354,5 +354,8 @@ class GeneralController extends Controller
     function Error503(){
         return view('error.503');
     }
+    function errorPage(){
+        return view('error.errorpage');
+    }
 
 }

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\CampaignNotification;
 use App\Models\DeliveryBoy;
 use App\Models\Newsletter;
+use App\Models\Product_Return;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -169,7 +170,7 @@ class DashboardController extends Controller
     }
     function DeliveredOrder(){
         return view('dashboard.orders.deliveredOrder',[
-         'invoices' => Invoice::all(),
+         'invoices' => Invoice::where('order_status','delivered')->latest()->get(),
 
         ]);
     }
@@ -183,19 +184,19 @@ class DashboardController extends Controller
 
     function PendingOrder(){
         return view('dashboard.orders.pendingOrder',[
-         'invoices' => Invoice::all(),
+         'invoices' => Invoice::where('order_status','pending')->latest()->get(),
 
         ]);
     }
     function ProcessingOrder(){
         return view('dashboard.orders.processingOrder',[
-         'invoices' => Invoice::all(),
+         'invoices' => Invoice::where('order_status','processing')->latest()->get(),
 
         ]);
     }
     function CanceledOrder(){
         return view('dashboard.orders.canceledOrder',[
-         'invoices' => Invoice::all(),
+         'invoices' => Invoice::where('order_status','canceled')->latest()->get(),
 
         ]);
     }
@@ -205,6 +206,17 @@ class DashboardController extends Controller
          'orders' => Order_Detail::where('invoice_id',$id)->get(),
 
         ]);
+    }
+    function OrderDetailsPost(Request $request,$id){
+        Invoice::findOrFail($id)->update([
+            'order_status'=>$request->order_status,
+        ]);
+        if($request->order_status=='delivered'){
+            Invoice::findOrFail($id)->update([
+                'payment'=>'paid',
+            ]);
+        }
+         return back()->with('delete_success','Orde status changed successfully');
     }
     function OrderDelete($id){
          Invoice::find($id)->delete();
@@ -412,6 +424,10 @@ class DashboardController extends Controller
     auth()->user()->unreadNotifications->where('type','App\Notifications\OrderNotification')->markAsRead();
     return back();
    }
+   function ordermarkasreadreturn(){
+    auth()->user()->unreadNotifications->where('type','App\Notifications\ProductreturnNotification')->markAsRead();
+    return back();
+   }
    function allNotification (){
     return view('dashboard.notification.vendorRegisterNotification');
    }
@@ -422,5 +438,16 @@ class DashboardController extends Controller
 
    function chatAdmin(){
       return view('dashboard.chat.chat');
+   }
+   function productReturn (){
+      $returnProducts=Product_Return::where('status','!=','rejected')->latest()->get();
+      return view('dashboard.productReturn.productReturn',compact('returnProducts'));
+   }
+   function productReturnView($id){
+        $invoiceID=Product_Return::findOrfail($id)->invoice_id;
+        $invoice=Invoice::find($invoiceID);
+        $returnProducts=Product_Return::findOrfail($id);
+        $customerID=User::find(Product_Return::findOrfail($id)->user_id);
+      return view('dashboard.productReturn.productReturnview',compact('returnProducts','invoice','customerID'));
    }
 }

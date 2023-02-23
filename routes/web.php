@@ -89,6 +89,7 @@ Route::middleware(['admin', 'verified'])->group(function () {
 
     Route::group(['middleware' => ['can:admin-Order Management']], function () {
         Route::get('manage-order/order-details/{id}',[DashboardController::class,'OrderDetails'])->name('order.details');
+        Route::post('manage-order/order-details-post/{id}',[DashboardController::class,'OrderDetailsPost'])->name('order.details.post');
         Route::get('manage-order/all-order',[DashboardController::class,'AllOrder'])->name('all.order');
         Route::get('manage-order/delivered-order',[DashboardController::class,'DeliveredOrder'])->name('delivered.order');
         Route::get('manage-order/pending-order',[DashboardController::class,'PendingOrder'])->name('pending.order');
@@ -206,6 +207,8 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::get('general-settings/404',[GeneralController::class,'Error404'])->name('404.error');
         Route::get('general-settings/502',[GeneralController::class,'Error502'])->name('502.error');
         Route::get('general-settings/503',[GeneralController::class,'Error503'])->name('503.error');
+        Route::get('general-settings/error',[GeneralController::class,'errorPage'])->name('error.page');
+
 
         //GENERAL SETTINGS ROUTE END
         //CHAT SYSTEM ROUTE START
@@ -226,9 +229,14 @@ Route::middleware(['admin', 'verified'])->group(function () {
         Route::post('manage-delivery-boy/delivery-boy-post/{id}',[DashboardController::class,'deliveryBoyEditPost'])->name('delivery.boy.edit.post');
         Route::get('manage-delivery-boy/delivery-boy-delete/{id}',[DashboardController::class,'deliveryBoyDelete'])->name('delivery.boy.delete');
         //DELIVERY BOY ROUTE END
-
     });
 
+    Route::group(['middleware' => ['can:admin-Product Return']], function () {
+        Route::get('product-return',[DashboardController::class,'productReturn'])->name('product.return');
+        Route::get('productreturn-view/{id}',[DashboardController::class,'productReturnView'])->name('product.return.view');
+        Route::delete('product-return-delete/{id}',[DashboardController::class,'productReturnDelete'])->name('product.return.delete');
+        Route::get('ordermarkasread-return',[DashboardController::class, 'ordermarkasreadreturn'])->middleware(['auth', 'verified'])->name('ordermarkasread.return');
+    });
     Route::group(['middleware' => ['can:admin-announcement Management']], function () {
         //ACCOUNCEMENT ROUTE START
         Route::resource('announcement', AnnouncementController::class);
@@ -291,6 +299,8 @@ Route::middleware(['vendor'])->group(function(){
 
     Route::group(['middleware' => ['can:vendor-order']], function () {
         Route::get('vendor/order',[VendorController::class,'vendor_orders'])->name('vendor.orders');
+        Route::get('vendor/custom-invoice',[VendorController::class,'custom_invoice'])->name('custom.invoice');
+        Route::post('vendor/custom-invoice',[VendorController::class,'custom_invoice_post'])->name('custom.invoice.post');
     });
 
     Route::group(['middleware' => ['can:vendor-earning']], function () {
@@ -351,7 +361,12 @@ Route::middleware(['vendor'])->group(function(){
 
     //VENDOR CHAT ROUTE START
     Route::get('chat/vendor',[VendorController::class,'chatVendor'])->name('chat.vendor');
+    Route::get('feedback',[VendorController::class,'feedback'])->name('feedback');
+    Route::post('feedback/post',[VendorController::class,'feedbackPost'])->name('feedback.post');
     //VENDOR CHAT ROUTE END
+    Route::get('listofreturn-product',[VendorController::class,'listofreturnproduct'])->name('list.of.return.product');
+    Route::get('view-return-product/{id}',[VendorController::class,'viewreturnproduct'])->name('view.return.product');
+    Route::post('view-return-product/{id}',[VendorController::class,'viewreturnproductPost'])->name('view.return.product.Post');
 });
 
 // VENDOR ROUTE END
@@ -369,6 +384,10 @@ Route::middleware(['customer'])->group(function(){
     Route::post('customer/product-review-post/{id}', [CustomerController::class, 'product_review_post'])->name('product.review.post');
     Route::get('customer/chat-with-vendor', [CustomerController::class, 'customer_caht_with_vendor'])->name('customer.chat.vendor');
     Route::get('customer/contact-with-vendor/{id}', [VendorContact::class, 'customer_with_with_vendor'])->name('customer.contact.vendor');
+    Route::get('return-product/{id}', [CustomerController::class, 'returnProduct'])->name('return.product');
+    Route::get('list-ofreturn-product', [CustomerController::class, 'listReturnProduct'])->name('listreturn.product');
+    Route::post('return-product-post/{id}/{invoiceID}', [CustomerController::class, 'returnProductPOST'])->name('return.product.post');
+    Route::delete('return-product-delete/{id}', [CustomerController::class, 'returnProductdelete'])->name('return.product.delete');
 });
 
 // HOME CONTROLLER START

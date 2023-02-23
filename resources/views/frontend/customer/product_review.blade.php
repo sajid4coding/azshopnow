@@ -167,7 +167,7 @@
             <div class="form_item">
                 <textarea class="form-control mb-3" rows="4" name="comment" style="resize: none" placeholder="Your Opinion*"></textarea>
             </div>
-            <button type="submit" class="btn btn_primary py-2 px-4 button-prevent-multiple-submits">Submit Review</button>
+            <button type="submit" class="btn btn-primary py-2 px-4 button-prevent-multiple-submits">Submit Review</button>
         </form>
     </div>
 

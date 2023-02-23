@@ -68,6 +68,7 @@
                                   <li class="@if ($current_page == 'invoice') selected @endif"><a class="settings" href="{{ route('customer.invoice.details') }}"><i class="fas fa-file-invoice"></i> Orders</a></li>
                                   <li class="@if ($current_page == 'product-review-list') selected @endif"><a class="review" href="{{ route('product.review.list') }}"><i class="fas fa-file-invoice"></i>Reviews</a></li>
                                   <li class="@if ($current_page == 'chat-with-vendor') selected @endif"><a class="chat" href="{{ route('customer.chat.vendor') }}"><i class="fas fa-comments"></i>Messanger</a></li>
+                                  <li class="@if ($current_page == 'list-ofreturn-product') selected @endif"><a class="chat" href="{{ route('listreturn.product') }}"><i class="fas fa-comments"></i>Return Products</a></li>
                                      <li>
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
