@@ -25,7 +25,7 @@ class VendorActivation extends Mailable
     {
         $this->name=$name;
         $this->email=$email;
-        $this->password=$shop_name;
+        $this->shop_name=$shop_name;
     }
 
     /**

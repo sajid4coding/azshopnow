@@ -141,7 +141,7 @@
                             <div class="shop-bottom-wrap">
                                 <div class="shop-bottom-box">
                                     <div class="shop-bottom-right">
-                                            {{$products->links('pagination::bootstrap-5')}}
+                                        {{$products->links('pagination::bootstrap-5')}}
                                     </div>
                                 </div>
                             </div>

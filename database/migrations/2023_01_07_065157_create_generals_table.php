@@ -27,12 +27,15 @@ return new class extends Migration
             $table->mediumText('phone_number')->nullable();
             $table->mediumText('teliphone')->nullable();
             $table->mediumText('address')->nullable();
-            $table->mediumText('header_logo')->nullable();
-            $table->mediumText('footer_logo')->nullable();
+            $table->mediumText('favicon')->nullable();
+            $table->mediumText('logo')->nullable();
             $table->mediumText('invoice_logo')->nullable();
-            $table->mediumText('favicon_logo')->nullable();
-            $table->mediumText('dashboard_logo')->nullable();
-            $table->mediumText('dashboard_favicon_logo')->nullable();
+            // $table->mediumText('header_logo')->nullable();
+            // $table->mediumText('footer_logo')->nullable();
+            // $table->mediumText('invoice_logo')->nullable();
+            // $table->mediumText('favicon_logo')->nullable();
+            // $table->mediumText('dashboard_logo')->nullable();
+            // $table->mediumText('dashboard_favicon_logo')->nullable();
             $table->timestamps();
         });
     }

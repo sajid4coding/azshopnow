@@ -13,7 +13,7 @@
 		<meta property="og:url" content="https://keenthemes.com/metronic" />
 		<meta property="og:site_name" content="Keenthemes | Metronic" />
 		<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-		<link rel="shortcut icon" href="{{asset('uploads/general_photo')}}/{{getGeneralValue("favicon_logo")}}" />
+		<link rel="shortcut icon" href="{{asset('storage/general_photos/favicon')}}/{{getGeneralValue("favicon")}}" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
@@ -47,8 +47,8 @@
 					<!--begin::Brand-->
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
-						<a href="{{route('dashboard')}}">
-							<img alt="Logo" src="{{asset('uploads/general_photo')}}/{{ getGeneralValue("dashboard_logo") }}" class="h-25px logo" /> <br>
+						<a href="{{ route('dashboard') }}">
+							<img alt="Logo" src="{{asset('storage/general_photos/logo')}}/{{ getGeneralValue("logo") }}" class="h-25px logo" /> <br>
                             {{-- <span class="text-light">{{config('app.name')}}</span> --}}
 						</a>
 						<!--end::Logo-->
@@ -794,7 +794,7 @@
                                                     </svg>
                                                 </span>
                                             </span>
-                                            <a href="{{ route('chat.admin') }}" class="menu-title">Chat With Vendor</a>
+                                            <a href="{{ route('chat.admin') }}" class="menu-title">Messenger</a>
                                         </span>
                                     </div>
                                 @endcan

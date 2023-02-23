@@ -26,10 +26,12 @@
                         @endforeach
                     <tbody>
                         @foreach ($announcements as $announcement)
-                            <tr>
-                                <td>{{ $announcement->created_at->diffForHumans() }}</td>
-                                <td><a href="{{ route('vendor.details.announcement', $announcement->id) }}">{{ $announcement->title }}</a></td>
-                            </tr>
+                            @if ($announcement->vendor_type == 'All Seller' || $announcement->vendor_type == 'Specific Seller' && $announcement->specific_seller == auth()->id())
+                                <tr>
+                                    <td>{{ $announcement->created_at->diffForHumans() }}</td>
+                                    <td><a href="{{ route('vendor.details.announcement', $announcement->id) }}">{{ $announcement->title }}</a></td>
+                                </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

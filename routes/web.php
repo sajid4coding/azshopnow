@@ -172,11 +172,12 @@ Route::middleware(['admin', 'verified'])->group(function () {
     //General Settings Route
     Route::group(['middleware' => ['can:admin-General Settings']], function () {
         Route::get('general-settings/logo-edit',[GeneralController::class,'logosEdit'])->name('general.logo.edit');
-        Route::post('general-settings/header-logo-post',[GeneralController::class,'headerLogoPost'])->name('header.logo.post');
+        Route::post('general-settings/favicon-post',[GeneralController::class,'faviconPost'])->name('favicon.post');
+        Route::post('general-settings/logo-post',[GeneralController::class,'LogoPost'])->name('logo.post');
+        // Route::post('general-settings/header-logo-post',[GeneralController::class,'headerLogoPost'])->name('header.logo.post');
         Route::post('general-settings/footer-logo-post',[GeneralController::class,'footerLogoPost'])->name('footer.logo.post');
         Route::post('general-settings/invoice-logo-post',[GeneralController::class,'invoiceLogoPost'])->name('invoice.logo.post');
         Route::post('general-settings/dashboard-logo-post',[GeneralController::class,'dashboardLogoPost'])->name('dashboard.logo.post');
-        Route::post('general-settings/favicon-post',[GeneralController::class,'faviconPost'])->name('favicon.post');
         Route::post('general-settings/dashboard-favicon-post',[GeneralController::class,'DashboardFaviconLogoPost'])->name('dashboard.favicon.post');
         Route::get('general-settings/dashboard-website-content',[GeneralController::class,'websiteContents'])->name('general.website.centent');
         Route::post('general-settings/dashboard-website-content-post',[GeneralController::class,'websiteContentsPost'])->name('general.website.centent.post');
@@ -357,6 +358,7 @@ Route::middleware(['vendor'])->group(function(){
     Route::get('upgrade/{plan}', [PlanController::class, 'upgrade_show'])->name("upgrade.show");
     Route::post('subscription', [PlanController::class, 'upgrade_done'])->name("upgrade.done");
     //UPGRADE SUBCRIPTION ROUTE END
+
     //VENDOR CHAT ROUTE START
     Route::get('chat/vendor',[VendorController::class,'chatVendor'])->name('chat.vendor');
     Route::get('feedback',[VendorController::class,'feedback'])->name('feedback');
