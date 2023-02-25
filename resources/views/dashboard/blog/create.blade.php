@@ -77,7 +77,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h1 class="text-center mb-5">Create Blog</h1>
+                    {{-- <h1 class="text-center mb-5">Create Blog</h1> --}}
                    @if ($errors->any())
                    <div class="alert alert-danger">
                         @foreach ($errors->all() as $error)
@@ -212,7 +212,8 @@
                                     <!--end::Status-->
                                 </div>
                             </div>
-                            <div class="col-md-9">
+
+                            <div class="col-md-8" style="margin-left: 75px !important;">
                                 <div>
                                     <label for="blog-title" class="form-label">Blog Title</label>
                                     <input class="form-control mb-5" type="text" name="blog_title" id="blog-title">
