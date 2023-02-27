@@ -74,8 +74,10 @@
 
                             {{-- PHP Code Start --}}
                                 @php
-                                    $url = explode('/',url()->current());
-                                    $current_page = end($url);
+                                    $url = url()->current();
+                                    $explode = explode('/', $url);
+                                    $current_page = end($explode);
+                                    $lastTwoWords = $explode[count($explode)-2] . '/' . $explode[count($explode)-1];
                                 @endphp
                             {{-- PHP Code End --}}
 
@@ -195,8 +197,8 @@
                                                 <span class="menu-title">Manage Catalog</span>
                                                 <span class="menu-arrow"></span>
                                             </span>
-                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'category' || $current_page == 'subcategory') here show @endif">
-                                                <div class="menu-item @if ($current_page == 'category') here show @endif">
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($lastTwoWords == 'subcategory/create' || $lastTwoWords == 'category/create' || $current_page == 'category' || $current_page == 'subcategory') here show @endif">
+                                                <div class="menu-item @if ($lastTwoWords == 'category/create' || $current_page == 'category') here show @endif">
                                                     <a class="menu-link" href="{{ route('category.index') }}">
                                                         <span class="menu-bullet">
                                                             <span class="bullet bullet-dot"></span>
@@ -204,7 +206,7 @@
                                                         <span class="menu-title">Main Category</span>
                                                     </a>
                                                 </div>
-                                                <div class="menu-item @if ($current_page == 'subcategory') here show @endif">
+                                                <div class="menu-item @if ($lastTwoWords == 'subcategory/create' || $current_page == 'subcategory') here show @endif">
                                                     <a class="menu-link" href="{{ route('subcategory.index') }}">
                                                         <span class="menu-bullet">
                                                             <span class="bullet bullet-dot"></span>
@@ -585,8 +587,8 @@
                                                 <span class="menu-title">Manage Blog</span>
                                                 <span class="menu-arrow"></span>
                                             </span>
-                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'blog/create' || $current_page == 'blog' || $current_page == 'out-of-work-list') here show @endif">
-                                                <div class="menu-item @if ($current_page == 'blog/create') here show @endif">
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($lastTwoWords == 'blog/create' || $current_page == 'blog' || $current_page == 'out-of-work-list') here show @endif">
+                                                <div class="menu-item @if ($lastTwoWords == 'blog/create') here show @endif">
                                                     <a class="menu-link" href="{{ route('blog.create') }}">
                                                         <span class="menu-bullet">
                                                             <span class="bullet bullet-dot"></span>

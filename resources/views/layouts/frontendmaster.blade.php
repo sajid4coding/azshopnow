@@ -202,7 +202,7 @@
                                             <i class="fas fa-angle-down"></i>
                                         </a>
                                         @php
-                                            $categories=category();
+                                            $categories = category();
                                         @endphp
                                         <ul class="category-menu" @if ($current_page != $home_page) style="display: none;" @endif>
                                             {{-- <li><a href="shop.html"><i class="flaticon-make-up"></i>Health and Beauty </a>
@@ -901,7 +901,7 @@
             .m-t-15{
                 margin-top: -15px;
             }
-            
+
             .m-d-flex{
                 display: flex !important;
                 justify-content: space-between !important;

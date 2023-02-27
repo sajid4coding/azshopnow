@@ -36,88 +36,87 @@
         <div class="row" id="kt_content">
 
             <div class="col-md-6 my-5">
-            <div style="margin-left: 40px">
-                <section id="logo_edit">
-                    <div class="text-dark pb-2" style="font-size: 22px;font-weight:500">
-                        Unauthorized Error Page
-                    </div>
-                    <div class="card" style="width:25rem">
-
-                        <div class="card-body border" style="border-color:#a8a8a8 !important">
-                            <img style="width: 100%; display:block" src="{{asset('uploads/errorPage/401.png')}}" class="card-img-top" alt="errorPage/401.png">
+                <div style="margin-left: 40px">
+                    <section id="logo_edit">
+                        <div class="text-dark pb-2" style="font-size: 22px;font-weight:500">
+                            Unauthorized Error Page
                         </div>
+                        <div class="card" style="width:25rem">
 
-                    </div>
-                </section>
-            </div>
+                            <div class="card-body border" style="border-color:#a8a8a8 !important">
+                                <img style="width: 100%; display:block" src="{{asset('uploads/errorPage/401.png')}}" class="card-img-top" alt="errorPage/401.png">
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
             </div>
             <div class="col-md-6 my-5">
-            <div style="margin-left: 40px">
-                <section id="logo_edit">
-                    <div class="text-dark pb-2"  style="font-size: 22px;font-weight:500">
-                        Forbidden Error Page
-                    </div>
-                    <div class="card" style="width:25rem">
-
-                        <div class="card-body border" style="border-color:#a8a8a8 !important">
-                            <img style="width: 100%; display:block" src="{{asset('uploads/errorPage/403.png')}}" class="card-img-top" alt="errorPage/401.png">
+                <div style="margin-left: 40px">
+                    <section id="logo_edit">
+                        <div class="text-dark pb-2"  style="font-size: 22px;font-weight:500">
+                            Forbidden Error Page
                         </div>
+                        <div class="card" style="width:25rem">
 
-                    </div>
-                </section>
-            </div>
+                            <div class="card-body border" style="border-color:#a8a8a8 !important">
+                                <img style="width: 100%; display:block" src="{{asset('uploads/errorPage/403.png')}}" class="card-img-top" alt="errorPage/401.png">
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
             </div>
             <div class="col-md-6 my-5">
-            <div style="margin-left: 40px">
-                <section id="logo_edit">
-                    <div class="text-dark pb-2"  style="font-size: 22px;font-weight:500">
-                        This page not found Error Page
-                    </div>
-                    <div class="card" style="width:25rem">
-
-                        <div class="card-body border" style="border-color:#a8a8a8 !important">
-                            <img style="width: 100%; display:block" src="{{asset('uploads/errorPage/404.png')}}" class="card-img-top" alt="errorPage/401.png">
+                <div style="margin-left: 40px">
+                    <section id="logo_edit">
+                        <div class="text-dark pb-2"  style="font-size: 22px;font-weight:500">
+                            This page not found Error Page
                         </div>
+                        <div class="card" style="width:25rem">
 
-                    </div>
-                </section>
-            </div>
+                            <div class="card-body border" style="border-color:#a8a8a8 !important">
+                                <img style="width: 100%; display:block" src="{{asset('uploads/errorPage/404.png')}}" class="card-img-top" alt="errorPage/401.png">
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
             </div>
             <div class="col-md-6 my-5">
-            <div style="margin-left: 40px">
-                <section id="logo_edit">
-                    <div class="text-dark pb-2" style="font-size: 22px;font-weight:500">
-                        Service Unavailable Error Page
-                    </div>
-                    <div class="card" style="width:25rem">
-
-                        <div class="card-body border" style="border-color:#a8a8a8 !important">
-                            <img style="width: 100%; display:block" src="{{asset('uploads/errorPage/502.png')}}" class="card-img-top" alt="errorPage/401.png">
+                <div style="margin-left: 40px">
+                    <section id="logo_edit">
+                        <div class="text-dark pb-2" style="font-size: 22px;font-weight:500">
+                            Service Unavailable Error Page
                         </div>
+                        <div class="card" style="width:25rem">
 
-                    </div>
-                </section>
-            </div>
+                            <div class="card-body border" style="border-color:#a8a8a8 !important">
+                                <img style="width: 100%; display:block" src="{{asset('uploads/errorPage/502.png')}}" class="card-img-top" alt="errorPage/401.png">
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
             </div>
             <div class="col-md-6 my-5">
-            <div style="margin-left: 40px">
-                <section id="logo_edit">
-                    <div class="text-dark pb-2"  style="font-size: 22px;font-weight:500">
-                        Bad Gateway Error Page
-                    </div>
-                    <div class="card" style="width:25rem">
-
-                        <div class="card-body border" style="border-color:#a8a8a8 !important">
-                            <img style="width: 100%; display:block" src="{{asset('uploads/errorPage/503.png')}}" class="card-img-top" alt="errorPage/401.png">
+                <div style="margin-left: 40px">
+                    <section id="logo_edit">
+                        <div class="text-dark pb-2"  style="font-size: 22px;font-weight:500">
+                            Bad Gateway Error Page
                         </div>
+                        <div class="card" style="width:25rem">
 
-                    </div>
-                </section>
+                            <div class="card-body border" style="border-color:#a8a8a8 !important">
+                                <img style="width: 100%; display:block" src="{{asset('uploads/errorPage/503.png')}}" class="card-img-top" alt="errorPage/401.png">
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
             </div>
-            </div>
 
-
-
+        </div>
     </div>
 </div>
 @endsection
