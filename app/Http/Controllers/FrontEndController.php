@@ -6,7 +6,7 @@ use App\Models\contact;
 use Illuminate\Http\Request;
 use App\Mail\ContactMessage;
 use App\Mail\OrderMailNotification;
-use App\Models\{Banner, Blog, Cart, Category, Coupon, Inventory, Invoice ,Order_Detail,Product, ProductGallery, ProductReport, ProductReview, ReviewGallery, SubCategory, User, Wishlist};
+use App\Models\{Banner, Blog, Cart, Category, Coupon, Inventory, Invoice ,Order_Detail, Page, Product, ProductGallery, ProductReport, ProductReview, ReviewGallery, SubCategory, User, Wishlist};
 use Khsing\World\World;
 use Khsing\World\Models\Country;
 use Doctrine\Inflector\WordInflector;
@@ -466,5 +466,17 @@ class FrontEndController extends Controller
         $banners = Banner::all()->first();
         $bannerProducts=Product::where('status','published')->where('vendorProductStatus','published')->where('discount_price','!=',NULL)->latest()->limit(3)->get();
         Return view('frontend.priceFilter',compact('products','banners','bannerProducts'));
+    }
+
+    public function front_pages($id){
+        return view('frontend.pages.index', [
+            'page' => Page::find($id),
+            'banners' => Banner::all()->first(),
+            'shareButtons' => Share::currentPage()
+            ->facebook()
+            ->linkedin()
+            ->twitter()
+            ->telegram(),
+        ]);
     }
 }

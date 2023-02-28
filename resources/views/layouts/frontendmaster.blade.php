@@ -202,7 +202,7 @@
                                             <i class="fas fa-angle-down"></i>
                                         </a>
                                         @php
-                                            $categories=category();
+                                            $categories = category();
                                         @endphp
                                         <ul class="category-menu" @if ($current_page != $home_page) style="display: none;" @endif>
                                             {{-- <li><a href="shop.html"><i class="flaticon-make-up"></i>Health and Beauty </a>
@@ -829,12 +829,12 @@
                                 </div>
                                 <div class="fw-link">
                                     <ul>
-                                        <li><a href="contact.html">About Us</a></li>
-                                        <li><a href="contact.html">Careers</a></li>
-                                        <li><a href="contact.html">Orders & Shipping</a></li>
-                                        <li><a href="contact.html">Office Supplies</a></li>
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                        <li><a href="contact.html">Customer Service</a></li>
+                                        <li><a href="{{ route('front.pages',1) }}">About Us</a></li>
+                                        <li><a href="{{ route('front.pages',2) }}">Careers</a></li>
+                                        <li><a href="{{ route('front.pages',3) }}">Orders & Shipping</a></li>
+                                        <li><a href="{{ route('front.pages',4) }}">Office Supplies</a></li>
+                                        <li><a href="{{ route('contact.us') }}">Contact Us</a></li>
+                                        <li><a href="{{ route('contact.us') }}">Customer Service</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -846,12 +846,14 @@
                                 </div>
                                 <div class="fw-link">
                                     <ul>
-                                      <li><a href="shop.html">Track My Order</a></li>
-                                        <li><a href="shop.html">View Cart</a></li>
-                                        <li><a href="contact.html">Sign In</a></li>
-                                        <li><a href="contact.html">Help</a></li>
-                                        <li><a href="shop.html">My Wishlist</a></li>
-                                        <li><a href="contact.html">Privacy Policy</a></li>
+                                      <li><a href="{{ route('front.pages',5) }}">Track My Order</a></li>
+                                        <li><a href="{{ route('cart') }}">View Cart</a></li>
+                                        @guest
+                                        <li><a href="{{ route('customer.login') }}">Sign In</a></li>
+                                            <li><a href="{{ route('plans') }}">Become a Vendor</a></li>
+                                        @endguest
+                                        <li><a href="{{ route('wishlist') }}">My Wishlist</a></li>
+                                        <li><a href="{{ route('front.pages',6) }}">Privacy Policy</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -863,12 +865,12 @@
                                 </div>
                                 <div class="fw-link">
                                     <ul>
-                                        <li><a href="vendor-setting.html">Payment Methods</a></li>
-                                        <li><a href="contact.html">Money-back guarantee!</a></li>
-                                        <li><a href="contact.html">Products Returns</a></li>
-                                        <li><a href="contact.html">Support Center</a></li>
-                                        <li><a href="vendor-list.html">Shipping</a></li>
-                                        <li><a href="contact.html">Term and Conditions</a></li>
+                                        <li><a href="{{ route('front.pages',7) }}">Payment Methods</a></li>
+                                        <li><a href="{{ route('front.pages',8) }}">Money-back guarantee!</a></li>
+                                        <li><a href="{{ route('front.pages',9) }}">Products Returns</a></li>
+                                        <li><a href="{{ route('front.pages',10) }}">Support Center</a></li>
+                                        <li><a href="{{ route('front.pages',11) }}">Shipping</a></li>
+                                        <li><a href="{{ route('front.pages',12) }}">Term and Conditions</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -901,7 +903,7 @@
             .m-t-15{
                 margin-top: -15px;
             }
-            
+
             .m-d-flex{
                 display: flex !important;
                 justify-content: space-between !important;

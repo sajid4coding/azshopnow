@@ -74,8 +74,10 @@
 
                             {{-- PHP Code Start --}}
                                 @php
-                                    $url = explode('/',url()->current());
-                                    $current_page = end($url);
+                                    $url = url()->current();
+                                    $explode = explode('/', $url);
+                                    $current_page = end($explode);
+                                    $lastTwoWords = $explode[count($explode)-2] . '/' . $explode[count($explode)-1];
                                 @endphp
                             {{-- PHP Code End --}}
 
@@ -195,8 +197,8 @@
                                                 <span class="menu-title">Manage Catalog</span>
                                                 <span class="menu-arrow"></span>
                                             </span>
-                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'category' || $current_page == 'subcategory') here show @endif">
-                                                <div class="menu-item @if ($current_page == 'category') here show @endif">
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($lastTwoWords == 'subcategory/create' || $lastTwoWords == 'category/create' || $current_page == 'category' || $current_page == 'subcategory') here show @endif">
+                                                <div class="menu-item @if ($lastTwoWords == 'category/create' || $current_page == 'category') here show @endif">
                                                     <a class="menu-link" href="{{ route('category.index') }}">
                                                         <span class="menu-bullet">
                                                             <span class="bullet bullet-dot"></span>
@@ -204,7 +206,7 @@
                                                         <span class="menu-title">Main Category</span>
                                                     </a>
                                                 </div>
-                                                <div class="menu-item @if ($current_page == 'subcategory') here show @endif">
+                                                <div class="menu-item @if ($lastTwoWords == 'subcategory/create' || $current_page == 'subcategory') here show @endif">
                                                     <a class="menu-link" href="{{ route('subcategory.index') }}">
                                                         <span class="menu-bullet">
                                                             <span class="bullet bullet-dot"></span>
@@ -324,18 +326,18 @@
     								</div>
                                 @endcan
                                 @can('admin-Product Return')
-                                <div class="menu-item @if ($current_page == 'product-return') here show @endif menu-accordion">
-                                    <span class="menu-link">
-                                        <span class="menu-icon">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                            <span class="svg-icon svg-icon-2">
-                                                <i class="fas fa-shipping-fast"></i>
+                                    <div class="menu-item @if ($current_page == 'product-return') here show @endif menu-accordion">
+                                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                                <span class="svg-icon svg-icon-2">
+                                                    <i class="fas fa-shipping-fast"></i>
+                                                </span>
+                                                <!--end::Svg Icon-->
                                             </span>
-                                            <!--end::Svg Icon-->
+                                            <a href="{{ route('product.return') }}" class="menu-title">Return Products</a>
                                         </span>
-                                        <a href="{{ route('product.return') }}" class="menu-title">Return Products</a>
-                                    </span>
-                                </div>
+                                    </div>
                                 @endcan
                                 @can ('admin-Earnings')
                                     <div data-kt-menu-trigger="click" class="menu-item  menu-accordion">
@@ -580,13 +582,13 @@
                                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                             <span class="menu-link">
                                                 <span class="menu-icon">
-                                                    <i class="fas fa-bookmark"></i>
+                                                    <i class="fas fa-blog"></i>
                                                 </span>
                                                 <span class="menu-title">Manage Blog</span>
                                                 <span class="menu-arrow"></span>
                                             </span>
-                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'blog/create' || $current_page == 'blog' || $current_page == 'out-of-work-list') here show @endif">
-                                                <div class="menu-item @if ($current_page == 'blog/create') here show @endif">
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($lastTwoWords == 'blog/create' || $current_page == 'blog' || $current_page == 'blog-category') here show @endif">
+                                                <div class="menu-item @if ($lastTwoWords == 'blog/create') here show @endif">
                                                     <a class="menu-link" href="{{ route('blog.create') }}">
                                                         <span class="menu-bullet">
                                                             <span class="bullet bullet-dot"></span>
@@ -602,7 +604,7 @@
                                                         <span class="menu-title">List of Blogs</span>
                                                     </a>
                                                 </div>
-                                                <div class="menu-item @if ($current_page == 'out-of-work-list') here show @endif">
+                                                <div class="menu-item @if ($current_page == 'blog-category') here show @endif">
                                                     <a class="menu-link" href="{{ route('blog.category.add') }}">
                                                         <span class="menu-bullet">
                                                             <span class="bullet bullet-dot"></span>
@@ -615,6 +617,27 @@
 
                                         </div>
                                     </div>
+                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            <span class="menu-link">
+                                                <span class="menu-icon">
+                                                    <i class="far fa-file-alt"></i>
+                                                </span>
+                                                <span class="menu-title">Manage Pages</span>
+                                                <span class="menu-arrow"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'pages') here show @endif">
+                                                <div class="menu-item @if ($current_page == 'pages') here show @endif">
+                                                    <a class="menu-link" href="{{ route('pages.index') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">All Pages</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+    								</div>
                                 @endcan
 
                                 @can('admin-announcement Management')

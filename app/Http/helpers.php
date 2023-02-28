@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Wishlist;
 use App\Models\General;
 use App\Models\Message;
+use App\Models\Page;
 use App\Models\ReplyFeedback;
 use App\Models\Slider;
 use App\Models\Social;
@@ -1025,4 +1026,8 @@ function mostDiscountProduct()
 
 function payout_request_pending(){
     return VendorPaymentRequest::where('status', 'unpaid')->count();
+}
+
+function page($value){
+    return Page::select($value);
 }

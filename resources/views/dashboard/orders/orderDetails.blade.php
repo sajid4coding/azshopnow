@@ -1,6 +1,6 @@
 @extends('layouts.dashboardmaster')
 @section('content')
-{{-- <div class="content d-flex flex-column flex-column-fluid" id="kt_content"> --}}
+<div class="container">
     <!--begin::Toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <!--begin::Container-->
@@ -627,7 +627,7 @@
         <!--end::Container-->
     </div>
     <!--end::Post-->
-{{-- </div> --}}
+</div>
 @endsection
 @section('footer_script')
 <script>

@@ -24,9 +24,11 @@
     </div>
 </section>
 <!-- breadcrumb-area-end -->
-<div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-        @livewire('cart-page')
+<div class="container">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            @livewire('cart-page')
+        </div>
     </div>
 </div>
 
@@ -66,5 +68,4 @@
         }
     }
 </style>
-
 @endsection

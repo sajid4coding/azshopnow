@@ -48,7 +48,7 @@
                 </div>
                 <div class="input-group mb-5">
                     <span class="input-group-text">Copyright Text</span>
-                    <input type="text" class="form-control"  placeholder="copyright" value="{{ $general->copyright_text }}" name="copyright_text">
+                    <input type="text" class="form-control"  placeholder="copyright" value="{{ $general->copyright_text }}" name="Copyright_text">
                 </div>
 
                 <div class="input-group mb-5">
@@ -74,13 +74,13 @@
                     </select>
                 </div>
                 <div class="input-group mb-5">
-                    <span class="input-group-text">Twak.io ID</span>
+                    <span class="input-group-text">Twak.io Widget Code</span>
                     <input type="text" name="twak_io_id" class="form-control" placeholder="id" value="{{$general->twak_io_id}}">
                 </div>
                 <button type="submit" class="btn btn-primary mt-5">Save Change</button>
             </form>
         </div>
-        
+
       </div>
     </div>
 </div>

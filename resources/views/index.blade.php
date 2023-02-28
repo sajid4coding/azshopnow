@@ -309,7 +309,7 @@
                                     </div>
                                     <div class="row custom justify-content-center">
                                         @foreach ($products as $product)
-                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 m-w-50">
+                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-6 m-w-50">
                                                 <div class="product-item mb-30">
                                                     <div class="product-thumb">
                                                         <a href="{{route('single.product', ['id'=>$product->id,'title'=>Str::slug($product->product_title)])}}"><img src="{{asset('uploads/product_photo')}}/{{$product->thumbnail}}" alt=""></a>

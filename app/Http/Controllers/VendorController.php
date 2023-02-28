@@ -644,7 +644,7 @@ class vendorController extends Controller
             $shopname=staff(auth()->user()->vendor_id)->shop_name;
         }
         $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdf.customInvoice', compact('product_title','price','quantity','size','color','payment_status','shopname','name','email','address','phone_number','tax','delivery_charge'));
-        return $pdf->stream("Invoice.pdf");
+        return $pdf->download("Invoice.pdf");
     }
 
 }
