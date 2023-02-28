@@ -326,18 +326,18 @@
     								</div>
                                 @endcan
                                 @can('admin-Product Return')
-                                <div class="menu-item @if ($current_page == 'product-return') here show @endif menu-accordion">
-                                    <span class="menu-link">
-                                        <span class="menu-icon">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                            <span class="svg-icon svg-icon-2">
-                                                <i class="fas fa-shipping-fast"></i>
+                                    <div class="menu-item @if ($current_page == 'product-return') here show @endif menu-accordion">
+                                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                                <span class="svg-icon svg-icon-2">
+                                                    <i class="fas fa-shipping-fast"></i>
+                                                </span>
+                                                <!--end::Svg Icon-->
                                             </span>
-                                            <!--end::Svg Icon-->
+                                            <a href="{{ route('product.return') }}" class="menu-title">Return Products</a>
                                         </span>
-                                        <a href="{{ route('product.return') }}" class="menu-title">Return Products</a>
-                                    </span>
-                                </div>
+                                    </div>
                                 @endcan
                                 @can ('admin-Earnings')
                                     <div data-kt-menu-trigger="click" class="menu-item  menu-accordion">
@@ -582,12 +582,12 @@
                                         <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                             <span class="menu-link">
                                                 <span class="menu-icon">
-                                                    <i class="fas fa-bookmark"></i>
+                                                    <i class="fas fa-blog"></i>
                                                 </span>
                                                 <span class="menu-title">Manage Blog</span>
                                                 <span class="menu-arrow"></span>
                                             </span>
-                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($lastTwoWords == 'blog/create' || $current_page == 'blog' || $current_page == 'out-of-work-list') here show @endif">
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($lastTwoWords == 'blog/create' || $current_page == 'blog' || $current_page == 'blog-category') here show @endif">
                                                 <div class="menu-item @if ($lastTwoWords == 'blog/create') here show @endif">
                                                     <a class="menu-link" href="{{ route('blog.create') }}">
                                                         <span class="menu-bullet">
@@ -604,7 +604,7 @@
                                                         <span class="menu-title">List of Blogs</span>
                                                     </a>
                                                 </div>
-                                                <div class="menu-item @if ($current_page == 'out-of-work-list') here show @endif">
+                                                <div class="menu-item @if ($current_page == 'blog-category') here show @endif">
                                                     <a class="menu-link" href="{{ route('blog.category.add') }}">
                                                         <span class="menu-bullet">
                                                             <span class="bullet bullet-dot"></span>
@@ -617,6 +617,27 @@
 
                                         </div>
                                     </div>
+                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            <span class="menu-link">
+                                                <span class="menu-icon">
+                                                    <i class="far fa-file-alt"></i>
+                                                </span>
+                                                <span class="menu-title">Manage Pages</span>
+                                                <span class="menu-arrow"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg @if ($current_page == 'pages') here show @endif">
+                                                <div class="menu-item @if ($current_page == 'pages') here show @endif">
+                                                    <a class="menu-link" href="{{ route('pages.index') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">All Pages</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+    								</div>
                                 @endcan
 
                                 @can('admin-announcement Management')
