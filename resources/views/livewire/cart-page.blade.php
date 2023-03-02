@@ -86,8 +86,8 @@
                                 @endphp
                             </h6>
                         </div>
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                            <button wire:click="cart_row_delete({{ $cart->id }})" class="bg-transparent border-0 text-muted"><i class="fas fa-times"></i></button>
+                        <div class="col-md-1 col-lg-1 col-xl-1 text-end m-d-i-block">
+                            <button  wire:click="cart_row_delete({{ $cart->id }})" class="bg-transparent  border-0 text-muted"><i class="fas fa-times"></i></button>
                         </div>
                     </div>
                     <hr class="my-4">
@@ -230,4 +230,50 @@
         </div>
     </div>
     @endif
+    <style>
+        @media (min-width:320px) and (max-width:575px){
+            .m-d-i-block{
+                display: block !important;
+                margin-top: -193px !important;
+            }
+            .home_banner_slider{
+            height: 326px;
+            }
+            .home_banner_slider a {
+                height: 326px;
+            }
+            .home_banner_slider a img{
+                height: 326px;
+            }
+           .m-w-50{
+            width: 50% !important;
+           }
+           .product-content .title a {
+            font-size: 10px !important;
+           }
+           .product-content .title a h6{
+            font-size: 10px !important;
+           }
+           .product-content .title span{
+            font-size: 10px !important;
+           }
+           .product-content .rating{
+            font-size: 10px;
+           }
+           .product-content p{
+            font-size: 10px;
+           }
+           .product-content .rating span{
+            font-size: 10px;
+           }
+        }
+        @media (min-width:768px) and (max-width:991px){
+            .join-olle-wrap h3{
+               font-size: 14px !important;
+            }
+            .join-olle-wrap a{
+               font-size: 10px !important;
+            }
+        }
+    </style>
 </div>

@@ -16,13 +16,13 @@
                                 <div>
                                     <h4 class="py-4">Billing Details</h4>
                                     <div class="row px-4">
-                                        <div class="col-6">
+                                        <div class="col-md-6">
                                             <p>
                                                 <label for="billing_first_name" class="fw-bold">First Name <abbr class="required">*</abbr></label>
                                                 <input type="text" class="form-control" name="billing_first_name" id="billing_first_name" placeholder="" autocomplete="given-name" value="" />
                                             </p>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-md-6">
                                             <p>
                                                 <label for="billing_email" class="fw-bold">Email Address <abbr class="required">*</abbr></label>
                                                 <input type="email" class="form-control" name="billing_email" id="billing_email" placeholder="" autocomplete="email" value="" />
@@ -30,13 +30,13 @@
                                         </div>
                                     </div>
                                     <div class="row px-4">
-                                        <div class="col-6">
+                                        <div class="col-md-6">
                                             <p>
                                                 <label for="billing_company" class="fw-bold">Company Name</label>
                                                 <input type="text" class="form-control" name="billing_company" id="billing_company" placeholder="" autocomplete="organization" value="" />
                                             </p>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-md-6">
                                             <p>
                                                 <label for="billing_phone" class="fw-bold">Phone <abbr class="required">*</abbr></label>
                                                 <input type="tel" class="form-control" name="billing_phone" id="billing_phone" placeholder="" autocomplete="tel" value="" />
@@ -44,7 +44,7 @@
                                         </div>
                                     </div>
                                     <div class="row px-4">
-                                        <div class="col-6">
+                                        <div class="col-md-6">
                                             <p>
                                                 <label for="billing_country_code" class="fw-bold">Country <abbr class="required">*</abbr></label>
                                                 {{-- <select class="form-select" name="billing_country_code" id="billing_country_code" autocomplete="country">
@@ -53,7 +53,7 @@
                                                 <input readonly id="billing_country_code" class="form-select" value="United State" type="text" name="billing_country_code">
                                             </p>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-md-6">
                                             <p>
                                                 <label for="billing_country_id" class="fw-bold">City <abbr class="required">*</abbr></label>
                                                 <select class="form-select" name="billing_country_id" id="billing_country_id" autocomplete="country_code">
